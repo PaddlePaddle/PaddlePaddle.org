@@ -3,10 +3,11 @@
 {% block content_root %}
     <header class="site-header">
         <nav class="row">
-            <a class="logo" href="{% url 'home' %}"><img src="/static/images/logo.png"></a>
+            <a class="logo" href="{% url 'home' %}?ZH=1"><img src="/static/images/logo.png"></a>
             {% block header %}
             <nav class="top-nav">
                 <ul class="site-links">
+                    <!--TODO: Decide if we need to append ?ZH=1 at the end of the links-->
                     <li><a href="/tutorial/">教程</a></li>
                     <li><a href="/documentation/en/html/">文档中心</a></li>
                     <li><a href="{% url 'blog_root' %}">博客文章</a></li>

@@ -35,6 +35,12 @@ def catch_all_handler(request, path=None):
 
         return render(request, base_template, {'static_content': static_content_template.render()})
 
+def home_root(request):
+    path = 'index.html'
+    if request.GET.get("ZH", "0") == "1":
+        path = 'index_cn.html'
+    return render(request, path)
+
 def book_root(request):
     path = settings.EXTERNAL_TEMPLATE_DIR + "/book/index.html"
     static_content_template = get_template(path)
