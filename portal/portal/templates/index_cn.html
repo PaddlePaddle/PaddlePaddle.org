@@ -1,0 +1,112 @@
+{% extends "_base_nav_cn.html" %}
+
+{% block head %}
+{{ block.super }}
+<link href="static/stylesheets/home.css" media="screen, projection" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<section class="head-banner">
+    <div class="row banner">
+        <h1>易学易用的分布式深度学习平台</h1>
+        <p>正在为100+项产品提供深度学习算法支持</p>
+        <div>
+            <a class="quick-start" href="http://book.paddlepaddle.org/index.cn.html" target="_blank">快速入门</a>
+        </div>
+
+    </div>
+</section>
+<section class="services">
+    <div class="row">
+        <h2><span>丰富的算法服务</span></h2>
+        <p class="sub-title">易用、高效、灵活、扩展性好</p>
+    </div>
+    <div class="row">
+        <div>
+            <img class="service-icon" src="/static/images/service-1.png">
+        </div>
+        <div>
+            <div class="service-desc">
+                <h3>机器视觉</h3>
+                <p>卷积神经网络可以识别图像中的主要对象，并输出分类结果</p>
+                <div>
+                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/03.image_classification/index.cn.html" target="_blank">查看更多 ></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="service-desc">
+                <h3>自然语言理解</h3>
+                <p>利用LSTM网络从IMDB电影评论的中分析出评论者情绪的正面和负面</p>
+                <div>
+                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/06.understand_sentiment/index.cn.html" target="_blank">查看更多 ></a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <img class="service-icon" src="/static/images/service-2.png">
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <img class="service-icon" src="/static/images/service-3.png">
+        </div>
+        <div>
+            <div class="service-desc">
+                <h3>推荐系统</h3>
+                <p>分析用户特征、电影特征、点评分数，预测新用户对不同电影的打分</p>
+                <div>
+                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/05.recommender_system/index.cn.html" target="_blank">查看更多 ></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="features">
+    <div class="row">
+        <h2><span>技术和服务优势</span></h2>
+    </div>
+    <div class="row">
+        <div class="feature-desc">
+            <div class="feature-icon">
+                <img src="/static/images/feature-1.png">
+            </div>
+            <h3>易用性</h3>
+            <p>为用户提供了直观、灵活的数据接口和模型配置接口</p>
+        </div>
+        <div class="feature-desc">
+            <div class="feature-icon">
+                <img src="/static/images/feature-2.png">
+            </div>
+            <h3>灵活性</h3>
+            <p>支持CNN、RNN等多种神经网络结构和优化算法。简单书写配置文件即可实现复杂模型</p>
+        </div>
+        <div class="feature-desc">
+            <div class="feature-icon">
+                <img src="/static/images/feature-3.png">
+            </div>
+            <h3>高效性</h3>
+            <p>在计算、存储、通信、架构等方面都做了高效优化，充分发挥各种资源的性能</p>
+        </div>
+        <div class="feature-desc">
+            <div class="feature-icon">
+                <img src="/static/images/feature-4.png">
+            </div>
+            <h3>扩展性</h3>
+            <p>全面支持多核、多GPU、多机环境。轻松应对大规模训练需求</p>
+        </div>
+    </div>
+</section>
+<section class="get-started">
+    <div class="row">
+        <h2>现在开始使用PaddlePaddle</h2>
+        <p>易学易用的分布式深度学习平台</p>
+        <div>
+            <a role="button" class="quick-start" href="http://book.paddlepaddle.org/index.cn.html" target="_blank">快速入门</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

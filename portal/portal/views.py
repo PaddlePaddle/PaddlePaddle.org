@@ -35,6 +35,12 @@ def catch_all_handler(request, path=None):
 
         return render(request, base_template, {'static_content': static_content_template.render()})
 
+def home_root(request):
+    return render(request, 'index.html')
+
+def home_root_ch(request):
+    return render(request, 'index_cn.html')
+
 def book_root(request):
     path = settings.EXTERNAL_TEMPLATE_DIR + "/book/index.html"
     static_content_template = get_template(path)
@@ -61,13 +67,20 @@ def documentation_root(request, language):
     path = "%s/documentation/%s/html/index.html" % (settings.EXTERNAL_TEMPLATE_DIR, language)
     static_content_template = get_template(path)
     static_content = static_content_template.render()
-    return render(request, 'documentation.html', {'static_content': static_content})
+
+    base_file_path = 'documentation.html'
+    if language == 'cn':
+        base_file_path = 'documentation_cn.html'
+    return render(request, base_file_path, {'static_content': static_content})
 
 def documentation_sub_path(request, language, path=None):
     path = "%s/documentation/%s/html/%s" % (settings.EXTERNAL_TEMPLATE_DIR, language, path)
     static_content_template = get_template(path)
     static_content = static_content_template.render()
-    return render(request, 'documentation.html', {'static_content': static_content})
+    base_file_path = 'documentation.html'
+    if language == 'cn':
+        base_file_path = 'documentation_cn.html'
+    return render(request, base_file_path, {'static_content': static_content})
 
 def static_file_handler(request, path, extension, insecure=False, **kwargs):
     """
