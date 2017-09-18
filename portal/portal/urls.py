@@ -31,6 +31,7 @@ import views
 urlpatterns = [
     url(r'^(?P<path>.*)\.(?P<extension>((?!(htm|html)).)+)$', views.static_file_handler),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^index_cn.html$', TemplateView.as_view(template_name='index_cn.html'), name='home'),
     url(r'^blog/$', views.blog_root, name='blog_root'),
     url(r'^blog/(?P<path>.+html)$', views.blog_sub_path),
 
