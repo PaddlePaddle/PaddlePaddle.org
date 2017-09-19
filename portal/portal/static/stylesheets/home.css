@@ -2,8 +2,7 @@
 .services {
   background-color: #f4f5f7;
 }
-
-/* line 4, ../sass/home.scss */
+/* line 3, ../sass/home.scss */
 .services h2 {
   padding-top: 80px;
   position: relative;
@@ -11,8 +10,7 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
-
-/* line 11, ../sass/home.scss */
+/* line 9, ../sass/home.scss */
 .services h2 span {
   color: #333;
   font-size: 30px;
@@ -20,8 +18,7 @@
   position: relative;
   z-index: 1;
 }
-
-/* line 18, ../sass/home.scss */
+/* line 17, ../sass/home.scss */
 .services .sub-title {
   text-align: center;
   font-size: 16px;
@@ -30,8 +27,7 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
-
-/* line 26, ../sass/home.scss */
+/* line 25, ../sass/home.scss */
 .services > .row > div {
   width: 50%;
   float: left;
@@ -40,39 +36,33 @@
   text-align: left;
   position: relative;
 }
-
-/* line 34, ../sass/home.scss */
+/* line 32, ../sass/home.scss */
 .services > .row > div > * {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
 }
-
-/* line 40, ../sass/home.scss */
+/* line 38, ../sass/home.scss */
 .services > .row > div .service-desc {
   left: 50px;
   right: 0;
 }
-
-/* line 44, ../sass/home.scss */
+/* line 42, ../sass/home.scss */
 .services > .row > div:nth-child(2n+1) {
   text-align: right;
 }
-
-/* line 47, ../sass/home.scss */
+/* line 44, ../sass/home.scss */
 .services > .row > div:nth-child(2n+1) .service-desc {
   right: 50px;
   left: 0;
 }
-
-/* line 51, ../sass/home.scss */
+/* line 50, ../sass/home.scss */
 .services .service-icon {
   text-align: center;
   max-width: 100%;
   max-height: 100%;
 }
-
 /* line 56, ../sass/home.scss */
 .services .service-desc h3 {
   color: #333;
@@ -80,7 +70,6 @@
   font-weight: normal;
   margin: 0;
 }
-
 /* line 62, ../sass/home.scss */
 .services .service-desc p {
   margin: 20px 0;
@@ -89,27 +78,24 @@
   line-height: 24px;
   color: #999;
 }
-
 /* line 69, ../sass/home.scss */
 .services .service-desc a.view-more {
   color: #0073eb;
   font-size: 16px;
   display: inline-block;
 }
-
-/* line 74, ../sass/home.scss */
+/* line 73, ../sass/home.scss */
 .services .service-desc a.view-more:hover {
   text-decoration: underline;
 }
 
-/* line 77, ../sass/home.scss */
+/* line 80, ../sass/home.scss */
 .features {
   background-color: #ffffff;
   padding-top: 80px;
   padding-bottom: 60px;
 }
-
-/* line 82, ../sass/home.scss */
+/* line 84, ../sass/home.scss */
 .features h2 {
   text-align: center;
   margin-bottom: 70px;
@@ -117,31 +103,27 @@
   font-size: 30px;
   color: #333;
 }
-
-/* line 89, ../sass/home.scss */
+/* line 90, ../sass/home.scss */
 .features h2 span {
   position: relative;
   z-index: 1;
   font-weight: normal;
   color: #333;
 }
-
-/* line 95, ../sass/home.scss */
+/* line 97, ../sass/home.scss */
 .features .feature-desc {
   width: 25%;
   float: left;
   text-align: center;
 }
-
-/* line 100, ../sass/home.scss */
+/* line 101, ../sass/home.scss */
 .features .feature-desc h3 {
   color: #333;
   margin: 30px 0 20px;
   font-size: 18px;
   font-weight: normal;
 }
-
-/* line 106, ../sass/home.scss */
+/* line 107, ../sass/home.scss */
 .features .feature-desc p {
   font-size: 14px;
   text-align: center;
@@ -152,30 +134,27 @@
   display: inline-block;
 }
 
-/* line 115, ../sass/home.scss */
+/* line 119, ../sass/home.scss */
 .get-started {
   background-color: #ffffff;
   text-align: center;
   padding-bottom: 80px;
 }
-
-/* line 120, ../sass/home.scss */
+/* line 123, ../sass/home.scss */
 .get-started h2 {
   font-size: 30px;
   color: #333;
   margin-bottom: 30px;
   font-weight: normal;
 }
-
-/* line 126, ../sass/home.scss */
+/* line 129, ../sass/home.scss */
 .get-started p {
   font-size: 16px;
   font-weight: 100;
   color: #999;
   margin-bottom: 30px;
 }
-
-/* line 132, ../sass/home.scss */
+/* line 135, ../sass/home.scss */
 .get-started .quick-start {
   color: #fff;
   background-color: #0073eb;
@@ -184,8 +163,7 @@
   line-height: 60px;
   width: 212px;
 }
-
-/* line 140, ../sass/home.scss */
+/* line 142, ../sass/home.scss */
 .get-started .quick-start:hover {
   color: #fff;
   background-color: #3095ff;

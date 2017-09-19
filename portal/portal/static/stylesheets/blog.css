@@ -15,36 +15,17 @@
 }
 
 /**
- * Reset some basic elements
- */
-/* line 19, ../sass/blog.scss */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-  margin: 0;
-  padding: 0;
-}
-
-/**
  * Basic styling
  */
-/* line 29, ../sass/blog.scss */
+/* line 19, ../sass/blog.scss */
 body {
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #111;
   background-color: #fdfdfd;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: "kern" 1;
-  -moz-font-feature-settings: "kern" 1;
-  -o-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern" 1;
-  font-kerning: normal;
 }
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-/* line 44, ../sass/blog.scss */
+/* line 26, ../sass/blog.scss */
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
@@ -55,7 +36,7 @@ ul, ol, dl, figure,
 /**
  * Images
  */
-/* line 54, ../sass/blog.scss */
+/* line 36, ../sass/blog.scss */
 img {
   max-width: 100%;
   vertical-align: middle;
@@ -64,12 +45,12 @@ img {
 /**
  * Figures
  */
-/* line 62, ../sass/blog.scss */
+/* line 44, ../sass/blog.scss */
 figure > img {
   display: block;
 }
 
-/* line 66, ../sass/blog.scss */
+/* line 48, ../sass/blog.scss */
 figcaption {
   font-size: 14px;
 }
@@ -77,12 +58,12 @@ figcaption {
 /**
  * Lists
  */
-/* line 73, ../sass/blog.scss */
+/* line 55, ../sass/blog.scss */
 ul, ol {
   margin-left: 30px;
 }
 
-/* line 77, ../sass/blog.scss */
+/* line 59, ../sass/blog.scss */
 li > ul,
 li > ol {
   margin-bottom: 0;
@@ -91,7 +72,7 @@ li > ol {
 /**
  * Headings
  */
-/* line 85, ../sass/blog.scss */
+/* line 67, ../sass/blog.scss */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
@@ -99,29 +80,29 @@ h1, h2, h3, h4, h5, h6 {
 /**
  * Links
  */
-/* line 92, ../sass/blog.scss */
+/* line 74, ../sass/blog.scss */
 a {
   color: #2a7ae2;
   text-decoration: none;
 }
 
-/* line 97, ../sass/blog.scss */
+/* line 79, ../sass/blog.scss */
 a:visited {
   color: #1756a9;
 }
 
-/* line 101, ../sass/blog.scss */
+/* line 83, ../sass/blog.scss */
 a:hover {
   color: #111;
   text-decoration: underline;
 }
 
-/* line 106, ../sass/blog.scss */
+/* line 88, ../sass/blog.scss */
 .social-media-list a:hover {
   text-decoration: none;
 }
 
-/* line 110, ../sass/blog.scss */
+/* line 92, ../sass/blog.scss */
 .social-media-list a:hover .username {
   text-decoration: underline;
 }
@@ -129,7 +110,7 @@ a:hover {
 /**
  * Blockquotes
  */
-/* line 117, ../sass/blog.scss */
+/* line 99, ../sass/blog.scss */
 blockquote {
   color: #828282;
   border-left: 4px solid #e8e8e8;
@@ -139,7 +120,7 @@ blockquote {
   font-style: italic;
 }
 
-/* line 126, ../sass/blog.scss */
+/* line 108, ../sass/blog.scss */
 blockquote > :last-child {
   margin-bottom: 0;
 }
@@ -147,7 +128,7 @@ blockquote > :last-child {
 /**
  * Code formatting
  */
-/* line 133, ../sass/blog.scss */
+/* line 115, ../sass/blog.scss */
 pre,
 code {
   font-size: 15px;
@@ -156,18 +137,18 @@ code {
   background-color: #eef;
 }
 
-/* line 141, ../sass/blog.scss */
+/* line 123, ../sass/blog.scss */
 code {
   padding: 1px 5px;
 }
 
-/* line 145, ../sass/blog.scss */
+/* line 127, ../sass/blog.scss */
 pre {
   padding: 8px 12px;
   overflow-x: auto;
 }
 
-/* line 150, ../sass/blog.scss */
+/* line 132, ../sass/blog.scss */
 pre > code {
   border: 0;
   padding-right: 0;
@@ -177,7 +158,7 @@ pre > code {
 /**
  * Wrapper
  */
-/* line 159, ../sass/blog.scss */
+/* line 141, ../sass/blog.scss */
 .wrapper {
   max-width: -webkit-calc(800px - (30px * 2));
   max-width: calc(800px - (30px * 2));
@@ -188,7 +169,7 @@ pre > code {
 }
 
 @media screen and (max-width: 800px) {
-  /* line 169, ../sass/blog.scss */
+  /* line 151, ../sass/blog.scss */
   .wrapper {
     max-width: -webkit-calc(800px - (30px));
     max-width: calc(800px - (30px));
@@ -199,23 +180,23 @@ pre > code {
 /**
  * Icons
  */
-/* line 179, ../sass/blog.scss */
+/* line 161, ../sass/blog.scss */
 .icon > svg {
   display: inline-block;
   vertical-align: middle;
 }
 
-/* line 184, ../sass/blog.scss */
+/* line 166, ../sass/blog.scss */
 .icon > svg path {
   fill: #828282;
 }
 
-/* line 188, ../sass/blog.scss */
+/* line 170, ../sass/blog.scss */
 .social-media-list .icon {
   padding-right: 5px;
 }
 
-/* line 192, ../sass/blog.scss */
+/* line 174, ../sass/blog.scss */
 .social-media-list li + li {
   padding-top: 5px;
 }
@@ -223,34 +204,34 @@ pre > code {
 /**
  * Page content
  */
-/* line 199, ../sass/blog.scss */
+/* line 181, ../sass/blog.scss */
 .page-content {
   padding: 30px 0;
 }
 
-/* line 203, ../sass/blog.scss */
+/* line 185, ../sass/blog.scss */
 .page-heading {
   font-size: 20px;
 }
 
-/* line 207, ../sass/blog.scss */
+/* line 189, ../sass/blog.scss */
 .post-list {
   margin-left: 0;
   list-style: none;
 }
 
-/* line 212, ../sass/blog.scss */
+/* line 194, ../sass/blog.scss */
 .post-list > li {
   margin-bottom: 30px;
 }
 
-/* line 216, ../sass/blog.scss */
+/* line 198, ../sass/blog.scss */
 .post-meta {
   font-size: 14px;
   color: #828282;
 }
 
-/* line 221, ../sass/blog.scss */
+/* line 203, ../sass/blog.scss */
 .post-link {
   display: block;
   font-size: 24px;

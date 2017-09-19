@@ -1,32 +1,34 @@
 {% extends "_base.html" %}
 
 {% block content_root %}
-    <header class="site-header">
-        <nav class="row">
-            <a class="logo" href="{% url 'home' %}"><img src="/static/images/logo.png"></a>
-            {% block header %}
-            <nav class="top-nav">
-                <ul class="site-links">
-                    <li><a href="/tutorial/">Tutorial</a></li>
-                    <li><a href="/documentation/en/html/">Documentation</a></li>
-                    <li><a href="{% url 'blog_root' %}">Blog</a></li>
-                </ul>
-            </nav>
-            <nav class="right-nav">
-                <div class="language-switcher">
-                    <a href="/">中文</a>
+    <div class="skeleton primary-navbar">
+        <div class="container">
+            <div class="row">
+                <div class="two columns">
+                    <a class="logo" href="{% url 'home' %}"><img class="logo" src="/static/images/logo.png"></a>
                 </div>
-                <div class="github-fork">
-                    <a href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                        <i class="fa fa-github" aria-hidden="true"></i>
-                        <span>Github</span>
-                    </a>
+                {% block nav %}
+                <div class="six columns">
+                    <ul>
+                        <li><a href="/book/">Tutorial</a></li>
+                        <li><a href="/documentation/en/html/">Documentation</a></li>
+                        <li><a href="{% url 'blog_root' %}">Blog</a></li>
+                    </ul>
                 </div>
-            </nav>
-            {% endblock %}
-        </nav>
-        {% block sub_header %}{% endblock %}
-    </header>
+                <div class="four columns">
+                    <ul class="u-pull-right">
+                        <li><a href="/">中文</a></li>
+                        <li><a href="https://github.com/PaddlePaddle/Paddle" target="_blank">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                            <span>Github</span>
+                        </a></li>
+                    </ul>
+                </div>
+                {% endblock %}
+            </div>
+            {% block sub_nav %}{% endblock %}
+        </div>
+    </div>
 
     <div id="content">
         {% block content %}{{ static_content|safe }}{% endblock %}
@@ -34,8 +36,12 @@
 
     <footer class="footer-nav">
         {% block footer %}
-        <div class="row">
-            <p class="copyright">&copy;Copyright&nbsp;2017,&nbsp;PaddlePaddle&nbsp;developers.</p>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <p class="copyright">&copy;Copyright&nbsp;2017,&nbsp;PaddlePaddle&nbsp;developers.</p>
+                </div>
+            </div>
         </div>
         {% endblock %}
     </footer>

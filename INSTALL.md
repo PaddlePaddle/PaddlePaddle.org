@@ -25,7 +25,7 @@ SECRET_KEY=<secret_key>
 
 ###### Run Docker Image
 ```
-docker run -d -p 8000:8000 --env-file portal.env -v <external_template_dir>:/templates paddlepaddle-portal:latest
+docker run -d -p 8000:8000 --env-file portal.env -v <external_template_dir>:/var/content paddlepaddle-portal:latest
 ```
 
 ## Local Development

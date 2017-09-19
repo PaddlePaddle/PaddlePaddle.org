@@ -1,4 +1,25 @@
-/* line 2, ../sass/documentation.scss */
+/* line 1, ../sass/documentation.scss */
+body {
+  padding-top: 0px;
+  overflow: auto;
+}
+
+/* line 7, ../sass/documentation.scss */
 #content .site-header {
   display: none;
+}
+
+/* line 12, ../sass/documentation.scss */
+.main-content-wrap {
+  position: static;
+  overflow: hidden;
+}
+/* line 16, ../sass/documentation.scss */
+.main-content-wrap nav.doc-menu-vertical {
+  top: auto;
+}
+
+/* line 21, ../sass/documentation.scss */
+.doc-menu-vertical {
+  position: static;
 }

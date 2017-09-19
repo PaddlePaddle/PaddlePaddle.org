@@ -3,8 +3,9 @@
 
     <head>
         {% block head %}
+        <link href="/static/stylesheets/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <link href="/static/stylesheets/skeleton.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% endblock %}
     </head>
 
@@ -22,6 +23,8 @@
         {% endblock %}
 
         {% block post_content %}{% endblock %}
+
+        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
     </body>
 
 </html>

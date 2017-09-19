@@ -1,261 +1,58 @@
-/* line 2, ../sass/base.scss */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+@media (max-width: 550px) {
+  /* line 5, ../sass/base.scss */
+  .skeleton .u-pull-right {
+    float: left;
+  }
 }
-
-/* line 12, ../sass/base.scss */
-.sr-only-focusable:active,
-.sr-only-focusable:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-}
-
-/* line 21, ../sass/base.scss */
-body,
-html {
-  min-width: 1080px;
-  position: relative;
-  z-index: 1;
-  font-family: tahoma,arial,Hiragino Sans GB,Microsoft YaHei;
-  margin: 0;
-}
-
-/* line 29, ../sass/base.scss */
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* line 34, ../sass/base.scss */
-.row {
-  width: 1080px;
-  margin: 0 auto;
-}
-
-/* line 38, ../sass/base.scss */
-.row::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-/* line 43, ../sass/base.scss */
+/* line 9, ../sass/base.scss */
 a {
+  color: #1EAEDB;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* line 14, ../sass/base.scss */
+a:visited, a:hover {
+  color: #1EAEDB;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* line 47, ../sass/base.scss */
-header.site-header {
-  height: 60px;
-  background-color: #000000;
-  padding: 0 100px;
+/* line 21, ../sass/base.scss */
+.primary-navbar {
+  top: 0;
+  background-color: black;
+  margin: 0px;
+  font-family: "Times New Roman", Times, serif;
 }
-
-/* line 52, ../sass/base.scss */
-header.site-header > nav.row > * {
-  display: inline-block;
-  height: 60px;
+/* line 27, ../sass/base.scss */
+.primary-navbar .logo {
+  width: auto;
+  height: 40px;
 }
-
-/* line 56, ../sass/base.scss */
-header.site-header .logo {
-  height: 60px;
-  float: left;
+/* line 32, ../sass/base.scss */
+.primary-navbar .navbar-list {
+  margin-bottom: 0;
 }
-
-/* line 60, ../sass/base.scss */
-header.site-header .logo > img {
-  height: 60px;
-  /*margin: 10px 10px 10px 10px;*/
+/* line 36, ../sass/base.scss */
+.primary-navbar ol, .primary-navbar ul {
+  padding-left: 0;
+  margin: 12px 0 0 0;
 }
-
-/* line 64, ../sass/base.scss */
-header.site-header .top-nav {
-  margin-left: 155px;
-  margin-right: auto;
-  font-size: 14px;
-}
-
-/* line 69, ../sass/base.scss */
-header.site-header .top-nav .site-links {
-  float: left;
-  display: inline-block;
-}
-
-/* line 73, ../sass/base.scss */
-header.site-header .top-nav .site-links > li {
-  display: inline-block;
-  float: left;
-  height: 60px;
-}
-
-/* line 78, ../sass/base.scss */
-header.site-header .top-nav .site-links > li > a {
-  display: inline-block;
-  height: 100%;
-  line-height: 60px;
-  padding: 0 20px;
-  color: #fff;
-  /*&.active,*/
-}
-
-/* line 86, ../sass/base.scss */
-header.site-header .top-nav .site-links > li > a:hover {
-  color: #0073eb;
-  background-color: #222222;
-}
-
-/* line 90, ../sass/base.scss */
-header.site-header .top-nav .version-switcher {
+/* line 40, ../sass/base.scss */
+.primary-navbar ol li, .primary-navbar ul li {
   position: relative;
-  display: inline-block;
-  width: 100px;
-  height: 60px;
+  list-style: none;
+  margin: 0 16px 0 0;
+  padding: 0px;
   float: left;
+  text-align: -webkit-match-parent;
+}
+/* line 48, ../sass/base.scss */
+.primary-navbar ol li a, .primary-navbar ul li a {
+  vertical-align: middle;
 }
 
-/* line 97, ../sass/base.scss */
-header.site-header .top-nav .version-switcher:hover > a {
-  color: #fff;
-  cursor: default;
-}
-
-/* line 101, ../sass/base.scss */
-header.site-header .top-nav .version-switcher:hover > a .fa::before {
-  content: "\F106";
-}
-
-/* line 104, ../sass/base.scss */
-header.site-header .top-nav .version-switcher > a {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 60px;
-  display: inline-block;
-  padding: 0 20px;
-}
-
-/* line 110, ../sass/base.scss */
-header.site-header .top-nav .version-switcher > a .fa::before {
-  margin-left: 5px;
-  content: "\F107";
-}
-
-/* line 114, ../sass/base.scss */
-header.site-header .top-nav .version-switcher ul {
-  display: none;
-  top: 60px;
-  width: 100px;
-  text-align: center;
-  line-height: 50px;
-  background: rgba(0, 0, 0, 0.85);
-  color: #0073eb;
-  position: absolute;
-  left: 0;
-}
-
-/* line 125, ../sass/base.scss */
-header.site-header .top-nav .version-switcher ul > li > a {
-  color: #ababab;
-  width: 99px;
-  height: 50px;
-  display: block;
-}
-
-/* line 131, ../sass/base.scss */
-header.site-header .top-nav .version-switcher ul > li > a:hover {
-  color: #0073eb;
-  background-color: #222;
-}
-
-/* line 135, ../sass/base.scss */
-header.site-header .top-nav .version-switcher:hover ul {
-  display: inline-block;
-}
-
-/* line 138, ../sass/base.scss */
-header.site-header .right-nav {
-  float: right;
-  font-size: 14px;
-}
-
-/* line 142, ../sass/base.scss */
-header.site-header .right-nav .language-switcher {
-  position: relative;
-  display: inline-block;
-  float: left;
-}
-
-/* line 147, ../sass/base.scss */
-header.site-header .right-nav .language-switcher > a {
-  color: #fff;
-  width: 80px;
-  text-align: center;
-  line-height: 60px;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-/* line 155, ../sass/base.scss */
-header.site-header .right-nav .language-switcher > a .fa::before {
-  margin-left: 5px;
-  content: "\F107";
-}
-
-/* line 159, ../sass/base.scss */
-header.site-header .right-nav .language-switcher > a:hover {
-  color: #0073eb;
-  background-color: #222;
-}
-
-/* line 163, ../sass/base.scss */
-header.site-header .github-fork {
-  float: left;
-  /* margin-left: 20px; */
-}
-
-/* line 167, ../sass/base.scss */
-header.site-header .github-fork > a {
-  display: inline-block;
-  line-height: 40px;
-  width: 100px;
-  color: #fff;
-  padding: 0 10px;
-  margin: 10px 0;
-  font-size: 14px;
-}
-
-/* line 176, ../sass/base.scss */
-header.site-header .github-fork > a .fa {
-  font-size: 20px;
-  margin-right: 10px;
-  margin-top: 8px;
-  float: left;
-}
-
-/* line 182, ../sass/base.scss */
-header.site-header .github-fork > a span {
-  margin-right: 10px;
-  float: left;
-}
-
-/* line 186, ../sass/base.scss */
-header.site-header .github-fork > a:hover {
-  color: #fff;
-}
-
-/* line 189, ../sass/base.scss */
+/* line 55, ../sass/base.scss */
 .head-banner {
   background: url(./../images/banner.jpg) no-repeat center bottom;
   background-size: cover;
@@ -265,30 +62,26 @@ header.site-header .github-fork > a:hover {
   padding-top: 126px;
   padding-bottom: auto;
 }
-
-/* line 198, ../sass/base.scss */
+/* line 63, ../sass/base.scss */
 .head-banner .banner {
   color: #fff;
   padding-top: 10px;
 }
-
-/* line 202, ../sass/base.scss */
+/* line 66, ../sass/base.scss */
 .head-banner .banner h1 {
   margin: 0 0 0 0;
   font-size: 48px;
   line-height: 60px;
   font-weight: normal;
 }
-
-/* line 208, ../sass/base.scss */
+/* line 72, ../sass/base.scss */
 .head-banner .banner p {
   font-size: 16px;
   line-height: 20px;
   font-weight: normal;
   margin: 40px 0 50px 0;
 }
-
-/* line 214, ../sass/base.scss */
+/* line 78, ../sass/base.scss */
 .head-banner .banner .quick-start {
   display: inline-block;
   line-height: 60px;
@@ -297,8 +90,7 @@ header.site-header .github-fork > a:hover {
   width: 212px;
   border: 1px solid #fff;
 }
-
-/* line 222, ../sass/base.scss */
+/* line 85, ../sass/base.scss */
 .head-banner .banner .quick-start:hover {
   display: inline-block;
   line-height: 60px;
@@ -308,16 +100,14 @@ header.site-header .github-fork > a:hover {
   background-color: #fff;
   border: 1px solid #fff;
 }
-
-/* line 231, ../sass/base.scss */
+/* line 95, ../sass/base.scss */
 .head-banner .banner .github-counter {
   display: inline-block;
   margin: 50px 20px 0;
   line-height: 35px;
   color: #ffff;
 }
-
-/* line 237, ../sass/base.scss */
+/* line 100, ../sass/base.scss */
 .head-banner .banner .github-counter > span {
   display: inline-block;
   font-size: 18px;
@@ -326,12 +116,11 @@ header.site-header .github-fork > a:hover {
   padding: 0 5px;
 }
 
-/* line 244, ../sass/base.scss */
+/* line 111, ../sass/base.scss */
 .services {
   background-color: #f4f5f7;
 }
-
-/* line 247, ../sass/base.scss */
+/* line 113, ../sass/base.scss */
 .services h2 {
   padding-top: 80px;
   position: relative;
@@ -339,8 +128,7 @@ header.site-header .github-fork > a:hover {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-
-/* line 254, ../sass/base.scss */
+/* line 119, ../sass/base.scss */
 .services h2 span {
   color: #333;
   font-size: 30px;
@@ -348,8 +136,7 @@ header.site-header .github-fork > a:hover {
   position: relative;
   z-index: 1;
 }
-
-/* line 261, ../sass/base.scss */
+/* line 127, ../sass/base.scss */
 .services .sub-title {
   text-align: center;
   font-size: 16px;
@@ -358,8 +145,7 @@ header.site-header .github-fork > a:hover {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-
-/* line 269, ../sass/base.scss */
+/* line 135, ../sass/base.scss */
 .services > .row > div {
   width: 50%;
   float: left;
@@ -368,48 +154,41 @@ header.site-header .github-fork > a:hover {
   text-align: left;
   position: relative;
 }
-
-/* line 277, ../sass/base.scss */
+/* line 142, ../sass/base.scss */
 .services > .row > div > * {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
 }
-
-/* line 283, ../sass/base.scss */
+/* line 148, ../sass/base.scss */
 .services > .row > div .service-desc {
   left: 50px;
   right: 0;
 }
-
-/* line 287, ../sass/base.scss */
+/* line 152, ../sass/base.scss */
 .services > .row > div:nth-child(2n+1) {
   text-align: right;
 }
-
-/* line 290, ../sass/base.scss */
+/* line 154, ../sass/base.scss */
 .services > .row > div:nth-child(2n+1) .service-desc {
   right: 50px;
   left: 0;
 }
-
-/* line 294, ../sass/base.scss */
+/* line 160, ../sass/base.scss */
 .services .service-icon {
   text-align: center;
   max-width: 100%;
   max-height: 100%;
 }
-
-/* line 299, ../sass/base.scss */
+/* line 166, ../sass/base.scss */
 .services .service-desc h3 {
   color: #333;
   font-size: 24px;
   font-weight: normal;
   margin: 0;
 }
-
-/* line 305, ../sass/base.scss */
+/* line 172, ../sass/base.scss */
 .services .service-desc p {
   margin: 20px 0;
   font-size: 16px;
@@ -417,27 +196,24 @@ header.site-header .github-fork > a:hover {
   line-height: 24px;
   color: #999;
 }
-
-/* line 312, ../sass/base.scss */
+/* line 179, ../sass/base.scss */
 .services .service-desc a.view-more {
   color: #0073eb;
   font-size: 16px;
   display: inline-block;
 }
-
-/* line 317, ../sass/base.scss */
+/* line 183, ../sass/base.scss */
 .services .service-desc a.view-more:hover {
   text-decoration: underline;
 }
 
-/* line 320, ../sass/base.scss */
+/* line 190, ../sass/base.scss */
 .features {
   background-color: #ffffff;
   padding-top: 80px;
   padding-bottom: 60px;
 }
-
-/* line 325, ../sass/base.scss */
+/* line 194, ../sass/base.scss */
 .features h2 {
   text-align: center;
   margin-bottom: 70px;
@@ -445,31 +221,27 @@ header.site-header .github-fork > a:hover {
   font-size: 30px;
   color: #333;
 }
-
-/* line 332, ../sass/base.scss */
+/* line 200, ../sass/base.scss */
 .features h2 span {
   position: relative;
   z-index: 1;
   font-weight: normal;
   color: #333;
 }
-
-/* line 338, ../sass/base.scss */
+/* line 207, ../sass/base.scss */
 .features .feature-desc {
   width: 25%;
   float: left;
   text-align: center;
 }
-
-/* line 343, ../sass/base.scss */
+/* line 211, ../sass/base.scss */
 .features .feature-desc h3 {
   color: #333;
   margin: 30px 0 20px;
   font-size: 18px;
   font-weight: normal;
 }
-
-/* line 349, ../sass/base.scss */
+/* line 217, ../sass/base.scss */
 .features .feature-desc p {
   font-size: 14px;
   text-align: center;
@@ -480,30 +252,27 @@ header.site-header .github-fork > a:hover {
   display: inline-block;
 }
 
-/* line 358, ../sass/base.scss */
+/* line 229, ../sass/base.scss */
 .get-started {
   background-color: #ffffff;
   text-align: center;
   padding-bottom: 80px;
 }
-
-/* line 363, ../sass/base.scss */
+/* line 233, ../sass/base.scss */
 .get-started h2 {
   font-size: 30px;
   color: #333;
   margin-bottom: 30px;
   font-weight: normal;
 }
-
-/* line 369, ../sass/base.scss */
+/* line 239, ../sass/base.scss */
 .get-started p {
   font-size: 16px;
   font-weight: 100;
   color: #999;
   margin-bottom: 30px;
 }
-
-/* line 375, ../sass/base.scss */
+/* line 245, ../sass/base.scss */
 .get-started .quick-start {
   color: #fff;
   background-color: #0073eb;
@@ -512,8 +281,7 @@ header.site-header .github-fork > a:hover {
   line-height: 60px;
   width: 212px;
 }
-
-/* line 383, ../sass/base.scss */
+/* line 252, ../sass/base.scss */
 .get-started .quick-start:hover {
   color: #fff;
   background-color: #3095ff;
@@ -523,13 +291,12 @@ header.site-header .github-fork > a:hover {
   width: 212px;
 }
 
-/* line 391, ../sass/base.scss */
+/* line 263, ../sass/base.scss */
 .footer-nav {
   background-color: #333;
   color: ccc;
 }
-
-/* line 395, ../sass/base.scss */
+/* line 266, ../sass/base.scss */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -540,8 +307,7 @@ header.site-header .github-fork > a:hover {
   float: left;
   display: inline;
 }
-
-/* line 405, ../sass/base.scss */
+/* line 276, ../sass/base.scss */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -552,8 +318,7 @@ header.site-header .github-fork > a:hover {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-
-/* line 415, ../sass/base.scss */
+/* line 285, ../sass/base.scss */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -561,8 +326,7 @@ header.site-header .github-fork > a:hover {
   display: inline;
   margin-bottom: 20px;
 }
-
-/* line 422, ../sass/base.scss */
+/* line 293, ../sass/base.scss */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -570,24 +334,20 @@ header.site-header .github-fork > a:hover {
   float: left;
   display: inline;
 }
-
-/* line 429, ../sass/base.scss */
+/* line 300, ../sass/base.scss */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-
-/* line 432, ../sass/base.scss */
+/* line 303, ../sass/base.scss */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-
-/* line 435, ../sass/base.scss */
+/* line 306, ../sass/base.scss */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-
-/* line 439, ../sass/base.scss */
+/* line 312, ../sass/base.scss */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -596,51 +356,43 @@ header.site-header .github-fork > a:hover {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-
-/* line 447, ../sass/base.scss */
+/* line 320, ../sass/base.scss */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-
-/* line 450, ../sass/base.scss */
+/* line 323, ../sass/base.scss */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-
-/* line 453, ../sass/base.scss */
+/* line 326, ../sass/base.scss */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-
-/* line 456, ../sass/base.scss */
+/* line 331, ../sass/base.scss */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-
-/* line 460, ../sass/base.scss */
+/* line 334, ../sass/base.scss */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-
-/* line 465, ../sass/base.scss */
+/* line 338, ../sass/base.scss */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-
-/* line 469, ../sass/base.scss */
+/* line 344, ../sass/base.scss */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
+  width: 100%;
   text-align: center;
   padding: 20px 0 20px;
-  margin-bottom: -10px;
 }
-
-/* line 476, ../sass/base.scss */
+/* line 350, ../sass/base.scss */
 .footer-nav .copyright > a {
   color: #fff;
 }

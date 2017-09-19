@@ -39,10 +39,10 @@ def book_root(request):
     path = settings.EXTERNAL_TEMPLATE_DIR + "/book/index.html"
     static_content_template = get_template(path)
     static_content = static_content_template.render()
-    return render(request, '_tutorial.html', {'static_content': static_content})
+    return render(request, 'tutorial.html', {'static_content': static_content})
 
 def tutorial_root(request):
-    path = '_tutorial.html'
+    path = 'tutorial.html'
     return render(request, path)
 
 def blog_root(request):
