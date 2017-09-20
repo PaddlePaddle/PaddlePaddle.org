@@ -43,9 +43,11 @@ def home_root(request):
         if current_lang_code == "en":
             lang_def['label'] = u"中文"
             lang_def['link'] = "/zh/"
+            lang_def['doc_lang_path'] = "en"
         else:
             lang_def['label'] = "English"
             lang_def['link'] = "/en/"
+            lang_def['doc_lang_path'] = "cn"
 
     return render(request, 'index.html', {'lang_def': lang_def})
 
