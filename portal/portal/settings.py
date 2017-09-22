@@ -29,7 +29,7 @@ DEBUG = True if os.environ.get('ENV', None) == 'development' else False
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = ['paddlepaddle.org']
+    ALLOWED_HOSTS = ['.paddlepaddle.org']
 
 # Application definition
 

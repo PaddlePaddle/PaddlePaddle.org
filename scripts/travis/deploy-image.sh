@@ -8,7 +8,7 @@ then
     export DOCKER_CONTAINER_NAME="paddlepaddle.org"
     export PORT=80
     export ENV=release
-elif [ "$TRAVIS_BRANCH" == ^release* ]
+elif [[ "$TRAVIS_BRANCH" =~ ^release.*$ ]]
 then
     # Staging Deploy
     export DOCKER_IMAGE_TAG="staging"
@@ -23,8 +23,9 @@ then
     export PORT=82
     export ENV=development
 else
-# All other branches should be ignored
-    exit 0
+    # All other branches should be ignored
+    echo "Cannot deploy image, invalid branch: $TRAVIS_BRANCH"
+    exit 1
 fi
 
 if [ "$SKIP_INSTALL" != "1" ]

@@ -16,5 +16,5 @@ export TRAVIS_BUILD_DIR="<LOCAL_PADDLEPADDLE_ORG_SRC_DIR>"
 # SET THIS TO 1 if you want to skip awscli install
 export SKIP_INSTALL="1"
 
-./travis/build-docker.sh
-./travis/travis-deploy.sh
+./scripts/travis/build-docker.sh
+./scripts/travis/deploy-image.sh

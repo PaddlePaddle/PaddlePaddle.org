@@ -4,7 +4,7 @@
 * Make sure your local build machine has Docker and AWS CLI installed.  
 * Make sure the remote VM also has Docker and AWS CLI installed.
 
-##### Edit <PaddlePaddle_org_dir>/scripts/travis/deploy.sh and modify the env variables
+##### Edit <PaddlePaddle_org_dir>/scripts/deploy.sh and modify the env variables
 
 ```
 # THESE VARIABLES ARE DEFINED ON TRAVIS JOB
