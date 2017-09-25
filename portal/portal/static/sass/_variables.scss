@@ -4,16 +4,17 @@
 // http://chir.ag/projects/name-that-color
 // ============================================
 $black: #000;
+$mineShaft: #242424;
 $white: #fff;
-$curious-blue: #1EAEDB;
+$blue: blue;
 $gallery: #f0f0f0;
 
 // ============================================
 // Background
 // ============================================
 $primary-background-color: $black;
-$secondary-background-color: $white;
-$accent-color: blue;
+$secondary-background-color: $mineShaft;
+$accent-color: $blue;
 
 // ============================================
 // Text
@@ -33,4 +34,4 @@ $secondary-text-color: $gallery;
 // Dimensions
 // ============================================
 $primary-nav-height: 60px;
-$secondary-nav-height: 50px;
+$secondary-nav-height: 60px;

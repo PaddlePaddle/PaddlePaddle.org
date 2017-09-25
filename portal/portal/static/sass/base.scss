@@ -36,7 +36,7 @@ a {
   }
 
   &.secondary {
-    background-color: $primary-background-color;
+    background-color: $secondary-background-color;
     height: $secondary-nav-height;
   }
 
@@ -50,19 +50,31 @@ a {
     margin-bottom: 0;
   }
 
+  a {
+    color: white;
+  }
+
   ol, ul {
-    padding-left: 0;
     margin: 0;
 
     li {
+      margin: 0;
+      top: 0px;
+      padding-right: 32px;
       position: static;
       list-style: none;
-      margin: 0 16px 0 0;
       float: left;
       text-align: -webkit-match-parent;
 
       a {
         line-height: $primary-nav-height;
+      }
+    }
+
+    &.u-pull-right {
+      li {
+        padding-right: 0px;
+        padding-left: 32px;
       }
     }
   }
