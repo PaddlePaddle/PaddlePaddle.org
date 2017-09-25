@@ -1,3 +1,59 @@
+.head-banner {
+  background: url(./../images/banner.jpg) no-repeat center bottom;
+  background-size: cover;
+  height: 399px;
+  color: #fff;
+  text-align: center;
+  padding-top: 126px;
+  padding-bottom: auto;
+  .banner {
+    color: #fff;
+    padding-top: 10px;
+    h1 {
+      margin: 0 0 0 0;
+      font-size: 48px;
+      line-height: 60px;
+      font-weight: normal;
+    }
+    p {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: normal;
+      margin: 40px 0 50px 0;
+    }
+    .quick-start {
+      display: inline-block;
+      line-height: 60px;
+      color: #ffffff;
+      font-size: 18px;
+      width: 212px;
+      border: 1px solid #fff;
+      &:hover {
+        display: inline-block;
+        line-height: 60px;
+        color: #333;
+        font-size: 18px;
+        width: 212px;
+        background-color: #fff;
+        border: 1px solid #fff;
+      }
+    }
+    .github-counter {
+      display: inline-block;
+      margin: 50px 20px 0;
+      line-height: 35px;
+      color: #ffff;
+      > span {
+        display: inline-block;
+        font-size: 18px;
+        line-height: 26px;
+        float: left;
+        padding: 0 5px;
+      }
+    }
+  }
+}
+
 .services {
   background-color: #f4f5f7;
   h2 {

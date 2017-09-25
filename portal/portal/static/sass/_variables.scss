@@ -7,13 +7,16 @@ $black: #000;
 $white: #fff;
 $curious-blue: #1EAEDB;
 $gallery: #f0f0f0;
+$indigo: #6A0472;
 
 // ============================================
 // Background
 // ============================================
 $primary-background-color: $black;
 $secondary-background-color: $white;
-$accent-color: blue;
+$accent-color: $indigo;
+
+$navbar-background-color: $black;
 
 // ============================================
 // Text
@@ -32,5 +35,5 @@ $secondary-text-color: $gallery;
 // ============================================
 // Dimensions
 // ============================================
-$primary-nav-height: 60px;
+$primary-nav-height: 50px;
 $secondary-nav-height: 50px;

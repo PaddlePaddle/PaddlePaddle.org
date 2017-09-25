@@ -5,238 +5,28 @@
   }
 }
 /* line 9, ../sass/base.scss */
+.bg-primary {
+  background-color: #6A0472 !important;
+}
+
+/* line 13, ../sass/base.scss */
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
   font: 400 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 15, ../sass/base.scss */
+/* line 19, ../sass/base.scss */
 a {
-  color: blue;
+  color: #6A0472;
   text-decoration: none;
   cursor: pointer;
 }
-/* line 20, ../sass/base.scss */
+/* line 24, ../sass/base.scss */
 a:visited, a:hover {
-  color: blue;
+  color: #6A0472;
   text-decoration: none;
   cursor: pointer;
-}
-
-/* line 27, ../sass/base.scss */
-.main-navbar {
-  background-color: black;
-  margin: 0px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-/* line 32, ../sass/base.scss */
-.main-navbar.primary {
-  top: 0;
-  background-color: #000;
-  height: 60px;
-}
-/* line 38, ../sass/base.scss */
-.main-navbar.secondary {
-  background-color: #000;
-  height: 50px;
-}
-/* line 43, ../sass/base.scss */
-.main-navbar img.logo {
-  max-width: none;
-  width: auto;
-  height: 60px;
-}
-/* line 49, ../sass/base.scss */
-.main-navbar .navbar-list {
-  margin-bottom: 0;
-}
-/* line 53, ../sass/base.scss */
-.main-navbar ol, .main-navbar ul {
-  padding-left: 0;
-  margin: 0;
-}
-/* line 57, ../sass/base.scss */
-.main-navbar ol li, .main-navbar ul li {
-  position: static;
-  list-style: none;
-  margin: 0 16px 0 0;
-  float: left;
-  text-align: -webkit-match-parent;
-}
-/* line 64, ../sass/base.scss */
-.main-navbar ol li a, .main-navbar ul li a {
-  line-height: 60px;
-}
-
-/* line 71, ../sass/base.scss */
-.head-banner {
-  background: url(./../images/banner.jpg) no-repeat center bottom;
-  background-size: cover;
-  height: 399px;
-  color: #fff;
-  text-align: center;
-  padding-top: 126px;
-  padding-bottom: auto;
-}
-/* line 79, ../sass/base.scss */
-.head-banner .banner {
-  color: #fff;
-  padding-top: 10px;
-}
-/* line 82, ../sass/base.scss */
-.head-banner .banner h1 {
-  margin: 0 0 0 0;
-  font-size: 48px;
-  line-height: 60px;
-  font-weight: normal;
-}
-/* line 88, ../sass/base.scss */
-.head-banner .banner p {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: normal;
-  margin: 40px 0 50px 0;
-}
-/* line 94, ../sass/base.scss */
-.head-banner .banner .quick-start {
-  display: inline-block;
-  line-height: 60px;
-  color: #ffffff;
-  font-size: 18px;
-  width: 212px;
-  border: 1px solid #fff;
-}
-/* line 101, ../sass/base.scss */
-.head-banner .banner .quick-start:hover {
-  display: inline-block;
-  line-height: 60px;
-  color: #333;
-  font-size: 18px;
-  width: 212px;
-  background-color: #fff;
-  border: 1px solid #fff;
-}
-/* line 111, ../sass/base.scss */
-.head-banner .banner .github-counter {
-  display: inline-block;
-  margin: 50px 20px 0;
-  line-height: 35px;
-  color: #ffff;
-}
-/* line 116, ../sass/base.scss */
-.head-banner .banner .github-counter > span {
-  display: inline-block;
-  font-size: 18px;
-  line-height: 26px;
-  float: left;
-  padding: 0 5px;
-}
-
-/* line 127, ../sass/base.scss */
-.footer-nav {
-  background-color: #333;
-  color: ccc;
-}
-/* line 130, ../sass/base.scss */
-.footer-nav .intern-console {
-  margin-left: 50px;
-  margin-right: 19px;
-  color: #ccc;
-  font-size: 12px;
-  line-height: 30px;
-  width: 150px;
-  float: left;
-  display: inline;
-}
-/* line 140, ../sass/base.scss */
-.footer-nav .chat-console {
-  padding-left: 50px;
-  color: #ccc;
-  font-size: 12px;
-  width: 600px;
-  float: left;
-  display: inline;
-  border-left: 1px solid rgba(241, 242, 244, 0.2);
-  border-right: 1px solid rgba(241, 242, 244, 0.2);
-}
-/* line 149, ../sass/base.scss */
-.footer-nav .chat-console .sub-top-nava > li {
-  line-height: 30px;
-  width: 25%;
-  float: left;
-  display: inline;
-  margin-bottom: 20px;
-}
-/* line 157, ../sass/base.scss */
-.footer-nav .public-console {
-  margin-left: 49px;
-  margin-right: 50px;
-  width: 100px;
-  float: left;
-  display: inline;
-}
-/* line 164, ../sass/base.scss */
-.footer-nav .public-console > * {
-  vertical-align: left;
-}
-/* line 167, ../sass/base.scss */
-.footer-nav .public-console > img {
-  margin-right: 5px;
-}
-/* line 170, ../sass/base.scss */
-.footer-nav .public-console > p {
-  color: #ccc;
-  font-size: 14px;
-}
-/* line 176, ../sass/base.scss */
-.footer-nav .contact-us {
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
-  font-size: 14px;
-  margin-bottom: 20px;
-  padding-top: 40px;
-}
-/* line 184, ../sass/base.scss */
-.footer-nav .contact-us > * {
-  vertical-align: middle;
-}
-/* line 187, ../sass/base.scss */
-.footer-nav .contact-us > img {
-  margin-right: 5px;
-}
-/* line 190, ../sass/base.scss */
-.footer-nav .contact-us > a {
-  color: #fff;
-}
-/* line 195, ../sass/base.scss */
-.footer-nav .friendly-links {
-  text-align: center;
-  margin-bottom: 40px;
-}
-/* line 198, ../sass/base.scss */
-.footer-nav .friendly-links > li {
-  display: inline-block;
-  padding: 0 10px;
-  line-height: 12px;
-}
-/* line 202, ../sass/base.scss */
-.footer-nav .friendly-links > li > a {
-  color: #ccc;
-  font-size: 12px;
-}
-/* line 208, ../sass/base.scss */
-.footer-nav .copyright {
-  color: #666;
-  font-size: 12px;
-  width: 100%;
-  text-align: center;
-  padding: 20px 0 20px;
-}
-/* line 214, ../sass/base.scss */
-.footer-nav .copyright > a {
-  color: #fff;
 }
 
 /*# sourceMappingURL=home.css.map*/

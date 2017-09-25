@@ -1,8 +1,72 @@
 /* line 1, ../sass/home.scss */
+.head-banner {
+  background: url(./../images/banner.jpg) no-repeat center bottom;
+  background-size: cover;
+  height: 399px;
+  color: #fff;
+  text-align: center;
+  padding-top: 126px;
+  padding-bottom: auto;
+}
+/* line 9, ../sass/home.scss */
+.head-banner .banner {
+  color: #fff;
+  padding-top: 10px;
+}
+/* line 12, ../sass/home.scss */
+.head-banner .banner h1 {
+  margin: 0 0 0 0;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: normal;
+}
+/* line 18, ../sass/home.scss */
+.head-banner .banner p {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  margin: 40px 0 50px 0;
+}
+/* line 24, ../sass/home.scss */
+.head-banner .banner .quick-start {
+  display: inline-block;
+  line-height: 60px;
+  color: #ffffff;
+  font-size: 18px;
+  width: 212px;
+  border: 1px solid #fff;
+}
+/* line 31, ../sass/home.scss */
+.head-banner .banner .quick-start:hover {
+  display: inline-block;
+  line-height: 60px;
+  color: #333;
+  font-size: 18px;
+  width: 212px;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+/* line 41, ../sass/home.scss */
+.head-banner .banner .github-counter {
+  display: inline-block;
+  margin: 50px 20px 0;
+  line-height: 35px;
+  color: #ffff;
+}
+/* line 46, ../sass/home.scss */
+.head-banner .banner .github-counter > span {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 26px;
+  float: left;
+  padding: 0 5px;
+}
+
+/* line 57, ../sass/home.scss */
 .services {
   background-color: #f4f5f7;
 }
-/* line 3, ../sass/home.scss */
+/* line 59, ../sass/home.scss */
 .services h2 {
   padding-top: 80px;
   position: relative;
@@ -10,7 +74,7 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
-/* line 9, ../sass/home.scss */
+/* line 65, ../sass/home.scss */
 .services h2 span {
   color: #333;
   font-size: 30px;
@@ -18,7 +82,7 @@
   position: relative;
   z-index: 1;
 }
-/* line 17, ../sass/home.scss */
+/* line 73, ../sass/home.scss */
 .services .sub-title {
   text-align: center;
   font-size: 16px;
@@ -27,7 +91,7 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
-/* line 25, ../sass/home.scss */
+/* line 81, ../sass/home.scss */
 .services > .row > div {
   width: 50%;
   float: left;
@@ -36,41 +100,41 @@
   text-align: left;
   position: relative;
 }
-/* line 32, ../sass/home.scss */
+/* line 88, ../sass/home.scss */
 .services > .row > div > * {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
 }
-/* line 38, ../sass/home.scss */
+/* line 94, ../sass/home.scss */
 .services > .row > div .service-desc {
   left: 50px;
   right: 0;
 }
-/* line 42, ../sass/home.scss */
+/* line 98, ../sass/home.scss */
 .services > .row > div:nth-child(2n+1) {
   text-align: right;
 }
-/* line 44, ../sass/home.scss */
+/* line 100, ../sass/home.scss */
 .services > .row > div:nth-child(2n+1) .service-desc {
   right: 50px;
   left: 0;
 }
-/* line 50, ../sass/home.scss */
+/* line 106, ../sass/home.scss */
 .services .service-icon {
   text-align: center;
   max-width: 100%;
   max-height: 100%;
 }
-/* line 56, ../sass/home.scss */
+/* line 112, ../sass/home.scss */
 .services .service-desc h3 {
   color: #333;
   font-size: 24px;
   font-weight: normal;
   margin: 0;
 }
-/* line 62, ../sass/home.scss */
+/* line 118, ../sass/home.scss */
 .services .service-desc p {
   margin: 20px 0;
   font-size: 16px;
@@ -78,24 +142,24 @@
   line-height: 24px;
   color: #999;
 }
-/* line 69, ../sass/home.scss */
+/* line 125, ../sass/home.scss */
 .services .service-desc a.view-more {
   color: #0073eb;
   font-size: 16px;
   display: inline-block;
 }
-/* line 73, ../sass/home.scss */
+/* line 129, ../sass/home.scss */
 .services .service-desc a.view-more:hover {
   text-decoration: underline;
 }
 
-/* line 80, ../sass/home.scss */
+/* line 136, ../sass/home.scss */
 .features {
   background-color: #ffffff;
   padding-top: 80px;
   padding-bottom: 60px;
 }
-/* line 84, ../sass/home.scss */
+/* line 140, ../sass/home.scss */
 .features h2 {
   text-align: center;
   margin-bottom: 70px;
@@ -103,27 +167,27 @@
   font-size: 30px;
   color: #333;
 }
-/* line 90, ../sass/home.scss */
+/* line 146, ../sass/home.scss */
 .features h2 span {
   position: relative;
   z-index: 1;
   font-weight: normal;
   color: #333;
 }
-/* line 97, ../sass/home.scss */
+/* line 153, ../sass/home.scss */
 .features .feature-desc {
   width: 25%;
   float: left;
   text-align: center;
 }
-/* line 101, ../sass/home.scss */
+/* line 157, ../sass/home.scss */
 .features .feature-desc h3 {
   color: #333;
   margin: 30px 0 20px;
   font-size: 18px;
   font-weight: normal;
 }
-/* line 107, ../sass/home.scss */
+/* line 163, ../sass/home.scss */
 .features .feature-desc p {
   font-size: 14px;
   text-align: center;
@@ -134,27 +198,27 @@
   display: inline-block;
 }
 
-/* line 119, ../sass/home.scss */
+/* line 175, ../sass/home.scss */
 .get-started {
   background-color: #ffffff;
   text-align: center;
   padding-bottom: 80px;
 }
-/* line 123, ../sass/home.scss */
+/* line 179, ../sass/home.scss */
 .get-started h2 {
   font-size: 30px;
   color: #333;
   margin-bottom: 30px;
   font-weight: normal;
 }
-/* line 129, ../sass/home.scss */
+/* line 185, ../sass/home.scss */
 .get-started p {
   font-size: 16px;
   font-weight: 100;
   color: #999;
   margin-bottom: 30px;
 }
-/* line 135, ../sass/home.scss */
+/* line 191, ../sass/home.scss */
 .get-started .quick-start {
   color: #fff;
   background-color: #0073eb;
@@ -163,7 +227,7 @@
   line-height: 60px;
   width: 212px;
 }
-/* line 142, ../sass/home.scss */
+/* line 198, ../sass/home.scss */
 .get-started .quick-start:hover {
   color: #fff;
   background-color: #3095ff;
