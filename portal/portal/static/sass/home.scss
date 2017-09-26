@@ -1,5 +1,7 @@
 .services {
   background-color: #f4f5f7;
+  position: relative;
+
   h2 {
     padding-top: 80px;
     position: relative;
@@ -22,6 +24,18 @@
     margin-top: 30px;
     margin-bottom: 30px;
   }
+
+  .row {
+    width: 1080px;
+    margin: 0 auto;
+  }
+
+  .row::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
   > .row > div {
     width: 50%;
     float: left;

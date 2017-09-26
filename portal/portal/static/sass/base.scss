@@ -17,6 +17,12 @@ a {
   text-decoration: none;
   cursor: pointer;
 
+  &:visited {
+    color: $accent-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
   &:visited,&:hover {
     color: $accent-color;
     text-decoration: none;
@@ -52,6 +58,18 @@ a {
 
   a {
     color: white;
+
+    &:hover, &:active {
+      color: #ddd;
+    }
+
+    &:active {
+      color: #ddd;
+    }
+
+    &.active-link {
+        font-weight: $font-bold;
+    }
   }
 
   ol, ul {

@@ -18,48 +18,66 @@ a {
   cursor: pointer;
 }
 /* line 20, ../sass/base.scss */
+a:visited {
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* line 26, ../sass/base.scss */
 a:visited, a:hover {
   color: blue;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* line 27, ../sass/base.scss */
+/* line 33, ../sass/base.scss */
 .main-navbar {
   background-color: black;
   margin: 0px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 32, ../sass/base.scss */
+/* line 38, ../sass/base.scss */
 .main-navbar.primary {
   top: 0;
   background-color: #000;
   height: 60px;
 }
-/* line 38, ../sass/base.scss */
+/* line 44, ../sass/base.scss */
 .main-navbar.secondary {
   background-color: #242424;
   height: 60px;
 }
-/* line 43, ../sass/base.scss */
+/* line 49, ../sass/base.scss */
 .main-navbar img.logo {
   max-width: none;
   width: auto;
   height: 60px;
 }
-/* line 49, ../sass/base.scss */
+/* line 55, ../sass/base.scss */
 .main-navbar .navbar-list {
   margin-bottom: 0;
 }
-/* line 53, ../sass/base.scss */
+/* line 59, ../sass/base.scss */
 .main-navbar a {
   color: white;
 }
-/* line 57, ../sass/base.scss */
+/* line 62, ../sass/base.scss */
+.main-navbar a:hover, .main-navbar a:active {
+  color: #ddd;
+}
+/* line 66, ../sass/base.scss */
+.main-navbar a:active {
+  color: #ddd;
+}
+/* line 70, ../sass/base.scss */
+.main-navbar a.active-link {
+  font-weight: 800;
+}
+/* line 75, ../sass/base.scss */
 .main-navbar ol, .main-navbar ul {
   margin: 0;
 }
-/* line 60, ../sass/base.scss */
+/* line 78, ../sass/base.scss */
 .main-navbar ol li, .main-navbar ul li {
   margin: 0;
   top: 0px;
@@ -69,17 +87,17 @@ a:visited, a:hover {
   float: left;
   text-align: -webkit-match-parent;
 }
-/* line 69, ../sass/base.scss */
+/* line 87, ../sass/base.scss */
 .main-navbar ol li a, .main-navbar ul li a {
   line-height: 60px;
 }
-/* line 75, ../sass/base.scss */
+/* line 93, ../sass/base.scss */
 .main-navbar ol.u-pull-right li, .main-navbar ul.u-pull-right li {
   padding-right: 0px;
   padding-left: 32px;
 }
 
-/* line 83, ../sass/base.scss */
+/* line 101, ../sass/base.scss */
 .head-banner {
   background: url(./../images/banner.jpg) no-repeat center bottom;
   background-size: cover;
@@ -89,26 +107,26 @@ a:visited, a:hover {
   padding-top: 126px;
   padding-bottom: auto;
 }
-/* line 91, ../sass/base.scss */
+/* line 109, ../sass/base.scss */
 .head-banner .banner {
   color: #fff;
   padding-top: 10px;
 }
-/* line 94, ../sass/base.scss */
+/* line 112, ../sass/base.scss */
 .head-banner .banner h1 {
   margin: 0 0 0 0;
   font-size: 48px;
   line-height: 60px;
   font-weight: normal;
 }
-/* line 100, ../sass/base.scss */
+/* line 118, ../sass/base.scss */
 .head-banner .banner p {
   font-size: 16px;
   line-height: 20px;
   font-weight: normal;
   margin: 40px 0 50px 0;
 }
-/* line 106, ../sass/base.scss */
+/* line 124, ../sass/base.scss */
 .head-banner .banner .quick-start {
   display: inline-block;
   line-height: 60px;
@@ -117,7 +135,7 @@ a:visited, a:hover {
   width: 212px;
   border: 1px solid #fff;
 }
-/* line 113, ../sass/base.scss */
+/* line 131, ../sass/base.scss */
 .head-banner .banner .quick-start:hover {
   display: inline-block;
   line-height: 60px;
@@ -127,14 +145,14 @@ a:visited, a:hover {
   background-color: #fff;
   border: 1px solid #fff;
 }
-/* line 123, ../sass/base.scss */
+/* line 141, ../sass/base.scss */
 .head-banner .banner .github-counter {
   display: inline-block;
   margin: 50px 20px 0;
   line-height: 35px;
   color: #ffff;
 }
-/* line 128, ../sass/base.scss */
+/* line 146, ../sass/base.scss */
 .head-banner .banner .github-counter > span {
   display: inline-block;
   font-size: 18px;
@@ -143,12 +161,12 @@ a:visited, a:hover {
   padding: 0 5px;
 }
 
-/* line 139, ../sass/base.scss */
+/* line 157, ../sass/base.scss */
 .footer-nav {
   background-color: #333;
   color: ccc;
 }
-/* line 142, ../sass/base.scss */
+/* line 160, ../sass/base.scss */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -159,7 +177,7 @@ a:visited, a:hover {
   float: left;
   display: inline;
 }
-/* line 152, ../sass/base.scss */
+/* line 170, ../sass/base.scss */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -170,7 +188,7 @@ a:visited, a:hover {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 161, ../sass/base.scss */
+/* line 179, ../sass/base.scss */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -178,7 +196,7 @@ a:visited, a:hover {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 169, ../sass/base.scss */
+/* line 187, ../sass/base.scss */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -186,20 +204,20 @@ a:visited, a:hover {
   float: left;
   display: inline;
 }
-/* line 176, ../sass/base.scss */
+/* line 194, ../sass/base.scss */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 179, ../sass/base.scss */
+/* line 197, ../sass/base.scss */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 182, ../sass/base.scss */
+/* line 200, ../sass/base.scss */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 188, ../sass/base.scss */
+/* line 206, ../sass/base.scss */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -208,35 +226,35 @@ a:visited, a:hover {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 196, ../sass/base.scss */
+/* line 214, ../sass/base.scss */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 199, ../sass/base.scss */
+/* line 217, ../sass/base.scss */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 202, ../sass/base.scss */
+/* line 220, ../sass/base.scss */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 207, ../sass/base.scss */
+/* line 225, ../sass/base.scss */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 210, ../sass/base.scss */
+/* line 228, ../sass/base.scss */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 214, ../sass/base.scss */
+/* line 232, ../sass/base.scss */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 220, ../sass/base.scss */
+/* line 238, ../sass/base.scss */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -244,7 +262,7 @@ a:visited, a:hover {
   text-align: center;
   padding: 20px 0 20px;
 }
-/* line 226, ../sass/base.scss */
+/* line 244, ../sass/base.scss */
 .footer-nav .copyright > a {
   color: #fff;
 }
