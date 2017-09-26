@@ -336,15 +336,7 @@
 .skeleton p {
   margin-top: 0;
 }
-/* line 168, ../sass/skeleton.scss */
-.skeleton a {
-  color: #1EAEDB;
-}
-/* line 170, ../sass/skeleton.scss */
-.skeleton a:hover {
-  color: #0FA0CE;
-}
-/* line 176, ../sass/skeleton.scss */
+/* line 172, ../sass/skeleton.scss */
 .skeleton .button,
 .skeleton button,
 .skeleton input[type="submit"],
@@ -368,7 +360,7 @@
   cursor: pointer;
   box-sizing: border-box;
 }
-/* line 198, ../sass/skeleton.scss */
+/* line 194, ../sass/skeleton.scss */
 .skeleton .button:hover,
 .skeleton button:hover,
 .skeleton input[type="submit"]:hover,
@@ -383,7 +375,7 @@
   border-color: #888;
   outline: 0;
 }
-/* line 211, ../sass/skeleton.scss */
+/* line 207, ../sass/skeleton.scss */
 .skeleton .button.button-primary,
 .skeleton button.button-primary,
 .skeleton input[type="submit"].button-primary,
@@ -393,7 +385,7 @@
   background-color: #33C3F0;
   border-color: #33C3F0;
 }
-/* line 219, ../sass/skeleton.scss */
+/* line 215, ../sass/skeleton.scss */
 .skeleton .button.button-primary:hover,
 .skeleton button.button-primary:hover,
 .skeleton input[type="submit"].button-primary:hover,
@@ -408,7 +400,7 @@
   background-color: #1EAEDB;
   border-color: #1EAEDB;
 }
-/* line 236, ../sass/skeleton.scss */
+/* line 232, ../sass/skeleton.scss */
 .skeleton input[type="email"],
 .skeleton input[type="number"],
 .skeleton input[type="search"],
@@ -427,7 +419,7 @@
   box-shadow: none;
   box-sizing: border-box;
 }
-/* line 253, ../sass/skeleton.scss */
+/* line 249, ../sass/skeleton.scss */
 .skeleton input[type="email"],
 .skeleton input[type="number"],
 .skeleton input[type="search"],
@@ -440,13 +432,13 @@
   -moz-appearance: none;
   appearance: none;
 }
-/* line 264, ../sass/skeleton.scss */
+/* line 260, ../sass/skeleton.scss */
 .skeleton textarea {
   min-height: 65px;
   padding-top: 6px;
   padding-bottom: 6px;
 }
-/* line 268, ../sass/skeleton.scss */
+/* line 264, ../sass/skeleton.scss */
 .skeleton input[type="email"]:focus,
 .skeleton input[type="number"]:focus,
 .skeleton input[type="search"]:focus,
@@ -459,43 +451,43 @@
   border: 1px solid #33C3F0;
   outline: 0;
 }
-/* line 279, ../sass/skeleton.scss */
+/* line 275, ../sass/skeleton.scss */
 .skeleton label,
 .skeleton legend {
   display: block;
   margin-bottom: .5rem;
   font-weight: 600;
 }
-/* line 284, ../sass/skeleton.scss */
+/* line 280, ../sass/skeleton.scss */
 .skeleton fieldset {
   padding: 0;
   border-width: 0;
 }
-/* line 287, ../sass/skeleton.scss */
+/* line 283, ../sass/skeleton.scss */
 .skeleton input[type="checkbox"],
 .skeleton input[type="radio"] {
   display: inline;
 }
-/* line 290, ../sass/skeleton.scss */
+/* line 286, ../sass/skeleton.scss */
 .skeleton label > .label-body {
   display: inline-block;
   margin-left: .5rem;
   font-weight: normal;
 }
-/* line 298, ../sass/skeleton.scss */
+/* line 294, ../sass/skeleton.scss */
 .skeleton ul {
   list-style: circle inside;
 }
-/* line 300, ../sass/skeleton.scss */
+/* line 296, ../sass/skeleton.scss */
 .skeleton ol {
   list-style: decimal inside;
 }
-/* line 302, ../sass/skeleton.scss */
+/* line 298, ../sass/skeleton.scss */
 .skeleton ol, .skeleton ul {
   padding-left: 0;
   margin-top: 0;
 }
-/* line 305, ../sass/skeleton.scss */
+/* line 301, ../sass/skeleton.scss */
 .skeleton ul ul,
 .skeleton ul ol,
 .skeleton ol ol,
@@ -503,11 +495,11 @@
   margin: 1.5rem 0 1.5rem 3rem;
   font-size: 90%;
 }
-/* line 311, ../sass/skeleton.scss */
+/* line 307, ../sass/skeleton.scss */
 .skeleton li {
   margin-bottom: 1rem;
 }
-/* line 317, ../sass/skeleton.scss */
+/* line 313, ../sass/skeleton.scss */
 .skeleton code {
   padding: .2rem .5rem;
   margin: 0 .2rem;
@@ -517,42 +509,42 @@
   border: 1px solid #E1E1E1;
   border-radius: 4px;
 }
-/* line 325, ../sass/skeleton.scss */
+/* line 321, ../sass/skeleton.scss */
 .skeleton pre > code {
   display: block;
   padding: 1rem 1.5rem;
   white-space: pre;
 }
-/* line 333, ../sass/skeleton.scss */
+/* line 329, ../sass/skeleton.scss */
 .skeleton th,
 .skeleton td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #E1E1E1;
 }
-/* line 338, ../sass/skeleton.scss */
+/* line 334, ../sass/skeleton.scss */
 .skeleton th:first-child,
 .skeleton td:first-child {
   padding-left: 0;
 }
-/* line 341, ../sass/skeleton.scss */
+/* line 337, ../sass/skeleton.scss */
 .skeleton th:last-child,
 .skeleton td:last-child {
   padding-right: 0;
 }
-/* line 348, ../sass/skeleton.scss */
+/* line 344, ../sass/skeleton.scss */
 .skeleton button,
 .skeleton .button {
   margin-bottom: 1rem;
 }
-/* line 351, ../sass/skeleton.scss */
+/* line 347, ../sass/skeleton.scss */
 .skeleton input,
 .skeleton textarea,
 .skeleton select,
 .skeleton fieldset {
   margin-bottom: 1.5rem;
 }
-/* line 356, ../sass/skeleton.scss */
+/* line 352, ../sass/skeleton.scss */
 .skeleton pre,
 .skeleton blockquote,
 .skeleton dl,
@@ -564,32 +556,32 @@
 .skeleton form {
   margin-bottom: 2.5rem;
 }
-/* line 370, ../sass/skeleton.scss */
+/* line 366, ../sass/skeleton.scss */
 .skeleton .u-full-width {
   width: 100%;
   box-sizing: border-box;
 }
-/* line 373, ../sass/skeleton.scss */
+/* line 369, ../sass/skeleton.scss */
 .skeleton .u-max-full-width {
   max-width: 100%;
   box-sizing: border-box;
 }
-/* line 376, ../sass/skeleton.scss */
+/* line 372, ../sass/skeleton.scss */
 .skeleton .u-pull-right {
   float: right;
 }
-/* line 378, ../sass/skeleton.scss */
+/* line 374, ../sass/skeleton.scss */
 .skeleton .u-pull-left {
   float: left;
 }
-/* line 384, ../sass/skeleton.scss */
+/* line 380, ../sass/skeleton.scss */
 .skeleton hr {
   margin-top: 3rem;
   margin-bottom: 3.5rem;
   border-width: 0;
   border-top: 1px solid #E1E1E1;
 }
-/* line 395, ../sass/skeleton.scss */
+/* line 391, ../sass/skeleton.scss */
 .skeleton .container:after,
 .skeleton .row:after,
 .skeleton .u-cf {
@@ -600,35 +592,35 @@
 
 /* Larger than mobile */
 @media (min-width: 400px) {
-  /* line 416, ../sass/skeleton.scss */
+  /* line 412, ../sass/skeleton.scss */
   .skeleton .row {
     margin: 0px;
   }
 }
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {
-  /* line 425, ../sass/skeleton.scss */
+  /* line 421, ../sass/skeleton.scss */
   .skeleton .row {
     margin: 0px;
   }
 }
 /* Larger than tablet */
 @media (min-width: 750px) {
-  /* line 434, ../sass/skeleton.scss */
+  /* line 430, ../sass/skeleton.scss */
   .skeleton .row {
     margin: 0px;
   }
 }
 /* Larger than desktop */
 @media (min-width: 1000px) {
-  /* line 443, ../sass/skeleton.scss */
+  /* line 439, ../sass/skeleton.scss */
   .skeleton .row {
     margin: 0px;
   }
 }
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
-  /* line 452, ../sass/skeleton.scss */
+  /* line 448, ../sass/skeleton.scss */
   .skeleton .row {
     margin: 0px;
   }
