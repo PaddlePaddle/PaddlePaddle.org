@@ -17,16 +17,28 @@ dl, dd, ol, ul, figure {
 }
 
 /* line 19, ../sass/base.scss */
+body {
+  background-color: #f3f3f3;
+}
+
+/* line 23, ../sass/base.scss */
 a {
   color: #6A0472;
   text-decoration: none;
   cursor: pointer;
 }
-/* line 24, ../sass/base.scss */
+/* line 28, ../sass/base.scss */
 a:visited, a:hover {
   color: #6A0472;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* line 35, ../sass/base.scss */
+.btn-default {
+  margin: 4px;
+  color: #333;
+  border-color: #ccc;
 }
 
 /*# sourceMappingURL=home.css.map*/

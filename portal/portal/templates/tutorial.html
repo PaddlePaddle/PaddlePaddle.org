@@ -1,24 +1,9 @@
-{% extends "_base_nav.html" %}
+{% extends "_base_panel.html" %}
 
-{% block sub_nav %}
-<div class="main-navbar secondary">
-    <div class="container">
-        <div class="row">
-            <div class="eight columns">
-                <ul class="site-links">
-                    <li><a href="/documentation/develop/en/html/getstarted/index_en.html">Get Started</a></li>
-                    <li><a href="/book/">Applications</a></li>
-                    <li><a href="/documentation/develop/en/html/howto/index_en.html">Advanced</a></li>
-                </ul>
-            </div>
-             <div class="four columns">
-                <ul class="u-pull-right">
-                    <li><a href="/documentation/develop/en/html/getstarted/index_en.html">dev</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+{% load app_tags %}
+
+{% block side_nav_content %}
+{% content_links "TUTORIAL" %}
 {% endblock %}
 
 {% block post_content %}

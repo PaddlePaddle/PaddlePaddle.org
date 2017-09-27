@@ -1,4 +1,13 @@
-/* line 2, ../sass/tutorial.scss */
-#content nav {
+/* line 1, ../sass/tutorial.scss */
+.main-content-wrap {
+  margin-left: 0px;
+}
+/* line 4, ../sass/tutorial.scss */
+.main-content-wrap .doc-content-wrap {
+  top: 0px;
+  margin-left: 20px;
+}
+/* line 9, ../sass/tutorial.scss */
+.main-content-wrap nav {
   display: none;
 }

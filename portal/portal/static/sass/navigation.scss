@@ -1,14 +1,80 @@
+@import "_variables.scss";
 
 .navbar {
   .nav-divider {
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  .navbar-brand {
+    font-size: $font-xxlarge;
+    line-height: $primary-nav-height;
+  }
+
+  .navbar-toggler {
+    margin-top: $primary-nav-height/4;
+  }
 }
 
+.panel-layout {
+  .sidebar {
+    background-color: $side-panel-bg-color;
+    padding: 20px;
+
+    h3 {
+      padding: 16px 0 8px 0;
+      font-weight: $font-bold;
+      font-size: $font-large;
+
+      &.active {
+        color: $accent-color;
+      }
+    }
+
+    ul {
+      li {
+        padding: 8px 0 8px 0;
+      }
+    }
+
+    a {
+      color: $primary-text-color;
+
+      &:hover, &:active {
+        color: $accent-color;
+      }
+
+      &.active {
+        color: $accent-color;
+        font-weight: $font-bold;
+      }
+    }
+  }
+
+  .panel-content {
+
+  }
+}
+
+@media (min-width: 992px) {
+  .panel-layout {
+    .sidebar {
+      float: left;
+      max-width: $sidebar-max-width;
+    }
+  }
+
+  .sidebar-toggle {
+    display: none;
+  }
+
+  .sidebar.collapse {
+    display: block;
+   }
+}
 
 .footer-nav {
-  background-color: #333;
+  background-color: $accent-color !important;
   color: ccc;
   .intern-console {
     margin-left: 50px;

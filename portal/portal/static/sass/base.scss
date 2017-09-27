@@ -16,6 +16,10 @@ dl, dd, ol, ul, figure {
   font: $font-normal $font-medium $primary-font-family;
 }
 
+body {
+  background-color: $primary-background-color;
+}
+
 a {
   color: $accent-color;
   text-decoration: none;
@@ -26,6 +30,12 @@ a {
     text-decoration: none;
     cursor: pointer;
   }
+}
+
+.btn-default {
+  margin: 4px;
+  color: #333;
+  border-color: #ccc;
 }
 
 /*# sourceMappingURL=home.css.map*/
