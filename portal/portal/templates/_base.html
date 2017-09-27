@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% load app_tags %}
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>PaddlePaddle - Train and deploy deep learning at scale</title>
@@ -15,7 +17,7 @@
         {% endblock %}
     </head>
 
-    <body>
+    <body class="{% apply_class_if_template 'blog.html' 'invert' %}">
         {% block pre_content %}{% endblock %}
 
         {% block content_root %}

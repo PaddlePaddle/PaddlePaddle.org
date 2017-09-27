@@ -22,7 +22,7 @@ dl, dd, ol, ul, figure {
 
 /* line 19, ../sass/base.scss */
 body {
-  background-color: #f3f3f3;
+  background-color: #fff;
 }
 
 /* line 23, ../sass/base.scss */
@@ -46,77 +46,125 @@ a:visited, a:hover {
 }
 
 /*# sourceMappingURL=home.css.map*/
-/* line 4, ../sass/navigation.scss */
+/* line 3, ../sass/navigation.scss */
+.navbar {
+  background-color: #6A0472;
+}
+/* line 6, ../sass/navigation.scss */
 .navbar .nav-divider {
   padding-left: 16px;
   padding-right: 16px;
 }
-/* line 9, ../sass/navigation.scss */
+/* line 11, ../sass/navigation.scss */
 .navbar .navbar-brand {
   font-size: 32px;
   line-height: 80px;
 }
-/* line 14, ../sass/navigation.scss */
+/* line 16, ../sass/navigation.scss */
 .navbar .navbar-toggler {
-  margin-top: 20px;
+  margin-top: 0;
+}
+/* line 23, ../sass/navigation.scss */
+.navbar.navbar-dark .navbar-nav .active > .nav-link {
+  color: #fff;
+  font-weight: 700;
+}
+/* line 28, ../sass/navigation.scss */
+.navbar.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
 }
 
-/* line 20, ../sass/navigation.scss */
+/* line 37, ../sass/navigation.scss */
+body.invert .navbar-brand {
+  color: #6A0472;
+}
+/* line 40, ../sass/navigation.scss */
+body.invert .navbar-brand:hover, body.invert .navbar-brandactive {
+  color: #6A0472;
+}
+/* line 45, ../sass/navigation.scss */
+body.invert .navbar {
+  background-color: transparent;
+}
+/* line 50, ../sass/navigation.scss */
+body.invert .navbar .navbar-nav .active > .nav-link {
+  color: #6A0472;
+  font-weight: 700;
+}
+/* line 55, ../sass/navigation.scss */
+body.invert .navbar .navbar-nav .nav-link {
+  color: #6A0472;
+}
+/* line 61, ../sass/navigation.scss */
+body.invert .navbar.navbar-dark .navbar-toggler {
+  color: #6A0472;
+  border-color: #6A0472;
+}
+/* line 65, ../sass/navigation.scss */
+body.invert .navbar.navbar-dark .navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#6A0472' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+/* line 72, ../sass/navigation.scss */
+body.invert .footer-nav {
+  background-color: transparent;
+}
+
+/* line 79, ../sass/navigation.scss */
 .panel-layout .sidebar {
   background-color: #ededed;
   padding: 20px;
 }
-/* line 24, ../sass/navigation.scss */
+/* line 83, ../sass/navigation.scss */
 .panel-layout .sidebar h3 {
   padding: 16px 0 8px 0;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 20px;
 }
-/* line 29, ../sass/navigation.scss */
+/* line 88, ../sass/navigation.scss */
 .panel-layout .sidebar h3.active {
   color: #6A0472;
 }
-/* line 35, ../sass/navigation.scss */
+/* line 94, ../sass/navigation.scss */
 .panel-layout .sidebar ul li {
   padding: 8px 0 8px 0;
 }
-/* line 40, ../sass/navigation.scss */
+/* line 99, ../sass/navigation.scss */
 .panel-layout .sidebar a {
   color: #000;
 }
-/* line 43, ../sass/navigation.scss */
+/* line 102, ../sass/navigation.scss */
 .panel-layout .sidebar a:hover, .panel-layout .sidebar a:active {
   color: #6A0472;
 }
-/* line 47, ../sass/navigation.scss */
+/* line 106, ../sass/navigation.scss */
 .panel-layout .sidebar a.active {
   color: #6A0472;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (min-width: 992px) {
-  /* line 61, ../sass/navigation.scss */
+  /* line 120, ../sass/navigation.scss */
   .panel-layout .sidebar {
     float: left;
     max-width: 300px;
   }
 
-  /* line 67, ../sass/navigation.scss */
+  /* line 126, ../sass/navigation.scss */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 71, ../sass/navigation.scss */
+  /* line 130, ../sass/navigation.scss */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 76, ../sass/navigation.scss */
+/* line 135, ../sass/navigation.scss */
 .footer-nav {
-  background-color: #6A0472 !important;
+  background-color: #6A0472;
   color: ccc;
 }
-/* line 79, ../sass/navigation.scss */
+/* line 138, ../sass/navigation.scss */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -127,7 +175,7 @@ a:visited, a:hover {
   float: left;
   display: inline;
 }
-/* line 89, ../sass/navigation.scss */
+/* line 148, ../sass/navigation.scss */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -138,7 +186,7 @@ a:visited, a:hover {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 98, ../sass/navigation.scss */
+/* line 157, ../sass/navigation.scss */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -146,7 +194,7 @@ a:visited, a:hover {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 106, ../sass/navigation.scss */
+/* line 165, ../sass/navigation.scss */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -154,20 +202,20 @@ a:visited, a:hover {
   float: left;
   display: inline;
 }
-/* line 113, ../sass/navigation.scss */
+/* line 172, ../sass/navigation.scss */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 116, ../sass/navigation.scss */
+/* line 175, ../sass/navigation.scss */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 119, ../sass/navigation.scss */
+/* line 178, ../sass/navigation.scss */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 125, ../sass/navigation.scss */
+/* line 184, ../sass/navigation.scss */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -176,35 +224,35 @@ a:visited, a:hover {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 133, ../sass/navigation.scss */
+/* line 192, ../sass/navigation.scss */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 136, ../sass/navigation.scss */
+/* line 195, ../sass/navigation.scss */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 139, ../sass/navigation.scss */
+/* line 198, ../sass/navigation.scss */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 144, ../sass/navigation.scss */
+/* line 203, ../sass/navigation.scss */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 147, ../sass/navigation.scss */
+/* line 206, ../sass/navigation.scss */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 151, ../sass/navigation.scss */
+/* line 210, ../sass/navigation.scss */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 157, ../sass/navigation.scss */
+/* line 216, ../sass/navigation.scss */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -212,7 +260,7 @@ a:visited, a:hover {
   text-align: center;
   padding: 20px 0 20px;
 }
-/* line 163, ../sass/navigation.scss */
+/* line 222, ../sass/navigation.scss */
 .footer-nav .copyright > a {
   color: #fff;
 }

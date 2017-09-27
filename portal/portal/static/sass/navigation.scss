@@ -1,6 +1,8 @@
 @import "_variables.scss";
 
 .navbar {
+  background-color: $accent-color;
+
   .nav-divider {
     padding-left: 16px;
     padding-right: 16px;
@@ -12,7 +14,64 @@
   }
 
   .navbar-toggler {
-    margin-top: $primary-nav-height/4;
+    margin-top: 0;
+  }
+
+  &.navbar-dark {
+     .navbar-nav {
+       .active {
+         >.nav-link {
+           color: $white;
+           font-weight: $font-bold;
+         }
+       }
+       .nav-link {
+         color: $white;
+       }
+     }
+  }
+}
+
+body {
+  &.invert {
+    .navbar-brand {
+      color: $accent-color;
+
+      &:hover, &active {
+        color: $accent-color;
+      }
+    }
+
+    .navbar {
+      background-color: transparent;
+
+      .navbar-nav {
+        .active {
+          >.nav-link {
+            color: $accent-color;
+            font-weight: $font-bold;
+          }
+        }
+        .nav-link {
+          color: $accent-color;
+        }
+      }
+
+      &.navbar-dark {
+        .navbar-toggler {
+          color: $accent-color;
+          border-color: $accent-color;
+
+          .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$accent-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+          }
+        }
+      }
+    }
+
+    .footer-nav {
+      background-color: transparent;
+    }
   }
 }
 
@@ -74,7 +133,7 @@
 }
 
 .footer-nav {
-  background-color: $accent-color !important;
+  background-color: $accent-color;
   color: ccc;
   .intern-console {
     margin-left: 50px;
