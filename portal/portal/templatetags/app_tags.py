@@ -83,8 +83,8 @@ def links(chapter):
 
 
 @register.inclusion_tag('_content_links.html', takes_context=True)
-def content_links(context, chapter_id):
-    #TODO[thuan]: Load content links for chapter with id
+def content_links(context, book_id):
+    #TODO[thuan]: Load content links for book with id
     return {
         'request': context.request,
         'side_nav_content': TUTORIAL_NAV_DATA
