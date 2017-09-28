@@ -65,58 +65,59 @@ body.invert .footer-nav {
 .panel-layout .sidebar {
   background-color: #ededed;
   padding: 20px;
+  height: 100%;
 }
-/* line 83, ../sass/navigation.scss */
+/* line 84, ../sass/navigation.scss */
 .panel-layout .sidebar h3 {
   padding: 16px 0 8px 0;
   font-weight: 700;
   font-size: 20px;
 }
-/* line 88, ../sass/navigation.scss */
+/* line 89, ../sass/navigation.scss */
 .panel-layout .sidebar h3.active {
   color: #6A0472;
 }
-/* line 94, ../sass/navigation.scss */
+/* line 95, ../sass/navigation.scss */
 .panel-layout .sidebar ul li {
   padding: 8px 0 8px 0;
 }
-/* line 99, ../sass/navigation.scss */
+/* line 100, ../sass/navigation.scss */
 .panel-layout .sidebar a {
   color: #000;
 }
-/* line 102, ../sass/navigation.scss */
+/* line 103, ../sass/navigation.scss */
 .panel-layout .sidebar a:hover, .panel-layout .sidebar a:active {
   color: #6A0472;
 }
-/* line 106, ../sass/navigation.scss */
+/* line 107, ../sass/navigation.scss */
 .panel-layout .sidebar a.active {
   color: #6A0472;
   font-weight: 700;
 }
 
 @media (min-width: 992px) {
-  /* line 120, ../sass/navigation.scss */
+  /* line 121, ../sass/navigation.scss */
   .panel-layout .sidebar {
     float: left;
     max-width: 300px;
   }
 
-  /* line 126, ../sass/navigation.scss */
+  /* line 127, ../sass/navigation.scss */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 130, ../sass/navigation.scss */
+  /* line 131, ../sass/navigation.scss */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 135, ../sass/navigation.scss */
+/* line 136, ../sass/navigation.scss */
 .footer-nav {
-  background-color: #6A0472;
+  background-color: transparent;
   color: ccc;
 }
-/* line 138, ../sass/navigation.scss */
+/* line 139, ../sass/navigation.scss */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -127,7 +128,7 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 148, ../sass/navigation.scss */
+/* line 149, ../sass/navigation.scss */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -138,7 +139,7 @@ body.invert .footer-nav {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 157, ../sass/navigation.scss */
+/* line 158, ../sass/navigation.scss */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -146,7 +147,7 @@ body.invert .footer-nav {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 165, ../sass/navigation.scss */
+/* line 166, ../sass/navigation.scss */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -154,20 +155,20 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 172, ../sass/navigation.scss */
+/* line 173, ../sass/navigation.scss */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 175, ../sass/navigation.scss */
+/* line 176, ../sass/navigation.scss */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 178, ../sass/navigation.scss */
+/* line 179, ../sass/navigation.scss */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 184, ../sass/navigation.scss */
+/* line 185, ../sass/navigation.scss */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -176,35 +177,35 @@ body.invert .footer-nav {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 192, ../sass/navigation.scss */
+/* line 193, ../sass/navigation.scss */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 195, ../sass/navigation.scss */
+/* line 196, ../sass/navigation.scss */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 198, ../sass/navigation.scss */
+/* line 199, ../sass/navigation.scss */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 203, ../sass/navigation.scss */
+/* line 204, ../sass/navigation.scss */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 206, ../sass/navigation.scss */
+/* line 207, ../sass/navigation.scss */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 210, ../sass/navigation.scss */
+/* line 211, ../sass/navigation.scss */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 216, ../sass/navigation.scss */
+/* line 217, ../sass/navigation.scss */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -212,7 +213,7 @@ body.invert .footer-nav {
   text-align: center;
   padding: 20px 0 20px;
 }
-/* line 222, ../sass/navigation.scss */
+/* line 223, ../sass/navigation.scss */
 .footer-nav .copyright > a {
   color: #fff;
 }

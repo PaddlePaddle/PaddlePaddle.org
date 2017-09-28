@@ -1,3 +1,50 @@
+@import "_variables.scss";
+
+.home {
+  h1 {
+    font-family: "futura-pt-bold",sans-serif;
+    font-size: $font-xxxlarge;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  h2 {
+    font-size: $font-xlarge;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: $font-xlarge;
+    text-align: center;
+  }
+
+  .hero {
+    height: 600px;
+    padding-top: 150px;
+    background-color: $accent-color;
+
+    h1, h2, h3 {
+      color: white;
+    }
+  }
+
+  .install {
+
+  }
+
+  .features {
+
+  }
+
+  .deploy {
+
+  }
+  .testimony {
+
+  }
+}
+
+
 .head-banner {
   background: url(./../images/banner.jpg) no-repeat center bottom;
   background-size: cover;

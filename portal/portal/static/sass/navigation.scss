@@ -79,6 +79,7 @@ body {
   .sidebar {
     background-color: $side-panel-bg-color;
     padding: 20px;
+    height: 100%;
 
     h3 {
       padding: 16px 0 8px 0;
@@ -133,7 +134,7 @@ body {
 }
 
 .footer-nav {
-  background-color: $accent-color;
+  background-color: transparent;
   color: ccc;
   .intern-console {
     margin-left: 50px;

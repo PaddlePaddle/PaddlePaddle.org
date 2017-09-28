@@ -9,32 +9,31 @@
   background-color: #6A0472 !important;
 }
 
-/* line 13, ../sass/base.scss */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-  font: 400 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 /* line 19, ../sass/base.scss */
 body {
   background-color: #fff;
 }
 
-/* line 23, ../sass/base.scss */
+/* line 24, ../sass/base.scss */
+.row-no-padding [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* line 30, ../sass/base.scss */
 a {
   color: #6A0472;
   text-decoration: none;
   cursor: pointer;
 }
-/* line 28, ../sass/base.scss */
+/* line 35, ../sass/base.scss */
 a:visited, a:hover {
   color: #6A0472;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* line 35, ../sass/base.scss */
+/* line 42, ../sass/base.scss */
 .btn-default {
   margin: 4px;
   color: #333;
