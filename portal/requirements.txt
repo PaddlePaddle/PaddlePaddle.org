@@ -1,3 +1,4 @@
 Django==1.8.11
 gunicorn==19.7.1
 gevent==1.2.1
+pyyaml==3.12
