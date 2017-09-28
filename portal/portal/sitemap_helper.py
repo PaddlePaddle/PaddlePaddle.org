@@ -47,7 +47,7 @@ class ContentSchematicFile():
         sections = []
         ContentSchematicFile.iterate_folder(site_dir, sections, is_chinese=False)
 
-        cur_csf = {"id": id, "title": title, "sections": sections}
+        cur_csf = {id: {"title": title, "sections": sections}}
 
         with open(site_dir + '/site.json', 'w') as fp:
             fp.write(json.dumps(cur_csf))
@@ -55,7 +55,7 @@ class ContentSchematicFile():
         sections = []
         ContentSchematicFile.iterate_folder(site_dir, sections, is_chinese=True)
 
-        cur_csf = {"id": id, "title": title, "sections": sections}
+        cur_csf = {id: {"title": title, "sections": sections}}
 
         with open(site_dir + '/site_cn.json', 'w') as fp:
             fp.write(json.dumps(cur_csf))
