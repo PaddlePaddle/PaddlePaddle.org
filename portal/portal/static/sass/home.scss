@@ -4,32 +4,65 @@
   h1 {
     font-family: "futura-pt-bold",sans-serif;
     font-size: $font-xxxlarge;
-    text-align: center;
-    margin-bottom: 32px;
   }
 
   h2 {
-    font-size: $font-xlarge;
-    text-align: center;
+    font-family: "futura-pt-bold",sans-serif;
+    font-size: $font-xxlarge;
   }
 
   h3 {
     font-size: $font-xlarge;
+  }
+
+  h1, h2, h3 {
     text-align: center;
   }
 
   .hero {
     height: 600px;
-    padding-top: 150px;
+    padding-top: $home-line-spacing * 8;
     background-color: $accent-color;
+    text-align: center;
 
     h1, h2, h3 {
       color: white;
     }
+
+    h1 {
+      margin-bottom: $home-line-spacing*2;
+    }
+
+    h2, h3 {
+      margin-bottom: $home-line-spacing*4;
+    }
+
+    a.rounded-link {
+      background-color: transparent;
+      border-radius: 24px;
+      border: 1px solid white;
+      color: white;
+      border-color: white;
+      font-size: $font-large;
+      padding: 8px 40px 8px 40px;
+
+      &:hover, &:active {
+        color: white;
+        border-color: white;
+      }
+    }
   }
 
   .install {
+    padding-top: $home-line-spacing * 4;
 
+    h3 {
+      margin-bottom: $home-line-spacing*2;
+    }
+
+    h1, h2, h3 {
+      color: $accent-color;
+    }
   }
 
   .features {
@@ -41,228 +74,5 @@
   }
   .testimony {
 
-  }
-}
-
-
-.head-banner {
-  background: url(./../images/banner.jpg) no-repeat center bottom;
-  background-size: cover;
-  height: 399px;
-  color: #fff;
-  text-align: center;
-  padding-top: 126px;
-  padding-bottom: auto;
-  .banner {
-    color: #fff;
-    padding-top: 10px;
-    h1 {
-      margin: 0 0 0 0;
-      font-size: 48px;
-      line-height: 60px;
-      font-weight: normal;
-    }
-    p {
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: normal;
-      margin: 40px 0 50px 0;
-    }
-    .quick-start {
-      display: inline-block;
-      line-height: 60px;
-      color: #ffffff;
-      font-size: 18px;
-      width: 212px;
-      border: 1px solid #fff;
-      &:hover {
-        display: inline-block;
-        line-height: 60px;
-        color: #333;
-        font-size: 18px;
-        width: 212px;
-        background-color: #fff;
-        border: 1px solid #fff;
-      }
-    }
-    .github-counter {
-      display: inline-block;
-      margin: 50px 20px 0;
-      line-height: 35px;
-      color: #ffff;
-      > span {
-        display: inline-block;
-        font-size: 18px;
-        line-height: 26px;
-        float: left;
-        padding: 0 5px;
-      }
-    }
-  }
-}
-
-.services {
-  background-color: #f4f5f7;
-  position: relative;
-
-  h2 {
-    padding-top: 80px;
-    position: relative;
-    text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    span {
-      color: #333;
-      font-size: 30px;
-      font-weight: normal;
-      position: relative;
-      z-index: 1;
-    }
-  }
-  .sub-title {
-    text-align: center;
-    font-size: 16px;
-    color: #999;
-    font-weight: normal;
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-
-  .row {
-    width: 1080px;
-    margin: 0 auto;
-  }
-
-  .row::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-
-  > .row > div {
-    width: 50%;
-    float: left;
-    display: inline-block;
-    height: 400px;
-    text-align: left;
-    position: relative;
-    > * {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-    }
-    .service-desc {
-      left: 50px;
-      right: 0;
-    }
-    &:nth-child(2n+1) {
-      text-align: right;
-      .service-desc {
-        right: 50px;
-        left: 0;
-      }
-    }
-  }
-  .service-icon {
-    text-align: center;
-    max-width: 100%;
-    max-height: 100%;
-  }
-  .service-desc {
-    h3 {
-      color: #333;
-      font-size: 24px;
-      font-weight: normal;
-      margin: 0;
-    }
-    p {
-      margin: 20px 0;
-      font-size: 16px;
-      font-weight: 100;
-      line-height: 24px;
-      color: #999;
-    }
-    a.view-more {
-      color: #0073eb;
-      font-size: 16px;
-      display: inline-block;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-.features {
-  background-color: #ffffff;
-  padding-top: 80px;
-  padding-bottom: 60px;
-  h2 {
-    text-align: center;
-    margin-bottom: 70px;
-    margin-top: 0px;
-    font-size: 30px;
-    color: #333;
-    span {
-      position: relative;
-      z-index: 1;
-      font-weight: normal;
-      color: #333;
-    }
-  }
-  .feature-desc {
-    width: 25%;
-    float: left;
-    text-align: center;
-    h3 {
-      color: #333;
-      margin: 30px 0 20px;
-      font-size: 18px;
-      font-weight: normal;
-    }
-    p {
-      font-size: 14px;
-      text-align: center;
-      line-height: 24px;
-      color: #999;
-      max-width: 75%;
-      margin: 0;
-      display: inline-block;
-    }
-  }
-}
-
-.get-started {
-  background-color: #ffffff;
-  text-align: center;
-  padding-bottom: 80px;
-  h2 {
-    font-size: 30px;
-    color: #333;
-    margin-bottom: 30px;
-    font-weight: normal;
-  }
-  p {
-    font-size: 16px;
-    font-weight: 100;
-    color: #999;
-    margin-bottom: 30px;
-  }
-  .quick-start {
-    color: #fff;
-    background-color: #0073eb;
-    font-size: 18px;
-    display: inline-block;
-    line-height: 60px;
-    width: 212px;
-    &:hover {
-      color: #fff;
-      background-color: #3095ff;
-      font-size: 18px;
-      display: inline-block;
-      line-height: 60px;
-      width: 212px;
-    }
   }
 }
