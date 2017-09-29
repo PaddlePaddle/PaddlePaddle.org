@@ -2,113 +2,136 @@
 
 {% load i18n %}
 
-{% block head %}
-{{ block.super }}
+{% block post_content %}
 <link href="/static/stylesheets/home.css" media="screen, projection" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block content %}
-<section class="head-banner">
-    <div class="row banner">
-        <h1>{% trans "PArallel Distributed Deep LEarning"%}</h1>
-        <p>{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
+<div class="home">
+    <section class="container-fluid banner">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="tag-line">{% trans "PArallel Distributed Deep LEarning"%}</h1>
+                <p>{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
+            </div>
 
-        <div>
-            <a class="quick-start" href="http://book.paddlepaddle.org/index.html" target="_blank">{% trans "Quick Start"%}</a>
+            <div class="col-lg-12">
+                <a class="quick-start" href="/documentation/develop/en/html/getstarted/index_en.html">{% trans "Quick Start"%}</a>
+            </div>
+
+        </div>
+    </section>
+    <section class="services">
+        <div class="container">
+            <div class="row">
+                <h2 class="col-lg-12"><span>{% trans "Diverse Application Scenarios"%}</span></h2>
+                <p class="col-lg-12 sub-title">{% blocktrans %}PaddlePaddle powers hundreds of Baidu's and its partners' products.{% endblocktrans %}</p>
+                <hr class="col-lg-12 order-sm-3" />
+            </div>
+            <div class="row service-row">
+                <div class="col-lg-6 order-lg-1 order-sm-1">
+                    <img class="service-icon" src="/static/images/service-1.png">
+                </div>
+                <div class="col-lg-6 order-lg-2 order-sm-2">
+                    <div class="service-desc">
+                        <h3>{% trans "Computer Vision"%}</h3>
+                        <p>{% blocktrans %}Using a Convolutional Neural Network (CNN) for Image Recognition and Object Detection.{% endblocktrans %}</p>
+                        <div>
+                            <a role="button" class="view-more" href="/book/03.image_classification/index.html">{% trans "Read more >"%}</a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12 order-sm-3" />
+            </div>
+
+            <div class="row service-row">
+                <div class="col-lg-6 order-lg-2 order-sm-1">
+                    <img class="service-icon" src="/static/images/service-2.png">
+                </div>
+                <div class="col-lg-6 order-lg-1 order-sm-2">
+                    <div class="service-desc">
+                        <h3>{% trans "Natural Language Understanding"%}</h3>
+                        <p>{% blocktrans %}Using a Recurrent Neural Network (RNN) for Sentiment Analysis.{% endblocktrans %}</p>
+                        <div>
+                            <a role="button" class="view-more" href="/book/06.understand_sentiment/index.html">{% trans "Read more >"%}</a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12 order-sm-3" />
+            </div>
+
+            <div class="row service-row">
+                <div class="col-lg-6 order-lg-1 order-sm-1">
+                    <img class="service-icon" src="/static/images/service-3.png">
+                </div>
+                <div class="col-lg-6 order-lg-2 order-sm-2">
+                    <div class="service-desc">
+                        <h3>{% trans "Recommender System"%}</h3>
+                        <p>{% blocktrans %}Using Deep Learning on Recommendation Systems to Help Users Find Interests.{% endblocktrans %}</p>
+                        <div>
+                            <a role="button" class="view-more" href="/book/05.recommender_system/index.html">{% trans "Read more >"%}</a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12 order-sm-3" />
+            </div>
         </div>
 
-    </div>
-</section>
-<section class="services">
-    <div class="row">
-        <h2><span>{% trans "Diverse Application Scenarios"%}</span></h2>
-        <p class="sub-title">{% blocktrans %}PaddlePaddle powers hundreds of Baidu's and its partners' products.{% endblocktrans %}</p>
-    </div>
-    <div class="row">
-        <div>
-            <img class="service-icon" src="/static/images/service-1.png">
+    </section>
+    <section class="container features">
+        <div class="row">
+            <h2 class="col-lg-12"><span>{% trans "Technical Features"%}</span></h2>
         </div>
-        <div>
-            <div class="service-desc">
-                <h3>{% trans "Computer Vision"%}</h3>
-                <p>{% blocktrans %}Using a Convolutional Neural Network (CNN) for Image Recognition and Object Detection.{% endblocktrans %}</p>
-                <div>
-                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/03.image_classification/index.html" target="_blank">{% trans "Read more >"%}</a>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="feature-desc">
+                    <div class="feature-icon">
+                        <img src="/static/images/feature-1.png">
+                    </div>
+                    <h3>{% trans "Ease of use"%}</h3>
+                    <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
+                </div>
+            </div>
+             <div class="col-lg-3">
+                <div class="feature-desc">
+                    <div class="feature-icon">
+                        <img src="/static/images/feature-2.png">
+                    </div>
+                    <h3>{% trans "Flexibility"%}</h3>
+                    <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="feature-desc">
+                    <div class="feature-icon">
+                        <img src="/static/images/feature-3.png">
+                    </div>
+                    <h3>{% trans "Efficiency"%}</h3>
+                    <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
+                </div>
+            </div><div class="col-lg-3">
+                <div class="feature-desc">
+                    <div class="feature-icon">
+                        <img src="/static/images/feature-4.png">
+                    </div>
+                    <h3>{% trans "Scalability"%}</h3>
+                    <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div>
-            <div class="service-desc">
-                <h3>{% trans "Natural Language Understanding"%}</h3>
-                <p>{% blocktrans %}Using a Recurrent Neural Network (RNN) for Sentiment Analysis.{% endblocktrans %}</p>
-                <div>
-                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/06.understand_sentiment/index.html" target="_blank">{% trans "Read more >"%}</a>
-                </div>
+    </section>
+    <section class="container get-started">
+         <div class="row">
+            <h2 class="col-lg-12"><span>PaddlePaddle</span></h2>
+             <p class="col-lg-12">{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <a role="button" class="quick-start" href="/documentation/develop/en/html/getstarted/index_en.html">{% trans "Quick Start"%}</a>
             </div>
         </div>
-        <div>
-            <img class="service-icon" src="/static/images/service-2.png">
-        </div>
-    </div>
-    <div class="row">
-        <div>
-            <img class="service-icon" src="/static/images/service-3.png">
-        </div>
-        <div>
-            <div class="service-desc">
-                <h3>{% trans "Recommender System"%}</h3>
-                <p>{% blocktrans %}Using Deep Learning on Recommendation Systems to Help Users Find Interests.{% endblocktrans %}</p>
-                <div>
-                    <a role="button" class="view-more" href="http://book.paddlepaddle.org/05.recommender_system/index.html" target="_blank">{% trans "Read more >"%}</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="features">
-    <div class="row">
-        <h2><span>{% trans "Technical Features"%}</span></h2>
-    </div>
-    <div class="row">
-        <div class="feature-desc">
-            <div class="feature-icon">
-                <img src="/static/images/feature-1.png">
-            </div>
-            <h3>{% trans "Ease of use"%}</h3>
-            <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
-        </div>
-        <div class="feature-desc">
-            <div class="feature-icon">
-                <img src="/static/images/feature-2.png">
-            </div>
-            <h3>{% trans "Flexibility"%}</h3>
-            <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
-        </div>
-        <div class="feature-desc">
-            <div class="feature-icon">
-                <img src="/static/images/feature-3.png">
-            </div>
-            <h3>{% trans "Efficiency"%}</h3>
-            <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
-        </div>
-        <div class="feature-desc">
-            <div class="feature-icon">
-                <img src="/static/images/feature-4.png">
-            </div>
-            <h3>{% trans "Scalability"%}</h3>
-            <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
-        </div>
-    </div>
-</section>
-<section class="get-started">
-    <div class="row">
-        <h2>PaddlePaddle</h2>
-        <p>{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
-        <div>
-            <a role="button" class="quick-start" href="http://book.paddlepaddle.org/index.html" target="_blank">{% trans "Quick Start"%}</a>
-        </div>
-    </div>
-</section>
+    </section>
+
+</div>
 {% endblock %}

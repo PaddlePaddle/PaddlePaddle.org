@@ -4,29 +4,38 @@
 // http://chir.ag/projects/name-that-color
 // ============================================
 $black: #000;
-$mineShaft: #242424;
 $white: #fff;
-$blue: blue;
-$gallery: #f0f0f0;
+$curious-blue: #1EAEDB;
+$gallery: #ededed;
+$concrete: #f3f3f3;
+$indigo: #6A0472;
+$cornflower-blue: #597cf1;
 
 // ============================================
 // Background
 // ============================================
-$primary-background-color: $black;
-$secondary-background-color: $mineShaft;
-$accent-color: $blue;
+$theme-color: $black;
+$primary-background-color: $white;
+$secondary-background-color: $gallery;
+$accent-color: $cornflower-blue;
+
+$navbar-background-color: $black;
+$side-panel-bg-color: $gallery;
 
 // ============================================
 // Text
 // ============================================
 $font-normal: 400;
-$font-bold: 800;
+$font-bold: 700;
 
-$font-large: 18px;
+$font-xxxlarge: 48px;
+$font-xxlarge: 32px;
+$font-xlarge: 24px;
+$font-large: 20px;
 $font-medium: 16px;
 $font-small: 12px;
 
-$primary-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$primary-font-family: tahoma,arial,Hiragino Sans GB,Microsoft YaHei;;
 $primary-text-color: $black;
 $secondary-text-color: $gallery;
 
@@ -34,4 +43,6 @@ $secondary-text-color: $gallery;
 // Dimensions
 // ============================================
 $primary-nav-height: 60px;
-$secondary-nav-height: 60px;
+$sidebar-max-width: 300px;
+
+$home-line-spacing: 16px;

@@ -6,22 +6,31 @@
   }
 }
 
+.bg-primary {
+    background-color: $accent-color !important;
+}
+
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
   font: $font-normal $font-medium $primary-font-family;
 }
 
+body {
+  background-color: $primary-background-color;
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 a {
   color: $accent-color;
   text-decoration: none;
   cursor: pointer;
-
-  &:visited {
-    color: $accent-color;
-    text-decoration: none;
-    cursor: pointer;
-  }
 
   &:visited,&:hover {
     color: $accent-color;
@@ -30,221 +39,10 @@ a {
   }
 }
 
-.main-navbar {
-  background-color: black;
-  margin: 0px;
-  font-family: $primary-font-family;
-
-  &.primary {
-    top: 0;
-    background-color: $primary-background-color;
-    height: $primary-nav-height;
-  }
-
-  &.secondary {
-    background-color: $secondary-background-color;
-    height: $secondary-nav-height;
-  }
-
-  img.logo {
-    max-width: none;
-    width: auto;
-    height: $primary-nav-height;
-  }
-
-  .navbar-list {
-    margin-bottom: 0;
-  }
-
-  a {
-    color: white;
-
-    &:hover, &:active {
-      color: #ddd;
-    }
-
-    &:active {
-      color: #ddd;
-    }
-
-    &.active-link {
-        font-weight: $font-bold;
-    }
-  }
-
-  ol, ul {
-    margin: 0;
-
-    li {
-      margin: 0;
-      top: 0px;
-      padding-right: 32px;
-      position: static;
-      list-style: none;
-      float: left;
-      text-align: -webkit-match-parent;
-
-      a {
-        line-height: $primary-nav-height;
-      }
-    }
-
-    &.u-pull-right {
-      li {
-        padding-right: 0px;
-        padding-left: 32px;
-      }
-    }
-  }
-}
-
-.head-banner {
-  background: url(./../images/banner.jpg) no-repeat center bottom;
-  background-size: cover;
-  height: 399px;
-  color: #fff;
-  text-align: center;
-  padding-top: 126px;
-  padding-bottom: auto;
-  .banner {
-    color: #fff;
-    padding-top: 10px;
-    h1 {
-      margin: 0 0 0 0;
-      font-size: 48px;
-      line-height: 60px;
-      font-weight: normal;
-    }
-    p {
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: normal;
-      margin: 40px 0 50px 0;
-    }
-    .quick-start {
-      display: inline-block;
-      line-height: 60px;
-      color: #ffffff;
-      font-size: 18px;
-      width: 212px;
-      border: 1px solid #fff;
-      &:hover {
-        display: inline-block;
-        line-height: 60px;
-        color: #333;
-        font-size: 18px;
-        width: 212px;
-        background-color: #fff;
-        border: 1px solid #fff;
-      }
-    }
-    .github-counter {
-      display: inline-block;
-      margin: 50px 20px 0;
-      line-height: 35px;
-      color: #ffff;
-      > span {
-        display: inline-block;
-        font-size: 18px;
-        line-height: 26px;
-        float: left;
-        padding: 0 5px;
-      }
-    }
-  }
-}
-
-.footer-nav {
-  background-color: #333;
-  color: ccc;
-  .intern-console {
-    margin-left: 50px;
-    margin-right: 19px;
-    color: #ccc;
-    font-size: 12px;
-    line-height: 30px;
-    width: 150px;
-    float: left;
-    display: inline;
-  }
-  .chat-console {
-    padding-left: 50px;
-    color: #ccc;
-    font-size: 12px;
-    width: 600px;
-    float: left;
-    display: inline;
-    border-left: 1px solid rgba(241, 242, 244, 0.2);
-    border-right: 1px solid rgba(241, 242, 244, 0.2);
-    .sub-top-nava > li {
-      line-height: 30px;
-      width: 25%;
-      float: left;
-      display: inline;
-      margin-bottom: 20px;
-    }
-  }
-  .public-console {
-    margin-left: 49px;
-    margin-right: 50px;
-    width: 100px;
-    float: left;
-    display: inline;
-    > {
-      * {
-        vertical-align: left;
-      }
-      img {
-        margin-right: 5px;
-      }
-      p {
-        color: #ccc;
-        font-size: 14px;
-      }
-    }
-  }
-  .contact-us {
-    color: #fff;
-    text-align: center;
-    line-height: 30px;
-    font-size: 14px;
-    margin-bottom: 20px;
-    padding-top: 40px;
-    > {
-      * {
-        vertical-align: middle;
-      }
-      img {
-        margin-right: 5px;
-      }
-      a {
-        color: #fff;
-      }
-    }
-  }
-  .friendly-links {
-    text-align: center;
-    margin-bottom: 40px;
-    > li {
-      display: inline-block;
-      padding: 0 10px;
-      line-height: 12px;
-      > a {
-        color: #ccc;
-        font-size: 12px;
-      }
-    }
-  }
-  .copyright {
-    color: #666;
-    font-size: 12px;
-    width: 100%;
-    text-align: center;
-    padding: 20px 0 20px;
-    > a {
-      color: #fff;
-    }
-  }
+.btn-default {
+  margin: 4px;
+  color: #333;
+  border-color: #ccc;
 }
 
 /*# sourceMappingURL=home.css.map*/

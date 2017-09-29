@@ -1,5 +1,15 @@
 {% extends "_base_nav.html" %}
 
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            {{ static_content|safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block post_content %}
 <link href="/static/stylesheets/blog.css" media="screen, projection" rel="stylesheet" type="text/css" />
 {% endblock %}

@@ -1,45 +1,49 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
+{% load app_tags %}
 
 {% block content_root %}
-    <div class="skeleton">
-        <div class="main-navbar primary">
-            <div class="container">
-                <div class="row">
-                    <div class="three columns">
-                        <a class="logo" href="{% url 'home' %}"><img class="logo" src="/static/images/logo.png"></a>
-                    </div>
-                    {% block nav %}
-                    <div class="five columns">
-                        <ul>
-                            <li><a href="/documentation/develop/en/html/getstarted/index_en.html">{% trans "Tutorial" %}</a></li>
-                            <li><a href="/documentation/develop/en/html/api/index_en.html">{% trans "Documentation"%}</a></li>
-                            <li><a href="{% url 'blog_root' %}">{% trans "Blog"%}</a></li>
-                        </ul>
-                    </div>
-                    <div class="four columns">
-                        <ul class="u-pull-right">
-                            <li><a href="{{ lang_def.link }}">{{ lang_def.label}}&nbsp;</a></li>
-                            <li><a href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                                <i class="fa fa-github" aria-hidden="true"></i>
-                                <span>Github</span>
-                            </a></li>
-                        </ul>
-                    </div>
-                    {% endblock %}
-                </div>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="/static/images/logo.png"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item{% apply_class_if_template 'tutorial.html' ' active' %}">
+                    <a class="nav-link" href="{% url 'tutorial_root' %}">Tutorial <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item{% apply_class_if_template 'documentation.html' ' active' %}">
+                    <a class="nav-link" href="/documentation/develop/en/html/api/index_en.html">Documentation</a>
+                </li>
+                <li class="nav-item{% apply_class_if_template 'blog.html' ' active' %}">
+                    <a class="nav-link" href="{% url 'blog_root' %}">Blog</a>
+                </li>
+                <li class="nav-divider"></li>
+                </li>
+                <li>
+                    <a class="nav-link" href="{{ lang_def.link }}">{{ lang_def.label}}</a>
+                </li>
+                <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
+                    Github
+                </a></li>
+
+            </ul>
         </div>
-        {% block sub_nav %}{% endblock %}
     </div>
+</nav>
 
-    <div id="content">
-        {% block content %}{{ static_content|safe }}{% endblock %}
-    </div>
+<div id="content">
+    {% block content %}{{ static_content|safe }}{% endblock %}
+</div>
 
-    <footer class="footer-nav">
-        {% block footer %}
-        <p class="copyright">&copy;Copyright&nbsp;2017,&nbsp;PaddlePaddle&nbsp;developers.</p>
-        {% endblock %}
-    </footer>
+<footer class="footer-nav">
+    {% block footer %}
+    <p class="copyright">&copy;Copyright&nbsp;2017,&nbsp;PaddlePaddle&nbsp;developers.</p>
+    {% endblock %}
+</footer>
 {% endblock %}

@@ -1,5 +1,14 @@
-#content {
-    nav {
-        display: none;
-    }
+.main-content-wrap {
+  margin-left: 0px;
+
+  .doc-content-wrap {
+    top: 0px;
+    margin-left: 20px;
+  }
+
+  nav {
+    display: none;
+  }
+
+
 }
