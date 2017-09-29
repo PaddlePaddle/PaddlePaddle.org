@@ -1,5 +1,5 @@
 from django import template
-
+from portal import sitemap_helper
 
 # TODO[Thuan]: Move to external file
 TUTORIAL_NAV_DATA = {
@@ -100,8 +100,8 @@ def apply_class_if_template(context, template_file_name, class_name):
 @register.inclusion_tag('_content_links.html', takes_context=True)
 def content_links(context, book_id):
     #TODO[thuan]: Load content links for book with id
-
+    tutorial_nav_data = sitemap_helper.load_tutorial_book()
     return {
         'request': context.request,
-        'side_nav_content': TUTORIAL_NAV_DATA
+        'side_nav_content': tutorial_nav_data
     }
