@@ -9,13 +9,15 @@ $curious-blue: #1EAEDB;
 $gallery: #ededed;
 $concrete: #f3f3f3;
 $indigo: #6A0472;
+$cornflower-blue: #597cf1;
 
 // ============================================
 // Background
 // ============================================
+$theme-color: $black;
 $primary-background-color: $white;
-$secondary-background-color: $white;
-$accent-color: $indigo;
+$secondary-background-color: $gallery;
+$accent-color: $cornflower-blue;
 
 $navbar-background-color: $black;
 $side-panel-bg-color: $gallery;
@@ -33,14 +35,14 @@ $font-large: 20px;
 $font-medium: 16px;
 $font-small: 12px;
 
-$primary-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$primary-font-family: tahoma,arial,Hiragino Sans GB,Microsoft YaHei;;
 $primary-text-color: $black;
 $secondary-text-color: $gallery;
 
 // ============================================
 // Dimensions
 // ============================================
-$primary-nav-height: 80px;
+$primary-nav-height: 60px;
 $sidebar-max-width: 300px;
 
 $home-line-spacing: 16px;

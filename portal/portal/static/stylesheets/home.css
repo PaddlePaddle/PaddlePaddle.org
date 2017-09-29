@@ -1,64 +1,260 @@
 /* line 4, ../sass/home.scss */
 .home h1 {
-  font-family: "futura-pt-bold",sans-serif;
-  font-size: 48px;
-}
-/* line 9, ../sass/home.scss */
-.home h2 {
-  font-family: "futura-pt-bold",sans-serif;
-  font-size: 32px;
-}
-/* line 14, ../sass/home.scss */
-.home h3 {
   font-size: 24px;
 }
-/* line 18, ../sass/home.scss */
+/* line 8, ../sass/home.scss */
+.home h2 {
+  font-size: 20px;
+}
+/* line 12, ../sass/home.scss */
+.home h3 {
+  font-size: 16px;
+}
+/* line 16, ../sass/home.scss */
 .home h1, .home h2, .home h3 {
   text-align: center;
 }
-/* line 22, ../sass/home.scss */
-.home .hero {
-  height: 600px;
-  padding-top: 128px;
-  background-color: #6A0472;
+/* line 20, ../sass/home.scss */
+.home hr {
+  display: block;
+}
+/* line 24, ../sass/home.scss */
+.home p {
+  font-size: 12px;
+  font-weight: 100;
+  color: #999;
+  margin: 0px;
+}
+/* line 31, ../sass/home.scss */
+.home .banner {
+  color: white;
+  text-align: center;
+  background: url(./../images/banner.jpg) no-repeat center bottom;
+  background-size: cover;
+  height: 260px;
+  padding-bottom: auto;
+}
+/* line 39, ../sass/home.scss */
+.home .banner .oster-bg {
+  width: 100%;
+  max-height: 25rem;
+  vertical-align: top;
+}
+/* line 45, ../sass/home.scss */
+.home .banner .tag-line {
+  padding-top: 48px;
+  margin-bottom: 32px;
+}
+/* line 50, ../sass/home.scss */
+.home .banner p {
+  color: white;
+  margin-bottom: 32px;
+}
+/* line 55, ../sass/home.scss */
+.home .banner .quick-start {
+  display: inline-block;
+  line-height: 48px;
+  color: #ffffff;
+  font-size: 18px;
+  width: 212px;
+  border: 1px solid #fff;
+}
+/* line 62, ../sass/home.scss */
+.home .banner .quick-start:hover {
+  color: #333;
+  background-color: #ededed;
+  border: 1px solid #ededed;
+}
+/* line 70, ../sass/home.scss */
+.home .services {
+  background-color: transparent;
+}
+/* line 72, ../sass/home.scss */
+.home .services .sub-title {
+  text-align: center;
+  color: #999;
+}
+/* line 77, ../sass/home.scss */
+.home .services h2 {
+  margin-top: 32px;
+}
+/* line 81, ../sass/home.scss */
+.home .services p {
+  padding: 16px 0 16px 0;
+}
+/* line 85, ../sass/home.scss */
+.home .services .sub-title {
+  padding: 0;
+}
+/* line 89, ../sass/home.scss */
+.home .services .service-row {
+  padding: 8 16px 0 16px 0;
+  text-align: left;
+  top: 50%;
+}
+/* line 91, ../sass/home.scss */
+.home .services .service-row .service-desc {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+/* line 101, ../sass/home.scss */
+.home .services .service-icon {
+  text-align: center;
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 16px;
+}
+/* line 110, ../sass/home.scss */
+.home .features .col-lg-3 {
+  width: 50%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+/* line 116, ../sass/home.scss */
+.home .features h2 {
+  margin-top: 32px;
+}
+/* line 120, ../sass/home.scss */
+.home .features h3 {
+  margin: 16px 0 16px 0;
+}
+/* line 124, ../sass/home.scss */
+.home .features .feature-icon {
   text-align: center;
 }
-/* line 28, ../sass/home.scss */
-.home .hero h1, .home .hero h2, .home .hero h3 {
-  color: white;
+/* line 128, ../sass/home.scss */
+.home .features .feature-desc {
+  margin: 8px;
+  padding: 8px;
+  background-color: #ededed;
 }
-/* line 32, ../sass/home.scss */
-.home .hero h1 {
-  margin-bottom: 32px;
+/* line 134, ../sass/home.scss */
+.home .features p {
+  line-height: 24px;
 }
-/* line 36, ../sass/home.scss */
-.home .hero h2, .home .hero h3 {
-  margin-bottom: 64px;
+/* line 139, ../sass/home.scss */
+.home .get-started {
+  text-align: center;
+  padding-bottom: 32px;
 }
-/* line 40, ../sass/home.scss */
-.home .hero a.rounded-link {
-  background-color: transparent;
-  border-radius: 24px;
-  border: 1px solid white;
-  color: white;
-  border-color: white;
-  font-size: 20px;
-  padding: 8px 40px 8px 40px;
+/* line 143, ../sass/home.scss */
+.home .get-started h2 {
+  margin-top: 32px;
+  margin-bottom: 16px;
 }
-/* line 49, ../sass/home.scss */
-.home .hero a.rounded-link:hover, .home .hero a.rounded-link:active {
-  color: white;
-  border-color: white;
+/* line 148, ../sass/home.scss */
+.home .get-started p {
+  padding: 0 0 16px 0;
 }
-/* line 56, ../sass/home.scss */
-.home .install {
-  padding-top: 64px;
+/* line 152, ../sass/home.scss */
+.home .get-started .quick-start {
+  color: #fff;
+  background-color: #0073eb;
+  font-size: 18px;
+  display: inline-block;
+  line-height: 48px;
+  width: 212px;
 }
-/* line 59, ../sass/home.scss */
-.home .install h3 {
-  margin-bottom: 32px;
+/* line 159, ../sass/home.scss */
+.home .get-started .quick-start:hover {
+  color: #fff;
+  background-color: #3095ff;
+  font-size: 18px;
+  display: inline-block;
+  line-height: 60px;
+  width: 212px;
 }
-/* line 63, ../sass/home.scss */
-.home .install h1, .home .install h2, .home .install h3 {
-  color: #6A0472;
+
+@media (min-width: 992px) {
+  /* line 173, ../sass/home.scss */
+  .home h1 {
+    font-size: 48px;
+  }
+  /* line 177, ../sass/home.scss */
+  .home h2 {
+    font-size: 32px;
+  }
+  /* line 181, ../sass/home.scss */
+  .home h3 {
+    font-size: 24px;
+  }
+  /* line 185, ../sass/home.scss */
+  .home h1, .home h2, .home h3 {
+    text-align: center;
+  }
+  /* line 189, ../sass/home.scss */
+  .home hr {
+    display: none;
+  }
+  /* line 193, ../sass/home.scss */
+  .home p {
+    font-size: 16px;
+    font-weight: 100;
+    color: #999;
+    margin: 0px;
+  }
+  /* line 200, ../sass/home.scss */
+  .home .banner {
+    color: white;
+    height: 525px;
+  }
+  /* line 204, ../sass/home.scss */
+  .home .banner .tag-line {
+    padding-top: 96px;
+    margin-bottom: 48px;
+  }
+  /* line 209, ../sass/home.scss */
+  .home .banner p {
+    margin-bottom: 48px;
+  }
+  /* line 213, ../sass/home.scss */
+  .home .banner .quick-start {
+    line-height: 60px;
+    font-size: 18px;
+    width: 212px;
+  }
+  /* line 220, ../sass/home.scss */
+  .home .services {
+    background-color: #f4f5f7;
+  }
+  /* line 223, ../sass/home.scss */
+  .home .services h2 {
+    margin-top: 64px;
+  }
+  /* line 227, ../sass/home.scss */
+  .home .services .sub-title {
+    padding: 16px 0 0 0;
+  }
+  /* line 231, ../sass/home.scss */
+  .home .services .service-row {
+    padding: 16px 0 16px 0;
+  }
+  /* line 237, ../sass/home.scss */
+  .home .features h2 {
+    margin-top: 64px;
+    margin-bottom: 64px;
+  }
+  /* line 242, ../sass/home.scss */
+  .home .features .feature-desc {
+    margin: 8px;
+    padding: 8px;
+    background-color: transparent;
+  }
+  /* line 249, ../sass/home.scss */
+  .home .get-started {
+    padding-bottom: 96px;
+  }
+  /* line 252, ../sass/home.scss */
+  .home .get-started h2 {
+    margin-top: 64px;
+    margin-bottom: 32px;
+  }
+  /* line 257, ../sass/home.scss */
+  .home .get-started .quick-start {
+    font-size: 18px;
+    line-height: 60px;
+    width: 212px;
+  }
 }

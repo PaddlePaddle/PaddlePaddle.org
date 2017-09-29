@@ -10,7 +10,14 @@
 }
 /* line 9, ../sass/base.scss */
 .bg-primary {
-  background-color: #6A0472 !important;
+  background-color: #597cf1 !important;
+}
+
+/* line 13, ../sass/base.scss */
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+dl, dd, ol, ul, figure {
+  font: 400 16px tahoma, arial, Hiragino Sans GB, Microsoft YaHei;
 }
 
 /* line 19, ../sass/base.scss */
@@ -26,13 +33,13 @@ body {
 
 /* line 30, ../sass/base.scss */
 a {
-  color: #6A0472;
+  color: #597cf1;
   text-decoration: none;
   cursor: pointer;
 }
 /* line 35, ../sass/base.scss */
 a:visited, a:hover {
-  color: #6A0472;
+  color: #597cf1;
   text-decoration: none;
   cursor: pointer;
 }
@@ -47,124 +54,136 @@ a:visited, a:hover {
 /*# sourceMappingURL=home.css.map*/
 /* line 3, ../sass/navigation.scss */
 .navbar {
-  background-color: #6A0472;
+  background-color: #000;
+  padding: 0px 8px;
 }
-/* line 6, ../sass/navigation.scss */
+/* line 7, ../sass/navigation.scss */
 .navbar .nav-divider {
   padding-left: 16px;
   padding-right: 16px;
 }
-/* line 11, ../sass/navigation.scss */
+/* line 12, ../sass/navigation.scss */
 .navbar .navbar-brand {
   font-size: 32px;
-  line-height: 80px;
+  text-decoration: none;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-/* line 16, ../sass/navigation.scss */
+/* line 18, ../sass/navigation.scss */
+.navbar .navbar-brand img {
+  height: 60px;
+  width: auto;
+}
+/* line 24, ../sass/navigation.scss */
 .navbar .navbar-toggler {
   margin-top: 0;
 }
-/* line 23, ../sass/navigation.scss */
+/* line 31, ../sass/navigation.scss */
 .navbar.navbar-dark .navbar-nav .active > .nav-link {
   color: #fff;
   font-weight: 700;
 }
-/* line 28, ../sass/navigation.scss */
+/* line 36, ../sass/navigation.scss */
 .navbar.navbar-dark .navbar-nav .nav-link {
   color: #fff;
 }
 
-/* line 37, ../sass/navigation.scss */
-body.invert .navbar-brand {
-  color: #6A0472;
-}
-/* line 40, ../sass/navigation.scss */
-body.invert .navbar-brand:hover, body.invert .navbar-brandactive {
-  color: #6A0472;
-}
 /* line 45, ../sass/navigation.scss */
+body.invert .navbar-brand {
+  color: #597cf1;
+}
+/* line 48, ../sass/navigation.scss */
+body.invert .navbar-brand:hover, body.invert .navbar-brandactive {
+  color: #597cf1;
+}
+/* line 52, ../sass/navigation.scss */
+body.invert .navbar-brand img {
+  content: url("/static/images/logo-dark.png");
+}
+/* line 57, ../sass/navigation.scss */
 body.invert .navbar {
   background-color: transparent;
 }
-/* line 50, ../sass/navigation.scss */
+/* line 62, ../sass/navigation.scss */
 body.invert .navbar .navbar-nav .active > .nav-link {
-  color: #6A0472;
+  color: #597cf1;
   font-weight: 700;
 }
-/* line 55, ../sass/navigation.scss */
+/* line 67, ../sass/navigation.scss */
 body.invert .navbar .navbar-nav .nav-link {
-  color: #6A0472;
+  color: #597cf1;
 }
-/* line 61, ../sass/navigation.scss */
+/* line 73, ../sass/navigation.scss */
 body.invert .navbar.navbar-dark .navbar-toggler {
-  color: #6A0472;
-  border-color: #6A0472;
+  color: #597cf1;
+  border-color: #597cf1;
 }
-/* line 65, ../sass/navigation.scss */
+/* line 77, ../sass/navigation.scss */
 body.invert .navbar.navbar-dark .navbar-toggler .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#6A0472' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#597cf1' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
-/* line 72, ../sass/navigation.scss */
+/* line 84, ../sass/navigation.scss */
 body.invert .footer-nav {
   background-color: transparent;
 }
 
-/* line 79, ../sass/navigation.scss */
+/* line 91, ../sass/navigation.scss */
 .panel-layout .sidebar {
   background-color: #ededed;
   padding: 20px;
   height: 100%;
 }
-/* line 84, ../sass/navigation.scss */
+/* line 96, ../sass/navigation.scss */
 .panel-layout .sidebar h3 {
   padding: 16px 0 8px 0;
   font-weight: 700;
   font-size: 20px;
 }
-/* line 89, ../sass/navigation.scss */
+/* line 101, ../sass/navigation.scss */
 .panel-layout .sidebar h3.active {
-  color: #6A0472;
+  color: #597cf1;
 }
-/* line 95, ../sass/navigation.scss */
+/* line 107, ../sass/navigation.scss */
 .panel-layout .sidebar ul li {
   padding: 8px 0 8px 0;
 }
-/* line 100, ../sass/navigation.scss */
+/* line 112, ../sass/navigation.scss */
 .panel-layout .sidebar a {
   color: #000;
 }
-/* line 103, ../sass/navigation.scss */
+/* line 115, ../sass/navigation.scss */
 .panel-layout .sidebar a:hover, .panel-layout .sidebar a:active {
-  color: #6A0472;
+  color: #597cf1;
 }
-/* line 107, ../sass/navigation.scss */
+/* line 119, ../sass/navigation.scss */
 .panel-layout .sidebar a.active {
-  color: #6A0472;
+  color: #597cf1;
   font-weight: 700;
 }
 
 @media (min-width: 992px) {
-  /* line 121, ../sass/navigation.scss */
+  /* line 133, ../sass/navigation.scss */
   .panel-layout .sidebar {
     float: left;
     max-width: 300px;
   }
 
-  /* line 127, ../sass/navigation.scss */
+  /* line 139, ../sass/navigation.scss */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 131, ../sass/navigation.scss */
+  /* line 143, ../sass/navigation.scss */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 136, ../sass/navigation.scss */
+/* line 148, ../sass/navigation.scss */
 .footer-nav {
-  background-color: transparent;
+  background-color: #000;
   color: ccc;
 }
-/* line 139, ../sass/navigation.scss */
+/* line 151, ../sass/navigation.scss */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -175,7 +194,7 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 149, ../sass/navigation.scss */
+/* line 161, ../sass/navigation.scss */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -186,7 +205,7 @@ body.invert .footer-nav {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 158, ../sass/navigation.scss */
+/* line 170, ../sass/navigation.scss */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -194,7 +213,7 @@ body.invert .footer-nav {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 166, ../sass/navigation.scss */
+/* line 178, ../sass/navigation.scss */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -202,20 +221,20 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 173, ../sass/navigation.scss */
+/* line 185, ../sass/navigation.scss */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 176, ../sass/navigation.scss */
+/* line 188, ../sass/navigation.scss */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 179, ../sass/navigation.scss */
+/* line 191, ../sass/navigation.scss */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 185, ../sass/navigation.scss */
+/* line 197, ../sass/navigation.scss */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -224,35 +243,35 @@ body.invert .footer-nav {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 193, ../sass/navigation.scss */
+/* line 205, ../sass/navigation.scss */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 196, ../sass/navigation.scss */
+/* line 208, ../sass/navigation.scss */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 199, ../sass/navigation.scss */
+/* line 211, ../sass/navigation.scss */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 204, ../sass/navigation.scss */
+/* line 216, ../sass/navigation.scss */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 207, ../sass/navigation.scss */
+/* line 219, ../sass/navigation.scss */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 211, ../sass/navigation.scss */
+/* line 223, ../sass/navigation.scss */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 217, ../sass/navigation.scss */
+/* line 229, ../sass/navigation.scss */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -260,7 +279,7 @@ body.invert .footer-nav {
   text-align: center;
   padding: 20px 0 20px;
 }
-/* line 223, ../sass/navigation.scss */
+/* line 235, ../sass/navigation.scss */
 .footer-nav .copyright > a {
   color: #fff;
 }
