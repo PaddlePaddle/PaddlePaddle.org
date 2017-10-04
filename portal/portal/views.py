@@ -9,6 +9,7 @@ from django.utils.six.moves.urllib.parse import unquote
 from django.http import Http404
 from django.views import static
 from django.template import TemplateDoesNotExist
+from django.utils.translation import LANGUAGE_SESSION_KEY
 
 from portal import sitemap_helper
 
@@ -27,17 +28,8 @@ def home_root(request):
     if settings.DOC_MODE:
         return tutorial_root(request)
     else:
-        current_lang_code = request.LANGUAGE_CODE
-        lang_def = {}
-        if current_lang_code:
-            if current_lang_code == "en":
-                lang_def['label'] = u"中文"
-                lang_def['link'] = "/zh/"
-            else:
-                lang_def['label'] = "English"
-                lang_def['link'] = "/en/"
+        return render(request, 'index.html')
 
-        return render(request, 'index.html', {'lang_def': lang_def})
 
 def book_sub_path(request, version, path):
     path = "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), path)
@@ -49,10 +41,21 @@ def book_sub_path(request, version, path):
 
     return render(request, 'tutorial.html', context)
 
+
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
     sitemap_helper.set_preferred_version(request, preferred_version)
     return tutorial_root(request)
+
+
+def change_lang(request):
+    lang = request.GET.get('lang_code', 'en')
+
+    request.session[LANGUAGE_SESSION_KEY] = lang
+    response = redirect('/')
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+
+    return response
 
 
 def tutorial_root(request):

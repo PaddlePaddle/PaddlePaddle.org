@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from portal import sitemap_helper
 from django.conf import settings
@@ -103,10 +104,22 @@ def nav_bar(context):
     root_navigation = sitemap_helper.get_sitemap(
         sitemap_helper.get_preferred_version(context.request)
     )
+
+    current_lang_code = context.request.LANGUAGE_CODE
+
+    # Since we default to english, we set the change lang toggle to chinese
+    lang_label = u"中文"
+    lang_link = '/change-lang?lang_code=zh'
+
+    if current_lang_code and current_lang_code == "zh":
+        lang_label = "English"
+        lang_link = '/change-lang?lang_code=en'
+
     return {
         'request': context.request,
         'template': context.template,
         'root_nav': root_navigation,
+        'lang_def': { 'label': lang_label, 'link': lang_link },
         'doc_mode': settings.DOC_MODE
     }
 

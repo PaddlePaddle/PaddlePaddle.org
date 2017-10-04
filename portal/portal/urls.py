@@ -27,6 +27,7 @@ import views
 urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^(?P<path>.*)\.(?P<extension>((?!(htm|html)).)+)$', views.static_file_handler),
+    url(r'^$', views.home_root, name='home'),
     url(r'^blog/$', views.blog_root, name='blog_root'),
     url(r'^blog/(?P<path>.+html)$', views.blog_sub_path),
     url(r'^tutorial/$', views.tutorial_root, name='tutorial_root'),
@@ -34,10 +35,7 @@ urlpatterns = [
     url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/$', views.documentation_root),
     url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/(?P<path>.*)$', views.documentation_sub_path),
     url(r'^models/(?P<version>.*)/$', views.models_root),
-    url(r'^change-version$', views.change_version, name='set_version')
+    url(r'^change-version$', views.change_version, name='set_version'),
+    url(r'^change-lang$', views.change_lang, name='change_lang')
 ]
-
-urlpatterns += i18n_patterns(
-    url(r'^$', views.home_root, name='home'),
-)
 
