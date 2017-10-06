@@ -140,26 +140,27 @@ def nav_bar(context):
         'request': context.request,
         'template': context.template,
         'root_nav': root_navigation,
+        'DOCS_VERSION': context.get('DOCS_VERSION', None),
         'lang_def': { 'label': lang_label, 'link': lang_link },
         'doc_mode': settings.DOC_MODE,
     }
 
 @register.inclusion_tag('_content_links.html', takes_context=True)
 def content_links(context, book_id):
+    docs_version = context.get('DOCS_VERSION', None)
     tutorial_nav_data = sitemap_helper.get_book_navigation(
         book_id,
-        sitemap_helper.get_preferred_version(context.request)
+        docs_version
     )
     return {
         'request': context.request,
-        'DOCS_VERSION': context.get('DOCS_VERSION', None),
+        'DOCS_VERSION': docs_version,
         'side_nav_content': tutorial_nav_data
     }
 
 @register.inclusion_tag('_version_links.html', takes_context=True)
 def version_links(context, book_id):
     versions = sitemap_helper.get_available_versions()
-    preferred_version = sitemap_helper.get_preferred_version(context.request)
 
     is_hidden = True
     if context.template and (context.template.name == 'tutorial.html' or context.template.name == 'documentation.html'):
@@ -168,7 +169,7 @@ def version_links(context, book_id):
     return {
         'request': context.request,
         'version_list': versions,
-        'current_version': preferred_version,
+        'current_version': context.get('DOCS_VERSION', None),
         'is_hidden': is_hidden
     }
 

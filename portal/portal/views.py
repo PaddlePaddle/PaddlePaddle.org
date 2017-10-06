@@ -71,7 +71,6 @@ def tutorial_root(request):
     return redirect(tutorial_nav)
 
 
-
 def book_sub_path(request, version, path):
     sitemap_helper.set_preferred_version(request, version)
     path = "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), path)
