@@ -31,9 +31,9 @@ urlpatterns = [
     url(r'^blog/$', views.blog_root, name='blog_root'),
     url(r'^blog/(?P<path>.+html)$', views.blog_sub_path),
     url(r'^tutorial/$', views.tutorial_root, name='tutorial_root'),
-    url(r'^docs/(?P<version>.*)/book/(?P<path>.*)$', views.book_sub_path),
-    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/$', views.documentation_root),
-    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/(?P<path>.*)$', views.documentation_sub_path),
+    url(r'^docs/(?P<version>.*)/book/(?P<path>.*)$', views.book_sub_path, name="books"),
+    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/$', views.documentation_root, name="docs"),
+    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/(?P<path>.*)$', views.documentation_sub_path, name="docs_subpath"),
     url(r'^models/(?P<version>.*)/$', views.models_root),
     url(r'^change-version$', views.change_version, name='set_version'),
     url(r'^change-lang$', views.change_lang, name='change_lang')

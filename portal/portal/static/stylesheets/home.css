@@ -109,46 +109,48 @@
 /* line 110, ../sass/home.scss */
 .home .features .col-lg-3 {
   width: 50%;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding: 8px;
 }
-/* line 116, ../sass/home.scss */
+/* line 115, ../sass/home.scss */
 .home .features h2 {
   margin-top: 32px;
 }
-/* line 120, ../sass/home.scss */
+/* line 119, ../sass/home.scss */
 .home .features h3 {
   margin: 16px 0 16px 0;
 }
-/* line 124, ../sass/home.scss */
+/* line 123, ../sass/home.scss */
 .home .features .feature-icon {
   text-align: center;
 }
-/* line 128, ../sass/home.scss */
+/* line 127, ../sass/home.scss */
 .home .features .feature-desc {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
   margin: 8px;
   padding: 8px;
   background-color: #ededed;
 }
-/* line 134, ../sass/home.scss */
+/* line 136, ../sass/home.scss */
 .home .features p {
   line-height: 24px;
 }
-/* line 139, ../sass/home.scss */
+/* line 141, ../sass/home.scss */
 .home .get-started {
   text-align: center;
   padding-bottom: 32px;
 }
-/* line 143, ../sass/home.scss */
+/* line 145, ../sass/home.scss */
 .home .get-started h2 {
   margin-top: 32px;
   margin-bottom: 16px;
 }
-/* line 148, ../sass/home.scss */
+/* line 150, ../sass/home.scss */
 .home .get-started p {
   padding: 0 0 16px 0;
 }
-/* line 152, ../sass/home.scss */
+/* line 154, ../sass/home.scss */
 .home .get-started .quick-start {
   color: #fff;
   background-color: #0073eb;
@@ -157,7 +159,7 @@
   line-height: 48px;
   width: 212px;
 }
-/* line 159, ../sass/home.scss */
+/* line 161, ../sass/home.scss */
 .home .get-started .quick-start:hover {
   color: #fff;
   background-color: #3095ff;
@@ -168,90 +170,90 @@
 }
 
 @media (min-width: 992px) {
-  /* line 173, ../sass/home.scss */
+  /* line 175, ../sass/home.scss */
   .home h1 {
     font-size: 48px;
   }
-  /* line 177, ../sass/home.scss */
+  /* line 179, ../sass/home.scss */
   .home h2 {
     font-size: 32px;
   }
-  /* line 181, ../sass/home.scss */
+  /* line 183, ../sass/home.scss */
   .home h3 {
     font-size: 24px;
   }
-  /* line 185, ../sass/home.scss */
+  /* line 187, ../sass/home.scss */
   .home h1, .home h2, .home h3 {
     text-align: center;
   }
-  /* line 189, ../sass/home.scss */
+  /* line 191, ../sass/home.scss */
   .home hr {
     display: none;
   }
-  /* line 193, ../sass/home.scss */
+  /* line 195, ../sass/home.scss */
   .home p {
     font-size: 16px;
     font-weight: 100;
     color: #999;
     margin: 0px;
   }
-  /* line 200, ../sass/home.scss */
+  /* line 202, ../sass/home.scss */
   .home .banner {
     color: white;
     height: 525px;
   }
-  /* line 204, ../sass/home.scss */
+  /* line 206, ../sass/home.scss */
   .home .banner .tag-line {
     padding-top: 96px;
     margin-bottom: 48px;
   }
-  /* line 209, ../sass/home.scss */
+  /* line 211, ../sass/home.scss */
   .home .banner p {
     margin-bottom: 48px;
   }
-  /* line 213, ../sass/home.scss */
+  /* line 215, ../sass/home.scss */
   .home .banner .quick-start {
     line-height: 60px;
     font-size: 18px;
     width: 212px;
   }
-  /* line 220, ../sass/home.scss */
+  /* line 222, ../sass/home.scss */
   .home .services {
     background-color: #f4f5f7;
   }
-  /* line 223, ../sass/home.scss */
+  /* line 225, ../sass/home.scss */
   .home .services h2 {
     margin-top: 64px;
   }
-  /* line 227, ../sass/home.scss */
+  /* line 229, ../sass/home.scss */
   .home .services .sub-title {
     padding: 16px 0 0 0;
   }
-  /* line 231, ../sass/home.scss */
+  /* line 233, ../sass/home.scss */
   .home .services .service-row {
     padding: 16px 0 16px 0;
   }
-  /* line 237, ../sass/home.scss */
+  /* line 239, ../sass/home.scss */
   .home .features h2 {
     margin-top: 64px;
     margin-bottom: 64px;
   }
-  /* line 242, ../sass/home.scss */
+  /* line 244, ../sass/home.scss */
   .home .features .feature-desc {
     margin: 8px;
     padding: 8px;
     background-color: transparent;
   }
-  /* line 249, ../sass/home.scss */
+  /* line 251, ../sass/home.scss */
   .home .get-started {
     padding-bottom: 96px;
   }
-  /* line 252, ../sass/home.scss */
+  /* line 254, ../sass/home.scss */
   .home .get-started h2 {
     margin-top: 64px;
     margin-bottom: 32px;
   }
-  /* line 257, ../sass/home.scss */
+  /* line 259, ../sass/home.scss */
   .home .get-started .quick-start {
     font-size: 18px;
     line-height: 60px;

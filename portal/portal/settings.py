@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('ENV', None) == 'development' else False
 DOC_MODE = True if os.environ.get('DOC_MODE', '0') == '1' else False
-DEFAULT_DOC_VERSION = "develop" if not DOC_MODE else "doc_test"
+DEFAULT_DOC_VERSION = "0.10.0" if not DOC_MODE else "doc_test"
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                'portal.context_processors.base_context',
             ],
         },
     },

@@ -31,17 +31,6 @@ def home_root(request):
         return render(request, 'index.html')
 
 
-def book_sub_path(request, version, path):
-    path = "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), path)
-    static_content = _get_static_content_from_template(path)
-
-    context = {
-        'static_content': static_content
-    }
-
-    return render(request, 'tutorial.html', context)
-
-
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
     sitemap_helper.set_preferred_version(request, preferred_version)
@@ -56,12 +45,6 @@ def change_lang(request):
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
 
     return response
-
-
-def tutorial_root(request):
-    root_navigation = sitemap_helper.get_sitemap(sitemap_helper.get_preferred_version(request))
-    tutorial_nav = root_navigation['tutorial']['root_url']
-    return redirect(tutorial_nav)
 
 
 def blog_root(request):
@@ -82,7 +65,27 @@ def blog_sub_path(request, path):
     return render(request, 'blog.html', context)
 
 
+def tutorial_root(request):
+    root_navigation = sitemap_helper.get_sitemap(sitemap_helper.get_preferred_version(request))
+    tutorial_nav = root_navigation['tutorial']['root_url']
+    return redirect(tutorial_nav)
+
+
+
+def book_sub_path(request, version, path):
+    sitemap_helper.set_preferred_version(request, version)
+    path = "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), path)
+    static_content = _get_static_content_from_template(path)
+
+    context = {
+        'static_content': static_content
+    }
+
+    return render(request, 'tutorial.html', context)
+
+
 def documentation_root(request, version, language):
+    sitemap_helper.set_preferred_version(request, version)
     path = "%s/%sdocumentation/%s/html/index.html" % \
            (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), language)
 
@@ -94,6 +97,8 @@ def documentation_root(request, version, language):
 
 
 def documentation_sub_path(request, version, language, path=None):
+    sitemap_helper.set_preferred_version(request, version)
+
     path = "%s/%sdocumentation/%s/html/%s" % \
            (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), language, path)
 
@@ -109,6 +114,7 @@ def documentation_sub_path(request, version, language, path=None):
 
 
 def models_root(request, version):
+    sitemap_helper.set_preferred_version(request, version)
     path = "%s/models/index/index.html" % settings.EXTERNAL_TEMPLATE_DIR
 
     context = {

@@ -141,7 +141,7 @@ def nav_bar(context):
         'template': context.template,
         'root_nav': root_navigation,
         'lang_def': { 'label': lang_label, 'link': lang_link },
-        'doc_mode': settings.DOC_MODE
+        'doc_mode': settings.DOC_MODE,
     }
 
 @register.inclusion_tag('_content_links.html', takes_context=True)
@@ -152,6 +152,7 @@ def content_links(context, book_id):
     )
     return {
         'request': context.request,
+        'DOCS_VERSION': context.get('DOCS_VERSION', None),
         'side_nav_content': tutorial_nav_data
     }
 

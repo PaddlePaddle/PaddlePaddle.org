@@ -506,3 +506,8 @@ header.site-header .site-nav .trigger > a:hover {
     font-size: 18px;
   }
 }
+/* line 342, ../sass/blog.scss */
+.icon--github svg {
+  width: 16px;
+  height: 16px;
+}

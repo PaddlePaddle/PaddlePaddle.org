@@ -2,7 +2,7 @@
 
 <nav class="sidebar collapse" id="sidebar-nav">
     {% for chapter in side_nav_content.chapters %}
-    <h3{% if request.path in chapter|links %} class="active"{% endif %}>{% translation chapter.title %}{{ chapter.title }}</h3>
+    <h3{% if request.path in chapter|links %} class="active"{% endif %}>{% translation chapter.title %}</h3>
     <ul>
         {% for section in chapter.sections %}
         <!-- If the leaf_node doesn't support the current language, don't show the link -->

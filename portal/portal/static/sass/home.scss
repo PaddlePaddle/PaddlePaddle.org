@@ -109,8 +109,7 @@
   .features {
     .col-lg-3 {
       width: 50%;
-      padding-left: 0px;
-      padding-right: 0px;
+      padding: 8px;
     }
 
     h2 {
@@ -126,6 +125,9 @@
     }
 
     .feature-desc {
+      display: inline-block;
+      height: 100%;
+      width: 100%;
       margin: 8px;
       padding: 8px;
       background-color: $secondary-background-color;
