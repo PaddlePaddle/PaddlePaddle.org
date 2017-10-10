@@ -140,21 +140,21 @@ def nav_bar(context):
         'request': context.request,
         'template': context.template,
         'root_nav': root_navigation,
-        'DOCS_VERSION': context.get('DOCS_VERSION', None),
+        'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', None),
         'lang_def': { 'label': lang_label, 'link': lang_link },
         'doc_mode': settings.DOC_MODE,
     }
 
 @register.inclusion_tag('_content_links.html', takes_context=True)
 def content_links(context, book_id):
-    docs_version = context.get('DOCS_VERSION', None)
+    docs_version = context.get('CURRENT_DOCS_VERSION', None)
     tutorial_nav_data = sitemap_helper.get_book_navigation(
         book_id,
         docs_version
     )
     return {
         'request': context.request,
-        'DOCS_VERSION': docs_version,
+        'CURRENT_DOCS_VERSION': docs_version,
         'side_nav_content': tutorial_nav_data
     }
 
@@ -169,7 +169,7 @@ def version_links(context, book_id):
     return {
         'request': context.request,
         'version_list': versions,
-        'current_version': context.get('DOCS_VERSION', None),
+        'current_version': context.get('CURRENT_DOCS_VERSION', None),
         'is_hidden': is_hidden
     }
 

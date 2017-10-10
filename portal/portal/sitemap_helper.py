@@ -1,12 +1,13 @@
-import os
-
 import json
 import os
+
 from django.conf import settings
 from django.core.cache import cache
+from django.http import HttpResponseServerError
 
 
 def get_sitemap(version):
+    version = version.strip("/")
     cache_key = 'sitemap.%s' % version
     sitemap_cache = cache.get(cache_key, None)
 
@@ -26,7 +27,6 @@ def _load_sitemap_from_file(version):
     sitemap = None
 
     file_path = _get_sitemap_path(version)
-
     if os.path.isfile(file_path):
         # Sitemap file exists, lets load it
         try:
@@ -36,7 +36,8 @@ def _load_sitemap_from_file(version):
         except Exception as e:
             print "Cannot load sitemap from file %s: %s" % (file_path, e.message)
     else:
-        sitemap = generate_sitemap(version)
+        print "Cannot load sitemap from file %s" % file_path
+        raise HttpResponseServerError("Cannot load sitemap from file %s" % file_path)
 
     return sitemap
 

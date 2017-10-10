@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.utils.six.moves.urllib.parse import unquote
-from django.http import Http404
+from django.http import Http404, HttpResponseServerError
 from django.views import static
 from django.template import TemplateDoesNotExist
 from django.utils.translation import LANGUAGE_SESSION_KEY
@@ -34,7 +34,7 @@ def home_root(request):
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
     sitemap_helper.set_preferred_version(request, preferred_version)
-    return tutorial_root(request)
+    return tutorial_root(request, preferred_version)
 
 
 def change_lang(request):
@@ -65,10 +65,16 @@ def blog_sub_path(request, path):
     return render(request, 'blog.html', context)
 
 
-def tutorial_root(request):
-    root_navigation = sitemap_helper.get_sitemap(sitemap_helper.get_preferred_version(request))
-    tutorial_nav = root_navigation['tutorial']['root_url']
-    return redirect(tutorial_nav)
+def tutorial_root(request, version):
+    lang = request.GET.get('lang_code', 'en')
+    root_navigation = sitemap_helper.get_sitemap(version)
+
+    try:
+        path = root_navigation['tutorial']['root_url']
+        return redirect(path)
+    except Exception as e:
+        return HttpResponseServerError("Cannot get tutorial root url: %s" % e.message)
+
 
 
 def book_sub_path(request, version, path):
