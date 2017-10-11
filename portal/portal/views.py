@@ -5,14 +5,14 @@ import posixpath
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.utils.six.moves.urllib.parse import unquote
 from django.http import Http404, HttpResponseServerError
 from django.views import static
 from django.template import TemplateDoesNotExist
 from django.utils.translation import LANGUAGE_SESSION_KEY
 
-from portal import sitemap_helper
-
+from portal import sitemap_helper, portal_helper, url_helper
 
 # Search the path and render the content
 # Return Page not found if the template is missing.
@@ -33,22 +33,21 @@ def home_root(request):
 
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
-    sitemap_helper.set_preferred_version(request, preferred_version)
+    portal_helper.set_preferred_version(request, preferred_version)
     return tutorial_root(request, preferred_version)
 
 
 def change_lang(request):
     lang = request.GET.get('lang_code', 'en')
 
-    request.session[LANGUAGE_SESSION_KEY] = lang
     response = redirect('/')
-    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    portal_helper.set_preferred_language(request, response, lang)
 
     return response
 
 
 def blog_root(request):
-    path = settings.EXTERNAL_TEMPLATE_DIR + "/blog/index.html"
+    path = sitemap_helper.get_blog_file_path('index.html')
 
     context = {
         'static_content': _get_static_content_from_template(path)
@@ -57,7 +56,7 @@ def blog_root(request):
 
 
 def blog_sub_path(request, path):
-    path = "%s/blog/%s" % (settings.EXTERNAL_TEMPLATE_DIR, path)
+    path = sitemap_helper.get_blog_file_path(path)
 
     context = {
         'static_content': _get_static_content_from_template(path)
@@ -66,11 +65,20 @@ def blog_sub_path(request, path):
 
 
 def tutorial_root(request, version):
-    lang = request.GET.get('lang_code', 'en')
+    portal_helper.set_preferred_version(request, version)
+    lang = portal_helper.get_preferred_language(request)
     root_navigation = sitemap_helper.get_sitemap(version)
 
     try:
-        path = root_navigation['tutorial']['root_url']
+        # Get the first section link from the tutorial book
+        path = None
+        tutorial = root_navigation['tutorial']
+        path = _get_first_link_in_book(tutorial, lang)
+
+        if not path:
+            print "Cannot perform reverse lookup on link: %s" % path
+            return HttpResponseServerError()
+
         return redirect(path)
     except Exception as e:
         return HttpResponseServerError("Cannot get tutorial root url: %s" % e.message)
@@ -78,9 +86,9 @@ def tutorial_root(request, version):
 
 
 def book_sub_path(request, version, path):
-    sitemap_helper.set_preferred_version(request, version)
-    path = "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), path)
-    static_content = _get_static_content_from_template(path)
+    portal_helper.set_preferred_version(request, version)
+    static_content_path = sitemap_helper.get_book_file_path(version, path)
+    static_content = _get_static_content_from_template(static_content_path)
 
     context = {
         'static_content': static_content
@@ -89,26 +97,32 @@ def book_sub_path(request, version, path):
     return render(request, 'tutorial.html', context)
 
 
-def documentation_root(request, version, language):
-    sitemap_helper.set_preferred_version(request, version)
-    path = "%s/%sdocumentation/%s/html/index.html" % \
-           (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), language)
+def documentation_root(request, version):
+    portal_helper.set_preferred_version(request, version)
+    lang = portal_helper.get_preferred_language(request)
+    root_navigation = sitemap_helper.get_sitemap(version)
+
+    try:
+        # Get the first section link from the tutorial book
+        path = None
+        documentation = root_navigation['documentation']
+        path = _get_first_link_in_book(documentation, lang)
+
+        if not path:
+            print "Cannot perform reverse lookup on link: %s" % path
+            return HttpResponseServerError()
+
+        return redirect(path)
+    except Exception as e:
+        return HttpResponseServerError("Cannot get documentation root url: %s" % e.message)
+
+
+def documentation_path(request, version, path=None):
+    portal_helper.set_preferred_version(request, version)
+    static_content_path = sitemap_helper.get_docs_file_path(version, path)
 
     context = {
-        'static_content': _get_static_content_from_template(path),
-        'request': request
-    }
-    return render(request, 'tutorial.html', context)
-
-
-def documentation_sub_path(request, version, language, path=None):
-    sitemap_helper.set_preferred_version(request, version)
-
-    path = "%s/%sdocumentation/%s/html/%s" % \
-           (settings.EXTERNAL_TEMPLATE_DIR, sitemap_helper.get_doc_subpath(version), language, path)
-
-    context = {
-        'static_content': _get_static_content_from_template(path)
+        'static_content': _get_static_content_from_template(static_content_path)
     }
 
     template = 'documentation.html'     # TODO[thuan]: do this in a less hacky way
@@ -118,15 +132,29 @@ def documentation_sub_path(request, version, language, path=None):
     return render(request, template, context)
 
 
-def models_root(request, version):
-    sitemap_helper.set_preferred_version(request, version)
-    path = "%s/models/index/index.html" % settings.EXTERNAL_TEMPLATE_DIR
+def models_path(request, version, path):
+    portal_helper.set_preferred_version(request, version)
+    static_content_path = sitemap_helper.get_models_file_path(version, path)
 
     context = {
-        'static_content': _get_static_content_from_template(path),
-        'version': version
+        'static_content': _get_static_content_from_template(static_content_path)
     }
+
     return render(request, 'documentation.html', context)
+
+
+def _get_first_link_in_book(book, lang):
+    path = None
+
+    if book:
+        if book and len(book) > 0:
+            _, first_chapter = book.items()[0]
+        if first_chapter and ('sections' in first_chapter) and len(first_chapter['sections']) > 0:
+            first_section = first_chapter['sections'][0]
+            path = first_section['link'][lang]
+
+    return path
+
 
 def static_file_handler(request, path, extension, insecure=False, **kwargs):
     """

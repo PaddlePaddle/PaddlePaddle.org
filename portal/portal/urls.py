@@ -16,6 +16,8 @@ from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 import views
 
+from portal import url_helper
+
 # def staticfiles_urlpatterns(prefix=None):
 #     """
 #     Helper function to return a URL pattern for serving static files.
@@ -25,16 +27,42 @@ import views
 #     return static(None, view=views.css_handler)
 
 urlpatterns = [
-    url(r'^i18n/', include('django.conf.urls.i18n')),
+    # ---------------------
+    # STATIC FILE HANDLERS
+    # ---------------------
     url(r'^(?P<path>.*)\.(?P<extension>((?!(htm|html|/)).)+)$', views.static_file_handler),
+
+    # ---------------
+    # HOME PAGE URLS
+    # ---------------
     url(r'^$', views.home_root, name='home'),
-    url(r'^blog/$', views.blog_root, name='blog_root'),
-    url(r'^blog/(?P<path>.+html)$', views.blog_sub_path),
-    url(r'^tutorial/(?P<version>.*)/$', views.tutorial_root, name='tutorial_root'),
-    url(r'^docs/(?P<version>.*)/book/(?P<path>.*)$', views.book_sub_path, name="tutorial_path"),
-    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/$', views.documentation_root, name="docs"),
-    url(r'^docs/(?P<version>.*)/documentation/(?P<language>.*)/html/(?P<path>.*)$', views.documentation_sub_path, name="docs_subpath"),
-    url(r'^models/(?P<version>.*)/$', views.models_root),
+
+    # ---------------
+    # BLOG URLS
+    # ---------------
+    url(r'^%s$' % url_helper.BLOG_ROOT, views.blog_root, name=url_helper.URL_NAME_BLOG_ROOT),
+    url(r'^%s(?P<path>.+html)$' % url_helper.BLOG_ROOT, views.blog_sub_path),
+
+    # ---------------
+    # TUTORIAL URLS
+    # ---------------
+    url(r'^tutorial/(?P<version>.*)/$', views.tutorial_root, name=url_helper.URL_NAME_TUTORIAL_ROOT),
+    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.BOOK_ROOT, views.book_sub_path, name=url_helper.URL_NAME_TUTORIAL),
+
+    # -------------------
+    # DOCUMENTATION URLS
+    # -------------------
+    url(r'^docs/(?P<version>.*)/$', views.documentation_root, name=url_helper.URL_NAME_DOCS_ROOT),
+    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.DOCUMENTATION_ROOT, views.documentation_path, name=url_helper.URL_NAME_DOCS),
+
+    # ---------------
+    # MODELS URLS
+    # ---------------
+    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.MODEL_ROOT, views.models_path, name=url_helper.URL_NAME_MODEL),
+
+    # ---------------
+    # ACTION URLS
+    # ---------------
     url(r'^change-version$', views.change_version, name='set_version'),
     url(r'^change-lang$', views.change_lang, name='change_lang')
 ]

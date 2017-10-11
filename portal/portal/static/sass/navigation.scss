@@ -155,7 +155,8 @@ body {
   .panel-layout {
     .sidebar {
       float: left;
-      max-width: $sidebar-max-width;
+      max-width: $sidebar-width;
+      min-width: $sidebar-width;
     }
   }
 

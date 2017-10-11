@@ -1,9 +1,12 @@
 import json
 import os
+import collections
 
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponseServerError
+
+from portal import url_helper
 
 
 def get_sitemap(version):
@@ -13,6 +16,7 @@ def get_sitemap(version):
 
     if not sitemap_cache:
         sitemap_cache = _load_sitemap_from_file(version)
+        _transform_urls(version, sitemap_cache)
 
         if sitemap_cache:
             timeout = 5 if settings.DEBUG else 60
@@ -32,77 +36,39 @@ def _load_sitemap_from_file(version):
         try:
             print "Loading sitemap from %s" % file_path
             json_data = open(file_path).read()
-            sitemap = json.loads(json_data)
+            sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
         except Exception as e:
             print "Cannot load sitemap from file %s: %s" % (file_path, e.message)
     else:
-        print "Cannot load sitemap from file %s" % file_path
-        raise HttpResponseServerError("Cannot load sitemap from file %s" % file_path)
+        msg = "Cannot load sitemap from file %s" % file_path
+        print msg
+        raise Exception(msg)
 
     return sitemap
 
 
-def get_preferred_version(request):
-    preferred_version = settings.DEFAULT_DOC_VERSION
-    if request and 'preferred_version' in request.session:
-        preferred_version = request.session['preferred_version']
+def _transform_urls(version, sitemap):
+    '''
+    Since paths defined in assets/sitemaps/<version>.json are defined relative to the folder structure of the content
+    directories, we will need to append the URL path prefix so our URL router knows how to resolve the URLs.
 
-    return preferred_version
+    ex:
+    /documentation/en/getstarted/index_en.html -> /docs/<version>/documentation/en/gettingstarted/index_en.html
+    /book/01.fit_a_line/index.html -> /docs/<version>/book/01.fit_a_line/index.html
 
-
-def set_preferred_version(request, preferred_version):
-    if request and preferred_version:
-        request.session['preferred_version'] = preferred_version
-
-
-def generate_sitemap(version):
-    book_template_path = _get_book_path(version)
-    try:
-        print "Generating sitemap from %s" % book_template_path
-        book_template_str = open(book_template_path).read()
-        book_template = json.loads(book_template_str)
-
-        sitemap = {}
-        all_sections = _load_all_sections(version)
-        for book in book_template["books"]:
-            book_map = {
-                "id": book["id"],
-                "name": book["name"],
-                "chapters": []
-            }
-
-            for chapter_id in book["chapters"]:
-                chapter_ref_map = all_sections.get(chapter_id, None)
-
-                if chapter_ref_map:
-                    chapter_map = {
-                        "id": chapter_id
-                    }
-                    chapter_map.update(chapter_ref_map)
-                    book_map["chapters"].append(chapter_map)
-
-                    if 'sections' in chapter_ref_map:
-                        sections = chapter_ref_map['sections']
-
-                        # Go through each section link and prepend a /docs/version.  This allow relative links in the
-                        # corresponding site.json to be mapped correctly to the local directory structure.
-                        # Also set the root_url (which is the first section's link) on each book.
-                        for section in sections:
-                            if "link" in section:
-                                section["link"] = "/%s%s" % (get_doc_subpath(version), section["link"].strip("/"))
-                                if "root_url" not in book_map:
-                                    book_map["root_url"] = section["link"]
-
-            sitemap[book["id"]] = book_map
-
-        sitemap_path = _get_sitemap_path(version)
-        with open(sitemap_path, 'w') as fp:
-            json.dump(sitemap, fp)
-
-        return sitemap
-    except Exception as e:
-        print "Cannot generate sitemap: %s" % e
-        return None
+    :param version:
+    :param sitemap:
+    :return:
+    '''
+    if sitemap:
+        for _, book in sitemap.items():
+            for _, chapter in book.items():
+                if 'sections' in chapter:
+                    for section in chapter['sections']:
+                        if 'link' in section:
+                            link = section['link']
+                            for lang, url in link.items():
+                                link[lang] = url_helper.append_prefix_to_path(version, link[lang])
 
 
 # Merge all site.json files
@@ -139,7 +105,7 @@ def _get_book_path(version):
 
 
 def _get_sitemap_path(version):
-    return "%s/%ssitemap.json" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version))
+    return "%s/assets/sitemaps/%s.json" % (settings.PROJECT_ROOT, version)
 
 
 def _get_chapter_path(version, module):
@@ -151,3 +117,19 @@ def get_available_versions():
     for root, dirs, files in os.walk(path):
         if root == path:
             return dirs
+
+
+def get_blog_file_path(sub_path):
+    return "%s/blog/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sub_path)
+
+
+def get_book_file_path(version, sub_path):
+    return "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)
+
+
+def get_docs_file_path(version, sub_path):
+    return "%s/%sdocumentation/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)
+
+
+def get_models_file_path(version, sub_path):
+    return "%s/%smodels/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)

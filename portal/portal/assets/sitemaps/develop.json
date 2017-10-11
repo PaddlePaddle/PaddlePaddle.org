@@ -1,0 +1,220 @@
+{
+  "tutorial": {
+    "getting_started": {
+      "title": {
+        "en": "Getting Started",
+        "zh": "新手入门"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Overview",
+            "zh": "大綱"
+          },
+          "link": {
+            "en": "/documentation/en/getstarted/index_en.html",
+            "zh": "/documentation/cn/getstarted/index_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Installation",
+            "zh": "安装与编译"
+          },
+          "link": {
+            "en": "/documentation/en/getstarted/build_and_install/index_en.html",
+            "zh": "/documentation/cn/getstarted/build_and_install/index_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "What's New",
+            "zh": "What's New"
+          },
+          "link": {
+            "en": "/documentation/en/getstarted/build_and_install/index_en.html",
+            "zh": "/documentation/cn/getstarted/build_and_install/index_cn.html"
+          }
+        }
+      ]
+    },
+    "applications": {
+      "title": {
+        "en": "Deep Learning 101",
+        "zh": "深度学习入门课程"
+      },
+      "sections": [
+        {
+          "link": {
+            "en": "/book/01.fit_a_line/index.html",
+            "zh": "/book/01.fit_a_line/index.cn.html"
+          },
+          "title": {
+            "en": "fit a line",
+            "zh": "新手入门"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/02.recognize_digits/index.html",
+            "zh": "/book/02.recognize_digits/index.cn.html"
+          },
+          "title": {
+            "en": "recognize digits",
+            "zh": "识别数字"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/03.image_classification/index.html",
+            "zh": "/book/03.image_classification/index.cn.html"
+          },
+          "title": {
+            "en": "recognize digits",
+            "zh": "图像分类"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/04.word2vec/index.html",
+            "zh": "/book/04.word2vec/index.cn.html"
+          },
+          "title": {
+            "en": "word2vec",
+            "zh": "词向量"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/05.recommender_system/index.html",
+            "zh": "/book/05.recommender_system/index.cn.html"
+          },
+          "title": {
+            "en": "recommender system",
+            "zh": "个性化推荐"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/06.understand_sentiment/index.html",
+            "zh": "/book/06.understand_sentiment/index.cn.html"
+          },
+          "title": {
+            "en": "understand sentiment",
+            "zh": "情感分析"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/07.label_semantic_roles/index.html",
+            "zh": "/book/07.label_semantic_roles/index.cn.html"
+          },
+          "title": {
+            "en": "label semantic roles",
+            "zh": "语义角色标注"
+          }
+        },
+        {
+          "link": {
+            "en": "/book/08.machine_translation/index.html",
+            "zh": "/book/08.machine_translation/index.cn.html"
+          },
+          "title": {
+            "en": "machine translation",
+            "zh": "机器翻译"
+          }
+        }
+      ]
+    },
+    "advanced": {
+      "title": {
+        "en": "Advanced",
+        "zh": "进阶指南"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Paddle On Kubernetes",
+            "zh": "Kubernetes 简介"
+          },
+          "link": {
+            "en": "/documentation/en/howto/usage/k8s/k8s_en.html",
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_cn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "Kubernetes单机训练"
+          },
+          "link": {
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_cn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "Kubernetes分布式训练"
+          },
+          "link": {
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_distributed_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Distributed Training on AWS with Kubernetes"
+          },
+          "link": {
+            "en": "/documentation/en/howto/usage/k8s/k8s_en.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Tune GPU Performance",
+            "zh": "GPU性能分析与调优"
+          },
+          "link": {
+            "en": "/documentation/en/howto/optimization/gpu_profiling_en.html",
+            "zh": "/documentation/cn/howto/optimization/gpu_profiling_cn.html"
+          }
+        }
+      ]
+    }
+  },
+  "documentation": {
+    "api": {
+      "title": {
+        "en": "API",
+        "zh": "API"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "API",
+            "zh": "API"
+          },
+          "link": {
+            "en": "/documentation/en/api/index_en.html",
+            "zh": "/documentation/cn/api/index_cn.html"
+          }
+        }
+      ]
+    },
+    "models": {
+      "title": {
+        "en": "Models",
+        "zh": "模型"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Models",
+            "zh": "模型"
+          },
+          "link": {
+            "en": "/models/index/index.html",
+            "zh": "/models/index/index.html"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -15,7 +15,7 @@
                     <a class="nav-link" href="{% url 'tutorial_root' CURRENT_DOCS_VERSION %}">{% trans "Tutorial" %}<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item{% apply_class_if_template 'documentation.html' ' active' %}">
-                    <a class="nav-link" href="{{ root_nav.documentation.root_url|safe }}">{% trans "Documentation" %}</a>
+                    <a class="nav-link" href="{% url 'docs_root' CURRENT_DOCS_VERSION %}">{% trans "Documentation" %}</a>
                 </li>
 
                 {% if not doc_mode %}

@@ -1,4 +1,10 @@
-{% extends "_base_nav.html" %}
+{% extends "_base_panel.html" %}
+
+{% load app_tags %}
+
+{% block side_nav_content %}
+{% content_links "documentation" %}
+{% endblock %}
 
 {% block sub_nav %}
 <div class="main-navbar secondary">
