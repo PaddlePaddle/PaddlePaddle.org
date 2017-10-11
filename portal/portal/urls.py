@@ -56,6 +56,6 @@ urlpatterns = [
     # ACTION URLS
     # ---------------
     url(r'^change-version$', views.change_version, name='set_version'),
-    url(r'^change-lang$', views.change_lang, name='change_lang')
+    url(r'^change-lang$', views.change_lang, name='change_lang'),
 ]
 

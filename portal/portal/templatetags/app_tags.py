@@ -109,6 +109,7 @@ def _common_context(context, additional_context):
         'template': context.template,
         'url_helper': context.get('url_helper', None),
         'settings': context.get('settings', None),
+        'book_id': context.get('book_id', None),
         'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', None)
     })
 

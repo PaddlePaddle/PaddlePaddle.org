@@ -12,10 +12,7 @@
         <link href="/static/stylesheets/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
-
-        <script src="/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/static/js/popper.min.js"></script>
-        <script src="/static/js/bootstrap.min.js"></script>
+        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% endblock %}
     </head>
 
@@ -32,8 +29,12 @@
             </div>
         {% endblock %}
 
-        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% block post_content %}{% endblock %}
+
+        {% block scripts %}
+        <script src="/static/js/jquery-3.2.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 
 </html>

@@ -59,7 +59,13 @@ def blog_root(request):
 
 
 def blog_sub_path(request, path):
-    return _render_static_content(request, None, 'blog.html')
+    static_content_path = sitemap_helper.get_external_file_path(request.path)
+
+    context = {
+        'static_content': _get_static_content_from_template(static_content_path)
+    }
+
+    return render(request, 'blog.html', context)
 
 
 def tutorial_root(request, version):
@@ -67,7 +73,7 @@ def tutorial_root(request, version):
 
 
 def book_sub_path(request, version, path=None):
-    return _render_static_content(request, version, 'tutorial.html')
+    return _render_static_content(request, version, 'tutorial')
 
 
 def documentation_root(request, version):
@@ -75,17 +81,17 @@ def documentation_root(request, version):
 
 
 def documentation_path(request, version, path=None):
-    # Since we only API section of docs is in "Documentation" book, we only use the "documentation.html" template for
+    # Since only the API section of docs is in "Documentation" book, we only use the "documentation.html" template for
     # URLs with /api/ in the path.  Otherwise we use "tutorial.html" template
-    template = 'documentation.html'     # TODO[thuan]: do this in a less hacky way
+    template = 'documentation'     # TODO[thuan]: do this in a less hacky way
     if '/api/' not in path:
-        template = 'tutorial.html'
+        template = 'tutorial'
 
     return _render_static_content(request, version, template)
 
 
 def models_path(request, version, path=None):
-    return _render_static_content(request, version, 'documentation.html')
+    return _render_static_content(request, version, 'documentation')
 
 
 def _redirect_first_link_in_book(request, version, book_id):
@@ -108,17 +114,18 @@ def _redirect_first_link_in_book(request, version, book_id):
         return HttpResponseServerError("Cannot get book root url: %s" % e.message)
 
 
-def _render_static_content(request, version, template):
+def _render_static_content(request, version, book_id):
     if version:
         portal_helper.set_preferred_version(request, version)
 
     static_content_path = sitemap_helper.get_external_file_path(request.path)
 
     context = {
-        'static_content': _get_static_content_from_template(static_content_path)
+        'static_content': _get_static_content_from_template(static_content_path),
+        'book_id': book_id
     }
 
-    return render(request, template, context)
+    return render(request, 'content.html', context)
 
 
 def _get_first_link_in_book(book, lang):

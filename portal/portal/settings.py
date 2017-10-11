@@ -28,7 +28,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('ENV', None) == 'development' else False
 DOC_MODE = True if os.environ.get('DOC_MODE', '0') == '1' else False
-DEFAULT_DOC_VERSION = "develop" if not DOC_MODE else "doc_test"     # TODO[thuan]: switch back to 0.10.0 when we have the sitemaps for that
+DEFAULT_DOC_VERSION = "0.10.0" if not DOC_MODE else "doc_test"
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
