@@ -67,29 +67,23 @@ def nav_bar(context):
         lang_label = "English"
         lang_link = '/change-lang?lang_code=en'
 
-    return {
-        'request': context.request,
-        'template': context.template,
+    return _common_context(context, {
         'root_nav': root_navigation,
-        'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', None),
-        'lang_def': { 'label': lang_label, 'link': lang_link },
-        'doc_mode': settings.DOC_MODE,
-    }
+        'lang_def': { 'label': lang_label, 'link': lang_link }
+    })
 
 
 @register.inclusion_tag('_content_links.html', takes_context=True)
 def content_links(context, book_id):
     docs_version = context.get('CURRENT_DOCS_VERSION', None)
-    tutorial_nav_data = sitemap_helper.get_book_navigation(
+    side_nav_content = sitemap_helper.get_book_navigation(
         book_id,
         docs_version
     )
 
-    return {
-        'request': context.request,
-        'CURRENT_DOCS_VERSION': docs_version,
-        'side_nav_content': tutorial_nav_data
-    }
+    return _common_context(context, {
+        'side_nav_content': side_nav_content
+    })
 
 
 @register.inclusion_tag('_version_links.html', takes_context=True)
@@ -100,10 +94,22 @@ def version_links(context, book_id):
     if context.template and (context.template.name == 'tutorial.html' or context.template.name == 'documentation.html'):
         is_hidden = False
 
-    return {
-        'request': context.request,
+    return _common_context(context, {
         'version_list': versions,
-        'current_version': context.get('CURRENT_DOCS_VERSION', None),
         'is_hidden': is_hidden
-    }
+    })
 
+
+def _common_context(context, additional_context):
+    if not additional_context:
+        additional_context = {}
+
+    additional_context.update({
+        'request': context.request,
+        'template': context.template,
+        'url_helper': context.get('url_helper', None),
+        'settings': context.get('settings', None),
+        'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', None)
+    })
+
+    return additional_context

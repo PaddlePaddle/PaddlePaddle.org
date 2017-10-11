@@ -1,6 +1,7 @@
 import json
 import os
 import collections
+import tempfile
 
 from django.conf import settings
 from django.core.cache import cache
@@ -10,16 +11,14 @@ from portal import url_helper
 
 
 def get_sitemap(version):
-    version = version.strip("/")    # TODO[thuan]: sometimes version comes in with a leading or trailing slash, need to figure out why
     cache_key = 'sitemap.%s' % version
     sitemap_cache = cache.get(cache_key, None)
 
     if not sitemap_cache:
         sitemap_cache = _load_sitemap_from_file(version)
-        _transform_urls(version, sitemap_cache)
 
         if sitemap_cache:
-            timeout = 5 if settings.DEBUG else 60
+            timeout = settings.DEFAULT_CACHE_EXPIRY
             cache.set(cache_key, sitemap_cache, timeout)
         else:
             raise Exception("Cannot generate sitemap for version %s" % version)
@@ -30,19 +29,38 @@ def get_sitemap(version):
 def _load_sitemap_from_file(version):
     sitemap = None
 
-    file_path = _get_sitemap_path(version)
-    if os.path.isfile(file_path):
+    sitemap_path = _get_sitemap_path(version)
+    if os.path.isfile(sitemap_path):
         # Sitemap file exists, lets load it
         try:
-            print "Loading sitemap from %s" % file_path
-            json_data = open(file_path).read()
+            print "Loading sitemap from %s" % sitemap_path
+            json_data = open(sitemap_path).read()
             sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
         except Exception as e:
-            print "Cannot load sitemap from file %s: %s" % (file_path, e.message)
-    else:
-        msg = "Cannot load sitemap from file %s" % file_path
-        print msg
-        raise Exception(msg)
+            print "Cannot load sitemap from file %s: %s" % (sitemap_path, e.message)
+
+    if not sitemap:
+        # We couldn't load sitemap.<version>.json file, lets generate it
+        sitemap = generate_sitemap(version)
+
+    return sitemap
+
+
+def generate_sitemap(version):
+    sitemap = None
+    sitemap_template_path = "%s/assets/sitemaps/%s.json" % (settings.PROJECT_ROOT, version)
+
+    try:
+        json_data = open(sitemap_template_path).read()
+        sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+        _transform_urls(version, sitemap)
+
+        sitemap_path = _get_sitemap_path(version)
+        with open(sitemap_path, 'w') as fp:
+            json.dump(sitemap, fp)
+
+    except Exception as e:
+        print "Cannot generate sitemap from %s: %s" % (sitemap_template_path, e.message)
 
     return sitemap
 
@@ -105,7 +123,7 @@ def _get_book_path(version):
 
 
 def _get_sitemap_path(version):
-    return "%s/assets/sitemaps/%s.json" % (settings.PROJECT_ROOT, version)
+    return "%s/sitemap.%s.json" % (tempfile.gettempdir(), version)
 
 
 def _get_chapter_path(version, module):

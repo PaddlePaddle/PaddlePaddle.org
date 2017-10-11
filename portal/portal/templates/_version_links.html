@@ -4,7 +4,7 @@
 <form action="{% url 'set_version' %}" class="version-toggler{% if is_hidden %} invisible{% endif %}" method="post">{% csrf_token %}
     <div class="btn-group">
         <button class="selected-version btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ current_version }}
+            {{ CURRENT_DOCS_VERSION }}
         </button>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

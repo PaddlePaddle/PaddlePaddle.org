@@ -11,8 +11,10 @@ from django.http import Http404, HttpResponseServerError
 from django.views import static
 from django.template import TemplateDoesNotExist
 from django.utils.translation import LANGUAGE_SESSION_KEY
+from django.core.cache import cache
 
 from portal import sitemap_helper, portal_helper, url_helper
+
 
 # Search the path and render the content
 # Return Page not found if the template is missing.
@@ -34,6 +36,7 @@ def home_root(request):
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
     portal_helper.set_preferred_version(request, preferred_version)
+
     return tutorial_root(request, preferred_version)
 
 
@@ -56,91 +59,66 @@ def blog_root(request):
 
 
 def blog_sub_path(request, path):
-    path = sitemap_helper.get_external_file_path(request.path)
-
-    context = {
-        'static_content': _get_static_content_from_template(path)
-    }
-    return render(request, 'blog.html', context)
+    return _render_static_content(request, None, 'blog.html')
 
 
 def tutorial_root(request, version):
-    portal_helper.set_preferred_version(request, version)
-    lang = portal_helper.get_preferred_language(request)
-    root_navigation = sitemap_helper.get_sitemap(version)
-
-    try:
-        # Get the first section link from the tutorial book
-        path = None
-        tutorial = root_navigation['tutorial']
-        path = _get_first_link_in_book(tutorial, lang)
-
-        if not path:
-            print "Cannot perform reverse lookup on link: %s" % path
-            return HttpResponseServerError()
-
-        return redirect(path)
-    except Exception as e:
-        return HttpResponseServerError("Cannot get tutorial root url: %s" % e.message)
+    return _redirect_first_link_in_book(request, version, 'tutorial')
 
 
-
-def book_sub_path(request, version, path):
-    portal_helper.set_preferred_version(request, version)
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
-    static_content = _get_static_content_from_template(static_content_path)
-
-    context = {
-        'static_content': static_content
-    }
-
-    return render(request, 'tutorial.html', context)
+def book_sub_path(request, version, path=None):
+    return _render_static_content(request, version, 'tutorial.html')
 
 
 def documentation_root(request, version):
-    portal_helper.set_preferred_version(request, version)
-    lang = portal_helper.get_preferred_language(request)
-    root_navigation = sitemap_helper.get_sitemap(version)
-
-    try:
-        # Get the first section link from the tutorial book
-        path = None
-        documentation = root_navigation['documentation']
-        path = _get_first_link_in_book(documentation, lang)
-
-        if not path:
-            print "Cannot perform reverse lookup on link: %s" % path
-            return HttpResponseServerError()
-
-        return redirect(path)
-    except Exception as e:
-        return HttpResponseServerError("Cannot get documentation root url: %s" % e.message)
+    return _redirect_first_link_in_book(request, version, 'documentation')
 
 
 def documentation_path(request, version, path=None):
-    portal_helper.set_preferred_version(request, version)
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
-
-    context = {
-        'static_content': _get_static_content_from_template(static_content_path)
-    }
-
+    # Since we only API section of docs is in "Documentation" book, we only use the "documentation.html" template for
+    # URLs with /api/ in the path.  Otherwise we use "tutorial.html" template
     template = 'documentation.html'     # TODO[thuan]: do this in a less hacky way
     if '/api/' not in path:
         template = 'tutorial.html'
 
-    return render(request, template, context)
+    return _render_static_content(request, version, template)
 
 
-def models_path(request, version, path):
+def models_path(request, version, path=None):
+    return _render_static_content(request, version, 'documentation.html')
+
+
+def _redirect_first_link_in_book(request, version, book_id):
     portal_helper.set_preferred_version(request, version)
+    lang = portal_helper.get_preferred_language(request)
+    root_navigation = sitemap_helper.get_sitemap(version)
+
+    try:
+        # Get the first section link from the tutorial book
+        path = None
+        book = root_navigation[book_id]
+        path = _get_first_link_in_book(book, lang)
+
+        if not path:
+            print "Cannot perform reverse lookup on link: %s" % path
+            return HttpResponseServerError()
+
+        return redirect(path)
+    except Exception as e:
+        return HttpResponseServerError("Cannot get book root url: %s" % e.message)
+
+
+def _render_static_content(request, version, template):
+    if version:
+        portal_helper.set_preferred_version(request, version)
+
     static_content_path = sitemap_helper.get_external_file_path(request.path)
 
     context = {
         'static_content': _get_static_content_from_template(static_content_path)
     }
 
-    return render(request, 'documentation.html', context)
+    return render(request, template, context)
 
 
 def _get_first_link_in_book(book, lang):
@@ -158,6 +136,9 @@ def _get_first_link_in_book(book, lang):
 
 def static_file_handler(request, path, extension, insecure=False, **kwargs):
     """
+    Note: This is static handler is only used during development.  In production, the Docker image uses NGINX to serve
+    static content.
+
     Serve static files below a given point in the directory structure or
     from locations inferred from the staticfiles finders.
     To use, put a URL pattern such as::

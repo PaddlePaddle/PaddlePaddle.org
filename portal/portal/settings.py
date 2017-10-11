@@ -86,6 +86,8 @@ CACHES = {
     }
 }
 
+DEFAULT_CACHE_EXPIRY = 5 if DEBUG else 600
+
 WSGI_APPLICATION = 'portal.wsgi.application'
 
 # Internationalization

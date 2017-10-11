@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load app_tags %}
-
+{% load i18n %}
 {% load app_tags %}
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>PaddlePaddle - Train and deploy deep learning at scale</title>
+        <title>{% trans "PaddlePaddle - Train and deploy deep learning at scale"%}</title>
         <!-- TODO: set og: meta attributes-->
         {% block head %}
         <link href="/static/stylesheets/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
