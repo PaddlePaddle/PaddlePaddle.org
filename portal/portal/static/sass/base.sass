@@ -1,0 +1,37 @@
+@import "_variables.sass"
+
+@media (max-width: 550px)
+    .skeleton
+        .u-pull-right
+            float: left
+
+.bg-primary
+    background-color: $accent-color !important
+
+
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure
+    font: 14px $font-medium $primary-font-family
+
+body
+    background-color: $primary-background-color
+
+
+.row-no-padding
+    [class*="col-"]
+        padding-left: 0 !important
+        padding-right: 0 !important
+
+a
+    color: $accent-color
+    text-decoration: none
+    cursor: pointer
+
+    &:visited,&:hover
+        color: $accent-color
+        text-decoration: none
+        cursor: pointer
+
+.btn-default
+    margin: 4px
+    color: #333
+    border-color: #ccc
