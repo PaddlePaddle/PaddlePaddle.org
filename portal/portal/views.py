@@ -47,7 +47,7 @@ def change_lang(request):
 
 
 def blog_root(request):
-    path = sitemap_helper.get_blog_file_path('index.html')
+    path = sitemap_helper.get_external_file_path('blog/index.html')
 
     context = {
         'static_content': _get_static_content_from_template(path)
@@ -56,7 +56,7 @@ def blog_root(request):
 
 
 def blog_sub_path(request, path):
-    path = sitemap_helper.get_blog_file_path(path)
+    path = sitemap_helper.get_external_file_path(request.path)
 
     context = {
         'static_content': _get_static_content_from_template(path)
@@ -87,7 +87,7 @@ def tutorial_root(request, version):
 
 def book_sub_path(request, version, path):
     portal_helper.set_preferred_version(request, version)
-    static_content_path = sitemap_helper.get_book_file_path(version, path)
+    static_content_path = sitemap_helper.get_external_file_path(request.path)
     static_content = _get_static_content_from_template(static_content_path)
 
     context = {
@@ -119,7 +119,7 @@ def documentation_root(request, version):
 
 def documentation_path(request, version, path=None):
     portal_helper.set_preferred_version(request, version)
-    static_content_path = sitemap_helper.get_docs_file_path(version, path)
+    static_content_path = sitemap_helper.get_external_file_path(request.path)
 
     context = {
         'static_content': _get_static_content_from_template(static_content_path)
@@ -134,7 +134,7 @@ def documentation_path(request, version, path=None):
 
 def models_path(request, version, path):
     portal_helper.set_preferred_version(request, version)
-    static_content_path = sitemap_helper.get_models_file_path(version, path)
+    static_content_path = sitemap_helper.get_external_file_path(request.path)
 
     context = {
         'static_content': _get_static_content_from_template(static_content_path)

@@ -13,18 +13,10 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.conf.urls.i18n import i18n_patterns
 import views
 
 from portal import url_helper
 
-# def staticfiles_urlpatterns(prefix=None):
-#     """
-#     Helper function to return a URL pattern for serving static files.
-#     """
-#     # if prefix is None:
-#     #     prefix = settings.STATIC_URL
-#     return static(None, view=views.css_handler)
 
 urlpatterns = [
     # ---------------------

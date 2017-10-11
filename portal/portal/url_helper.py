@@ -21,7 +21,6 @@ def append_prefix_to_path(version, path):
         sub_path = None
         url_name = None
 
-
         path = path.strip("/")
         if path.startswith(DOCUMENTATION_ROOT):
             url_name = URL_NAME_DOCS

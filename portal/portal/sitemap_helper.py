@@ -10,7 +10,7 @@ from portal import url_helper
 
 
 def get_sitemap(version):
-    version = version.strip("/")
+    version = version.strip("/")    # TODO[thuan]: sometimes version comes in with a leading or trailing slash, need to figure out why
     cache_key = 'sitemap.%s' % version
     sitemap_cache = cache.get(cache_key, None)
 
@@ -119,17 +119,5 @@ def get_available_versions():
             return dirs
 
 
-def get_blog_file_path(sub_path):
-    return "%s/blog/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sub_path)
-
-
-def get_book_file_path(version, sub_path):
-    return "%s/%sbook/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)
-
-
-def get_docs_file_path(version, sub_path):
-    return "%s/%sdocumentation/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)
-
-
-def get_models_file_path(version, sub_path):
-    return "%s/%smodels/%s" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), sub_path)
+def get_external_file_path(sub_path):
+    return "%s/%s" % (settings.EXTERNAL_TEMPLATE_DIR, sub_path)
