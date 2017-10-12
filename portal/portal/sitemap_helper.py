@@ -88,6 +88,13 @@ def _transform_urls(version, sitemap):
                             for lang, url in link.items():
                                 link[lang] = url_helper.append_prefix_to_path(version, link[lang])
 
+                        if 'sub_sections' in section:
+                            for subsection in section['sub_sections']:
+                                if 'link' in subsection:
+                                    link = subsection['link']
+                                    for lang, url in link.items():
+                                        link[lang] = url_helper.append_prefix_to_path(version, link[lang])
+
 
 # Merge all site.json files
 def _load_all_sections(version):

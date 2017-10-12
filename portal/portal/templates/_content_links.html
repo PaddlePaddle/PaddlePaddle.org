@@ -2,17 +2,39 @@
 
 <nav class="sidebar collapse" id="sidebar-nav">
     {% for chapter_id, chapter in side_nav_content.items %}
-    <h3{% if request.path in chapter|links %} class="active"{% endif %}>{% translation chapter.title %}</h3>
-    <ul>
-        {% for section in chapter.sections %}
-        <!-- If the leaf_node doesn't support the current language, don't show the link -->
-        {% translation_assignment section.title as section_title %}
-        {% translation_assignment section.link as section_link %}
+    <ol class="chapter">
+        <li>
+            <h3{% if request.path in chapter|links %} class="active"{% endif %}>{% translation chapter.title %}</h3>
+            <ol class="section">
+                {% for section in chapter.sections %}
+                <li>
+                    {% translation_assignment section.title as section_title %}
+                    {% translation_assignment section.link as section_link %}
 
-        {% if section_title != None %}
-        <li><a href="{{ section_link }}"{% if request.path == section_link %} class="active"{% endif %}>{{ section_title }}</a></li>
-        {% endif %}
-        {% endfor %}
-    </ul>
+                    {% if section_title != None and section_link != "" %}
+                    <a href="{{ section_link }}" {% if request.path == section_link %} class="active" {% endif %}>{{ section_title }}</a>
+                    {% elif section_title != None and section.sub_sections != None %}
+
+                    <p>{{ section_title }}</p>
+                    <ol class="sub-section">
+                        {% for sub_section in section.sub_sections %}
+                        {% translation_assignment sub_section.title as sub_section_title %}
+                        {% translation_assignment sub_section.link as sub_section_link %}
+
+                        {% if sub_section_link != None %}
+                        <li>
+                            <a href="{{ sub_section_link }}" {% if request.path == sub_section_link %} class="active" {% endif %}>{{ sub_section_title }}</a>
+                        </li>
+                        {% endif %}
+
+                        {% endfor %}
+                    </ol>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+            </ol>
+        </li>
+    </ol>
     {% endfor %}
 </nav>
