@@ -36,6 +36,16 @@ def links(chapter):
     return map(lambda s: s['link'], chapter['sections'])
 
 
+@register.filter(name='css_for_content_src')
+def css_for_content_src(content_src):
+    css = None
+    if content_src == 'book' or content_src == 'models':
+        css = ' markdown-body'
+    elif content_src == 'docs':
+        css = ' rst-content'
+
+    return css
+
 @register.simple_tag(takes_context=True)
 def apply_class_if_template(context, template_file_name, class_name):
     '''

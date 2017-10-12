@@ -4,17 +4,25 @@
 
 {% block head %}
 {{ block.super }}
-    <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <!-- code highlighter -->
     <link href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/darcula.min.css" rel="stylesheet">
+
+    <link href="/static/stylesheets/theme.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/static/stylesheets/github-markdown.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block side_nav_content %}
 {% content_links book_id %}
 {% endblock %}
 
-{% block scripts %}
+{% block panel_content %}
+<div id="panel-content" class="panel-content{{ content_src|css_for_content_src }}">
+    {{ static_content|safe }}
+</div>
+{% endblock %}
 
+{% block scripts %}
 {{ block.super }}
 <script src="/static/js/popper.min.js"></script>
 <script src="/static/js/doctools.js"></script>
@@ -46,5 +54,4 @@
     // Highlight the code, please.
     hljs.initHighlightingOnLoad();
 </script>
-
 {% endblock %}

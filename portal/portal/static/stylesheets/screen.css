@@ -15,7 +15,7 @@
 
 /* line 12, ../sass/base.sass */
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
-  font: 14px 16px tahoma, arial, Hiragino Sans GB, Microsoft YaHei;
+  font: 14px 16px "Roboto", "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
 }
 
 /* line 15, ../sass/base.sass */
@@ -143,64 +143,77 @@ body.invert .footer-nav {
   background-color: transparent;
 }
 
-/* line 85, ../sass/navigation.sass */
-.panel-layout .sidebar {
+/* line 86, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar {
   background-color: #ededed;
   padding: 20px;
   height: 100%;
 }
-/* line 90, ../sass/navigation.sass */
-.panel-layout .sidebar h3 {
+/* line 91, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar h3 {
   padding: 16px 0 8px 0;
   font-weight: 700;
   font-size: 18px;
 }
-/* line 95, ../sass/navigation.sass */
-.panel-layout .sidebar h3.active {
+/* line 96, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar h3.active {
   color: #597cf1;
 }
-/* line 99, ../sass/navigation.sass */
-.panel-layout .sidebar ul li {
+/* line 100, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar ul li {
   padding: 8px 0 8px 0;
 }
-/* line 102, ../sass/navigation.sass */
-.panel-layout .sidebar a {
+/* line 103, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar a {
   color: #000;
 }
-/* line 105, ../sass/navigation.sass */
-.panel-layout .sidebar a:hover, .panel-layout .sidebar a:active {
+/* line 106, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar a:hover, .panel-layout .sidebar-container .sidebar a:active {
   color: #597cf1;
 }
-/* line 108, ../sass/navigation.sass */
-.panel-layout .sidebar a.active {
+/* line 109, ../sass/navigation.sass */
+.panel-layout .sidebar-container .sidebar a.active {
   color: #597cf1;
   font-weight: 700;
 }
+/* line 113, ../sass/navigation.sass */
+.panel-layout .sidebar-container .panel-content {
+  padding-left: 0px;
+}
 
 @media (min-width: 992px) {
-  /* line 114, ../sass/navigation.sass */
-  .panel-layout .sidebar {
+  /* line 118, ../sass/navigation.sass */
+  .panel-layout .sidebar-container {
+    display: inline;
+    height: 100%;
+    width: 300px;
     float: left;
-    max-width: 100%;
-    min-width: 100%;
+  }
+  /* line 124, ../sass/navigation.sass */
+  .panel-layout .sidebar-container .sidebar {
+    width: 100%;
+  }
+  /* line 127, ../sass/navigation.sass */
+  .panel-layout .panel-content {
+    padding-left: 320px;
   }
 
-  /* line 119, ../sass/navigation.sass */
+  /* line 130, ../sass/navigation.sass */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 122, ../sass/navigation.sass */
+  /* line 133, ../sass/navigation.sass */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 125, ../sass/navigation.sass */
+/* line 136, ../sass/navigation.sass */
 .footer-nav {
   background-color: #000;
   color: ccc;
 }
-/* line 128, ../sass/navigation.sass */
+/* line 139, ../sass/navigation.sass */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -211,7 +224,7 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 138, ../sass/navigation.sass */
+/* line 149, ../sass/navigation.sass */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -222,7 +235,7 @@ body.invert .footer-nav {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 147, ../sass/navigation.sass */
+/* line 158, ../sass/navigation.sass */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -230,7 +243,7 @@ body.invert .footer-nav {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 154, ../sass/navigation.sass */
+/* line 165, ../sass/navigation.sass */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -238,20 +251,20 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 161, ../sass/navigation.sass */
+/* line 172, ../sass/navigation.sass */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 163, ../sass/navigation.sass */
+/* line 174, ../sass/navigation.sass */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 165, ../sass/navigation.sass */
+/* line 176, ../sass/navigation.sass */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 168, ../sass/navigation.sass */
+/* line 179, ../sass/navigation.sass */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -260,35 +273,35 @@ body.invert .footer-nav {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 176, ../sass/navigation.sass */
+/* line 187, ../sass/navigation.sass */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 178, ../sass/navigation.sass */
+/* line 189, ../sass/navigation.sass */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 180, ../sass/navigation.sass */
+/* line 191, ../sass/navigation.sass */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 182, ../sass/navigation.sass */
+/* line 193, ../sass/navigation.sass */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 185, ../sass/navigation.sass */
+/* line 196, ../sass/navigation.sass */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 189, ../sass/navigation.sass */
+/* line 200, ../sass/navigation.sass */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 192, ../sass/navigation.sass */
+/* line 203, ../sass/navigation.sass */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -296,7 +309,7 @@ body.invert .footer-nav {
   text-align: center;
   padding: 20px 0 20px;
 }
-/* line 198, ../sass/navigation.sass */
+/* line 209, ../sass/navigation.sass */
 .footer-nav .copyright > a {
   color: #fff;
 }

@@ -82,39 +82,50 @@ body
             background-color: transparent
 
 .panel-layout
-    .sidebar
-        background-color: $side-panel-bg-color
-        padding: 20px
-        height: 100%
+    .sidebar-container
+        .sidebar
+            background-color: $side-panel-bg-color
+            padding: 20px
+            height: 100%
 
-        h3
-            padding: 16px 0 8px 0
-            font-weight: $font-bold
-            font-size: $font-large
-
-            &.active
-                color: $accent-color
-
-        ul
-            li
-                padding: 8px 0 8px 0
-
-        a
-            color: $primary-text-color
-
-            &:hover, &:active
-                color: $accent-color
-
-            &.active
-                color: $accent-color
+            h3
+                padding: 16px 0 8px 0
                 font-weight: $font-bold
+                font-size: $font-large
+
+                &.active
+                    color: $accent-color
+
+            ul
+                li
+                    padding: 8px 0 8px 0
+
+            a
+                color: $primary-text-color
+
+                &:hover, &:active
+                    color: $accent-color
+
+                &.active
+                    color: $accent-color
+                    font-weight: $font-bold
+
+        .panel-content
+            padding-left: 0px
 
 @media (min-width: 992px)
     .panel-layout
-        .sidebar
+        .sidebar-container
+            display: inline
+            height: 100%
+            width: $sidebar-width
             float: left
-            max-width: 100%
-            min-width: 100%
+
+            .sidebar
+                width: 100%
+
+        .panel-content
+            padding-left: $sidebar-width + 20px
 
     .sidebar-toggle
         display: none

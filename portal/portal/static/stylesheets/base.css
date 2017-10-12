@@ -11,7 +11,7 @@
 
 /* line 12, ../sass/base.sass */
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
-  font: 14px 16px tahoma, arial, Hiragino Sans GB, Microsoft YaHei;
+  font: 14px 16px "Roboto", "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
 }
 
 /* line 15, ../sass/base.sass */

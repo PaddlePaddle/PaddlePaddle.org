@@ -73,7 +73,7 @@ def tutorial_root(request, version):
 
 
 def book_sub_path(request, version, path=None):
-    return _render_static_content(request, version, 'tutorial')
+    return _render_static_content(request, version, 'tutorial', 'book')
 
 
 def documentation_root(request, version):
@@ -87,11 +87,11 @@ def documentation_path(request, version, path=None):
     if '/api/' not in path:
         template = 'tutorial'
 
-    return _render_static_content(request, version, template)
+    return _render_static_content(request, version, template, 'docs')
 
 
 def models_path(request, version, path=None):
-    return _render_static_content(request, version, 'documentation')
+    return _render_static_content(request, version, 'documentation', 'models')
 
 
 def _redirect_first_link_in_book(request, version, book_id):
@@ -114,7 +114,7 @@ def _redirect_first_link_in_book(request, version, book_id):
         return HttpResponseServerError("Cannot get book root url: %s" % e.message)
 
 
-def _render_static_content(request, version, book_id):
+def _render_static_content(request, version, book_id, content_src):
     if version:
         portal_helper.set_preferred_version(request, version)
 
@@ -122,7 +122,8 @@ def _render_static_content(request, version, book_id):
 
     context = {
         'static_content': _get_static_content_from_template(static_content_path),
-        'book_id': book_id
+        'book_id': book_id,
+        'content_src': content_src
     }
 
     return render(request, 'content.html', context)

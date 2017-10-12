@@ -27,23 +27,23 @@ def get_sitemap(version):
 
 
 def _load_sitemap_from_file(version):
-    sitemap = None
+    # TODO[thuan]: Remove code that caches sitemap file for now, need to find better way of doing this
+    # sitemap = None
+    # sitemap_path = _get_sitemap_path(version)
+    # if os.path.isfile(sitemap_path):
+    #     # Sitemap file exists, lets load it
+    #     try:
+    #         print "Loading sitemap from %s" % sitemap_path
+    #         json_data = open(sitemap_path).read()
+    #         sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+    #     except Exception as e:
+    #         print "Cannot load sitemap from file %s: %s" % (sitemap_path, e.message)
+    #
+    # if not sitemap:
+    #     # We couldn't load sitemap.<version>.json file, lets generate it
+    #     sitemap = generate_sitemap(version)
 
-    sitemap_path = _get_sitemap_path(version)
-    if os.path.isfile(sitemap_path):
-        # Sitemap file exists, lets load it
-        try:
-            print "Loading sitemap from %s" % sitemap_path
-            json_data = open(sitemap_path).read()
-            sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
-        except Exception as e:
-            print "Cannot load sitemap from file %s: %s" % (sitemap_path, e.message)
-
-    if not sitemap:
-        # We couldn't load sitemap.<version>.json file, lets generate it
-        sitemap = generate_sitemap(version)
-
-    return sitemap
+    return generate_sitemap(version)
 
 
 def generate_sitemap(version):
@@ -55,9 +55,10 @@ def generate_sitemap(version):
         sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
         _transform_urls(version, sitemap)
 
-        sitemap_path = _get_sitemap_path(version)
-        with open(sitemap_path, 'w') as fp:
-            json.dump(sitemap, fp)
+        # TODO[thuan]: Remove code that caches sitemap file for now, need to find better way of doing this
+        # sitemap_path = _get_sitemap_path(version)
+        # with open(sitemap_path, 'w') as fp:
+        #     json.dump(sitemap, fp)
 
     except Exception as e:
         print "Cannot generate sitemap from %s: %s" % (sitemap_template_path, e.message)
