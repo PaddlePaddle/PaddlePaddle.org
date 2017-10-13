@@ -44,3 +44,19 @@ a:visited, a:hover {
   color: #333;
   border-color: #ccc;
 }
+
+/* line 39, ../sass/base.sass */
+.fixed-left {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  /* line 44, ../sass/base.sass */
+  .fixed-left {
+    position: fixed;
+    left: 0;
+    z-index: 1020;
+    overflow: auto;
+  }
+}

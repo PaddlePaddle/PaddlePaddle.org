@@ -16,12 +16,6 @@
 {% content_links book_id %}
 {% endblock %}
 
-{% block panel_content %}
-<div id="panel-content" class="panel-content{{ content_src|css_for_content_src }}">
-    {{ static_content|safe }}
-</div>
-{% endblock %}
-
 {% block scripts %}
 {{ block.super }}
 <script src="/static/js/popper.min.js"></script>

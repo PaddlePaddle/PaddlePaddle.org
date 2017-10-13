@@ -48,7 +48,11 @@
             .dropdown-toggle::after
                 vertical-align: .1em
 
+
 body
+    >#content
+        margin-top: $primary-nav-height
+        
     &.invert
         .navbar-brand
             color: $accent-color
@@ -117,15 +121,15 @@ body
     .panel-layout
         .sidebar-container
             display: inline
-            height: 100%
             width: $sidebar-width
             float: left
 
             .sidebar
-                width: 100%
+                top: $primary-nav-height
+                width: $sidebar-width
 
         .panel-content
-            padding-left: $sidebar-width + 20px
+            padding-left: $sidebar-width
 
     .sidebar-toggle
         display: none

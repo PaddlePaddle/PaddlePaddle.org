@@ -1,5 +1,7 @@
 {% extends "_base_nav.html" %}
 
+{% load app_tags %}
+
 {% block content %}
 <div class="container-fluid panel-layout">
     <div class="row row-no-padding">
@@ -10,12 +12,17 @@
                 </a>
                 {% block side_nav_content %}{% endblock %}
             </div>
-            {% block panel_content %}
             <div class="panel-content">
-                {{ static_content|safe }}
+                <div class="{{ content_src|css_for_content_src }}">
+                    {% block panel_content %}
+                    {{ static_content|safe }}
+                    {% endblock %}
+                </div>
+                {% include "_footer.html" %}
             </div>
-            {% endblock %}
         </div>
     </div>
 </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

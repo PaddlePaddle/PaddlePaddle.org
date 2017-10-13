@@ -35,3 +35,14 @@ a
     margin: 4px
     color: #333
     border-color: #ccc
+
+.fixed-left
+    position: relative
+    overflow: hidden
+
+@media (min-width: 992px)
+    .fixed-left
+        position: fixed
+        left: 0
+        z-index: 1020
+        overflow: auto

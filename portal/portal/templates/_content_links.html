@@ -1,6 +1,6 @@
 {% load app_tags %}
 
-<nav class="sidebar collapse" id="sidebar-nav">
+<nav class="sidebar collapse fixed-left" id="sidebar-nav">
     {% for chapter_id, chapter in side_nav_content.items %}
     <ol class="chapter">
         {% translation_assignment chapter.title as chapter_title %}
