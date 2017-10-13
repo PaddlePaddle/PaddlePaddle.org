@@ -2,3 +2,6 @@ Django==1.8.11
 gunicorn==19.7.1
 gevent==1.2.1
 GitPython==2.1.7
+beautifulsoup4==4.6.0
+markdown==2.6.9
+requests==2.18.4
