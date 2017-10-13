@@ -10,7 +10,7 @@ chmod 400 ubuntu.pem
 
 ssh-add ubuntu.pem
 
-rsync -r /Users/ludaming/Baidu_USA_DamingLu/externalTemplates2/ ubuntu@52.76.173.135:/var/content_staging/
+rsync -r $EXTERNAL_TEMPLATE_DIR ubuntu@52.76.173.135:/var/content_staging/
 
 chmod 644 ubuntu.pem
 
