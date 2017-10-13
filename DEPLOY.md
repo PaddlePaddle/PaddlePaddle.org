@@ -34,4 +34,4 @@ PaddlePaddle.org integrates with Travis-CI to provide continuous deployments on 
 | ----------- |:------------------:|:------------:| ----------:|
 Development | develop | <DOCKER_REPO>/paddlepaddle.org:develop | staging.paddlepaddle.org:82 |
 Staging | release.\* | <DOCKER_REPO>/paddlepaddle.org:staging | staging.paddlepaddle.org:81 |
-Production | master) | <DOCKER_REPO>/paddlepaddle.org:(latest/\<TIMESTAMP\>) | staging.paddlepaddle.org |
+Production | master | <DOCKER_REPO>/paddlepaddle.org:(latest/\<TIMESTAMP\>) | staging.paddlepaddle.org |
