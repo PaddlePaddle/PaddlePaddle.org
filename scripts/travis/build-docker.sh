@@ -3,9 +3,9 @@ set -e
 
 # Builds the docker image for PaddlePaddle.org
 
-if [[ "$TRAVIS_BRANCH" =~ ^v[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?(-\S*)?$ ]]
+if [ "$TRAVIS_BRANCH" == "master" ]
 then
-    # Production Deploy, only on tags matching format (ie: v1.3)
+    # Production Deploy
     echo "Building for PROD: $TRAVIS_BRANCH"
     export DOCKER_IMAGE_TAG="latest"
 elif [[ "$TRAVIS_BRANCH" =~ ^release.*$ ]]
