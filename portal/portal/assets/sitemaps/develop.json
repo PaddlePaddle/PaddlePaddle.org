@@ -362,6 +362,16 @@
         },
         {
           "title": {
+            "en": "Evaluators",
+            "zh": "Evaluators"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/evaluators.html",
+            "zh": "/documentation/cn/api/v2/config/evaluators.html"
+          }
+        },
+        {
+          "title": {
             "en": "Networks",
             "zh": "Networks"
           },

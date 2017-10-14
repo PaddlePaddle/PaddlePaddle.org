@@ -26,7 +26,7 @@
       "sections": [
         {
           "title": {
-            "en": "Writing a layer",
+            "en": "Write New Layers",
             "zh": "实现新的网络层"
           },
           "link": {
@@ -67,7 +67,7 @@
                   "zh": "/book/03.image_classification/index.cn.html"
                 },
                 "title": {
-                  "en": "recognize digits",
+                  "en": "Image Classification",
                   "zh": "图像分类"
                 }
               },
@@ -134,11 +134,77 @@
         {
           "title": {
             "en": "Building from source",
-            "zh": "安装与编译"
+            "zh": "编译"
           },
           "link": {
             "en": "/documentation/en/getstarted/build_and_install/build_from_source_en.html",
-            "zh": "/documentation/cn/getstarted/build_and_install/build_from_source_cn.html"
+            "zh": "/documentation/cn/getstarted/build_and_install/cmake/build_from_source_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Set Command-line Parameters",
+            "zh": "设置命令行参数"
+          },
+          "sub_sections": [
+            {
+              "title": {
+                "en": "Use Case",
+                "zh": "使用案例"
+              },
+              "link": {
+                "en": "/documentation/en/howto/usage/cmd_parameter/use_case_en.html",
+                "zh": "/documentation/cn/howto/usage/cmd_parameter/use_case_cn.html"
+              }
+            },
+            {
+              "title": {
+                "en": "Argument Outline",
+                "zh": "参数概述"
+              },
+              "link": {
+                "en": "/documentation/en/howto/usage/cmd_parameter/arguments_en.html",
+                "zh": "/documentation/cn/howto/usage/cmd_parameter/arguments_cn.html"
+              }
+            },
+            {
+              "title": {
+                "en": "Detail Description",
+                "zh": "细节描述"
+              },
+              "link": {
+                "en": "/documentation/en/howto/usage/cmd_parameter/detail_introduction_en.html",
+                "zh": "/documentation/cn/howto/usage/cmd_parameter/detail_introduction_cn.html"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Run Distributed Training",
+            "zh": "运行分布式训练"
+          },
+          "link": {
+            "en": "/documentation/en/howto/usage/cluster/cluster_train_en.html",
+            "zh": "/documentation/cn/howto/usage/cluster/cluster_train_cn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "Kubernetes 简介"
+          },
+          "link": {
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_basis_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Paddle On Kubernetes",
+            "zh": "Kubernetes单机训练"
+          },
+          "link": {
+            "en": "/documentation/en/howto/usage/k8s/k8s_en.html",
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_cn.html"
           }
         },
         {
@@ -147,8 +213,8 @@
             "zh": "Kubernetes分布式训练"
           },
           "link": {
-            "en": "/documentation/en/howto/usage/k8s/k8s_en.html",
-            "zh": "/documentation/cn/howto/usage/k8s/k8s_cn.html"
+            "en": "/documentation/en/howto/usage/k8s/k8s_aws_en.html",
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_distributed_cn.html"
           }
         },
         {
@@ -160,6 +226,47 @@
             "en": "/documentation/en/howto/optimization/gpu_profiling_en.html",
             "zh": "/documentation/cn/howto/optimization/gpu_profiling_cn.html"
           }
+        },
+        {
+          "title": {
+            "en": "RNN Configuration",
+            "zh": "GPU性能分析与调优"
+          },
+          "link": {
+            "en": "/documentation/en/howto/deep_model/rnn/rnn_config_en.html",
+            "zh": "/documentation/cn/howto/optimization/gpu_profiling_cn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "RNN相关模型"
+          },
+          "sub_sections": [
+            {
+              "title": {
+                "zh": "Recurrent Group教程"
+              },
+              "link": {
+                "zh": "/documentation/cn/howto/deep_model/rnn/recurrent_group_cn.html"
+              }
+            },
+            {
+              "title": {
+                "zh": "支持双层序列作为输入的Layer"
+              },
+              "link": {
+                "zh": "/documentation/cn/howto/deep_model/rnn/hierarchical_layer_cn.html"
+              }
+            },
+            {
+              "title": {
+                "zh": "单双层RNN API对比介绍"
+              },
+              "link": {
+                "zh": "/documentation/cn/howto/deep_model/rnn/hrnn_rnn_api_compare_cn.html"
+              }
+            }
+          ]
         }
       ]
     },
@@ -188,6 +295,14 @@
           }
         }
       ]
+    },
+    "FAQ": {
+      "title": {
+        "zh": "FAQ"
+      },
+      "link": {
+        "zh": "/documentation/cn/faq/index_cn.html"
+      }
     }
   },
   "documentation": {
