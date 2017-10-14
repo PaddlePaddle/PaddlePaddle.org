@@ -1,2 +1,545 @@
-@import "_docs.sass"
-@import "_book.sass"
+.panel-content
+    -ms-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%
+    line-height: 1.5
+    color: #333
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+    font-size: 16px
+    line-height: 1.5
+    word-wrap: break-word
+
+    &::before
+        display: table
+        content: ""
+
+    &::after
+        display: table
+        clear: both
+        content: ""
+
+        > *
+            &:first-child
+                margin-top: 0 !important
+            &:last-child
+                margin-bottom: 0 !important
+
+// Search results.
+#search-results h2
+    font-size: 24px
+    margin: 20px 0 10px 0
+
+#search-results p
+    color: #a7adbd
+
+#search-results ul.search > li
+    border-bottom: none
+
+#search-results ul.search > li > a
+    color: #597cf1
+
+// Merged from Sphinx and Github.
+h1, h2, h3, h4, h5, h6
+    font-weight: 600
+    margin-top: 24px
+    margin-bottom: 16px
+    line-height: 1.25
+
+h1
+    font-size: 32px
+    color: #2f323a
+    margin: 0.67em 0
+    font-weight: 600
+
+    // Need to resolve this with above.
+    padding-bottom: 0.3em
+    font-size: 2em
+    border-bottom: 1px solid #eee
+
+
+h2
+    font-size: 24px
+    color: #2f323a
+    margin-bottom: 30px
+
+    padding-bottom: 0.3em
+    font-size: 1.5em
+    border-bottom: 1px solid #eee
+
+
+h3
+    font-size: 20px
+    color: #2f323a
+    margin-bottom: 30px
+
+    font-size: 1.25em
+
+h4
+    font-size: 16px
+    color: #2f323a
+    margin-bottom: 30px
+
+    font-size: 1em
+
+h5
+    font-size: 14px
+
+    font-size: 0.875em
+
+h6
+    font-size: 12px
+
+    font-size: 0.85em
+    color: #777
+
+hr
+    height: 0
+    margin: 15px 0
+    background: transparent
+    border: 0
+    border-bottom: 1px solid #ddd
+    box-sizing: content-box
+    overflow: visible
+    border-bottom-color: #eee
+
+    height: 0.25em
+    padding: 0
+    margin: 24px 0
+    background-color: #e7e7e7
+    border: 0
+
+    &::before
+        display: table
+        content: ""
+
+    &::after
+        display: table
+        clear: both
+        content: ""
+
+p + h1,
+p + h2,
+p + h3,
+p + h4
+    margin-top: 20px
+
+p
+    color: #2f323a
+    margin-bottom: 20px
+    font-size: 14px
+    margin-top: 0
+    margin-bottom: 10px
+
+
+*
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section
+    display: block
+
+p, blockquote, ul, ol, dl, table, pre
+    margin-top: 0
+    margin-bottom: 16px
+
+
+audio, canvas, video
+    display: inline-block
+    *display: inline
+    *zoom: 1
+
+audio:not([controls]), [hidden]
+    display: none
+
+*
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+html
+    font-size: 100%
+    -webkit-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%
+
+body
+    margin: 0
+
+a
+    background-color: transparent
+    -webkit-text-decoration-skip: objects
+    color: #597cf1
+    text-decoration: none
+
+    &:hover, &:active
+        outline: 0
+        outline-width: 0
+        text-decoration: underline
+
+abbr[title]
+    border-bottom: 1px dotted
+
+b, strong
+    font-weight: inherit
+    font-weight: bolder
+    font-weight: 600
+
+blockquote
+    margin: 0
+    padding: 0 1em
+    color: #777
+    border-left: 0.25em solid #ddd
+
+    >
+        \:first-child
+            margin-top: 0
+        \:last-child
+            margin-bottom: 0
+
+
+dfn
+    font-style: italic
+
+ins
+    background: #ff9
+    color: #000
+    text-decoration: none
+
+mark
+    background: #ff0
+    color: #000
+    font-style: italic
+    font-weight: bold
+
+pre, code
+    font-family: monospace,serif
+    _font-family: "courier new",monospace
+    font-size: 1em
+
+tt, code
+    font-family: monospace,serif
+    _font-family: "courier new",monospace
+    font-size: 1em
+
+kbd, samp
+    font-family: monospace,serif
+    _font-family: "courier new",monospace
+    font-size: 1em
+
+code
+    padding: 0
+    padding-top: 0.2em
+    padding-bottom: 0.2em
+    margin: 0
+    font-size: 85%
+    background-color: rgba(0, 0, 0, 0.04)
+    border-radius: 3px
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace
+    font-size: 12px
+
+    &::before, &::after
+        letter-spacing: -0.2em
+        content: "\00a0"
+
+pre
+    white-space: pre
+    padding: 16px
+    overflow: auto
+    font-size: 85%
+    line-height: 1.45
+    background-color: #f7f7f7
+    border-radius: 3px
+    word-wrap: normal
+    margin-top: 0
+    margin-bottom: 0
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace
+
+    > code
+        padding: 0
+        margin: 0
+        font-size: 100%
+        word-break: normal
+        white-space: pre
+        background: transparent
+        border: 0
+
+    code
+        display: inline
+        max-width: auto
+        padding: 0
+        margin: 0
+        overflow: visible
+        line-height: inherit
+        word-wrap: normal
+        background-color: transparent
+        border: 0
+
+        &::before, &::after
+            content: normal
+
+kbd
+    display: inline-block
+    padding: 3px 5px
+    font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace
+    line-height: 10px
+    color: #555
+    vertical-align: middle
+    background-color: #fcfcfc
+    border: solid 1px #ccc
+    border-bottom-color: #bbb
+    border-radius: 3px
+    box-shadow: inset 0 -1px 0 #bbb
+
+
+q
+    quotes: none
+
+    &:before, &:after
+        content: ""
+        content: none
+
+small
+    font-size: 85%
+
+sub
+    font-size: 75%
+    line-height: 0
+    position: relative
+    vertical-align: baseline
+
+sup
+    font-size: 75%
+    line-height: 0
+    position: relative
+    vertical-align: baseline
+    top: -0.5em
+
+sub
+    bottom: -0.25em
+
+ul, ol, dl
+    margin: 0
+    padding: 0
+    list-style: none
+    list-style-image: none
+    padding-left: 0
+    margin-top: 0
+    margin-bottom: 0
+
+ol
+    ol
+        list-style-type: lower-roman
+
+ul
+    ol
+        list-style-type: lower-roman
+    ul ol, ol ol
+        list-style-type: lower-alpha
+
+    ul, ol
+        margin-top: 0
+        margin-bottom: 0
+    ol
+        ol, ul
+            margin-top: 0
+            margin-bottom: 0
+
+ol
+    ul ol, ol ol
+        list-style-type: lower-alpha
+
+
+li
+    list-style: none
+
+    > p
+        margin-top: 16px
+    + li
+        margin-top: 0.25em
+
+    pre
+        margin-bottom: 0
+        word-break: normal
+        padding: 16px
+        overflow: auto
+        font-size: 85%
+        line-height: 1.45
+        background-color: #f7f7f7
+        border-radius: 3px
+
+ul, ol
+    padding-left: 2em
+
+ul
+
+
+dd
+    margin: 0
+
+dl
+    padding: 0
+
+    dt
+        padding: 0
+        margin-top: 16px
+        font-size: 1em
+        font-style: italic
+        font-weight: bold
+    dd
+        padding: 0 16px
+        margin-bottom: 16px
+
+
+img
+    border: 0
+    -ms-interpolation-mode: bicubic
+    vertical-align: middle
+    max-width: 100%
+    border-style: none
+    box-sizing: content-box
+
+
+svg:not(:root)
+    overflow: hidden
+
+figure, form
+    margin: 0
+
+fieldset
+    border: 0
+    margin: 0
+    padding: 0
+
+label
+    cursor: pointer
+
+legend
+    border: 0
+    *margin-left: -7px
+    padding: 0
+    white-space: normal
+
+button, input, select, textarea
+    font-size: 100%
+    margin: 0
+    vertical-align: baseline
+    *vertical-align: middle
+
+button, input
+    line-height: normal
+
+button
+    cursor: pointer
+    -webkit-appearance: button
+    *overflow: visible
+
+input
+    font: inherit
+    margin: 0
+    overflow: visible
+    font-family: inherit
+    font-size: inherit
+    line-height: inherit
+    -webkit-font-feature-settings: "liga" 0
+    font-feature-settings: "liga" 0
+
+    &[type="button"], &[type="reset"], &[type="submit"]
+        cursor: pointer
+        -webkit-appearance: button
+        *overflow: visible
+
+button[disabled]
+    cursor: default
+
+input
+    &[disabled]
+        cursor: default
+    &[type="checkbox"], &[type="radio"]
+        box-sizing: border-box
+        padding: 0
+        *width: 13px
+        *height: 13px
+    &[type="search"]
+        -webkit-appearance: textfield
+        -moz-box-sizing: content-box
+        -webkit-box-sizing: content-box
+        box-sizing: content-box
+        &::-webkit-search-decoration, &::-webkit-search-cancel-button
+            -webkit-appearance: none
+
+button::-moz-focus-inner, input::-moz-focus-inner
+    border: 0
+    padding: 0
+
+textarea
+    overflow: auto
+    vertical-align: top
+    resize: vertical
+
+table
+    border-collapse: collapse
+    border-spacing: 0
+    display: block
+    width: 100%
+    overflow: auto
+
+    th
+        font-weight: bold
+        padding: 6px 13px
+        border: 1px solid #ddd
+
+    td
+        padding: 6px 13px
+        border: 1px solid #ddd
+
+    tr
+        background-color: #fff
+        border-top: 1px solid #ccc
+
+        &:nth-child(2n)
+            background-color: #f8f8f8
+
+td
+    vertical-align: top
+
+    td, th
+        padding: 0
+
+
+\:checked + .radio-label
+    position: relative
+    z-index: 1
+    border-color: #4078c0
+
+
+a:not([href])
+    color: inherit
+    text-decoration: none
+
+.anchor
+    float: left
+    padding-right: 4px
+    margin-left: -20px
+    line-height: 1
+
+    &:focus
+        outline: none
+
+
+// To figure out:
+.rst-content .highlighted
+    background-color: transparent
+    color: #ff9711
+    padding: 0
+
+.highlight
+    margin-bottom: 16px
+
+.task-list-item
+    list-style-type: none
+
+    + .task-list-item
+        margin-top: 3px
+
+    input
+        margin: 0 0.2em 0.25em -1.6em
+        vertical-align: middle
