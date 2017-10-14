@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load app_tags %}
-
+{% load i18n %}
 {% load app_tags %}
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>PaddlePaddle - Train and deploy deep learning at scale</title>
+        <title>{% trans "PaddlePaddle - Train and deploy deep learning at scale"%}</title>
         <!-- TODO: set og: meta attributes-->
         {% block head %}
         <link href="/static/stylesheets/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
-
-        <script src="/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/static/js/popper.min.js"></script>
-        <script src="/static/js/bootstrap.min.js"></script>
+        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% endblock %}
     </head>
 
@@ -33,8 +29,13 @@
             </div>
         {% endblock %}
 
-        <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% block post_content %}{% endblock %}
+
+        {% block scripts %}
+        <script src="/static/js/popper.min.js"></script>
+        <script src="/static/js/jquery-3.2.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 
 </html>

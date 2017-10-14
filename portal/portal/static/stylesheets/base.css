@@ -1,50 +1,62 @@
 @media (max-width: 550px) {
-  /* line 5, ../sass/base.scss */
+  /* line 5, ../sass/base.sass */
   .skeleton .u-pull-right {
     float: left;
   }
 }
-/* line 9, ../sass/base.scss */
+/* line 8, ../sass/base.sass */
 .bg-primary {
   background-color: #597cf1 !important;
 }
 
-/* line 13, ../sass/base.scss */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-  font: 400 16px tahoma, arial, Hiragino Sans GB, Microsoft YaHei;
+/* line 12, ../sass/base.sass */
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
+  font: 14px 16px "Roboto", "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* line 19, ../sass/base.scss */
+/* line 15, ../sass/base.sass */
 body {
   background-color: #fff;
 }
 
-/* line 24, ../sass/base.scss */
+/* line 20, ../sass/base.sass */
 .row-no-padding [class*="col-"] {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-/* line 30, ../sass/base.scss */
+/* line 24, ../sass/base.sass */
 a {
   color: #597cf1;
   text-decoration: none;
   cursor: pointer;
 }
-/* line 35, ../sass/base.scss */
+/* line 29, ../sass/base.sass */
 a:visited, a:hover {
   color: #597cf1;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* line 42, ../sass/base.scss */
+/* line 34, ../sass/base.sass */
 .btn-default {
   margin: 4px;
   color: #333;
   border-color: #ccc;
 }
 
-/*# sourceMappingURL=home.css.map*/
+/* line 39, ../sass/base.sass */
+.fixed-left {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  /* line 44, ../sass/base.sass */
+  .fixed-left {
+    position: fixed;
+    left: 0;
+    z-index: 1020;
+    overflow: auto;
+  }
+}

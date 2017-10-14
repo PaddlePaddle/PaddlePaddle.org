@@ -1,0 +1,410 @@
+{
+  "tutorial": {
+    "getting_started": {
+      "title": {
+        "en": "Getting Started",
+        "zh": "新手入门"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Installation",
+            "zh": "安装与编译"
+          },
+          "link": {
+            "en": "/documentation/en/getstarted/build_and_install/index_en.html",
+            "zh": "/documentation/cn/getstarted/build_and_install/index_cn.html"
+          }
+        }
+      ]
+    },
+    "Learn": {
+      "title": {
+        "en": "Learn",
+        "zh": "学习"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Writing a layer",
+            "zh": "实现新的网络层"
+          },
+          "link": {
+            "en": "/documentation/en/howto/dev/new_layer_en.html",
+            "zh": "/documentation/cn/howto/dev/new_layer_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Popular application",
+            "zh": "常見应用"
+          },
+          "sub_sections": [
+
+              {
+                "link": {
+                  "en": "/book/01.fit_a_line/index.html",
+                  "zh": "/book/01.fit_a_line/index.cn.html"
+                },
+                "title": {
+                  "en": "fit a line",
+                  "zh": "新手入门"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/02.recognize_digits/index.html",
+                  "zh": "/book/02.recognize_digits/index.cn.html"
+                },
+                "title": {
+                  "en": "recognize digits",
+                  "zh": "识别数字"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/03.image_classification/index.html",
+                  "zh": "/book/03.image_classification/index.cn.html"
+                },
+                "title": {
+                  "en": "recognize digits",
+                  "zh": "图像分类"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/04.word2vec/index.html",
+                  "zh": "/book/04.word2vec/index.cn.html"
+                },
+                "title": {
+                  "en": "word2vec",
+                  "zh": "词向量"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/05.recommender_system/index.html",
+                  "zh": "/book/05.recommender_system/index.cn.html"
+                },
+                "title": {
+                  "en": "recommender system",
+                  "zh": "个性化推荐"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/06.understand_sentiment/index.html",
+                  "zh": "/book/06.understand_sentiment/index.cn.html"
+                },
+                "title": {
+                  "en": "understand sentiment",
+                  "zh": "情感分析"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/07.label_semantic_roles/index.html",
+                  "zh": "/book/07.label_semantic_roles/index.cn.html"
+                },
+                "title": {
+                  "en": "label semantic roles",
+                  "zh": "语义角色标注"
+                }
+              },
+              {
+                "link": {
+                  "en": "/book/08.machine_translation/index.html",
+                  "zh": "/book/08.machine_translation/index.cn.html"
+                },
+                "title": {
+                  "en": "machine translation",
+                  "zh": "机器翻译"
+                }
+              }
+          ]
+        }
+      ]
+    },
+    "advanced": {
+      "title": {
+        "en": "Advanced",
+        "zh": "进阶指南"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Building from source",
+            "zh": "安装与编译"
+          },
+          "link": {
+            "en": "/documentation/en/getstarted/build_and_install/build_from_source_en.html",
+            "zh": "/documentation/cn/getstarted/build_and_install/build_from_source_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Distributed Training on Kubernetes",
+            "zh": "Kubernetes分布式训练"
+          },
+          "link": {
+            "en": "/documentation/en/howto/usage/k8s/k8s_en.html",
+            "zh": "/documentation/cn/howto/usage/k8s/k8s_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "GPU Optimization",
+            "zh": "GPU性能分析与调优"
+          },
+          "link": {
+            "en": "/documentation/en/howto/optimization/gpu_profiling_en.html",
+            "zh": "/documentation/cn/howto/optimization/gpu_profiling_cn.html"
+          }
+        }
+      ]
+    },
+    "Contribute": {
+      "title": {
+        "en": "Contribute",
+        "zh": "如何贡献"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "如何贡献/修改文档"
+          },
+          "link": {
+            "zh": "/documentation/cn/howto/dev/write_docs_cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Contribute Code",
+            "zh": "如何贡献代码"
+          },
+          "link": {
+            "en": "/documentation/en/howto/dev/contribute_to_paddle_en.html",
+            "zh": "/documentation/cn/howto/dev/contribute_to_paddle_cn.html"
+          }
+        }
+      ]
+    }
+  },
+  "documentation": {
+    "api": {
+      "title": {
+        "en": "API",
+        "zh": "API"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Training and Inference",
+            "zh": "训练与应用"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/run_logic.html",
+            "zh": "/documentation/cn/api/v2/run_logic.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Data Reader Interface and DataSets",
+            "zh": "数据访问"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/data.html",
+            "zh": "/documentation/cn/api/v2/data.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Activation",
+            "zh": "Activation"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/activation.html",
+            "zh": "/documentation/cn/api/v2/config/activation.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Layers",
+            "zh": "Layers"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/layer.html",
+            "zh": "/documentation/cn/api/v2/config/layer.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Networks",
+            "zh": "Networks"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/networks.html",
+            "zh": "/documentation/cn/api/v2/config/networks.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Optimizer",
+            "zh": "Optimizer"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/optimizer.html",
+            "zh": "/documentation/cn/api/v2/config/optimizer.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Pooling",
+            "zh": "Pooling"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/pooling.html",
+            "zh": "/documentation/cn/api/v2/config/pooling.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Parameter Attribute",
+            "zh": "Parameter Attribute"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/attr.html",
+            "zh": "/documentation/cn/api/v2/config/attr.html"
+          }
+        }
+      ]
+    },
+    "models": {
+      "title": {
+        "zh": "模型"
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Overview",
+            "zh": "概述"
+          },
+          "link": {
+            "en": "/models/README.html",
+            "zh": "/models/README.cn.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Hsigmoid加速词向量训练",
+            "zh": "Hsigmoid加速词向量训练"
+          },
+          "link": {
+            "en": "/models/hsigmoid/README.html",
+            "zh": "/models/hsigmoid/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "噪声对比估计加速词向量训练",
+            "zh": "噪声对比估计加速词向量训练"
+          },
+          "link": {
+            "en": "/models/nce_cost/README.html",
+            "zh": "/models/nce_cost/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "使用循环神经网语言模型生成文本",
+            "zh": "使用循环神经网语言模型生成文本"
+          },
+          "link": {
+            "en": "/models/generate_sequence_by_rnn_lm/README.html",
+            "zh": "/models/generate_sequence_by_rnn_lm/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Click-Through Rate Prediction",
+            "zh": "Click-Through Rate Prediction"
+          },
+          "link": {
+            "en": "/models/ctr/README.html",
+            "zh": "/models/ctr/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "文本分类",
+            "zh": "文本分类"
+          },
+          "link": {
+            "en": "/models/text_classification/README.html",
+            "zh": "/models/text_classification/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "排序学习(Learning To Rank)",
+            "zh": "排序学习(Learning To Rank)"
+          },
+          "link": {
+            "en": "/models/ltr/README.html",
+            "zh": "/models/ltr/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Deep Structured Semantic Models (DSSM)",
+            "zh": "Deep Structured Semantic Models (DSSM)"
+          },
+          "link": {
+            "en": "/models/dssm/README.html",
+            "zh": "/models/dssm/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "命名实体识别",
+            "zh": "命名实体识别"
+          },
+          "link": {
+            "en": "/models/sequence_tagging_for_ner/README.html",
+            "zh": "/models/sequence_tagging_for_ner/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Neural Machine Translation Model",
+            "zh": "Neural Machine Translation Model"
+          },
+          "link": {
+            "en": "/models/nmt_without_attention/README.html",
+            "zh": "/models/nmt_without_attention/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Convert Caffe model file to PaddlePaddle model file",
+            "zh": "Convert Caffe model file to PaddlePaddle model file"
+          },
+          "link": {
+            "en": "/models/image_classification/caffe2paddle/README.html",
+            "zh": "/models/image_classification/caffe2paddle/README.html"
+          }
+        },
+        {
+          "title": {
+            "en": "图像分类",
+            "zh": "图像分类"
+          },
+          "link": {
+            "en": "/models/image_classification/README.html",
+            "zh": "/models/image_classification/README.html"
+          }
+        }
+      ]
+    }
+  }
+}

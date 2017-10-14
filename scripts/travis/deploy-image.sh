@@ -1,15 +1,16 @@
 #!/bin/bash
 set -e
 
-if [[ "$TRAVIS_BRANCH" =~ ^v[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?(-\S*)?$ ]]
+if [ "$TRAVIS_BRANCH" == "master" ]
 then
     # Production Deploy
     echo "Deploying to PROD"
     export DOCKER_IMAGE_TAG="latest"
-    export BUILD_TAG="$TRAVIS_BRANCH"
+    export BUILD_TAG=$(date +%s)
     export DOCKER_CONTAINER_NAME="paddlepaddle.org"
     export PORT=80
     export ENV=release
+    export CONTENT_DIR="/var/content"
 elif [[ "$TRAVIS_BRANCH" =~ ^release.*$ ]]
 then
     # Staging Deploy
@@ -18,6 +19,7 @@ then
     export DOCKER_CONTAINER_NAME="staging.paddlepaddle.org"
     export PORT=81
     export ENV=release
+    export CONTENT_DIR="/var/content_staging"
 elif [ "$TRAVIS_BRANCH" == "develop" ]
 then
     # Development Deploy
@@ -26,6 +28,7 @@ then
     export DOCKER_CONTAINER_NAME="develop.paddlepaddle.org"
     export PORT=82
     export ENV=development
+    export CONTENT_DIR="/var/content_staging"
 else
     # All other branches should be ignored
     echo "Cannot deploy image, invalid branch: $TRAVIS_BRANCH"
@@ -34,6 +37,8 @@ fi
 
 eval $(aws ecr get-login --no-include-email --region ap-southeast-1) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
 
+# Delete all untagged images
+aws ecr describe-repositories --output text | awk '{print $5}' | while read line; do  aws ecr list-images --repository-name $line --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name $line --image-ids imageDigest=$imageId; done; done
 
 # Tag and push image
 docker tag paddlepaddle.org:"$DOCKER_IMAGE_TAG" 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:"$DOCKER_IMAGE_TAG"
@@ -62,7 +67,7 @@ ssh -i ubuntu.pem ubuntu@$STAGE_DEPLOY_IP << EOF
   docker pull 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:${DOCKER_IMAGE_TAG}
   docker stop $DOCKER_CONTAINER_NAME
   docker rm $DOCKER_CONTAINER_NAME
-  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -v /var/content:/var/content 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
+  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -v $CONTENT_DIR:/var/content 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
   docker image prune -f
 EOF
 

@@ -4,7 +4,7 @@ dist: trusty
 branches:
   only:
     - develop
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+    - master
     - /^release.*$/
 os:
   - linux
@@ -23,6 +23,7 @@ before_install:
 script:
   - ./scripts/travis/build-docker.sh
   - ./scripts/travis/deploy-image.sh
+  - ./scripts/travis/deploy-content.sh
 notifications:
   email:
     on_success: change

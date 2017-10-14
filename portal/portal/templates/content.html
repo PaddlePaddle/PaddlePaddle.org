@@ -1,0 +1,47 @@
+{% extends "_base_panel.html" %}
+
+{% load app_tags %}
+
+{% block head %}
+{{ block.super }}
+    <!-- code highlighter -->
+    <link href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/darcula.min.css" rel="stylesheet">
+    <link href="/static/stylesheets/theme.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/static/stylesheets/github-markdown.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block side_nav_content %}
+{% content_links book_id %}
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script src="/static/js/popper.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b9a314ab40d04d805655aab1deee08ba";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+
+    // Highlight the code, please.
+    hljs.initHighlightingOnLoad();
+</script>
+
+{% if allow_search %}
+{% include CURRENT_DOCS_VERSION|search_partial %}
+{% endif %}
+
+{% endblock %}

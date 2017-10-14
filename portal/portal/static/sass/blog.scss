@@ -1,5 +1,3 @@
-@import "_variables.scss";
-
 .site-header {
   border-top: 0px;
   border-bottom: 0px;
@@ -338,3 +336,9 @@ header.site-header .site-nav .trigger > a:hover {
       .post-content h4 {
         font-size: 18px; } }
 
+.icon--github {
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

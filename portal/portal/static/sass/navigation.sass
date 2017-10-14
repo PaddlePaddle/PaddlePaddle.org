@@ -1,0 +1,254 @@
+@import "_variables.sass"
+
+.navbar
+    background-color: $theme-color
+    padding: 0px 8px
+
+    .nav-divider
+        padding-left: 16px
+        padding-right: 16px
+
+    .navbar-brand
+        font-size: $font-xxlarge
+        text-decoration: none
+        padding-top: 0px
+        padding-bottom: 0px
+
+        img
+            height: $primary-nav-height
+            width: auto
+
+    .navbar-toggler
+        margin-top: 0
+
+    &.navbar-dark
+        .navbar-nav
+            .active
+                >.nav-link
+                    color: $white
+                    font-weight: $font-bold
+            .nav-link
+                color: $white
+
+    .version-toggler
+        height: 100%
+
+        .btn-group
+            border: none
+            height: 100%
+
+            button
+                border: 1px solid white
+
+            .selected-version
+                height: 100%
+                color: white
+                background-color: transparent
+
+            .dropdown-toggle::after
+                vertical-align: .1em
+
+
+body
+    >#content
+        margin-top: $primary-nav-height
+        
+    &.invert
+        .navbar-brand
+            color: $accent-color
+
+            &:hover, &active
+                color: $accent-color
+
+            img
+                content:url("/static/images/logo-dark.png")
+
+        .navbar
+            background-color: transparent
+
+            .navbar-nav
+                .active
+                    >.nav-link
+                        color: $accent-color
+                        font-weight: $font-bold
+                .nav-link
+                    color: $accent-color
+
+            &.navbar-dark
+                .navbar-toggler
+                    color: $accent-color
+                    border-color: $accent-color
+
+                    .navbar-toggler-icon
+                        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$accent-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
+
+        .footer-nav
+            background-color: transparent
+
+.panel-layout
+    .sidebar-container
+        .sidebar
+            background-color: $side-panel-bg-color
+            padding: 20px
+            height: 100%
+
+            .search-form
+                .query
+                    width: 100%
+                    padding: 8px 24px 8px 16px
+                    border-radius: 15px
+
+                input[type=text]
+                    font-size: $font-medium
+
+                    &:focus
+                        border-color: $accent-color
+
+                i
+                    float: right
+                    position: relative
+                    margin-right: 8px
+                    margin-top: -26px
+                    z-index: 2
+                    color: #e0e0e0
+
+            h3
+                padding: 16px 0 8px 0
+                font-weight: $font-bold
+                font-size: $font-large
+
+                &.active
+                    color: $accent-color
+
+            ul
+                li
+                    padding: 8px 0 8px 0
+
+            a
+                color: $primary-text-color
+                width: 100%
+                padding-right: 16px
+
+                &:hover, &:active
+                    color: $accent-color
+
+                &.active
+                    color: $accent-color
+                    font-weight: $font-bold
+
+                &.collapsed
+                    .dropdown-toggle
+                        transform: rotate(0deg)
+
+                .dropdown-toggle
+                    float: right
+                    width: 8px
+                    right: 0px
+                    transform: rotate(180deg)
+
+                    &::after
+                        vertical-align: .1em
+                        border-top: .5em solid
+
+        .sub-section
+            li
+                padding-left: 8px
+
+        .panel-content
+            padding-left: 0px
+
+@media (min-width: 992px)
+    .panel-layout
+        .sidebar-container
+            display: inline
+            width: $sidebar-width
+            float: left
+
+            .sidebar
+                top: $primary-nav-height
+                width: $sidebar-width
+
+        .panel-content
+            padding-left: $sidebar-width
+
+    .sidebar-toggle
+        display: none
+
+    .sidebar.collapse
+        display: block
+
+.footer-nav
+    background-color: $theme-color
+    color: ccc
+    .intern-console
+        margin-left: 50px
+        margin-right: 19px
+        color: #ccc
+        font-size: 12px
+        line-height: 30px
+        width: 150px
+        float: left
+        display: inline
+
+    .chat-console
+        padding-left: 50px
+        color: #ccc
+        font-size: 12px
+        width: 600px
+        float: left
+        display: inline
+        border-left: 1px solid rgba(241, 242, 244, 0.2)
+        border-right: 1px solid rgba(241, 242, 244, 0.2)
+        .sub-top-nava > li
+            line-height: 30px
+            width: 25%
+            float: left
+            display: inline
+            margin-bottom: 20px
+
+    .public-console
+        margin-left: 49px
+        margin-right: 50px
+        width: 100px
+        float: left
+        display: inline
+        >
+            *
+                vertical-align: left
+            img
+                margin-right: 5px
+            p
+                color: #ccc
+                font-size: 14px
+    .contact-us
+        color: #fff
+        text-align: center
+        line-height: 30px
+        font-size: 14px
+        margin-bottom: 20px
+        padding-top: 40px
+        >
+            *
+                vertical-align: middle
+            img
+                margin-right: 5px
+            a
+                color: #fff
+    .friendly-links
+        text-align: center
+        margin-bottom: 40px
+        > li
+            display: inline-block
+            padding: 0 10px
+            line-height: 12px
+            > a
+                color: #ccc
+                font-size: 12px
+    .copyright
+        color: #666
+        font-size: 12px
+        width: 100%
+        text-align: center
+        padding: 20px 0 20px
+        > a
+            color: #fff
