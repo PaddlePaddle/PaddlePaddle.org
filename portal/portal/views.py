@@ -83,11 +83,35 @@ def documentation_root(request, version):
 def documentation_path(request, version, path=None):
     # Since only the API section of docs is in "Documentation" book, we only use the "documentation.html" template for
     # URLs with /api/ in the path.  Otherwise we use "tutorial.html" template
+    lang = portal_helper.get_preferred_language(request)
     template = 'documentation'     # TODO[thuan]: do this in a less hacky way
-    if '/api/' not in path:
-        template = 'tutorial'
+    allow_search = False
 
-    return _render_static_content(request, version, template, 'docs')
+    if '/api/' not in path and not path.endswith('search.html'):
+        template = 'tutorial'
+    elif ( version == 'develop' or version == '0.10.0' or version == '0.9.0' ):
+        allow_search = True
+
+    extra_context = None
+    if allow_search:
+        # TODO[thuan]: Implement proper full text search
+        search_url = None
+
+        if version == 'develop':
+            if lang == 'en':
+                search_url = 'en/search.html'
+            elif lang == 'zh':
+                search_url = 'cn/search.html'
+
+        elif version == '0.9.0' or version == '0.10.0':
+            if lang == 'en':
+                search_url = 'doc/search.html'
+            elif lang == 'zh':
+                search_url = 'doc_cn/search.html'
+
+        extra_context =  { 'allow_search': allow_search, 'search_url': search_url }
+
+    return _render_static_content(request, version, template, 'docs', extra_context)
 
 
 def models_path(request, version, path=None):
@@ -114,7 +138,7 @@ def _redirect_first_link_in_book(request, version, book_id):
         return HttpResponseServerError("Cannot get book root url: %s" % e.message)
 
 
-def _render_static_content(request, version, book_id, content_src):
+def _render_static_content(request, version, book_id, content_src, additional_context=None):
     if version:
         portal_helper.set_preferred_version(request, version)
 
@@ -125,6 +149,9 @@ def _render_static_content(request, version, book_id, content_src):
         'book_id': book_id,
         'content_src': content_src
     }
+
+    if additional_context:
+        context.update(additional_context)
 
     return render(request, 'content.html', context)
 

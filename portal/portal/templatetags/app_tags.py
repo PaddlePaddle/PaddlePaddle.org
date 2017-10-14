@@ -31,6 +31,20 @@ def translation_assignment(context, leaf_node):
     return translation(context, leaf_node)
 
 
+@register.filter(name='search_partial')
+def search_partial(version):
+    # TODO[thuan]: Implement proper full text search
+    partial = None
+
+    if version:
+        if version == 'develop' or version == '0.10.0':
+            partial = '_search_0_10_0.html'
+        elif version == '0.9.0':
+            partial = '_search_0_9_0.html'
+
+    return partial
+
+
 @register.filter(name='css_for_content_src')
 def css_for_content_src(content_src):
     css = None
@@ -87,7 +101,9 @@ def content_links(context, book_id):
     )
 
     return _common_context(context, {
-        'side_nav_content': side_nav_content
+        'side_nav_content': side_nav_content,
+        'allow_search': context.get('allow_search', False),
+        'search_url': context.get('search_url', None)
     })
 
 

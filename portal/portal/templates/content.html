@@ -6,7 +6,6 @@
 {{ block.super }}
     <!-- code highlighter -->
     <link href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/darcula.min.css" rel="stylesheet">
-
     <link href="/static/stylesheets/theme.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <link href="/static/stylesheets/github-markdown.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -19,21 +18,13 @@
 {% block scripts %}
 {{ block.super }}
 <script src="/static/js/popper.min.js"></script>
-<script src="/static/js/doctools.js"></script>
 <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        extensions: ["tex2jax.js", "TeX/AMSsymbols.js", "TeX/AMSmath.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-            inlineMath: [ ['$','$'] ],
-            displayMath: [ ['$$','$$'] ],
-            processEscapes: true
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-    });
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
 </script>
 
 <script>
@@ -48,4 +39,12 @@
     // Highlight the code, please.
     hljs.initHighlightingOnLoad();
 </script>
+
+{% if allow_search %}
+{% include CURRENT_DOCS_VERSION|search_partial %}
+{% endif %}
+
+
+
+
 {% endblock %}
