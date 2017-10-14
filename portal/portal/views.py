@@ -85,14 +85,12 @@ def documentation_path(request, version, path=None):
     # URLs with /api/ in the path.  Otherwise we use "tutorial.html" template
     lang = portal_helper.get_preferred_language(request)
     template = 'documentation'     # TODO[thuan]: do this in a less hacky way
-    allow_search = False
+    allow_search = True
 
     if '/api/' not in path and not path.endswith('search.html'):
         template = 'tutorial'
-    elif ( version == 'develop' or version == '0.10.0' or version == '0.9.0' ):
-        allow_search = True
+        allow_search = False
 
-    extra_context = None
     if allow_search:
         # TODO[thuan]: Implement proper full text search
         search_url = None
@@ -109,8 +107,7 @@ def documentation_path(request, version, path=None):
             elif lang == 'zh':
                 search_url = 'doc_cn/search.html'
 
-        extra_context =  { 'allow_search': allow_search, 'search_url': search_url }
-
+    extra_context =  { 'allow_search': allow_search, 'search_url': search_url }
     return _render_static_content(request, version, template, 'docs', extra_context)
 
 
