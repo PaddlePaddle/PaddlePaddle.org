@@ -59,6 +59,7 @@
 
 .doc-content
     padding: 30px
+    padding-top: 6px
 
     // Merged from Sphinx and Github.
     h1, h2, h3, h4, h5, h6
@@ -417,7 +418,7 @@
             padding: 0
             margin-top: 16px
             font-size: 1em
-            font-style: italic
+            //font-style: italic
             font-weight: bold
         dd
             padding: 0 16px
@@ -621,21 +622,23 @@
         width: 100%
         overflow: auto
 
-        th
-            font-weight: bold
-            padding: 6px 13px
-            border: 1px solid #ddd
+        &:not(.docutils)
 
-        td
-            padding: 6px 13px
-            border: 1px solid #ddd
+            th
+                font-weight: bold
+                padding: 6px 13px
+                border: 1px solid #ddd
 
-        tr
-            background-color: #fff
-            border-top: 1px solid #ccc
+            td
+                padding: 6px 13px
+                border: 1px solid #ddd
 
-            &:nth-child(2n)
-                background-color: #f8f8f8
+            tr
+                background-color: #fff
+                border-top: 1px solid #ccc
+
+                &:nth-child(2n)
+                    background-color: #f8f8f8
 
     td
         vertical-align: top
@@ -1836,6 +1839,10 @@
 
         dt
             font-weight: bold
+
+            tt, code
+                color: #000
+                padding: 2px 5px
 
         p, table, ul, ol
             margin-bottom: 12px !important
