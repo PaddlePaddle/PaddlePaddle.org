@@ -37,509 +37,1900 @@
 #search-results ul.search > li > a
     color: #597cf1
 
-// Merged from Sphinx and Github.
-h1, h2, h3, h4, h5, h6
-    font-weight: 600
-    margin-top: 24px
-    margin-bottom: 16px
-    line-height: 1.25
+#search-results
+    .search li
+        margin-bottom: 24px
+        border-bottom: solid 1px #e1e4e5
+        padding-bottom: 24px
 
-h1
-    font-size: 32px
-    color: #2f323a
-    margin: 0.67em 0
-    font-weight: 600
+        &:first-child
+            border-top: solid 1px #e1e4e5
+            padding-top: 24px
 
-    // Need to resolve this with above.
-    padding-bottom: 0.3em
-    font-size: 2em
-    border-bottom: 1px solid #eee
+        a
+            font-size: 120%
+            margin-bottom: 12px
+            display: inline-block
 
-
-h2
-    font-size: 24px
-    color: #2f323a
-    margin-bottom: 30px
-
-    padding-bottom: 0.3em
-    font-size: 1.5em
-    border-bottom: 1px solid #eee
+    .context
+        color: gray
+        font-size: 90%
 
 
-h3
-    font-size: 20px
-    color: #2f323a
-    margin-bottom: 30px
+.doc-content
+    padding: 30px
 
-    font-size: 1.25em
+    // Merged from Sphinx and Github.
+    h1, h2, h3, h4, h5, h6
+        font-weight: 600
+        margin-top: 24px
+        margin-bottom: 16px
+        line-height: 1.25
 
-h4
-    font-size: 16px
-    color: #2f323a
-    margin-bottom: 30px
+    h1
+        font-size: 32px
+        color: #2f323a
+        margin: 0.67em 0
+        font-weight: 600
 
-    font-size: 1em
-
-h5
-    font-size: 14px
-
-    font-size: 0.875em
-
-h6
-    font-size: 12px
-
-    font-size: 0.85em
-    color: #777
-
-hr
-    height: 0
-    margin: 15px 0
-    background: transparent
-    border: 0
-    border-bottom: 1px solid #ddd
-    box-sizing: content-box
-    overflow: visible
-    border-bottom-color: #eee
-
-    height: 0.25em
-    padding: 0
-    margin: 24px 0
-    background-color: #e7e7e7
-    border: 0
-
-    &::before
-        display: table
-        content: ""
-
-    &::after
-        display: table
-        clear: both
-        content: ""
-
-p + h1,
-p + h2,
-p + h3,
-p + h4
-    margin-top: 20px
-
-p
-    color: #2f323a
-    margin-bottom: 20px
-    font-size: 14px
-    margin-top: 0
-    margin-bottom: 10px
+        // Need to resolve this with above.
+        padding-bottom: 0.3em
+        font-size: 2em
+        border-bottom: 1px solid #eee
 
 
-*
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
+    h2
+        font-size: 24px
+        color: #2f323a
+        margin-bottom: 30px
 
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section
-    display: block
-
-p, blockquote, ul, ol, dl, table, pre
-    margin-top: 0
-    margin-bottom: 16px
+        padding-bottom: 0.3em
+        font-size: 1.5em
+        border-bottom: 1px solid #eee
 
 
-audio, canvas, video
-    display: inline-block
-    *display: inline
-    *zoom: 1
+    h3
+        font-size: 20px
+        color: #2f323a
+        margin-bottom: 30px
 
-audio:not([controls]), [hidden]
-    display: none
+        font-size: 1.25em
 
-*
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
+    h4
+        font-size: 16px
+        color: #2f323a
+        margin-bottom: 30px
 
-html
-    font-size: 100%
-    -webkit-text-size-adjust: 100%
-    -ms-text-size-adjust: 100%
+        font-size: 1em
 
-body
-    margin: 0
+    h5
+        font-size: 14px
 
-a
-    background-color: transparent
-    -webkit-text-decoration-skip: objects
-    color: #597cf1
-    text-decoration: none
+        font-size: 0.875em
 
-    &:hover, &:active
-        outline: 0
-        outline-width: 0
-        text-decoration: underline
+    h6
+        font-size: 12px
 
-abbr[title]
-    border-bottom: 1px dotted
+        font-size: 0.85em
+        color: #777
 
-b, strong
-    font-weight: inherit
-    font-weight: bolder
-    font-weight: 600
-
-blockquote
-    margin: 0
-    padding: 0 1em
-    color: #777
-    border-left: 0.25em solid #ddd
-
-    >
-        \:first-child
-            margin-top: 0
-        \:last-child
-            margin-bottom: 0
-
-
-dfn
-    font-style: italic
-
-ins
-    background: #ff9
-    color: #000
-    text-decoration: none
-
-mark
-    background: #ff0
-    color: #000
-    font-style: italic
-    font-weight: bold
-
-pre, code
-    font-family: monospace,serif
-    _font-family: "courier new",monospace
-    font-size: 1em
-
-tt, code
-    font-family: monospace,serif
-    _font-family: "courier new",monospace
-    font-size: 1em
-
-kbd, samp
-    font-family: monospace,serif
-    _font-family: "courier new",monospace
-    font-size: 1em
-
-code
-    padding: 0
-    padding-top: 0.2em
-    padding-bottom: 0.2em
-    margin: 0
-    font-size: 85%
-    background-color: rgba(0, 0, 0, 0.04)
-    border-radius: 3px
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace
-    font-size: 12px
-
-    &::before, &::after
-        letter-spacing: -0.2em
-        content: "\00a0"
-
-pre
-    white-space: pre
-    padding: 16px
-    overflow: auto
-    font-size: 85%
-    line-height: 1.45
-    background-color: #f7f7f7
-    border-radius: 3px
-    word-wrap: normal
-    margin-top: 0
-    margin-bottom: 0
-    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace
-
-    > code
-        padding: 0
-        margin: 0
-        font-size: 100%
-        word-break: normal
-        white-space: pre
+    hr
+        height: 0
+        margin: 15px 0
         background: transparent
         border: 0
-
-    code
-        display: inline
-        max-width: auto
-        padding: 0
-        margin: 0
+        border-bottom: 1px solid #ddd
+        box-sizing: content-box
         overflow: visible
-        line-height: inherit
-        word-wrap: normal
-        background-color: transparent
+        border-bottom-color: #eee
+
+        height: 0.25em
+        padding: 0
+        margin: 24px 0
+        background-color: #e7e7e7
         border: 0
 
-        &::before, &::after
-            content: normal
+        &::before
+            display: table
+            content: ""
 
-kbd
-    display: inline-block
-    padding: 3px 5px
-    font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace
-    line-height: 10px
-    color: #555
-    vertical-align: middle
-    background-color: #fcfcfc
-    border: solid 1px #ccc
-    border-bottom-color: #bbb
-    border-radius: 3px
-    box-shadow: inset 0 -1px 0 #bbb
+        &::after
+            display: table
+            clear: both
+            content: ""
 
+    p + h1,
+    p + h2,
+    p + h3,
+    p + h4
+        margin-top: 20px
 
-q
-    quotes: none
-
-    &:before, &:after
-        content: ""
-        content: none
-
-small
-    font-size: 85%
-
-sub
-    font-size: 75%
-    line-height: 0
-    position: relative
-    vertical-align: baseline
-
-sup
-    font-size: 75%
-    line-height: 0
-    position: relative
-    vertical-align: baseline
-    top: -0.5em
-
-sub
-    bottom: -0.25em
-
-ul, ol, dl
-    margin: 0
-    padding: 0
-    list-style: none
-    list-style-image: none
-    padding-left: 0
-    margin-top: 0
-    margin-bottom: 0
-
-ol
-    ol
-        list-style-type: lower-roman
-
-ul
-    ol
-        list-style-type: lower-roman
-    ul ol, ol ol
-        list-style-type: lower-alpha
-
-    ul, ol
+    p
+        color: #2f323a
+        margin-bottom: 20px
         margin-top: 0
-        margin-bottom: 0
-    ol
-        ol, ul
-            margin-top: 0
-            margin-bottom: 0
-
-ol
-    ul ol, ol ol
-        list-style-type: lower-alpha
+        margin-bottom: 10px
 
 
-li
-    list-style: none
+    *
+        -webkit-box-sizing: border-box
+        -moz-box-sizing: border-box
+        box-sizing: border-box
 
-    > p
-        margin-top: 16px
-    + li
-        margin-top: 0.25em
+    article, aside, details, figcaption, figure, footer, header, hgroup, nav, section
+        display: block
+
+    p, blockquote, ul, ol, dl, table, pre
+        margin-top: 0
+        margin-bottom: 16px
+
+
+    audio, canvas, video
+        display: inline-block
+        *display: inline
+        *zoom: 1
+
+    audio:not([controls]), [hidden]
+        display: none
+
+    *
+        -webkit-box-sizing: border-box
+        -moz-box-sizing: border-box
+        box-sizing: border-box
+
+    html
+        font-size: 100%
+        -webkit-text-size-adjust: 100%
+        -ms-text-size-adjust: 100%
+
+    body
+        margin: 0
+
+    a
+        background-color: transparent
+        -webkit-text-decoration-skip: objects
+        color: #597cf1
+        text-decoration: none
+
+        &:hover, &:active
+            outline: 0
+            outline-width: 0
+            text-decoration: underline
+
+        &:visited
+            color: #9B59B6
+
+    abbr[title]
+        border-bottom: 1px dotted
+
+    b, strong
+        font-weight: inherit
+        font-weight: bolder
+        font-weight: 600
+
+    blockquote
+        margin: 0
+        padding: 0 1em
+        color: #777
+        border-left: 0.25em solid #ddd
+
+        >
+            \:first-child
+                margin-top: 0
+            \:last-child
+                margin-bottom: 0
+
+
+    dfn
+        font-style: italic
+
+    ins
+        background: #ff9
+        color: #000
+        text-decoration: none
+
+    mark
+        background: #ff0
+        color: #000
+        font-style: italic
+        font-weight: bold
+
+    pre, code
+        font-family: monospace,serif
+        _font-family: "courier new",monospace
+        font-size: 1em
+
+    tt, code
+        font-family: monospace,serif
+        font-family: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace
+        font-size: 1em
+
+        // max-width: 100%
+        // background: #fff
+        // border: solid 1px #e1e4e5
+        // font-size: 75%
+        // padding: 0 5px
+        // color: #E74C3C
+        // overflow-x: auto
+
+
+    kbd, samp
+        font-family: monospace,serif
+        _font-family: "courier new",monospace
+        font-size: 1em
+
+    code
+        padding: 0
+        padding-top: 0.2em
+        padding-bottom: 0.2em
+        margin: 0
+        font-size: 85%
+        background-color: rgba(0, 0, 0, 0.04)
+        border-radius: 3px
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace
+        font-size: 12px
+
+        &::before, &::after
+            letter-spacing: -0.2em
+            content: "\00a0"
+
+        color: #E74C3C
+        overflow-x: auto
+
 
     pre
-        margin-bottom: 0
-        word-break: normal
+        white-space: pre
         padding: 16px
         overflow: auto
         font-size: 85%
         line-height: 1.45
         background-color: #f7f7f7
         border-radius: 3px
+        word-wrap: normal
+        margin-top: 0
+        margin-bottom: 0
+        font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace
+        color: #292b2c
 
-ul, ol
-    padding-left: 2em
+        > code
+            padding: 0
+            margin: 0
+            font-size: 100%
+            word-break: normal
+            white-space: pre
+            background: transparent
+            border: 0
 
-ul
+        code
+            display: inline
+            max-width: auto
+            padding: 0
+            margin: 0
+            overflow: visible
+            line-height: inherit
+            word-wrap: normal
+            background-color: transparent
+            border: 0
+            color: #292b2c
+
+            &::before, &::after
+                content: normal
+
+    kbd
+        display: inline-block
+        padding: 3px 5px
+        font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace
+        line-height: 10px
+        color: #555
+        vertical-align: middle
+        background-color: #fcfcfc
+        border: solid 1px #ccc
+        border-bottom-color: #bbb
+        border-radius: 3px
+        box-shadow: inset 0 -1px 0 #bbb
 
 
-dd
-    margin: 0
+    q
+        quotes: none
 
-dl
-    padding: 0
+        &:before, &:after
+            content: ""
+            content: none
 
-    dt
+    small
+        font-size: 85%
+
+    sub
+        font-size: 75%
+        line-height: 0
+        position: relative
+        vertical-align: baseline
+
+    sup
+        font-size: 75%
+        line-height: 0
+        position: relative
+        vertical-align: baseline
+        top: -0.5em
+
+    sub
+        bottom: -0.25em
+
+    ul, ol, dl
+        margin: 0
         padding: 0
-        margin-top: 16px
-        font-size: 1em
-        font-style: italic
-        font-weight: bold
+        list-style: none
+        list-style-image: none
+        padding-left: 0
+        margin-top: 0
+        margin-bottom: 0
+
+    ol
+        ol
+            list-style-type: lower-roman
+
+    ul
+        ol
+            list-style-type: lower-roman
+        ul ol, ol ol
+            list-style-type: lower-alpha
+
+        ul, ol
+            margin-top: 0
+            margin-bottom: 0
+        ol
+            ol, ul
+                margin-top: 0
+                margin-bottom: 0
+
+    ol
+        ul ol, ol ol
+            list-style-type: lower-alpha
+
+
+    li
+        list-style: none
+
+        > p
+            margin-top: 16px
+
+        pre
+            margin-bottom: 0
+            word-break: normal
+            padding: 16px
+            overflow: auto
+            font-size: 85%
+            line-height: 1.45
+            background-color: #f7f7f7
+            border-radius: 3px
+
+    // ul, ol
+    //     padding-left: 2em
+
     dd
-        padding: 0 16px
-        margin-bottom: 16px
+        margin: 0
+
+    dl
+        padding: 0
+
+        dt
+            padding: 0
+            margin-top: 16px
+            font-size: 1em
+            font-style: italic
+            font-weight: bold
+        dd
+            padding: 0 16px
+            margin-bottom: 16px
 
 
-img
-    border: 0
-    -ms-interpolation-mode: bicubic
-    vertical-align: middle
-    max-width: 100%
-    border-style: none
-    box-sizing: content-box
+    img
+        border: 0
+        -ms-interpolation-mode: bicubic
+        vertical-align: middle
+        max-width: 100%
+        border-style: none
+        box-sizing: content-box
 
 
-svg:not(:root)
-    overflow: hidden
+    svg:not(:root)
+        overflow: hidden
 
-figure, form
-    margin: 0
+    figure, form
+        margin: 0
 
-fieldset
-    border: 0
-    margin: 0
-    padding: 0
+    fieldset
+        border: 0
+        margin: 0
+        padding: 0
 
-label
-    cursor: pointer
+    label
+        cursor: pointer
 
-legend
-    border: 0
-    *margin-left: -7px
-    padding: 0
-    white-space: normal
+        display: block
+        margin: 0 0 0.3125em 0
+        color: #333
+        font-size: 90%
 
-button, input, select, textarea
-    font-size: 100%
-    margin: 0
-    vertical-align: baseline
-    *vertical-align: middle
+    legend
+        border: 0
+        *margin-left: -7px
+        padding: 0
+        white-space: normal
 
-button, input
-    line-height: normal
+        display: block
+        width: 100%
+        margin-bottom: 24px
+        font-size: 150%
 
-button
-    cursor: pointer
-    -webkit-appearance: button
-    *overflow: visible
+    button, input, select, textarea
+        font-size: 100%
+        margin: 0
+        vertical-align: baseline
+        *vertical-align: middle
 
-input
-    font: inherit
-    margin: 0
-    overflow: visible
-    font-family: inherit
-    font-size: inherit
-    line-height: inherit
-    -webkit-font-feature-settings: "liga" 0
-    font-feature-settings: "liga" 0
+    select, textarea
+        padding: 0.5em 0.625em
+        display: inline-block
+        border: 1px solid #ccc
+        box-shadow: inset 0 1px 3px #ddd
+        -webkit-transition: border 0.3s linear
+        -moz-transition: border 0.3s linear
+        transition: border 0.3s linear
+        vertical-align: baseline
+        *vertical-align: middle
 
-    &[type="button"], &[type="reset"], &[type="submit"]
+    select
+        border: 1px solid #ccc
+        background-color: #fff
+
+        &[multiple]
+            height: auto
+
+        &:focus
+            outline: 0
+
+    select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly]
+        cursor: not-allowed
+        background-color: #fafafa
+
+
+    button, input
+        line-height: normal
+
+    button
         cursor: pointer
         -webkit-appearance: button
         *overflow: visible
 
-button[disabled]
-    cursor: default
+        font-size: 100%
+        margin: 0
+        vertical-align: baseline
+        *vertical-align: middle
+        line-height: normal
 
-input
-    &[disabled]
-        cursor: default
-    &[type="checkbox"], &[type="radio"]
-        box-sizing: border-box
-        padding: 0
-        *width: 13px
-        *height: 13px
-    &[type="search"]
-        -webkit-appearance: textfield
-        -moz-box-sizing: content-box
-        -webkit-box-sizing: content-box
-        box-sizing: content-box
-        &::-webkit-search-decoration, &::-webkit-search-cancel-button
-            -webkit-appearance: none
-
-button::-moz-focus-inner, input::-moz-focus-inner
-    border: 0
-    padding: 0
-
-textarea
-    overflow: auto
-    vertical-align: top
-    resize: vertical
-
-table
-    border-collapse: collapse
-    border-spacing: 0
-    display: block
-    width: 100%
-    overflow: auto
-
-    th
-        font-weight: bold
-        padding: 6px 13px
-        border: 1px solid #ddd
-
-    td
-        padding: 6px 13px
-        border: 1px solid #ddd
-
-    tr
-        background-color: #fff
-        border-top: 1px solid #ccc
-
-        &:nth-child(2n)
-            background-color: #f8f8f8
-
-td
-    vertical-align: top
-
-    td, th
-        padding: 0
-
-
-\:checked + .radio-label
-    position: relative
-    z-index: 1
-    border-color: #4078c0
-
-
-a:not([href])
-    color: inherit
-    text-decoration: none
-
-.anchor
-    float: left
-    padding-right: 4px
-    margin-left: -20px
-    line-height: 1
-
-    &:focus
-        outline: none
-
-
-// To figure out:
-.rst-content .highlighted
-    background-color: transparent
-    color: #ff9711
-    padding: 0
-
-.highlight
-    margin-bottom: 16px
-
-.task-list-item
-    list-style-type: none
-
-    + .task-list-item
-        margin-top: 3px
+        &[disabled]
+            cursor: default
 
     input
-        margin: 0 0.2em 0.25em -1.6em
+        font: inherit
+        margin: 0
+        overflow: visible
+        font-family: inherit
+        font-size: inherit
+        line-height: inherit
+        -webkit-font-feature-settings: "liga" 0
+        font-feature-settings: "liga" 0
+
+        &[disabled]
+            cursor: default
+
+        &[type="button"], &[type="reset"], &[type="submit"]
+            cursor: pointer
+            -webkit-appearance: button
+            *overflow: visible
+
+        &[type="radio"][disabled], &[type="checkbox"][disabled]
+            cursor: not-allowed
+
+        &[type="checkbox"], &[type="radio"]
+            box-sizing: border-box
+            padding: 0
+            *width: 13px
+            *height: 13px
+
+        &[type="search"]
+            -webkit-appearance: textfield
+            -moz-box-sizing: content-box
+            -webkit-box-sizing: content-box
+            box-sizing: content-box
+            &::-webkit-search-decoration, &::-webkit-search-cancel-button
+                -webkit-appearance: none
+
+        // line-height: normal
+        // &[type="button"], &[type="reset"], &[type="submit"]
+        // -webkit-appearance: button
+        // cursor: pointer
+        // font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif
+        // *overflow: visible
+        // &[type="text"], &[type="password"], &[type="email"], &[type="url"], &[type="date"], &[type="month"], &[type="time"], &[type="datetime"], &[type="datetime-local"], &[type="week"], &[type="number"], &[type="search"], &[type="tel"], &[type="color"]
+        // -webkit-appearance: none
+        // padding: 6px
+        // display: inline-block
+        // border: 1px solid #ccc
+        // font-size: 80%
+        // font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif
+        // box-shadow: inset 0 1px 3px #ddd
+        // border-radius: 0
+        // -webkit-transition: border 0.3s linear
+        // -moz-transition: border 0.3s linear
+        // transition: border 0.3s linear
+        // &[type="datetime-local"]
+        // padding: 0.34375em 0.625em
+        // &[disabled]
+        // cursor: default
+        // &[type="checkbox"], &[type="radio"]
+        // -webkit-box-sizing: border-box
+        // -moz-box-sizing: border-box
+        // box-sizing: border-box
+        // padding: 0
+        // margin-right: 0.3125em
+        // *height: 13px
+        // *width: 13px
+        // &[type="search"]
+        // -webkit-box-sizing: border-box
+        // -moz-box-sizing: border-box
+        // box-sizing: border-box
+        // &::-webkit-search-cancel-button, &::-webkit-search-decoration
+        //   -webkit-appearance: none
+        // &[type="text"]:focus, &[type="password"]:focus, &[type="email"]:focus, &[type="url"]:focus, &[type="date"]:focus, &[type="month"]:focus, &[type="time"]:focus, &[type="datetime"]:focus, &[type="datetime-local"]:focus, &[type="week"]:focus, &[type="number"]:focus, &[type="search"]:focus, &[type="tel"]:focus, &[type="color"]:focus
+        // outline: 0
+        // outline: thin dotted \9
+        // border-color: #333
+        // &.no-focus:focus
+        // border-color: #ccc !important
+        // &[type="file"]:focus, &[type="radio"]:focus, &[type="checkbox"]:focus
+        // outline: thin dotted #333
+        // outline: 1px auto #129FEA
+        // &[type="text"][disabled], &[type="password"][disabled], &[type="email"][disabled], &[type="url"][disabled], &[type="date"][disabled], &[type="month"][disabled], &[type="time"][disabled], &[type="datetime"][disabled], &[type="datetime-local"][disabled], &[type="week"][disabled], &[type="number"][disabled], &[type="search"][disabled], &[type="tel"][disabled], &[type="color"][disabled]
+        // cursor: not-allowed
+        // background-color: #fafafa
+        // &:focus:invalid
+        // color: #E74C3C
+        // border: 1px solid #E74C3C
+
+
+
+    button::-moz-focus-inner, input::-moz-focus-inner
+        border: 0
+        padding: 0
+
+    textarea
+        overflow: auto
+        vertical-align: top
+        resize: vertical
+        width: 100%
+
+        &:focus
+            outline: 0
+
+    table
+        border-collapse: collapse
+        border-spacing: 0
+        display: block
+        width: 100%
+        overflow: auto
+
+        th
+            font-weight: bold
+            padding: 6px 13px
+            border: 1px solid #ddd
+
+        td
+            padding: 6px 13px
+            border: 1px solid #ddd
+
+        tr
+            background-color: #fff
+            border-top: 1px solid #ccc
+
+            &:nth-child(2n)
+                background-color: #f8f8f8
+
+    td
+        vertical-align: top
+
+        td, th
+            padding: 0
+
+
+    \:checked + .radio-label
+        position: relative
+        z-index: 1
+        border-color: #4078c0
+
+
+    a:not([href])
+        color: inherit
+        text-decoration: none
+
+    .anchor
+        float: left
+        padding-right: 4px
+        margin-left: -20px
+        line-height: 1
+
+        &:focus
+            outline: none
+
+
+    // To figure out:
+    .rst-content .highlighted
+        background-color: transparent
+        color: #ff9711
+        padding: 0
+
+    .highlight
+        margin-bottom: 16px
+
+    .task-list-item
+        list-style-type: none
+
+        + .task-list-item
+            margin-top: 3px
+
+        input
+            margin: 0 0.2em 0.25em -1.6em
+            vertical-align: middle
+
+
+    // Sphinx Code Highlight.
+    .hll
+        background-color: #ffc
+        margin: 0 -12px
+        padding: 0 12px
+        display: block
+
+    .c
+        color: #998
+        font-style: italic
+
+    .err
+        color: #a61717
+        background-color: #e3d2d2
+
+    .k, .o
+        font-weight: bold
+
+    .cm
+        color: #998
+        font-style: italic
+
+    .cp
+        color: #999
+        font-weight: bold
+
+    .c1
+        color: #998
+        font-style: italic
+
+    .cs
+        color: #999
+        font-weight: bold
+        font-style: italic
+
+    .gd
+        color: #000
+        background-color: #fdd
+
+        .x
+            color: #000
+            background-color: #faa
+
+    .ge
+        font-style: italic
+
+    .gr
+        color: #a00
+
+    .gh
+        color: #999
+
+    .gi
+        color: #000
+        background-color: #dfd
+        .x
+            color: #000
+            background-color: #afa
+
+    .go
+        color: #888
+
+    .gp
+        color: #555
+
+    .gs
+        font-weight: bold
+
+    .gu
+        color: purple
+        font-weight: bold
+
+    .gt
+        color: #a00
+
+    .kc, .kd, .kn, .kp, .kr
+        font-weight: bold
+
+    .kt
+        color: #458
+        font-weight: bold
+
+    .m
+        color: #099
+
+    .s
+        color: #d14
+
+    .n
+        color: #333
+
+    .na
+        color: teal
+
+    .nb
+        color: #0086b3
+
+    .nc
+        color: #458
+        font-weight: bold
+
+    .no
+        color: teal
+
+    .ni
+        color: purple
+
+    .ne, .nf
+        color: #900
+        font-weight: bold
+
+    .nn
+        color: #555
+
+    .nt
+        color: navy
+
+    .nv
+        color: teal
+
+    .ow
+        font-weight: bold
+
+    .w
+        color: #bbb
+
+    .mf, .mh, .mi, .mo
+        color: #099
+
+    .sb, .sc, .sd, .s2, .se, .sh, .si, .sx
+        color: #d14
+
+    .sr
+        color: #009926
+
+    .s1
+        color: #d14
+
+    .ss
+        color: #990073
+
+    .bp
+        color: #999
+
+    .vc, .vg, .vi
+        color: teal
+
+    .il
+        color: #099
+
+    .gc
+        color: #999
+        background-color: #EAF2F5
+
+
+    li + li
+        margin-top: 0.25em
+
+    // Sphinx specific styling.
+    .admonition-title:before, h1 .headerlink:before, h2 .headerlink:before, h3 .headerlink:before, h4 .headerlink:before, h5 .headerlink:before, h6 .headerlink:before, dl dt .headerlink:before, p.caption .headerlink:before, tt.download span:first-child:before, code.download span:first-child:before
+        -webkit-font-smoothing: antialiased
+
+    .icon:before, .wy-dropdown .caret:before
+        -webkit-font-smoothing: antialiased
+
+    .wy-alert
+        -webkit-font-smoothing: antialiased
+
+    .note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo
+        -webkit-font-smoothing: antialiased
+
+    .btn
+        -webkit-font-smoothing: antialiased
+
+    .admonition-title, h1 .headerlink, h2 .headerlink, h3 .headerlink, h4 .headerlink, h5 .headerlink, h6 .headerlink, dl dt .headerlink, p.caption .headerlink, tt.download span:first-child, code.download span:first-child
+        display: inline-block
+        font-size: inherit
+        text-rendering: auto
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+
+    .icon
+        display: inline-block
+        font: normal normal normal 14px/1 FontAwesome
+        font-size: inherit
+        text-rendering: auto
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+
+    .pull-right
+        float: right
+
+    .pull-left
+        float: left
+
+    .fa.pull-left
+        margin-right: .3em
+
+    .pull-left.admonition-title, h1 .pull-left.headerlink, h2 .pull-left.headerlink, h3 .pull-left.headerlink, h4 .pull-left.headerlink, h5 .pull-left.headerlink, h6 .pull-left.headerlink, dl dt .pull-left.headerlink, p.caption .pull-left.headerlink, tt.download span.pull-left:first-child, code.download span.pull-left:first-child
+        margin-right: .3em
+
+    .pull-left.icon
+        margin-right: .3em
+
+    .fa.pull-right
+        margin-left: .3em
+
+    .pull-right.admonition-title, h1 .pull-right.headerlink, h2 .pull-right.headerlink, h3 .pull-right.headerlink, h4 .pull-right.headerlink, h5 .pull-right.headerlink, h6 .pull-right.headerlink, dl dt .pull-right.headerlink, p.caption .pull-right.headerlink, tt.download span.pull-right:first-child, code.download span.pull-right:first-child
+        margin-left: .3em
+
+    .pull-right.icon
+        margin-left: .3em
+
+    .admonition-title:before, h1 .headerlink:before, h2 .headerlink:before, h3 .headerlink:before, h4 .headerlink:before, h5 .headerlink:before, h6 .headerlink:before, dl dt .headerlink:before, p.caption .headerlink:before, tt.download span:first-child:before, code.download span:first-child:before
+        font-family: "FontAwesome"
+        display: inline-block
+        font-style: normal
+        font-weight: normal
+        line-height: 1
+        text-decoration: inherit
+
+    .icon:before, .wy-dropdown .caret:before
+        font-family: "FontAwesome"
+        display: inline-block
+        font-style: normal
+        font-weight: normal
+        line-height: 1
+        text-decoration: inherit
+
+    .btn.admonition-title:before, h1 .btn.headerlink:before, h2 .btn.headerlink:before, h3 .btn.headerlink:before, h4 .btn.headerlink:before, h5 .btn.headerlink:before, h6 .btn.headerlink:before, dl dt .btn.headerlink:before, p.caption .btn.headerlink:before, tt.download span.btn:first-child:before, code.download span.btn:first-child:before
+        opacity: 0.5
+        -webkit-transition: opacity 0.05s ease-in
+        -moz-transition: opacity 0.05s ease-in
+        transition: opacity 0.05s ease-in
+
+    .btn
+        &.icon:before
+            opacity: 0.5
+            -webkit-transition: opacity 0.05s ease-in
+            -moz-transition: opacity 0.05s ease-in
+            transition: opacity 0.05s ease-in
+        &.fa:hover:before
+            opacity: 1
+
+    .btn.admonition-title:hover:before, h1 .btn.headerlink:hover:before, h2 .btn.headerlink:hover:before, h3 .btn.headerlink:hover:before, h4 .btn.headerlink:hover:before, h5 .btn.headerlink:hover:before, h6 .btn.headerlink:hover:before, dl dt .btn.headerlink:hover:before, p.caption .btn.headerlink:hover:before, tt.download span.btn:first-child:hover:before, code.download span.btn:first-child:hover:before
+        opacity: 1
+
+    .btn.icon:hover:before
+        opacity: 1
+
+    .note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo
+        padding: 12px
+        line-height: 24px
+        margin-bottom: 24px
+        background: #e7f2fa
+
+    .wy-alert-title, .admonition-title
+        color: #fff
+        font-weight: bold
+        display: block
+        color: #fff
+        background: #6ab0de
+        margin: -12px
+        padding: 6px 12px
+        margin-bottom: 12px
+
+    .wy-alert.wy-alert-danger
+        background: #fdf3f2
+
+    .wy-alert
+        padding: 12px
+        line-height: 24px
+        margin-bottom: 24px
+        background: #e7f2fa
+
+    .wy-alert-danger
+        &.note, &.attention, &.caution
+            background: #fdf3f2
+
+    .danger, .error
+        background: #fdf3f2
+
+    .wy-alert-danger
+        &.hint, &.important, &.tip, &.warning, &.seealso, &.admonition-todo
+            background: #fdf3f2
+
+    .wy-alert.wy-alert-danger .wy-alert-title
+        background: #f29f97
+
+    .wy-alert-danger
+        &.note .wy-alert-title, &.attention .wy-alert-title, &.caution .wy-alert-title
+            background: #f29f97
+        .danger .wy-alert-title, .error .wy-alert-title
+            background: #f29f97
+        .wy-alert-danger
+            &.hint .wy-alert-title, &.important .wy-alert-title, &.tip .wy-alert-title, &.warning .wy-alert-title, &.seealso .wy-alert-title, &.admonition-todo .wy-alert-title
+                background: #f29f97
+
+    .wy-alert.wy-alert-danger .rst-content .admonition-title
+        background: #f29f97
+
+    .wy-alert.wy-alert-danger .admonition-title
+        background: #f29f97
+    .wy-alert-danger
+        &.note .admonition-title, &.attention .admonition-title, &.caution .admonition-title
+            background: #f29f97
+    .danger .admonition-title, .error .admonition-title
+        background: #f29f97
+    .wy-alert-danger
+        &.hint .admonition-title, &.important .admonition-title, &.tip .admonition-title, &.warning .admonition-title, &.seealso .admonition-title, &.admonition-todo .admonition-title
+            background: #f29f97
+
+    .wy-alert.wy-alert-warning
+        background: #ffedcc
+
+    .wy-alert-warning.note, .attention, .caution
+        background: #ffedcc
+    .wy-alert-warning
+        &.danger, &.error, &.hint, &.important, &.tip
+            background: #ffedcc
+    .warning, .wy-alert-warning.seealso, .admonition-todo
+        background: #ffedcc
+
+    .wy-alert.wy-alert-warning .wy-alert-title
+        background: #f0b37e
+
+    .wy-alert-warning.note .wy-alert-title, .attention .wy-alert-title, .caution .wy-alert-title
+        background: #f0b37e
+    .wy-alert-warning
+        &.danger .wy-alert-title, &.error .wy-alert-title, &.hint .wy-alert-title, &.important .wy-alert-title, &.tip .wy-alert-title
+            background: #f0b37e
+    .warning .wy-alert-title, .wy-alert-warning.seealso .wy-alert-title, .admonition-todo .wy-alert-title
+        background: #f0b37e
+
+    .wy-alert.wy-alert-warning .rst-content .admonition-title
+        background: #f0b37e
+
+    .wy-alert.wy-alert-warning .admonition-title, .wy-alert-warning.note .admonition-title, .attention .admonition-title, .caution .admonition-title
+        background: #f0b37e
+    .wy-alert-warning
+        &.danger .admonition-title, &.error .admonition-title, &.hint .admonition-title, &.important .admonition-title, &.tip .admonition-title
+            background: #f0b37e
+    .warning .admonition-title, .wy-alert-warning.seealso .admonition-title, .admonition-todo .admonition-title
+        background: #f0b37e
+
+    .wy-alert.wy-alert-info
+        background: #e7f2fa
+
+    .note
+        background: #e7f2fa
+
+    .wy-alert-info
+        &.attention, &.caution, &.danger, &.error, &.hint, &.important, &.tip, &.warning
+            background: #e7f2fa
+
+    .seealso, .wy-alert-info.admonition-todo
+        background: #e7f2fa
+
+    .wy-alert.wy-alert-info .wy-alert-title
+        background: #6ab0de
+
+    .note .wy-alert-title
+        background: #6ab0de
+
+    .wy-alert-info
+        &.attention .wy-alert-title, &.caution .wy-alert-title, &.danger .wy-alert-title, &.error .wy-alert-title, &.hint .wy-alert-title, &.important .wy-alert-title, &.tip .wy-alert-title, &.warning .wy-alert-title
+            background: #6ab0de
+
+    .seealso .wy-alert-title, .wy-alert-info.admonition-todo .wy-alert-title
+        background: #6ab0de
+
+    .wy-alert.wy-alert-info .rst-content .admonition-title
+        background: #6ab0de
+
+    .wy-alert.wy-alert-info .admonition-title, .note .admonition-title
+        background: #6ab0de
+    .wy-alert-info
+        &.attention .admonition-title, &.caution .admonition-title, &.danger .admonition-title, &.error .admonition-title, &.hint .admonition-title, &.important .admonition-title, &.tip .admonition-title, &.warning .admonition-title
+            background: #6ab0de
+    .seealso .admonition-title, .wy-alert-info.admonition-todo .admonition-title
+        background: #6ab0de
+
+    .wy-alert.wy-alert-success
+        background: #dbfaf4
+
+    .wy-alert-success
+        &.note, &.attention, &.caution, &.danger, &.error
+            background: #dbfaf4
+    .hint, .important, .tip
+        background: #dbfaf4
+    .wy-alert-success
+        &.warning, &.seealso, &.admonition-todo
+            background: #dbfaf4
+
+    .wy-alert.wy-alert-success .wy-alert-title
+        background: #1abc9c
+
+    .wy-alert-success
+        &.note .wy-alert-title, &.attention .wy-alert-title, &.caution .wy-alert-title, &.danger .wy-alert-title, &.error .wy-alert-title
+            background: #1abc9c
+    .hint .wy-alert-title, .important .wy-alert-title, .tip .wy-alert-title
+        background: #1abc9c
+    .wy-alert-success
+        &.warning .wy-alert-title, &.seealso .wy-alert-title, &.admonition-todo .wy-alert-title
+            background: #1abc9c
+
+    .wy-alert.wy-alert-success .rst-content .admonition-title
+        background: #1abc9c
+
+    .wy-alert.wy-alert-success .admonition-title
+        background: #1abc9c
+
+    .wy-alert-success
+        &.note .admonition-title, &.attention .admonition-title, &.caution .admonition-title, &.danger .admonition-title, &.error .admonition-title
+            background: #1abc9c
+
+    .hint .admonition-title, .important .admonition-title, .tip .admonition-title
+        background: #1abc9c
+
+    .wy-alert-success
+        &.warning .admonition-title, &.seealso .admonition-title, &.admonition-todo .admonition-title
+            background: #1abc9c
+
+    .wy-alert.wy-alert-neutral
+        background: #f3f6f6
+
+    .wy-alert-neutral
+        &.note, &.attention, &.caution, &.danger, &.error, &.hint, &.important, &.tip, &.warning, &.seealso, &.admonition-todo
+            background: #f3f6f6
+
+    .wy-alert.wy-alert-neutral .wy-alert-title
+        color: #404040
+        background: #e1e4e5
+
+    .wy-alert-neutral
+        &.note .wy-alert-title, &.attention .wy-alert-title, &.caution .wy-alert-title, &.danger .wy-alert-title, &.error .wy-alert-title, &.hint .wy-alert-title, &.important .wy-alert-title, &.tip .wy-alert-title, &.warning .wy-alert-title, &.seealso .wy-alert-title, &.admonition-todo .wy-alert-title
+            color: #404040
+            background: #e1e4e5
+
+    .wy-alert.wy-alert-neutral .rst-content .admonition-title
+        color: #404040
+        background: #e1e4e5
+
+
+    .wy-alert.wy-alert-neutral .admonition-title
+        color: #404040
+        background: #e1e4e5
+
+    .wy-alert-neutral
+        &.note .admonition-title, &.attention .admonition-title, &.caution .admonition-title, &.danger .admonition-title, &.error .admonition-title, &.hint .admonition-title, &.important .admonition-title, &.tip .admonition-title, &.warning .admonition-title, &.seealso .admonition-title, &.admonition-todo .admonition-title
+            color: #404040
+            background: #e1e4e5
+
+    .wy-alert.wy-alert-neutral a
+        color: #2980B9
+
+    .wy-alert-neutral
+        &.note a, &.attention a, &.caution a, &.danger a, &.error a, &.hint a, &.important a, &.tip a, &.warning a, &.seealso a, &.admonition-todo a
+            color: #2980B9
+
+
+    .wy-alert p:last-child
+        margin-bottom: 0
+
+    .note p:last-child, .attention p:last-child, .caution p:last-child, .danger p:last-child, .error p:last-child, .hint p:last-child, .important p:last-child, .tip p:last-child, .warning p:last-child, .seealso p:last-child, .admonition-todo p:last-child
+        margin-bottom: 0
+
+    .rotate-90
+        -webkit-transform: rotate(90deg)
+        -moz-transform: rotate(90deg)
+        -ms-transform: rotate(90deg)
+        -o-transform: rotate(90deg)
+        transform: rotate(90deg)
+
+    .rotate-180
+        -webkit-transform: rotate(180deg)
+        -moz-transform: rotate(180deg)
+        -ms-transform: rotate(180deg)
+        -o-transform: rotate(180deg)
+        transform: rotate(180deg)
+
+    .rotate-270
+        -webkit-transform: rotate(270deg)
+        -moz-transform: rotate(270deg)
+        -ms-transform: rotate(270deg)
+        -o-transform: rotate(270deg)
+        transform: rotate(270deg)
+
+    .mirror
+        -webkit-transform: scaleX(-1)
+        -moz-transform: scaleX(-1)
+        -ms-transform: scaleX(-1)
+        -o-transform: scaleX(-1)
+        transform: scaleX(-1)
+
+        &.rotate-90
+            -webkit-transform: scaleX(-1) rotate(90deg)
+            -moz-transform: scaleX(-1) rotate(90deg)
+            -ms-transform: scaleX(-1) rotate(90deg)
+            -o-transform: scaleX(-1) rotate(90deg)
+            transform: scaleX(-1) rotate(90deg)
+
+        &.rotate-180
+            -webkit-transform: scaleX(-1) rotate(180deg)
+            -moz-transform: scaleX(-1) rotate(180deg)
+            -ms-transform: scaleX(-1) rotate(180deg)
+            -o-transform: scaleX(-1) rotate(180deg)
+            transform: scaleX(-1) rotate(180deg)
+
+        &.rotate-270
+            -webkit-transform: scaleX(-1) rotate(270deg)
+            -moz-transform: scaleX(-1) rotate(270deg)
+            -ms-transform: scaleX(-1) rotate(270deg)
+            -o-transform: scaleX(-1) rotate(270deg)
+            transform: scaleX(-1) rotate(270deg)
+
+    .float-left
+        float: left
+
+    .float-right
+        float: right
+
+    .full-width
+        width: 100%
+
+    .wy-table
+        border-collapse: collapse
+        border-spacing: 0
+        empty-cells: show
+        margin-bottom: 24px
+
+    table
+        &.docutils, &.field-list
+            border-collapse: collapse
+            border-spacing: 0
+            empty-cells: show
+            margin-bottom: 24px
+
+    .wy-table caption
+        color: #000
+        font: italic 85%/1 arial,sans-serif
+        padding: 1em 0
+        text-align: center
+    table
+        &.docutils caption, &.field-list caption
+            color: #000
+            font: italic 85%/1 arial,sans-serif
+            padding: 1em 0
+            text-align: center
+    .wy-table td
+        font-size: 90%
+        margin: 0
+        overflow: visible
+        padding: 8px 16px
+
+    table
+        &.docutils td, &.field-list td
+            font-size: 90%
+            margin: 0
+            overflow: visible
+            padding: 8px 16px
+
+    .wy-table th
+        font-size: 90%
+        margin: 0
+        overflow: visible
+        padding: 8px 16px
+
+    table
+        &.docutils th, &.field-list th
+            font-size: 90%
+            margin: 0
+            overflow: visible
+            padding: 8px 16px
+
+    .wy-table td:first-child
+        border-left-width: 0
+
+    table
+        &.docutils td:first-child, &.field-list td:first-child
+            border-left-width: 0
+
+    .wy-table th:first-child
+        border-left-width: 0
+
+    table
+        &.docutils th:first-child, &.field-list th:first-child
+            border-left-width: 0
+
+    .wy-table thead
+        color: #000
+        text-align: left
+        vertical-align: bottom
+        white-space: nowrap
+
+    table
+        &.docutils thead, &.field-list thead
+            color: #000
+            text-align: left
+            vertical-align: bottom
+            white-space: nowrap
+
+    .wy-table thead th
+        font-weight: bold
+        border-bottom: solid 2px #e1e4e5
+
+    table
+        &.docutils thead th, &.field-list thead th
+            font-weight: bold
+            border-bottom: solid 2px #e1e4e5
+
+    .wy-table td
+        background-color: transparent
         vertical-align: middle
+
+    table
+        &.docutils td, &.field-list td
+            background-color: transparent
+            vertical-align: middle
+
+    .wy-table td p
+        line-height: 18px
+
+    table
+        &.docutils td p, &.field-list td p
+            line-height: 18px
+
+    .wy-table td p:last-child
+        margin-bottom: 0
+
+    table
+        &.docutils td p:last-child, &.field-list td p:last-child
+            margin-bottom: 0
+
+    .wy-table .wy-table-cell-min
+        width: 1%
+        padding-right: 0
+
+    table
+        &.docutils .wy-table-cell-min, &.field-list .wy-table-cell-min
+            width: 1%
+            padding-right: 0
+
+    .wy-table .wy-table-cell-min input[type=checkbox]
+        margin: 0
+
+    table
+        &.docutils .wy-table-cell-min input[type=checkbox], &.field-list .wy-table-cell-min input[type=checkbox]
+            margin: 0
+
+    .wy-table .wy-table-cell-min input[type=checkbox]
+        margin: 0
+
+    table
+        &.docutils .wy-table-cell-min input[type=checkbox], &.field-list .wy-table-cell-min input[type=checkbox]
+            margin: 0
+
+    .wy-table-secondary
+        color: gray
+        font-size: 90%
+
+    .wy-table-tertiary
+        color: gray
+        font-size: 80%
+
+    .wy-table-odd td, .wy-table-striped tr:nth-child(2n-1) td, .rst-content table.docutils:not(.field-list) tr:nth-child(2n-1) td, .wy-table-backed
+        background-color: #f3f6f6
+
+    .wy-table-bordered-all, .rst-content table.docutils
+        border: 1px solid #e1e4e5
+
+    .wy-table-bordered-all td, .rst-content table.docutils td
+        border-bottom: 1px solid #e1e4e5
+        border-left: 1px solid #e1e4e5
+
+    .wy-table-bordered-all tbody > tr:last-child td, .rst-content table.docutils tbody > tr:last-child td
+        border-bottom-width: 0
+
+    .wy-table-bordered
+        border: 1px solid #e1e4e5
+
+    .wy-table-bordered-rows
+        td
+            border-bottom: 1px solid #e1e4e5
+        tbody > tr:last-child td
+            border-bottom-width: 0
+
+    .wy-table-horizontal
+        tbody > tr:last-child td
+            border-bottom-width: 0
+        td, th
+            border-width: 0 0 1px 0
+            border-bottom: 1px solid #e1e4e5
+        tbody > tr:last-child td
+            border-bottom-width: 0
+
+    .wy-table-responsive
+        margin-bottom: 24px
+        max-width: 100%
+        overflow: auto
+
+        table
+            margin-bottom: 0 !important
+
+            td, th
+                white-space: nowrap
+
+    .wy-text-left
+        text-align: left
+
+    .wy-text-center
+        text-align: center
+
+    .wy-text-right
+        text-align: right
+
+    .wy-text-large
+        font-size: 120%
+
+    .wy-text-normal
+        font-size: 100%
+
+    .wy-text-small, small
+        font-size: 80%
+
+    .wy-text-strike
+        text-decoration: line-through
+
+    .wy-text-warning
+        color: #E67E22 !important
+
+    a.wy-text-warning:hover
+        color: #eb9950 !important
+
+    .wy-text-info
+        color: #2980B9 !important
+
+    a.wy-text-info:hover
+        color: #409ad5 !important
+
+    .wy-text-success
+        color: #27AE60 !important
+
+    a.wy-text-success:hover
+        color: #36d278 !important
+
+    .wy-text-danger
+        color: #E74C3C !important
+
+    a.wy-text-danger:hover
+        color: #ed7669 !important
+
+    .wy-text-neutral
+        color: #404040 !important
+
+    a.wy-text-neutral:hover
+        color: #595959 !important
+
+
+
+    code.code-large, .rst-content tt.code-large
+        font-size: 90%
+
+    .wy-plain-list-disc
+        list-style: disc
+        line-height: 24px
+        margin-bottom: 24px
+
+    .section ul, .toctree-wrapper ul
+        list-style: disc
+        line-height: 24px
+        margin-bottom: 24px
+
+    article ul
+        list-style: disc
+        line-height: 24px
+        margin-bottom: 24px
+
+    .wy-plain-list-disc li
+        list-style: disc
+        margin-left: 24px
+
+    .section ul li, .toctree-wrapper ul li
+        list-style: disc
+        margin-left: 24px
+
+    article ul li
+        list-style: disc
+        margin-left: 24px
+
+    .wy-plain-list-disc li p:last-child
+        margin-bottom: 0
+
+    .section ul li p:last-child, .toctree-wrapper ul li p:last-child
+        margin-bottom: 0
+
+    article ul li p:last-child, .wy-plain-list-disc li ul
+        margin-bottom: 0
+
+    .section ul li ul, .toctree-wrapper ul li ul
+        margin-bottom: 0
+
+    article ul li ul
+        margin-bottom: 0
+
+    .wy-plain-list-disc li li
+        list-style: circle
+
+    .section ul li li, .toctree-wrapper ul li li
+        list-style: circle
+
+    article ul li li
+        list-style: circle
+
+    .wy-plain-list-disc li li li
+        list-style: square
+
+    .section ul li li li, .toctree-wrapper ul li li li
+        list-style: square
+
+    article ul li li li
+        list-style: square
+
+    .wy-plain-list-disc li ol li
+        list-style: decimal
+
+    .section ul li ol li, .toctree-wrapper ul li ol li
+        list-style: decimal
+
+    article ul li ol li
+        list-style: decimal
+
+    .wy-plain-list-decimal
+        list-style: decimal
+        line-height: 24px
+        margin-bottom: 24px
+
+    .section ol, ol.arabic
+        list-style: decimal
+        line-height: 24px
+        margin-bottom: 24px
+
+    article ol
+        list-style: decimal
+        line-height: 24px
+        margin-bottom: 24px
+
+    .wy-plain-list-decimal li
+        list-style: decimal
+        margin-left: 24px
+
+    .section ol li, ol.arabic li
+        list-style: decimal
+        margin-left: 24px
+
+    article ol li
+        list-style: decimal
+        margin-left: 24px
+
+    .wy-plain-list-decimal li p:last-child
+        margin-bottom: 0
+
+    .section ol li p:last-child, ol.arabic li p:last-child
+        margin-bottom: 0
+
+    article ol li p:last-child, .wy-plain-list-decimal li ul
+        margin-bottom: 0
+
+    .section ol li ul, ol.arabic li ul
+        margin-bottom: 0
+
+    article ol li ul
+        margin-bottom: 0
+
+    .wy-plain-list-decimal li ul li
+        list-style: disc
+
+    .section ol li ul li, ol.arabic li ul li
+        list-style: disc
+
+    article ol li ul li
+        list-style: disc
+
+    .codeblock-example
+        border: 1px solid #e1e4e5
+        border-bottom: none
+        padding: 24px
+        padding-top: 48px
+        font-weight: 500
+        background: #fff
+        position: relative
+
+        &:after
+            content: "Example"
+            position: absolute
+            top: 0px
+            left: 0px
+            background: #9B59B6
+            color: #fff
+            padding: 6px 12px
+
+        &.prettyprint-example-only
+            border: 1px solid #e1e4e5
+            margin-bottom: 24px
+
+    .codeblock, pre.literal-block
+        border: 1px solid #e1e4e5
+        padding: 0px
+        overflow-x: auto
+        background: #fff
+        margin: 1px 0 24px 0
+
+    .literal-block, pre.literal-block
+        border: 1px solid #e1e4e5
+        padding: 0px
+        overflow-x: auto
+        background: #fff
+        margin: 1px 0 24px 0
+
+    div[class^='highlight']
+        border: 1px solid #e1e4e5
+        padding: 0px
+        overflow-x: auto
+        background: #fff
+        margin: 1px 0 24px 0
+
+    .codeblock div[class^='highlight'], pre.literal-block div[class^='highlight'], .rst-content .literal-block div[class^='highlight']
+        border: none
+        background: none
+        margin: 0
+
+    div[class^='highlight']
+        div[class^='highlight']
+            border: none
+            background: none
+            margin: 0
+        td.code
+            width: 100%
+
+    .linenodiv pre
+        border-right: solid 1px #e6e9ea
+        margin: 0
+        padding: 12px 12px
+        font-family: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace
+        font-size: 12px
+        line-height: 1.5
+        color: #d9d9d9
+
+    div[class^='highlight'] pre
+        white-space: pre
+        margin: 0
+        padding: 12px 12px
+        font-family: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace
+        font-size: 12px
+        line-height: 1.5
+        display: block
+        overflow: auto
+        color: #404040
+
+    .wy-affix
+        position: fixed
+        top: 1.618em
+
+    .wy-body-mask
+        position: fixed
+        width: 100%
+        height: 100%
+        background: rgba(0, 0, 0, 0.2)
+        display: none
+        z-index: 499
+
+        &.on
+            display: block
+
+    img
+        max-width: 100%
+        height: auto !important
+    div.figure
+        margin-bottom: 24px
+
+    p.caption
+        font-style: italic
+
+        &.align-center
+            text-align: center
+    .section >
+        img, a > img
+            margin-bottom: 24px
+    blockquote
+        margin-left: 24px
+        line-height: 24px
+        margin-bottom: 24px
+
+    .note .last, .attention .last, .caution .last, .danger .last, .error .last, .hint .last, .important .last, .tip .last, .warning .last, .seealso .last, .admonition-todo .last
+        margin-bottom: 0
+
+    .admonition-title:before
+        margin-right: 4px
+
+    .admonition table
+        border-color: rgba(0, 0, 0, 0.1)
+
+        td, th
+            background: transparent !important
+            border-color: rgba(0, 0, 0, 0.1) !important
+
+
+
+
+    .section
+        ol
+            &.loweralpha
+                list-style: lower-alpha
+            li
+                list-style: lower-alpha
+
+            &.upperalpha
+                list-style: upper-alpha
+            li
+                list-style: upper-alpha
+            p
+                margin-bottom: 12px
+
+        ul p
+            margin-bottom: 12px
+
+    .line-block
+        margin-left: 24px
+
+    .topic-title
+        font-weight: bold
+        margin-bottom: 12px
+
+    .toc-backref
+        color: #404040
+
+    .align-right
+        float: right
+        margin: 0px 0px 24px 24px
+
+    .align-left
+        float: left
+        margin: 0px 24px 24px 0px
+
+    .align-center
+        margin: auto
+        display: block
+
+    h1 .headerlink, h2 .headerlink, .toctree-wrapper p.caption .headerlink, h3 .headerlink, h4 .headerlink, h5 .headerlink, h6 .headerlink, dl dt .headerlink, p.caption .headerlink
+        display: none
+        visibility: hidden
+        font-size: 14px
+
+    h1 .headerlink:after, h2 .headerlink:after, .toctree-wrapper p.caption .headerlink:after, h3 .headerlink:after, h4 .headerlink:after, h5 .headerlink:after, h6 .headerlink:after, dl dt .headerlink:after, p.caption .headerlink:after
+        visibility: visible
+        content: ""
+        font-family: FontAwesome
+        display: inline-block
+
+    h1:hover .headerlink, h2:hover .headerlink, .toctree-wrapper p.caption:hover .headerlink, h3:hover .headerlink, h4:hover .headerlink, h5:hover .headerlink, h6:hover .headerlink, dl dt:hover .headerlink, p.caption:hover .headerlink
+        display: inline-block
+
+    .highlighted
+        background: #F1C40F
+        display: inline-block
+        font-weight: bold
+        padding: 0 6px
+
+    .footnote-reference, .citation-reference
+        vertical-align: super
+        font-size: 90%
+
+
+    table
+        &.docutils
+            &.citation, &.footnote
+                background: none
+                border: none
+                color: #999
+            &.citation
+                td, tr
+                    border: none
+                    background-color: transparent !important
+                    white-space: normal
+            &.footnote
+                td, tr
+                    border: none
+                    background-color: transparent !important
+                    white-space: normal
+
+            &.citation td.label, &.footnote td.label
+                padding-left: 0
+                padding-right: 0
+                vertical-align: top
+
+            &.citation
+                tt, code
+                    color: #555
+
+            &.footnote
+                tt, code
+                    color: #555
+
+            &.field-list
+                border: none
+
+                td
+                    border: none
+                    padding-top: 5px
+
+                    > strong
+                        display: inline-block
+                        margin-top: 3px
+                .field-name
+                    padding-right: 10px
+                    text-align: left
+                    white-space: nowrap
+
+                .field-body
+                    text-align: left
+                    padding-left: 0
+
+    tt
+        big, em, big
+            font-size: 100% !important
+            line-height: normal
+    code big, tt em, code em
+        font-size: 100% !important
+        line-height: normal
+    tt.literal, code.literal
+        color: #E74C3C
+    tt.xref
+        font-weight: bold
+        color: #404040
+
+    a tt
+        font-weight: bold
+        color: #404040
+
+    tt.xref, code.xref
+        font-weight: bold
+        color: #404040
+
+    a
+        tt, code
+            font-weight: bold
+            color: #2980B9
+    dl
+        margin-bottom: 24px
+
+        dt
+            font-weight: bold
+
+        p, table, ul, ol
+            margin-bottom: 12px !important
+
+        dd
+            margin: 0 0 12px 24px
+
+        &:not(.docutils)
+            margin-bottom: 24px
+
+            dt
+                display: inline-block
+                margin: 6px 0
+                font-size: 90%
+                line-height: normal
+                background: #e7f2fa
+                color: #2980B9
+                border-top: solid 3px #6ab0de
+                padding: 6px
+                position: relative
+
+                &:before
+                    color: #6ab0de
+
+                .headerlink
+                    color: #404040
+                    font-size: 100% !important
+            dl dt
+                margin-bottom: 6px
+                border: none
+                border-left: solid 3px #ccc
+                background: #f0f0f0
+                color: #555
+
+                .headerlink
+                    color: #404040
+                    font-size: 100% !important
+
+            dt:first-child
+                margin-top: 0
+
+            tt, code
+                font-weight: bold
+
+            tt
+                &.descname, &.descclassname, &.descname
+                    background-color: transparent
+                    border: none
+                    padding: 0
+                    font-size: 100% !important
+            code.descname, tt.descclassname, code.descclassname
+                background-color: transparent
+                border: none
+                padding: 0
+                font-size: 100% !important
+            tt.descname, code.descname
+                font-weight: bold
+
+            .optional
+                display: inline-block
+                padding: 0 4px
+                color: #000
+                font-weight: bold
+            .property
+                display: inline-block
+                padding-right: 8px
+
+    .viewcode-link
+        display: inline-block
+        color: #27AE60
+        font-size: 80%
+        padding-left: 24px
+    .viewcode-back
+        display: inline-block
+        color: #27AE60
+        font-size: 80%
+        padding-left: 24px
+        display: block
+        float: right
+    p.rubric
+        margin-bottom: 12px
+        font-weight: bold
+    tt.download, code.download
+        background: inherit
+        padding: inherit
+        font-family: inherit
+        font-size: inherit
+        color: inherit
+        border: inherit
+        white-space: inherit
+    tt.download span:first-child:before, code.download span:first-child:before
+        margin-right: 4px
+
+    span[id*='MathJax-Span']
+        color: #404040
+
+    .math
+        text-align: center
