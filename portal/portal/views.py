@@ -34,7 +34,7 @@ def home_root(request):
 
 
 def change_version(request):
-    preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOC_VERSION)
+    preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOCS_VERSION)
     portal_helper.set_preferred_version(request, preferred_version)
 
     return tutorial_root(request, preferred_version)
@@ -83,11 +83,32 @@ def documentation_root(request, version):
 def documentation_path(request, version, path=None):
     # Since only the API section of docs is in "Documentation" book, we only use the "documentation.html" template for
     # URLs with /api/ in the path.  Otherwise we use "tutorial.html" template
+    lang = portal_helper.get_preferred_language(request)
     template = 'documentation'     # TODO[thuan]: do this in a less hacky way
-    if '/api/' not in path:
-        template = 'tutorial'
+    allow_search = True
 
-    return _render_static_content(request, version, template, 'docs')
+    # Note: The Source section in 0.9.0 also applies to the "Documentation" book
+    if ('/api/' not in path and not path.endswith('search.html')) and ('/source/' not in path and not path.endswith('search.html')):
+        template = 'tutorial'
+        allow_search = False
+
+    search_url = None
+    if allow_search:
+        # TODO[thuan]: Implement proper full text search
+        if version == 'develop':
+            if lang == 'en':
+                search_url = 'en/search.html'
+            elif lang == 'zh':
+                search_url = 'cn/search.html'
+
+        elif version == '0.9.0' or version == '0.10.0':
+            if lang == 'en':
+                search_url = 'doc/search.html'
+            elif lang == 'zh':
+                search_url = 'doc_cn/search.html'
+
+    extra_context =  { 'allow_search': allow_search, 'search_url': search_url }
+    return _render_static_content(request, version, template, 'docs', extra_context)
 
 
 def models_path(request, version, path=None):
@@ -114,7 +135,7 @@ def _redirect_first_link_in_book(request, version, book_id):
         return HttpResponseServerError("Cannot get book root url: %s" % e.message)
 
 
-def _render_static_content(request, version, book_id, content_src):
+def _render_static_content(request, version, book_id, content_src, additional_context=None):
     if version:
         portal_helper.set_preferred_version(request, version)
 
@@ -125,6 +146,9 @@ def _render_static_content(request, version, book_id, content_src):
         'book_id': book_id,
         'content_src': content_src
     }
+
+    if additional_context:
+        context.update(additional_context)
 
     return render(request, 'content.html', context)
 

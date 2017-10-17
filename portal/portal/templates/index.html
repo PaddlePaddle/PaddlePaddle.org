@@ -6,6 +6,8 @@
 <link href="/static/stylesheets/home.css" media="screen, projection" rel="stylesheet" type="text/css" />
 {% endblock %}
 
+{% get_current_language as LANGUAGE_CODE %}
+
 {% block content %}
 <div class="home">
     <section class="container-fluid banner">
@@ -46,7 +48,7 @@
 
             <div class="row service-row">
                 <div class="col-lg-6 order-lg-2 order-sm-1">
-                    <img class="service-icon" src="/static/images/service-2.png">
+                    <img class="service-icon" src="/static/images/{{ LANGUAGE_CODE }}/service-2.png">
                 </div>
                 <div class="col-lg-6 order-lg-1 order-sm-2">
                     <div class="service-desc">
@@ -62,7 +64,7 @@
 
             <div class="row service-row">
                 <div class="col-lg-6 order-lg-1 order-sm-1">
-                    <img class="service-icon" src="/static/images/service-3.png">
+                    <img class="service-icon" src="/static/images/{{ LANGUAGE_CODE }}/service-3.png">
                 </div>
                 <div class="col-lg-6 order-lg-2 order-sm-2">
                     <div class="service-desc">

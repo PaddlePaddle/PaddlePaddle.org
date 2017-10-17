@@ -303,6 +303,14 @@
           }
         }
       ]
+    },
+    "FAQ": {
+      "title": {
+        "zh": "FAQ"
+      },
+      "link": {
+        "zh": "/documentation/cn/faq/index_cn.html"
+      }
     }
   },
   "documentation": {
@@ -350,6 +358,16 @@
           "link": {
             "en": "/documentation/en/api/v2/config/layer.html",
             "zh": "/documentation/cn/api/v2/config/layer.html"
+          }
+        },
+        {
+          "title": {
+            "en": "Evaluators",
+            "zh": "Evaluators"
+          },
+          "link": {
+            "en": "/documentation/en/api/v2/config/evaluators.html",
+            "zh": "/documentation/cn/api/v2/config/evaluators.html"
           }
         },
         {

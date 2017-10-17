@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def get_preferred_version(request):
-    preferred_version = settings.DEFAULT_DOC_VERSION
+    preferred_version = settings.DEFAULT_DOCS_VERSION
     if request and 'preferred_version' in request.session:
         preferred_version = request.session['preferred_version']
 

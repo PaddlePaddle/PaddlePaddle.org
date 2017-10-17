@@ -38,7 +38,7 @@ fi
 eval $(aws ecr get-login --no-include-email --region ap-southeast-1) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
 
 # Delete all untagged images
-aws ecr describe-repositories --output text | awk '{print $5}' | while read line; do  aws ecr list-images --repository-name $line --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name $line --image-ids imageDigest=$imageId; done; done
+aws ecr describe-repositories --output text --region ap-southeast-1 | awk '{print $5}' | while read line; do  aws ecr list-images --repository-name $line --filter tagStatus=UNTAGGED --query 'imageIds[*]' --output text --region ap-southeast-1 | while read imageId; do aws ecr batch-delete-image --repository-name $line --image-ids imageDigest=$imageId --region ap-southeast-1; done; done
 
 # Tag and push image
 docker tag paddlepaddle.org:"$DOCKER_IMAGE_TAG" 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:"$DOCKER_IMAGE_TAG"

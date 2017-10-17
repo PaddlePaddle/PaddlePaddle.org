@@ -1,12 +1,29 @@
 {% load app_tags %}
 
 <nav class="sidebar collapse fixed-left" id="sidebar-nav">
+    {% if allow_search %}
+    <div class='search-form' role="search">
+      <form action="{% url url_helper.URL_NAME_DOCS CURRENT_DOCS_VERSION search_url %}">
+        <input class="query "type="text" name="q" placeholder="Search docs" />
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+    {% endif %}
+
     {% for chapter_id, chapter in side_nav_content.items %}
     <ol class="chapter">
         {% translation_assignment chapter.title as chapter_title %}
+        {% translation_assignment chapter.link as chapter_link %}
         {% if chapter_title != None %}
         <li>
-            <h3{% if request.path in chapter.all_links %} class="active"{% endif %}>{% translation chapter.title %}</h3>
+            {% if chapter_link != None and chapter_link != "" %}
+                <h3><a href="{{ chapter_link }}" {% if request.path == chapter_link %} class="active" {% endif %}>{% translation chapter.title %}</a></h3>
+            {% else %}
+                <h3>{% translation chapter.title %}</h3>
+            {% endif %}
+
             <ol class="section">
                 {% for section in chapter.sections %}
                 <li>

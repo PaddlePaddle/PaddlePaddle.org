@@ -128,29 +128,28 @@
   display: inline-block;
   height: 100%;
   width: 100%;
-  margin: 8px;
   padding: 8px;
   background-color: #ededed;
 }
-/* line 118, ../sass/home.sass */
+/* line 117, ../sass/home.sass */
 .home .features p {
   line-height: 24px;
 }
-/* line 121, ../sass/home.sass */
+/* line 120, ../sass/home.sass */
 .home .get-started {
   text-align: center;
   padding-bottom: 32px;
 }
-/* line 125, ../sass/home.sass */
+/* line 124, ../sass/home.sass */
 .home .get-started h2 {
   margin-top: 32px;
   margin-bottom: 16px;
 }
-/* line 129, ../sass/home.sass */
+/* line 128, ../sass/home.sass */
 .home .get-started p {
   padding: 0 0 16px 0;
 }
-/* line 132, ../sass/home.sass */
+/* line 131, ../sass/home.sass */
 .home .get-started .quick-start {
   color: #fff;
   background-color: #0073eb;
@@ -159,7 +158,7 @@
   line-height: 48px;
   width: 212px;
 }
-/* line 139, ../sass/home.sass */
+/* line 138, ../sass/home.sass */
 .home .get-started .quick-start:hover {
   color: #fff;
   background-color: #3095ff;
@@ -170,90 +169,90 @@
 }
 
 @media (min-width: 992px) {
-  /* line 149, ../sass/home.sass */
+  /* line 148, ../sass/home.sass */
   .home h1 {
     font-size: 48px;
   }
-  /* line 152, ../sass/home.sass */
+  /* line 151, ../sass/home.sass */
   .home h2 {
     font-size: 24px;
   }
-  /* line 155, ../sass/home.sass */
+  /* line 154, ../sass/home.sass */
   .home h3 {
     font-size: 20px;
   }
-  /* line 158, ../sass/home.sass */
+  /* line 157, ../sass/home.sass */
   .home h1, .home h2, .home h3 {
     text-align: center;
   }
-  /* line 161, ../sass/home.sass */
+  /* line 160, ../sass/home.sass */
   .home hr {
     display: none;
   }
-  /* line 164, ../sass/home.sass */
+  /* line 163, ../sass/home.sass */
   .home p {
     font-size: 16px;
     font-weight: 100;
     color: #999;
     margin: 0px;
   }
-  /* line 170, ../sass/home.sass */
+  /* line 169, ../sass/home.sass */
   .home .banner {
     color: white;
     height: 525px;
   }
-  /* line 174, ../sass/home.sass */
+  /* line 173, ../sass/home.sass */
   .home .banner .tag-line {
     padding-top: 96px;
     margin-bottom: 48px;
   }
-  /* line 178, ../sass/home.sass */
+  /* line 177, ../sass/home.sass */
   .home .banner p {
     margin-bottom: 48px;
   }
-  /* line 181, ../sass/home.sass */
+  /* line 180, ../sass/home.sass */
   .home .banner .quick-start {
     line-height: 60px;
     font-size: 18px;
     width: 212px;
   }
-  /* line 186, ../sass/home.sass */
+  /* line 185, ../sass/home.sass */
   .home .services {
     background-color: #f4f5f7;
   }
-  /* line 189, ../sass/home.sass */
+  /* line 188, ../sass/home.sass */
   .home .services h2 {
     margin-top: 64px;
   }
-  /* line 192, ../sass/home.sass */
+  /* line 191, ../sass/home.sass */
   .home .services .sub-title {
     padding: 16px 0 0 0;
   }
-  /* line 195, ../sass/home.sass */
+  /* line 194, ../sass/home.sass */
   .home .services .service-row {
     padding: 16px 0 16px 0;
   }
-  /* line 199, ../sass/home.sass */
+  /* line 198, ../sass/home.sass */
   .home .features h2 {
     margin-top: 64px;
     margin-bottom: 64px;
   }
-  /* line 203, ../sass/home.sass */
+  /* line 202, ../sass/home.sass */
   .home .features .feature-desc {
     margin: 8px;
     padding: 8px;
     background-color: transparent;
   }
-  /* line 208, ../sass/home.sass */
+  /* line 207, ../sass/home.sass */
   .home .get-started {
     padding-bottom: 96px;
   }
-  /* line 211, ../sass/home.sass */
+  /* line 210, ../sass/home.sass */
   .home .get-started h2 {
     margin-top: 64px;
     margin-bottom: 32px;
   }
-  /* line 215, ../sass/home.sass */
+  /* line 214, ../sass/home.sass */
   .home .get-started .quick-start {
     font-size: 18px;
     line-height: 60px;
