@@ -173,6 +173,10 @@ body
             .doc-content
                 display: block
 
+                h1,h2
+                    padding-top: $primary-nav-height    // Adjust to fix scrolling issue when using fix-top header
+                    margin-top: -$primary-nav-height
+
             .permalinks-nav
                 margin: 0
                 display: block

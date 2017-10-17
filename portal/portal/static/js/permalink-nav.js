@@ -11,7 +11,7 @@ var PermalinkNav = {
         if (navContainer.length) {
             permalinks = $("h1,h2");
 
-            if (permalinks.length == 0) {
+            if (permalinks.length <= 1) {
                 navContainer.hide()
             } else {
                 var maxIdLength = 30;
@@ -24,6 +24,16 @@ var PermalinkNav = {
 
                     var headerId = header.attr('id');
                     var headerText = header.immediateText();
+
+                    if (!headerText && header.has("span")) {
+                        firstSpan = header.find("span").first();
+                        headerText = firstSpan.text();
+                    }
+
+                    if (!headerText && header.has("a")) {
+                        firstAnchor = header.find("a").first();
+                        headerText = firstAnchor.text();
+                    }
 
                     if (!headerId) {
                         // Create a permalink id on header (if header does not have an id already)
@@ -55,8 +65,6 @@ var PermalinkNav = {
                 });
 
                 var offset = 0;
-                var variance = 30;   // Permalinks are slightly below the header content, so we have to adjust for it
-
                 navContainer.find('a[href^="#"]').click(function(event) {
                     // Prevent from default action to intitiate
                     event.preventDefault();
@@ -86,7 +94,7 @@ var PermalinkNav = {
                         var target = $(anchorId).offset().top - offset;
                         // check if the document has crossed the page
 
-                        if(position+variance>=target){
+                        if(position>=target){
                              //remove active from all anchor and add it to the clicked anchor
                             navContainer.find('a[href^="#"]').removeClass("active")
                             $(this).addClass('active');
