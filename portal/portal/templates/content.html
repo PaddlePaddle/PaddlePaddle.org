@@ -1,6 +1,10 @@
 {% extends "_base_panel.html" %}
 
+{% load i18n %}
 {% load app_tags %}
+{% load cache %}
+
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block head %}
 {{ block.super }}
@@ -11,13 +15,16 @@
 {% endblock %}
 
 {% block side_nav_content %}
+{% cache settings.DEFAULT_CACHE_EXPIRY sidebar LANGUAGE_CODE request.path %}
 {% content_links book_id %}
+{% endcache %}
 {% endblock %}
 
 {% block scripts %}
 {{ block.super }}
 <script src="/static/js/popper.min.js"></script>
 
+<script src="/static/js/permalink-nav.js"></script>
 <script src="/static/js/doctools.js"></script>
 <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

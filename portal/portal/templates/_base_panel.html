@@ -15,11 +15,15 @@
                 {% block side_nav_content %}{% endblock %}
             </div>
             <div class="panel-content">
-                <div class="doc-content">
+                <div class="panel-inner">
+                    <div class="permalinks-nav fixed-right"></div>
+                    <div class="doc-content">
                     {% block panel_content %}
                     {{ static_content|safe }}
                     {% endblock %}
+                    </div>
                 </div>
+
                 {% include "_footer.html" %}
             </div>
         </div>

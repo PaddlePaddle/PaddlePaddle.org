@@ -40,9 +40,19 @@ a
     position: relative
     overflow: hidden
 
+.fixed-right
+    position: relative
+    overflow: hidden
+
 @media (min-width: 992px)
     .fixed-left
         position: fixed
         left: 0
+        z-index: 1020
+        overflow: auto
+
+    .fixed-right
+        position: fixed
+        right: 0
         z-index: 1020
         overflow: auto

@@ -1,3 +1,4 @@
+@import "_mixins.sass"
 @import "_variables.sass"
 
 .navbar
@@ -159,8 +160,38 @@ body
             li
                 padding-left: 8px
 
-        .panel-content
-            padding-left: 0px
+    .panel-content
+        padding-left: 0px
+
+        .panel-inner
+            display: block
+
+            .doc-content
+                display: block
+
+            .permalinks-nav
+                margin: 0
+                display: block
+                width: 100%
+                padding: $content-padding 16px 0 16px
+
+                ol,ul
+                    border-left: 2px solid $theme-color
+                    padding-left: 12px
+
+                    a
+                        width: 100%
+                        display: block
+                        white-space: nowrap
+                        text-overflow: ellipsis
+                        overflow: hidden
+                        color: $primary-text-color
+                        &:hover,&.active
+                            color: $accent-color
+
+                    li
+                        a
+                            padding-left: 15px
 
 @media (min-width: 992px)
     .panel-layout
@@ -175,7 +206,20 @@ body
                 padding-bottom: $primary-nav-height * 2
 
         .panel-content
-            padding-left: $sidebar-width
+            margin-left: $sidebar-width
+
+            .panel-inner
+
+                .doc-content
+                    width: 100%
+
+                    &.with-permalink-nav
+                        @include calc( width, '100% - ' + $permalink-nav-width)
+
+                .permalinks-nav
+                    width: $permalink-nav-width
+                    float: right
+                    padding-left: 0px
 
     .sidebar-toggle
         display: none
