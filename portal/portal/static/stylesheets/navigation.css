@@ -200,14 +200,15 @@ body.invert .footer-nav {
   margin: 0;
   display: block;
   width: 100%;
-  padding: 30px 16px 0 16px;
-}
-/* line 178, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav ol, .panel-layout .panel-content .panel-inner .permalinks-nav ul {
+  margin: 30px 16px 0 16px;
   border-left: 2px solid #000;
-  padding-left: 12px;
 }
-/* line 182, ../sass/navigation.sass */
+/* line 179, ../sass/navigation.sass */
+.panel-layout .panel-content .panel-inner .permalinks-nav ol, .panel-layout .panel-content .panel-inner .permalinks-nav ul {
+  padding-left: 12px;
+  margin-bottom: 0px;
+}
+/* line 183, ../sass/navigation.sass */
 .panel-layout .panel-content .panel-inner .permalinks-nav ol a, .panel-layout .panel-content .panel-inner .permalinks-nav ul a {
   width: 100%;
   display: block;
@@ -216,65 +217,65 @@ body.invert .footer-nav {
   overflow: hidden;
   color: #000;
 }
-/* line 189, ../sass/navigation.sass */
+/* line 190, ../sass/navigation.sass */
 .panel-layout .panel-content .panel-inner .permalinks-nav ol a:hover, .panel-layout .panel-content .panel-inner .permalinks-nav ol a.active, .panel-layout .panel-content .panel-inner .permalinks-nav ul a:hover, .panel-layout .panel-content .panel-inner .permalinks-nav ul a.active {
   color: #597cf1;
 }
-/* line 193, ../sass/navigation.sass */
+/* line 194, ../sass/navigation.sass */
 .panel-layout .panel-content .panel-inner .permalinks-nav ol li a, .panel-layout .panel-content .panel-inner .permalinks-nav ul li a {
   padding-left: 15px;
 }
 
 @media (min-width: 992px) {
-  /* line 198, ../sass/navigation.sass */
+  /* line 199, ../sass/navigation.sass */
   .panel-layout .sidebar-container {
     display: inline;
     width: 300px;
     float: left;
   }
-  /* line 203, ../sass/navigation.sass */
+  /* line 204, ../sass/navigation.sass */
   .panel-layout .sidebar-container .sidebar {
     top: 60px;
     width: 300px;
     padding-bottom: 120px;
   }
-  /* line 208, ../sass/navigation.sass */
+  /* line 209, ../sass/navigation.sass */
   .panel-layout .panel-content {
     margin-left: 300px;
   }
-  /* line 213, ../sass/navigation.sass */
+  /* line 214, ../sass/navigation.sass */
   .panel-layout .panel-content .panel-inner .doc-content {
     width: 100%;
   }
-  /* line 216, ../sass/navigation.sass */
+  /* line 217, ../sass/navigation.sass */
   .panel-layout .panel-content .panel-inner .doc-content.with-permalink-nav {
     width: -moz-calc(100% - 200px);
     width: -webkit-calc(100% - 200px);
     width: calc(100% - 200px);
   }
-  /* line 219, ../sass/navigation.sass */
+  /* line 220, ../sass/navigation.sass */
   .panel-layout .panel-content .panel-inner .permalinks-nav {
     width: 200px;
     float: right;
     padding-left: 0px;
   }
 
-  /* line 224, ../sass/navigation.sass */
+  /* line 225, ../sass/navigation.sass */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 227, ../sass/navigation.sass */
+  /* line 228, ../sass/navigation.sass */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 230, ../sass/navigation.sass */
+/* line 231, ../sass/navigation.sass */
 .footer-nav {
   background-color: #000;
   color: ccc;
 }
-/* line 233, ../sass/navigation.sass */
+/* line 234, ../sass/navigation.sass */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -285,7 +286,7 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 243, ../sass/navigation.sass */
+/* line 244, ../sass/navigation.sass */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -296,7 +297,7 @@ body.invert .footer-nav {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 252, ../sass/navigation.sass */
+/* line 253, ../sass/navigation.sass */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -304,7 +305,7 @@ body.invert .footer-nav {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 259, ../sass/navigation.sass */
+/* line 260, ../sass/navigation.sass */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -312,20 +313,20 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 266, ../sass/navigation.sass */
+/* line 267, ../sass/navigation.sass */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 268, ../sass/navigation.sass */
+/* line 269, ../sass/navigation.sass */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 270, ../sass/navigation.sass */
+/* line 271, ../sass/navigation.sass */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 273, ../sass/navigation.sass */
+/* line 274, ../sass/navigation.sass */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -334,35 +335,35 @@ body.invert .footer-nav {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 281, ../sass/navigation.sass */
+/* line 282, ../sass/navigation.sass */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 283, ../sass/navigation.sass */
+/* line 284, ../sass/navigation.sass */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 285, ../sass/navigation.sass */
+/* line 286, ../sass/navigation.sass */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 287, ../sass/navigation.sass */
+/* line 288, ../sass/navigation.sass */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 290, ../sass/navigation.sass */
+/* line 291, ../sass/navigation.sass */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 294, ../sass/navigation.sass */
+/* line 295, ../sass/navigation.sass */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 297, ../sass/navigation.sass */
+/* line 298, ../sass/navigation.sass */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -371,7 +372,7 @@ body.invert .footer-nav {
   padding: 20px 0 20px;
   margin-bottom: 0px;
 }
-/* line 305, ../sass/navigation.sass */
+/* line 306, ../sass/navigation.sass */
 .footer-nav .copyright > a {
   color: #fff;
 }
