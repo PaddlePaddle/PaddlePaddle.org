@@ -103,6 +103,7 @@ body
                     width: 100%
                     padding: 8px 24px 8px 16px
                     border-radius: 15px
+                    border: 1px solid #e0e0e0
 
                 input[type=text]
                     font-size: $font-medium
@@ -110,11 +111,14 @@ body
                     &:focus
                         border-color: $accent-color
 
+                    &::placeholder
+                        color: #e0e0e0
+
                 i
                     float: right
                     position: relative
                     margin-right: 8px
-                    margin-top: -26px
+                    margin-top: -28px
                     z-index: 2
                     color: #e0e0e0
 
@@ -179,7 +183,7 @@ body
                 ol,ul
                     padding-left: 12px
                     margin-bottom: 0px
-                    
+
                     a
                         width: 100%
                         display: block
