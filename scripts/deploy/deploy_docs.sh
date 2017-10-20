@@ -3,8 +3,8 @@ set -e
 
 DEC_PASSWD=$1
 GITHUB_BRANCH=$2
-CONTENT_NAME=$3
-TARGET=$4
+SOURCE=$3
+CONTENT_NAME=$4
 
 echo "1:($1) 2:($2) 3:($3) 4:($4)"
 
@@ -34,7 +34,7 @@ cd portal/
 sudo pip install -r requirements.txt
 
 mkdir ./tmp
-python manage.py deploy_documentation $CONTENT_NAME $GITHUB_BRANCH ./tmp $CONTENT_NAME
+python manage.py deploy_documentation $SOURCE $GITHUB_BRANCH ./tmp $CONTENT_NAME
 
 
 # deploy to remote server
@@ -46,7 +46,7 @@ chmod 400 content_mgr.pem
 
 
 ssh-add content_mgr.pem
-rsync -r $DEPLOY_DOCS_DIR/PaddlePaddle.org-master/portal/tmp/ content_mgr@52.76.173.135:/var/content/docs
+rsync -r $DEPLOY_DOCS_DIR/PaddlePaddle.org-develop/portal/tmp/ content_mgr@52.76.173.135:/var/content/docs
 
 
 chmod 644 content_mgr.pem
