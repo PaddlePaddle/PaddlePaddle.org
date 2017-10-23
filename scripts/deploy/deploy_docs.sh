@@ -8,11 +8,9 @@ GITHUB_BRANCH=$3 # version
 
 echo "1:($1) 2:($2) 3:($3)"
 
-CONTENT_DIR=../$SOURCE_DIR
-export CONTENT_DIR=pwd CONTENT_DIR
+export CONTENT_DIR=../$SOURCE_DIR
 echo "CONTENT_DIR $CONTENT_DIR"
 DEPLOY_DOCS_DIR=../.ppo_workspace
-
 echo "DEPLOY_DOCS_DIR $DEPLOY_DOCS_DIR"
 
 if [ -d $DEPLOY_DOCS_DIR ]
