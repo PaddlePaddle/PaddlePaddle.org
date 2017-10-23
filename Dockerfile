@@ -9,8 +9,8 @@ FROM ubuntu:16.04
 # Set the file maintainer (your name - the file's author)
 MAINTAINER Thuan Nguyen
 
-ARG EXTERNAL_TEMPLATE_DIR_ARG=/var/content
-ENV EXTERNAL_TEMPLATE_DIR=$EXTERNAL_TEMPLATE_DIR_ARG
+ARG CONTENT_DIR_ARG=/var/content
+ENV CONTENT_DIR=$CONTENT_DIR_ARG
 
 # Update the default application repository sources list
 RUN apt-get update && apt-get -y upgrade && \
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get -y upgrade && \
     gettext
 
 # Create application subdirectories
-WORKDIR $EXTERNAL_TEMPLATE_DIR_ARG
+WORKDIR $CONTENT_DIR_ARG
 WORKDIR /var/www
 COPY portal .
 

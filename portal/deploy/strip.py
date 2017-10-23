@@ -10,13 +10,13 @@ from django.conf import settings
 # Traverse through all the dirs of a given path.
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# original_documentation_dir = BASE_DIR + '/docs'
+# generated_documentation_dir = BASE_DIR + '/docs'
 # destination_documentation_dir = BASE_DIR + '/documentation'
 
 # Using the map for a new directory mapping, determine a new location for the transformed file.
 
 
-def sphinx(original_documentation_dir, version, destination_documentation_dir):
+def sphinx(generated_documentation_dir, version, destination_documentation_dir):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
@@ -42,10 +42,10 @@ def sphinx(original_documentation_dir, version, destination_documentation_dir):
 
     # Go through each file, and if it is a .html, extract the .document object
     #   contents
-    for subdir, dirs, all_files in os.walk(original_documentation_dir):
+    for subdir, dirs, all_files in os.walk(generated_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
-                original_documentation_dir):]
+                generated_documentation_dir):]
             subpath_language_dir = None
             if version in new_path_map:
                 new_path_map_prefixes = new_path_map[version].keys()
@@ -86,17 +86,17 @@ def sphinx(original_documentation_dir, version, destination_documentation_dir):
                         copyfile(os.path.join(subdir, file), new_path)
 
 
-def book(original_documentation_dir, version, destination_documentation_dir):
+def book(generated_documentation_dir, version, destination_documentation_dir):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
-    for subdir, dirs, all_files in os.walk(original_documentation_dir):
+    for subdir, dirs, all_files in os.walk(generated_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
-                original_documentation_dir):]
+                generated_documentation_dir):]
             new_path = '%s/%s/book/%s' % (destination_documentation_dir, version, subpath)
 
             if '.html' in file or 'image/' in subpath:
@@ -126,16 +126,16 @@ def book(original_documentation_dir, version, destination_documentation_dir):
                 copyfile(os.path.join(subdir, file), new_path)
 
 
-def models(original_documentation_dir, version, destination_documentation_dir):
+def models(generated_documentation_dir, version, destination_documentation_dir):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
-    for subdir, dirs, all_files in os.walk(original_documentation_dir):
+    for subdir, dirs, all_files in os.walk(generated_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
-                original_documentation_dir):]
+                generated_documentation_dir):]
 
             # Replace .md with .html.
             (name, extension) = os.path.splitext(subpath)

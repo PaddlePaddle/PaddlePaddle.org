@@ -60,7 +60,9 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 ROOT_URLCONF = 'portal.urls'
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
-EXTERNAL_TEMPLATE_DIR = os.environ.get('EXTERNAL_TEMPLATE_DIR', None)
+CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
+WORKSPACE_DIR = '%s/.ppo_workspace' % CONTENT_DIR
+EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 
 TEMPLATES = [
     {
@@ -122,9 +124,3 @@ STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
 
 TEMPORARY_DIR = '/tmp/'
-
-
-GIT_REPO_MAP = {
-    'book': 'https://github.com/bobateadev/book/archive/',
-    'models': 'https://github.com/bobateadev/models/archive/'
-}

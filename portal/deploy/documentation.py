@@ -5,12 +5,18 @@ import tempfile
 import requests
 
 from deploy import strip
+from deploy import sitemap_generator
 from django.conf import settings
 from urlparse import urlparse
 
 
-def transform(source_dir, version, output_dir, specified_source=None):
+def transform(source_dir, generated_docs_dir, version):
+    if not os.path.exists(os.path.dirname(source_dir)):
+        print 'Cannot strip documentation, source_dir=%s does not exists' % source_dir
+        return
+
     convertor = None
+    sm_generator = None
     extracted_source_dir = None
 
     # python manage.py deploy_documentation book v0.10.0 generated_contents/
@@ -18,40 +24,29 @@ def transform(source_dir, version, output_dir, specified_source=None):
     if version[0] == 'v':
         version = version[1:]
 
-    if source_dir in settings.GIT_REPO_MAP:
-        git_repo = settings.GIT_REPO_MAP[source_dir]
-        git_repo = git_repo + version + '.zip'
-        extracted_dir = source_dir + '-' + version
-        response = requests.get(git_repo)
-        tmp_zip_file = settings.TEMPORARY_DIR + source_dir + '.zip'
-
-        with open(tmp_zip_file, 'wb') as f:
-            f.write(response.content)
-
-        with zipfile.ZipFile(tmp_zip_file, "r") as zip_ref:
-            zip_ref.extractall(settings.TEMPORARY_DIR)
-            extracted_source_dir = settings.TEMPORARY_DIR + '/' + extracted_dir
-    else:
-        extracted_source_dir = source_dir
-
-    if 'documentation' in source_dir or specified_source == 'documentation':
+    if 'documentation' in source_dir.lower():
         convertor = strip.sphinx
+        sm_generator = sitemap_generator.sphinx_sitemap
 
-    elif 'book' in source_dir or specified_source == 'book':
+    elif 'book' in source_dir.lower():
         convertor = strip.book
+        sm_generator = sitemap_generator.book_sitemap
 
-    elif 'models' in source_dir or specified_source == 'models':
+    elif 'models' in source_dir.lower():
         convertor = strip.models
+        sm_generator = sitemap_generator.models_sitemap
 
-    if not os.path.exists(os.path.dirname(extracted_source_dir)):
-        print extracted_source_dir, ' is not a valid path'
-        return
-
+    output_dir = '%s/' % (settings.EXTERNAL_TEMPLATE_DIR)
     if convertor:
         if output_dir:
             convertor(extracted_source_dir, version, output_dir)
-        elif settings.EXTERNAL_TEMPLATE_DIR:
-            convertor(extracted_source_dir, version, settings.EXTERNAL_TEMPLATE_DIR)
+        else:
+            print 'Please provide an output dir or set settings.EXTERNAL_TEMPLATE_DIR'
+            return
+
+    if sm_generator:
+        if output_dir:
+            sm_generator(extracted_source_dir, generated_docs_dir, version, output_dir)
         else:
             print 'Please provide an output dir or set settings.EXTERNAL_TEMPLATE_DIR'
             return
