@@ -3,7 +3,7 @@ set -e
 
 DEC_PASSWD=$1
 GITHUB_BRANCH=$2
-$SOURCE_DIR=$3
+SOURCE_DIR=$3
 
 echo "1:($1) 2:($2) 3:($3)"
 
