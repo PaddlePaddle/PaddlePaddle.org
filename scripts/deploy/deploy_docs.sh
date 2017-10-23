@@ -20,13 +20,15 @@ fi
 
 mkdir $DEPLOY_DOCS_DIR
 
+#if [[ $SOURCE_DIR == *"book"* ]]; then
+#  echo "It is book repo"
+#  sh convert_md_to_html_for_book.sh $SOURCE_DIR $DEPLOY_DOCS_DIR
+#fi
+#
+
 # TODO:  Call HTML generation code for book, model, and Paddle/doc.  Copy generated HTML
 # to .ppo_workspace/generated_docs
 
-if [[ $SOURCE_DIR == *"book"* ]]; then
-  echo "It is book repo"
-  sh convert_md_to_html_for_book.sh $SOURCE_DIR $DEPLOY_DOCS_DIR
-fi
 #
 #
 #$GENERATED_DOCS_DIR= #TODO: Set GENERATED_DOCS DIR: ie: /.ppo_workspace/generated_docs/book
@@ -34,10 +36,10 @@ fi
 #### pull PaddlePaddle.org app and run the deploy_documentation command
 ## https://github.com/PaddlePaddle/PaddlePaddle.org/archive/develop.zip
 #
-#PPO_BRANCH=move_book_conversion_logic_to_PPO_script
-#
-#
-#curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
+PPO_BRANCH=move_book_conversion_logic_to_PPO_script
+
+
+curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
 #
 #unzip $PPO_BRANCH.zip
 #
