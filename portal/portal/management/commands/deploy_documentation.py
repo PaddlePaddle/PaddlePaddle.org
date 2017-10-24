@@ -13,8 +13,6 @@ class Command(BaseCommand):
 
     # A command must define handle()
     def handle(self, *args, **options):
-        print 'options:'
-        print options
         if 'source_dir' in options:
             documentation.transform(options['source_dir'][0],
                                     options['generated_docs_dir'][0],
