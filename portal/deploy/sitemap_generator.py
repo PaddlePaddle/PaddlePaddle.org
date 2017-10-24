@@ -20,7 +20,7 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
 
     # Read the stripped html file
     # TODO [Jeff Wang]: Confirm the root_html_path is correct
-    root_html_path = os.path.join(generated_documentation_dir, 'README.cn.html')
+    root_html_path = os.path.join(generated_documentation_dir, 'README.html')
     with open(root_html_path) as original_html_file:
         soup = BeautifulSoup(original_html_file, 'lxml')
 
@@ -34,7 +34,6 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
 
             section = {'title': title, 'link': link}
             sections.append(section)
-
 
     # TODO [Jeff Wang]: Confirm the models sitemap path is correct
     versioned_dest_dir = destination_documentation_dir + '/' + version + '/models'
