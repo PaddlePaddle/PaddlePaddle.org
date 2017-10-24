@@ -4,7 +4,7 @@ set -e
 DOCS_LOCATION=$1
 DESTINATION_DIR=$2
 
-echo "Generating paddle documentation at $DOCS_LOCATION"
+echo "Generating paddle documentation at $DOCS_LOCATION to $DESTINATION_DIR"
 cd "$DOCS_LOCATION"
 
 find . -name "CMakeCache.txt" -exec rm -R {} \;
