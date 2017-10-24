@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-DEC_PASSWD=$1
+CONTENT_DEC_PASSWD=$1
 SOURCE_DIR=$2
 GITHUB_BRANCH=$3 # version
 
-
 echo "1:($1) 2:($2) 3:($3)"
 
-export CONTENT_DIR=../$SOURCE_DIR
+# we are at the top level of PPO, we can `cd` to 'book', 'Paddle', 'models', '.ppo_workspace' ...
+export CONTENT_DIR=`pwd`/$SOURCE_DIR
 echo "CONTENT_DIR $CONTENT_DIR"
-DEPLOY_DOCS_DIR=../.ppo_workspace
+export DEPLOY_DOCS_DIR=`pwd`/.ppo_workspace
 echo "DEPLOY_DOCS_DIR $DEPLOY_DOCS_DIR"
 
 if [ -d $DEPLOY_DOCS_DIR ]
@@ -41,9 +41,9 @@ PPO_BRANCH=move_book_conversion_logic_to_PPO_script
 
 curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
 #
-#unzip $PPO_BRANCH.zip
+unzip $PPO_BRANCH.zip
 #
-#cd PaddlePaddle.org-$PPO_BRANCH/
+cd PaddlePaddle.org-$PPO_BRANCH/
 #
 #cd portal/
 #
