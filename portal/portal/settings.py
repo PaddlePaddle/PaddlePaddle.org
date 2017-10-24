@@ -62,6 +62,7 @@ ROOT_URLCONF = 'portal.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
 CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
 WORKSPACE_DIR = '%s/.ppo_workspace' % CONTENT_DIR
+GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
 EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 
 TEMPLATES = [
