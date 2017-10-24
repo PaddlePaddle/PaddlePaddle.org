@@ -53,6 +53,7 @@ def generate_sitemap(version):
     try:
         json_data = open(sitemap_template_path).read()
         sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+        sitemap = _resolve_references(sitemap, version)
         _transform_urls(version, sitemap)
 
         # TODO[thuan]: Remove code that caches sitemap file for now, need to find better way of doing this
@@ -64,6 +65,51 @@ def generate_sitemap(version):
         print "Cannot generate sitemap from %s: %s" % (sitemap_template_path, e.message)
 
     return sitemap
+
+
+def load_json_and_resolve_references(path, version):
+    sitemap = None
+    # TODO [Jeff Wang]: Update the path to the reference json
+    sitemap_path = "%s/assets/sitemaps/%s" % (settings.PROJECT_ROOT, path)
+
+    try:
+        json_data = open(sitemap_path).read()
+        sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+        sitemap = _resolve_references(sitemap, version)
+
+    except Exception as e:
+        print "Cannot resolve sitemap from %s: %s" % (sitemap_path, e.message)
+
+    return sitemap
+
+
+def _resolve_references(navigation, version):
+    if isinstance(navigation, list):
+        # navigation is type list, resolved_navigation should also be type list
+        resolved_navigation = []
+
+        for item in navigation:
+            resolved_navigation.append(_resolve_references(item, version))
+
+        return resolved_navigation
+
+    elif isinstance(navigation, dict):
+        # navigation is type dict, resolved_navigation should also be type dict
+        resolved_navigation = {}
+
+        for key, value in navigation.items():
+            if key == "$ref":
+                # The value is the relative path to the associated json file
+                referenced_json = load_json_and_resolve_references(value, version)
+                resolved_navigation = referenced_json
+            else:
+                resolved_navigation[key] = _resolve_references(value, version)
+
+        return resolved_navigation
+
+    else:
+        # leaf node: The type of navigation should be [string, int, float, unicode]
+        return navigation
 
 
 def _transform_urls(version, sitemap):
