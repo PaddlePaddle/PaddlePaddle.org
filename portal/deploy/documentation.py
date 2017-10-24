@@ -39,7 +39,7 @@ def transform(original_documentation_dir, generated_docs_dir, version):
             output_dir_name = 'book'
 
         elif 'models' in original_documentation_dir.lower():
-            doc_generator = documentation_generator.generate_book_docs
+            doc_generator = documentation_generator.generate_models_docs
             convertor = strip.models
             sm_generator = sitemap_generator.models_sitemap
             output_dir_name = 'models'
@@ -50,14 +50,17 @@ def transform(original_documentation_dir, generated_docs_dir, version):
         if not generated_docs_dir:
             # If we have not already generated the documentation, then run the document generator
             print 'Generating documentation at %s' % original_documentation_dir
-            generated_docs_dir = doc_generator(original_documentation_dir, output_dir_name)
+            if doc_generator:
+                generated_docs_dir = doc_generator(original_documentation_dir, output_dir_name)
 
         print 'Stripping documentation at %s, version %s' % (generated_docs_dir, version)
-        convertor(generated_docs_dir, version, output_dir_name)
+        if convertor:
+            convertor(generated_docs_dir, version, output_dir_name)
 
         print 'Generating sitemap for documentation at %s, gen_docs_dir=%s,  version %s' % \
               (original_documentation_dir, generated_docs_dir, version)
-        sm_generator(original_documentation_dir, generated_docs_dir, version, output_dir_name)
+        if sm_generator:
+            sm_generator(original_documentation_dir, generated_docs_dir, version, output_dir_name)
 
     except Exception as e:
         print 'Unable to process documentation: %s' % e
