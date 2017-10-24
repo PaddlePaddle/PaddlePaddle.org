@@ -35,8 +35,11 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
             models_sitemap['sections'].append(section)
 
     # TODO [Jeff Wang]: Confirm the models sitemap path is correct
+    versioned_dest_dir = destination_documentation_dir + '/' + version
+    if not os.path.isdir(versioned_dest_dir):
+        os.mkdir(versioned_dest_dir)
+    sitemap_path = os.path.join(versioned_dest_dir, 'models.json')
     # Update the models.json
-    sitemap_path = os.path.join(destination_documentation_dir, 'models.json')
     with open(sitemap_path, 'w') as outfile:
         json.dump(models_sitemap, outfile)
 
