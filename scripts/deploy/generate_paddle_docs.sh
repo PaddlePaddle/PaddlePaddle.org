@@ -9,9 +9,9 @@ cd "$DOCS_LOCATION"
 
 find . -name "CMakeCache.txt" -exec rm -R {} \;
 
-if [ ! -d "DESTINATION_DIR" ]; then
+if [ ! -d "$DESTINATION_DIR" ]; then
     echo "Directory $DESTINATION_DIR does not exists, creating..."
-    mkdir -d $DESTINATION_DIR
+    mkdir -p $DESTINATION_DIR
 fi
 
 processors=1
