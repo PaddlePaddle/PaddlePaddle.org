@@ -26,7 +26,7 @@ SECRET_KEY="my_secret_key"
 
 ###### Run Docker Image
 ```
-docker run -d -p 8000:8000 --env-file portal.env -v <external_template_dir>:/var/content paddlepaddle.org:latest
+docker run -d -p 8000:8000 --env-file portal.env -v <content_dir>:/var/content paddlepaddle.org:latest
 ```
 
 ## Local Development
@@ -52,7 +52,7 @@ virtualenv venv
 ```
 export ENV="development"
 export SECRET_KEY="my_secret_key"
-export EXTERNAL_TEMPLATE_DIR="<dir where external templates reside>"
+export CONTENT_DIR="<dir where content dir reside>"
 ```
 
 ##### Source virtualenv
