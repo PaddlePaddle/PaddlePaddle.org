@@ -15,8 +15,8 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
     github_path = 'https://github.com/PaddlePaddle/models/tree/'
 
     # Create models sitemap template
-    models_sitemap = {"title": {"zh": "models"}}
-    models_sitemap['sections'] = []
+    sections = []
+    sitemap = {"title": {"zh": "models"}, 'sections': sections}
 
     # Read the stripped html file
     # TODO [Jeff Wang]: Confirm the root_html_path is correct
@@ -32,7 +32,8 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
             link = {'zh': link_zh}
 
             section = {'title': title, 'link': link}
-            models_sitemap['sections'].append(section)
+            sections.append(section)
+
 
     # TODO [Jeff Wang]: Confirm the models sitemap path is correct
     versioned_dest_dir = destination_documentation_dir + '/' + version
@@ -41,5 +42,5 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
     sitemap_path = os.path.join(versioned_dest_dir, 'models.json')
     # Update the models.json
     with open(sitemap_path, 'w') as outfile:
-        json.dump(models_sitemap, outfile)
+        json.dump(sitemap, outfile)
 
