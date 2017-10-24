@@ -16,17 +16,25 @@ ENV CONTENT_DIR=$CONTENT_DIR_ARG
 RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y python python-pip \
     python-dev \
+    cmake \
+    golang-go \
+    git \
     nginx \
-    gettext
+    gettext \
+    build-essential \
+    python-wheel \
+    libboost-dev \
+    swig
 
 # Create application subdirectories
 WORKDIR $CONTENT_DIR_ARG
 WORKDIR /var/www
-COPY portal .
+COPY . .
 
 # Port to expose
 EXPOSE 8000
 
+WORKDIR /var/www/portal
 RUN pip install -r requirements.txt
 
 COPY ./docker-entrypoint.sh .
