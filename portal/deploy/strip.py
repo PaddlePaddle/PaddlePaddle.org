@@ -97,7 +97,7 @@ def book(generated_documentation_dir, version, destination_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
                 generated_documentation_dir):]
-            new_path = '%s/%s/book/%s' % (destination_documentation_dir, version, subpath)
+            new_path = '%s/book/%s/%s' % (destination_documentation_dir, version, subpath)
 
             if '.html' in file or 'image/' in subpath:
                 if not os.path.exists(os.path.dirname(new_path)):

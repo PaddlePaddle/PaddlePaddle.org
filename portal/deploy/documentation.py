@@ -10,43 +10,47 @@ from django.conf import settings
 from urlparse import urlparse
 
 
-def transform(source_dir, generated_docs_dir, version):
-    if not os.path.exists(os.path.dirname(source_dir)):
-        print 'Cannot strip documentation, source_dir=%s does not exists' % source_dir
+def transform(generated_docs_dir, content_docs_dir, version):
+    if not os.path.exists(os.path.dirname(generated_docs_dir)):
+        print 'Cannot strip documentation, source_dir=%s does not exists' % generated_docs_dir
         return
 
     convertor = None
     sm_generator = None
-    extracted_source_dir = None
 
     # python manage.py deploy_documentation book v0.10.0 generated_contents/
     # remove the heading 'v'
     if version[0] == 'v':
         version = version[1:]
 
-    if 'documentation' in source_dir.lower():
+    if 'documentation' in generated_docs_dir.lower():
         convertor = strip.sphinx
         sm_generator = sitemap_generator.sphinx_sitemap
 
-    elif 'book' in source_dir.lower():
+    elif 'book' in generated_docs_dir.lower():
         convertor = strip.book
         sm_generator = sitemap_generator.book_sitemap
 
-    elif 'models' in source_dir.lower():
+    elif 'models' in generated_docs_dir.lower():
         convertor = strip.models
         sm_generator = sitemap_generator.models_sitemap
 
-    output_dir = '%s/' % (settings.EXTERNAL_TEMPLATE_DIR)
-    if convertor:
-        if output_dir:
-            convertor(extracted_source_dir, version, output_dir)
-        else:
-            print 'Please provide an output dir or set settings.EXTERNAL_TEMPLATE_DIR'
-            return
+    if content_docs_dir:
+        convertor(generated_docs_dir, version, content_docs_dir)
+    else:
+        output_dir = '%s/' % (settings.EXTERNAL_TEMPLATE_DIR)
+        if convertor:
+            if output_dir:
+                convertor(generated_docs_dir, version, output_dir)
+            else:
+                print 'Please provide an output dir or set settings.EXTERNAL_TEMPLATE_DIR'
+                return
 
     if sm_generator:
-        if output_dir:
-            sm_generator(extracted_source_dir, generated_docs_dir, version, output_dir)
+        if content_docs_dir:
+            sm_generator(generated_docs_dir, content_docs_dir, version, content_docs_dir)
+        elif output_dir:
+            sm_generator(generated_docs_dir, content_docs_dir, version, output_dir)
         else:
             print 'Please provide an output dir or set settings.EXTERNAL_TEMPLATE_DIR'
             return
