@@ -7,36 +7,39 @@ GITHUB_BRANCH=$3 # version
 
 echo "1:($1) 2:($2) 3:($3)"
 
+PPO_BRANCH=move_book_conversion_logic_to_PPO_script # debug
+
 # we are at the top level of PPO, we can `cd` to 'book', 'Paddle', 'models', '.ppo_workspace' ...
 export CONTENT_DIR=`pwd`/$SOURCE_DIR
-echo "CONTENT_DIR $CONTENT_DIR"
 export DEPLOY_DOCS_DIR=`pwd`/.ppo_workspace
-echo "DEPLOY_DOCS_DIR $DEPLOY_DOCS_DIR"
 
-if [ -d $DEPLOY_DOCS_DIR ]
-then
-    rm -rf $DEPLOY_DOCS_DIR
+[[ -d $DEPLOY_DOCS_DIR ]] || mkdir $DEPLOY_DOCS_DIR
+
+ #TODO: Set GENERATED_DOCS DIR: ie: /.ppo_workspace/generated_docs/book
+
+if [[ $SOURCE_DIR == *"book"* ]]; then
+    mkdir -p $DEPLOY_DOCS_DIR/generated_docs/book/$GITHUB_BRANCH
+    GENERATED_DOCS_DIR=$DEPLOY_DOCS_DIR/generated_docs/book/$GITHUB_BRANCH
+    CONVERT_BOOK_SH=https://raw.githubusercontent.com/PaddlePaddle/PaddlePaddle.org/$PPO_BRANCH/scripts/deploy/convert_md_to_html_for_book.sh
+    curl $CONVERT_BOOK_SH | bash -s $SOURCE_DIR $GENERATED_DOCS_DIR
 fi
 
-mkdir $DEPLOY_DOCS_DIR
-
-#if [[ $SOURCE_DIR == *"book"* ]]; then
-#  echo "It is book repo"
-#  sh convert_md_to_html_for_book.sh $SOURCE_DIR $DEPLOY_DOCS_DIR
-#fi
-#
-
+exit
 # TODO:  Call HTML generation code for book, model, and Paddle/doc.  Copy generated HTML
 # to .ppo_workspace/generated_docs
 
 #
 #
-#$GENERATED_DOCS_DIR= #TODO: Set GENERATED_DOCS DIR: ie: /.ppo_workspace/generated_docs/book
+# if [ -d $DEPLOY_DOCS_DIR/generated_docs/book ]
+# then
+#     rm -rf $DEPLOY_DOCS_DIR/generated_docs/book
+# fi
+
+
 #
 #### pull PaddlePaddle.org app and run the deploy_documentation command
 ## https://github.com/PaddlePaddle/PaddlePaddle.org/archive/develop.zip
 #
-PPO_BRANCH=move_book_conversion_logic_to_PPO_script
 
 
 curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
@@ -44,13 +47,13 @@ curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.z
 unzip $PPO_BRANCH.zip
 #
 cd PaddlePaddle.org-$PPO_BRANCH/
+# #
+cd portal/
 #
-#cd portal/
-#
-#sudo pip install -r requirements.txt
+sudo pip install -r requirements.txt
 #
 #mkdir ./tmp
-#python manage.py deploy_documentation $SOURCE_DIR $GENERATED_DOCS_DIR $GITHUB_BRANCH
+python manage.py deploy_documentation $CONTENT_DIR $GENERATED_DOCS_DIR $GITHUB_BRANCH
 #
 #
 ## deploy to remote server
