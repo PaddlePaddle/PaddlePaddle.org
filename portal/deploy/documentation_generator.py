@@ -1,9 +1,10 @@
 import os
 import shutil
-
-from django.conf import settings
+import codecs
 from subprocess import call
 
+from django.conf import settings
+import markdown
 
 def generate_paddle_docs(original_documentation_dir, output_dir_name):
     # Remove old generated docs directory
@@ -26,7 +27,47 @@ def generate_paddle_docs(original_documentation_dir, output_dir_name):
 
 
 def generate_models_docs(original_documentation_dir, output_dir_name):
-    pass
+    """
+    Strip out the static and extract the body contents, headers, and body.
+    """
+    # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
+    # and transform them using a markdown library.
+    destination_documentation_dir = _get_destination_documentation_dir(output_dir_name)
+
+    for subdir, dirs, all_files in os.walk(original_documentation_dir):
+        for file in all_files:
+            subpath = os.path.join(subdir, file)[len(
+                original_documentation_dir):]
+
+            # Replace .md with .html.
+            (name, extension) = os.path.splitext(subpath)
+            if extension == '.md':
+                subpath = name + '.html'
+
+            new_path = '%s/%s' % (destination_documentation_dir, subpath)
+
+            if '.md' in file or 'images' in subpath:
+                if not os.path.exists(os.path.dirname(new_path)):
+                    os.makedirs(os.path.dirname(new_path))
+
+            if '.md' in file:
+                # Convert the contents of the MD file.
+                with open(os.path.join(subdir, file)) as original_md_file:
+                    markdown_body = original_md_file.read()
+
+                    with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
+                        # Strip out the wrapping HTML
+                        new_html_partial.write(
+                            '{% verbatim %}\n' + markdown.markdown(
+                                unicode(markdown_body, 'utf-8'),
+                                extensions=['markdown.extensions.fenced_code', 'markdown.extensions.tables']
+                            ) + '\n{% endverbatim %}'
+                        )
+
+            elif 'images' in subpath:
+                shutil.copyfile(os.path.join(subdir, file), new_path)
+
+    return destination_documentation_dir
 
 
 def generate_book_docs(original_documentation_dir, output_dir_name):

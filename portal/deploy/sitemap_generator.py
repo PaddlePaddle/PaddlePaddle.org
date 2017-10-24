@@ -14,7 +14,7 @@ def book_sitemap(original_documentation_dir, generated_documentation_dir, versio
 
 
 def models_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
-    github_path = 'https://github.com/PaddlePaddle/models/tree/'
+    github_path = 'https://github.com/PaddlePaddle/models/tree/develop'
 
     # Create models sitemap template
     sections = []
@@ -40,7 +40,7 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
     # TODO [Jeff Wang]: Confirm the models sitemap path is correct
     versioned_dest_dir = _get_destination_documentation_dir(version, output_dir_name)
     if not os.path.isdir(versioned_dest_dir):
-        os.mkdir(versioned_dest_dir)
+        os.makedirs(versioned_dest_dir)
     sitemap_path = os.path.join(versioned_dest_dir, 'site.json')
     # Update the models.json
     with open(sitemap_path, 'w') as outfile:
