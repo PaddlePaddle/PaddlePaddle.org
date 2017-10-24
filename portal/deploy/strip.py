@@ -1,5 +1,5 @@
 import os
-from shutil import copyfile
+from shutil import copyfile, rmtree
 import codecs
 
 from bs4 import BeautifulSoup
@@ -16,23 +16,28 @@ from django.conf import settings
 # Using the map for a new directory mapping, determine a new location for the transformed file.
 
 
-def sphinx(generated_documentation_dir, version, destination_documentation_dir):
+def sphinx(generated_documentation_dir, version, output_dir_name):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
+    destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
+    if os.path.exists(destination_documentation_dir) and os.path.isdir(destination_documentation_dir):
+        rmtree(destination_documentation_dir)
+
+
     new_path_map = {
         'develop': {
-            '/en/html/': '/%s/documentation/en/' % version,
-            '/cn/html/': '/%s/documentation/cn/' % version,
+            '/en/html/': '/en/',
+            '/cn/html/': '/cn/',
         },
         '0.10.0': {
-            '/doc/':    '/%s/documentation/doc/' % version,
-            '/doc_cn/': '/%s/documentation/doc_cn/' % version,
+            '/doc/':    '/doc/',
+            '/doc_cn/': '/doc_cn/',
         },
         '0.9.0': {
-            '/doc/':    '/%s/documentation/doc/' % version,
-            '/doc_cn/': '/%s/documentation/doc_cn/' % version,
+            '/doc/':    '/doc/',
+            '/doc_cn/': '/doc_cn/',
         }
     }
 
@@ -76,7 +81,6 @@ def sphinx(generated_documentation_dir, version, destination_documentation_dir):
                             document = soup.select('div.body')[0]
                         else:
                             document = soup.select('div.document')[0]
-
                         with open(new_path, 'w') as new_html_partial:
                             new_html_partial.write(document.encode("utf-8"))
                     elif '_images' in subpath or '.txt' in file:
@@ -86,18 +90,20 @@ def sphinx(generated_documentation_dir, version, destination_documentation_dir):
                         copyfile(os.path.join(subdir, file), new_path)
 
 
-def book(generated_documentation_dir, version, destination_documentation_dir):
+def book(generated_documentation_dir, version, output_dir_name):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
+    destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
+
     for subdir, dirs, all_files in os.walk(generated_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
                 generated_documentation_dir):]
-            new_path = '%s/%s/book/%s' % (destination_documentation_dir, version, subpath)
+            new_path = '%s/%s' % (destination_documentation_dir, subpath)
 
             if '.html' in file or 'image/' in subpath:
                 if not os.path.exists(os.path.dirname(new_path)):
@@ -126,12 +132,14 @@ def book(generated_documentation_dir, version, destination_documentation_dir):
                 copyfile(os.path.join(subdir, file), new_path)
 
 
-def models(generated_documentation_dir, version, destination_documentation_dir):
+def models(generated_documentation_dir, version, output_dir_name):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
+    destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
+
     for subdir, dirs, all_files in os.walk(generated_documentation_dir):
         for file in all_files:
             subpath = os.path.join(subdir, file)[len(
@@ -142,7 +150,7 @@ def models(generated_documentation_dir, version, destination_documentation_dir):
             if extension == '.md':
                 subpath = name + '.html'
 
-            new_path = '%s/%s/models%s' % (destination_documentation_dir, version, subpath)
+            new_path = '%s/%s' % (destination_documentation_dir, subpath)
 
             if '.md' in file or 'images' in subpath:
                 if not os.path.exists(os.path.dirname(new_path)):
@@ -185,3 +193,7 @@ def markdown_file(source_markdown_file, version, tmp_dir):
                     extensions=['markdown.extensions.fenced_code', 'markdown.extensions.tables']
                 ) + '\n{% endverbatim %}'
             )
+
+
+def _get_destination_documentation_dir(version, output_dir_name):
+    return '%s/docs/%s/%s' % (settings.EXTERNAL_TEMPLATE_DIR, version, output_dir_name)

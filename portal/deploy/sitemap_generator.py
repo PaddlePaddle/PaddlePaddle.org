@@ -2,17 +2,18 @@
 import os
 import json
 from bs4 import BeautifulSoup
+from django.conf import settings
 
 
-def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, destination_documentation_dir):
+def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     pass
 
 
-def book_sitemap(original_documentation_dir, generated_documentation_dir, version, destination_documentation_dir):
+def book_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     pass
 
 
-def models_sitemap(original_documentation_dir, generated_documentation_dir, version, destination_documentation_dir):
+def models_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     github_path = 'https://github.com/PaddlePaddle/models/tree/'
 
     # Create models sitemap template
@@ -37,7 +38,7 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
             sections.append(section)
 
     # TODO [Jeff Wang]: Confirm the models sitemap path is correct
-    versioned_dest_dir = destination_documentation_dir + '/' + version + '/models'
+    versioned_dest_dir = _get_destination_documentation_dir(version, output_dir_name)
     if not os.path.isdir(versioned_dest_dir):
         os.mkdir(versioned_dest_dir)
     sitemap_path = os.path.join(versioned_dest_dir, 'site.json')
@@ -45,3 +46,6 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
     with open(sitemap_path, 'w') as outfile:
         json.dump(sitemap, outfile)
 
+
+def _get_destination_documentation_dir(version, output_dir_name):
+    return '%s/docs/%s/%s' % (settings.EXTERNAL_TEMPLATE_DIR, version, output_dir_name)
