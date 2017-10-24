@@ -15,5 +15,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         documentation.transform(
             options['source'],
-            options['dest_gen_docs_dir'],
+            options.get('dest_gen_docs_dir', None),
             options['doc_version'])

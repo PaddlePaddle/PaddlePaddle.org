@@ -26,20 +26,20 @@ def transform(original_documentation_dir, generated_docs_dir, version):
         if version[0] == 'v':
             version = version[1:]
 
-        if 'paddle' in original_documentation_dir.lower():
+        if original_documentation_dir.lower().endswith('/paddle'):
             doc_generator = documentation_generator.generate_paddle_docs
             convertor = strip.sphinx
             sm_generator = sitemap_generator.sphinx_sitemap
             output_dir_name = 'documentation'
 
-        elif 'book' in original_documentation_dir.lower():
-            doc_generator = documentation_generator.generate_models_docs
+        elif original_documentation_dir.lower().endswith('/book'):
+            doc_generator = documentation_generator.generate_book_docs
             convertor = strip.book
             sm_generator = sitemap_generator.book_sitemap
             output_dir_name = 'book'
 
-        elif 'models' in original_documentation_dir.lower():
-            doc_generator = documentation_generator.generate_book_docs
+        elif original_documentation_dir.lower().endswith('/models'):
+            doc_generator = documentation_generator.generate_models_docs
             convertor = strip.models
             sm_generator = sitemap_generator.models_sitemap
             output_dir_name = 'models'
