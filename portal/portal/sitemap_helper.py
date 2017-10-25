@@ -69,7 +69,8 @@ def generate_sitemap(version):
 
 def load_json_and_resolve_references(path, version):
     sitemap = None
-    sitemap_path = "%s/%s/%s" % (settings.EXTERNAL_TEMPLATE_DIR, version, path)
+    # TODO[Jeff]: Modify the path for Blog if necessary
+    sitemap_path = "%s/docs/%s/%s" % (settings.EXTERNAL_TEMPLATE_DIR, version, path)
 
     try:
         json_data = open(sitemap_path).read()
@@ -94,7 +95,7 @@ def _resolve_references(navigation, version):
 
     elif isinstance(navigation, dict):
         # navigation is type dict, resolved_navigation should also be type dict
-        resolved_navigation = {}
+        resolved_navigation = collections.OrderedDict()
 
         for key, value in navigation.items():
             if key == "$ref":
