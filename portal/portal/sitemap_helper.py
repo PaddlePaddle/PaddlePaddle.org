@@ -69,8 +69,7 @@ def generate_sitemap(version):
 
 def load_json_and_resolve_references(path, version):
     sitemap = None
-    # TODO [Jeff Wang]: Update the path to the reference json
-    sitemap_path = "%s/assets/sitemaps/%s" % (settings.PROJECT_ROOT, path)
+    sitemap_path = "%s/%s/%s" % (settings.EXTERNAL_TEMPLATE_DIR, version, path)
 
     try:
         json_data = open(sitemap_path).read()
