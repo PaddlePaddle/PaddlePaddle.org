@@ -31,7 +31,7 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
         for tag in anchor_tags:
             title = {'zh': tag.text}
             # The absolute URLs link to the github site. Transform them into relative URL for local HTML files.
-            link_zh = tag['href'].replace(github_path, '') + '/README.html'
+            link_zh = tag['href'].replace(github_path, 'models/') + '/README.html'
             link = {'zh': link_zh}
 
             section = {'title': title, 'link': link}
