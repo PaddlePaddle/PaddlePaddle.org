@@ -39,11 +39,14 @@ def home_root(request):
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOCS_VERSION)
     portal_helper.set_preferred_version(request, preferred_version)
+    book_id = request.GET.get('book_id', None)
 
     lang = portal_helper.get_preferred_language(request)
     root_navigation = sitemap_helper.get_sitemap(preferred_version, lang)
 
-    if root_navigation and len(root_navigation) > 0:
+    if book_id:
+        return _redirect_first_link_in_book(request, preferred_version, book_id)
+    elif root_navigation and len(root_navigation) > 0:
         for book_id, book in root_navigation.items():
             if book:
                 return _redirect_first_link_in_book(request, preferred_version, book_id)

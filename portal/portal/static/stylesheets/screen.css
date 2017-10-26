@@ -128,8 +128,8 @@ input:focus, select:focus, textarea:focus, button:focus {
   height: 100%;
 }
 /* line 41, ../sass/navigation.sass */
-.navbar .version-toggler .btn-group button {
-  border: 1px solid white;
+.navbar .version-toggler .btn-group .btn {
+  border-radius: 0px;
 }
 /* line 44, ../sass/navigation.sass */
 .navbar .version-toggler .btn-group .selected-version {
