@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-19 17:44+0000\n"
+"POT-Creation-Date: 2017-10-25 22:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,118 +17,200 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: portal/settings.py:82
+#: portal/settings.py:102
 msgid "English"
 msgstr ""
 
-#: portal/settings.py:83
+#: portal/settings.py:103
 msgid "Chinese"
 msgstr ""
 
-#: portal/templates/_base_nav.html:14
+#: portal/templates/_base.html:9
+msgid "PaddlePaddle - Train and deploy deep learning at scale"
+msgstr ""
+
+#: portal/templates/_nav_bar.html:15
 msgid "Tutorial"
 msgstr "教程"
 
-#: portal/templates/_base_nav.html:15
+#: portal/templates/_nav_bar.html:18
 msgid "Documentation"
 msgstr "文档中心"
 
-#: portal/templates/_base_nav.html:16
+#: portal/templates/_nav_bar.html:23
 msgid "Blog"
 msgstr "博客文章"
 
-#: portal/templates/index.html:13
+#: portal/templates/index.html:16
 msgid "PArallel Distributed Deep LEarning"
 msgstr "易学易用的分布式深度学习平台"
 
-#: portal/templates/index.html:14 portal/templates/index.html.py:108
+#: portal/templates/index.html:17
 msgid "An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform"
 msgstr "正在为100+项产品提供深度学习算法支持"
 
-#: portal/templates/index.html:17 portal/templates/index.html.py:110
+#: portal/templates/index.html:21
 msgid "Quick Start"
 msgstr "快速入门"
 
-#: portal/templates/index.html:24
+#: portal/templates/index.html:29
 msgid "Diverse Application Scenarios"
 msgstr "丰富的算法服务"
 
-#: portal/templates/index.html:25
+#: portal/templates/index.html:30
 msgid "PaddlePaddle powers hundreds of Baidu's and its partners' products."
 msgstr "易用、高效、灵活、扩展性好"
 
-#: portal/templates/index.html:33
+#: portal/templates/index.html:39
 msgid "Computer Vision"
 msgstr "机器视觉"
 
-#: portal/templates/index.html:34
+#: portal/templates/index.html:40
 msgid ""
 "Using a Convolutional Neural Network (CNN) for Image Recognition and Object "
 "Detection."
 msgstr "卷积神经网络可以识别图像中的主要对象，并输出分类结果"
 
-#: portal/templates/index.html:36 portal/templates/index.html.py:47
-#: portal/templates/index.html:64
+#: portal/templates/index.html:43 portal/templates/index.html.py:45
+#: portal/templates/index.html:63 portal/templates/index.html.py:65
+#: portal/templates/index.html:83 portal/templates/index.html.py:85
 msgid "Read more >"
 msgstr "查看更多 >"
 
-#: portal/templates/index.html:44
+#: portal/templates/index.html:59
 msgid "Natural Language Understanding"
 msgstr "自然语言理解"
 
-#: portal/templates/index.html:45
+#: portal/templates/index.html:60
 msgid "Using a Recurrent Neural Network (RNN) for Sentiment Analysis."
 msgstr "利用LSTM网络从IMDB电影评论的中分析出评论者情绪的正面和负面"
 
-#: portal/templates/index.html:61
+#: portal/templates/index.html:79
 msgid "Recommender System"
 msgstr "推荐系统"
 
-#: portal/templates/index.html:62
+#: portal/templates/index.html:80
 msgid ""
 "Using Deep Learning on Recommendation Systems to Help Users Find Interests."
 msgstr "分析用户特征、电影特征、点评分数，预测新用户对不同电影的打分"
 
-#: portal/templates/index.html:72
+#: portal/templates/index.html:96
+#, fuzzy
+#| msgid "Quick Start"
+msgid "Quick start"
+msgstr "快速入门"
+
+#: portal/templates/index.html:99
+msgid "Install and make predictions in 5 minutes"
+msgstr "五分钟快速上手"
+
+#: portal/templates/index.html:106
+msgid ""
+"Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x "
+"installed"
+msgstr ""
+
+#: portal/templates/index.html:109 portal/templates/index.html.py:112
+msgid "Download "
+msgstr "下载"
+
+#: portal/templates/index.html:109 portal/templates/index.html.py:112
+msgid "the trained housing prices model"
+msgstr "房价模型"
+
+#: portal/templates/index.html:109
+msgid " and then install PaddlePaddle on your computer:"
+msgstr "和在电脑上安装PaddlePaddle"
+
+#: portal/templates/index.html:112
+msgid ""
+", and then <a href=\"https://docs.docker.com/engine/installation/\" target="
+"\"_blank\">install Docker</a> on your computer. After installing Docker, "
+"create a new file called "
+msgstr "之後 <a href=\"https://docs.docker.com/engine/installation/\" target="
+"\"_blank\">安装 Docker</a> 在你的电脑上。"
+"安装后，创建 "
+
+#: portal/templates/index.html:112
+msgid " in an new and empty directory:"
+msgstr " 在一个新的空目录中："
+
+#: portal/templates/index.html:116
+msgid "Instructions on installing pip"
+msgstr "pip 安装教学"
+
+#: portal/templates/index.html:118
+msgid "Now, create a new file called "
+msgstr "创建一个 "
+
+#: portal/templates/index.html:118
+msgid ", and paste this Python code"
+msgstr " 并粘贴此Python代码"
+
+#: portal/templates/index.html:119
+msgid "Now paste this Python code in the file using your favorite editor"
+msgstr "使用您喜欢的编辑器将Python代码粘贴到文件中。"
+
+#: portal/templates/index.html:144
+msgid "Run "
+msgstr "执行"
+
+#: portal/templates/index.html:144
+msgid ""
+" and <strong>voila</strong>! It should print out a list of predictions for "
+"the test housing data."
+msgstr " <strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
+
+#: portal/templates/index.html:146
+msgid "Now run this code in a new PaddlePaddle Docker container:"
+msgstr "在一个新的paddlepaddle Docker容器运行这个代码："
+
+#: portal/templates/index.html:149
+msgid ""
+"<strong>Voila</strong>! It should print out a list of predictions for the "
+"test housing data."
+msgstr "<strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
+
+#: portal/templates/index.html:155
 msgid "Technical Features"
 msgstr "技术和服务优势"
 
-#: portal/templates/index.html:79
+#: portal/templates/index.html:163
 msgid "Ease of use"
 msgstr "易用性"
 
-#: portal/templates/index.html:80
+#: portal/templates/index.html:164
 msgid ""
 "PaddlePaddle provides an intuitive and flexible interface for loading data "
 "and specifying model structures."
 msgstr "为用户提供了直观、灵活的数据接口和模型配置接口"
 
-#: portal/templates/index.html:86
+#: portal/templates/index.html:172
 msgid "Flexibility"
 msgstr "灵活性"
 
-#: portal/templates/index.html:87
+#: portal/templates/index.html:173
 msgid ""
 "It supports CNN, RNN and various variants and configures complicated deep "
 "models easily."
 msgstr ""
 "支持CNN、RNN等多种神经网络结构和优化算法。简单书写配置文件即可实现复杂模型"
 
-#: portal/templates/index.html:93
+#: portal/templates/index.html:181
 msgid "Efficiency"
 msgstr "高效性"
 
-#: portal/templates/index.html:94
+#: portal/templates/index.html:182
 msgid ""
 "It also provides extremely optimized operations, memory recycling, and "
 "network communication."
 msgstr "在计算、存储、通信、架构等方面都做了高效优化，充分发挥各种资源的性能"
 
-#: portal/templates/index.html:100
+#: portal/templates/index.html:189
 msgid "Scalability"
 msgstr "扩展性"
 
-#: portal/templates/index.html:101
+#: portal/templates/index.html:190
 msgid ""
 "PaddlePaddle makes it easy to scale heterogeneous computing resources and "
 "storage to accelerate the training process."
