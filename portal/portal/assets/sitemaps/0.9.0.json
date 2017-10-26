@@ -13,6 +13,7 @@
     },
     "models": {
         "$ref": {
+            "en": "models/site.en.json",
             "zh": "models/site.zh.json"
         }
     }

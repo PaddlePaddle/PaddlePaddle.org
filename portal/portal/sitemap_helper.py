@@ -129,15 +129,16 @@ def _transform_urls(version, sitemap):
         for _, book in sitemap.items():
             if book and 'sections' in book:
                 for chapter in book['sections']:
-
+                    all_links = []
                     chapter_link = {}
                     if 'link' in chapter:
                         chapter_link = chapter['link']
+
                         for lang, url in chapter_link.items():
                             chapter_link[lang] = url_helper.append_prefix_to_path(version, chapter_link[lang])
+                            all_links.append(chapter_link[lang])
 
                     if 'sections' in chapter:
-                        all_links = []
                         for section in chapter['sections']:
                             if 'link' in section:
                                 link = section['link']

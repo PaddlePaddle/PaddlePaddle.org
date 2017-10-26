@@ -102,28 +102,45 @@ def book_sitemap(original_documentation_dir, generated_documentation_dir, versio
 
 
 def models_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    _create_models_sitemap(generated_documentation_dir, version, 'README.html', output_dir_name, 'en')
+    _create_models_sitemap(generated_documentation_dir, version, 'README.html', output_dir_name, 'zh')
+
+
+def _create_models_sitemap(generated_documentation_dir, version, html_file_name, output_dir_name, language):
     github_path = 'https://github.com/PaddlePaddle/models/tree/'
+
+    root_html_path = os.path.join(generated_documentation_dir, html_file_name)
 
     # Create models sitemap template
     sections = []
-    sitemap = {"title": {"zh": "概述"}, 'sections': sections}
+
+    title = '概述' if language == 'zh' else 'Models'
+    link = 'models/%s' % html_file_name
+    sitemap = { 'title': {language: title},
+                'sections': [
+                    {
+                       'title': {language: title},
+                       'link': {language: link},
+                       'sections': sections
+                    }
+                ]
+            }
 
     # Read the stripped html file
     # TODO [Jeff Wang]: Confirm the root_html_path is correct
-    root_html_path = os.path.join(generated_documentation_dir, 'README.html')
     with open(root_html_path) as original_html_file:
         soup = BeautifulSoup(original_html_file, 'lxml')
 
         anchor_tags = soup.select('li a[href]')
         # Extract the links and the article titles
         for tag in anchor_tags:
-            title = {'zh': tag.text}
+            title = {language: tag.text}
             # The absolute URLs link to the github site. Transform them into relative URL for local HTML files.
             # dynamically remove develop or v0.10.0, etc
             link_zh = tag['href'].replace(github_path, '')
-            link_zh = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", 'models/', link_zh) + '/README.html'
+            link_zh = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", 'models/', link_zh) + '/' + html_file_name
 
-            link = {'zh': link_zh}
+            link = {language: link_zh}
 
             section = {'title': title, 'link': link}
             sections.append(section)
@@ -132,7 +149,7 @@ def models_sitemap(original_documentation_dir, generated_documentation_dir, vers
     versioned_dest_dir = _get_destination_documentation_dir(version, output_dir_name)
     if not os.path.isdir(versioned_dest_dir):
         os.makedirs(versioned_dest_dir)
-    sitemap_path = os.path.join(versioned_dest_dir, 'site.zh.json')
+    sitemap_path = os.path.join(versioned_dest_dir, 'site.%s.json' % language)
     # Update the models.json
     with open(sitemap_path, 'w') as outfile:
         json.dump(sitemap, outfile)

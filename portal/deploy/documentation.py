@@ -22,6 +22,9 @@ def transform(original_documentation_dir, generated_docs_dir, version):
         sm_generator = None
         output_dir_name = None
 
+        if original_documentation_dir:
+            original_documentation_dir = original_documentation_dir.rstrip('/')
+
         # remove the heading 'v'
         if version[0] == 'v':
             version = version[1:]
