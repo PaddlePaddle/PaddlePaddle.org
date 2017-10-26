@@ -114,7 +114,7 @@ def _create_models_sitemap(generated_documentation_dir, version, html_file_name,
     # Create models sitemap template
     sections = []
 
-    title = '概述' if language == 'zh' else 'Models'
+    title = '模型' if language == 'zh' else 'Models'
     link = 'models/%s' % html_file_name
     sitemap = { 'title': {language: title},
                 'sections': [

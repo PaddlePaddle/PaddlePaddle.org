@@ -51,9 +51,7 @@ def change_version(request):
             if book:
                 return _redirect_first_link_in_book(request, preferred_version, book_id)
 
-        return home_root(request)
-    else:
-        return home_root(request)
+    return home_root(request)
 
 
 def change_lang(request):
