@@ -26,8 +26,6 @@ cmake "$DOCS_LOCATION" -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_BUILD_TYPE=Debu
 make -j $processors gen_proto_py
 make -j $processors paddle_docs paddle_docs_cn
 
-mkdir -p $DESTINATION_DIR/zh/
-mkdir -p $DESTINATION_DIR/en/
+mkdir -p $DESTINATION_DIR
 
-cp -r $DOCS_LOCATION/doc/cn/html/* $DESTINATION_DIR/zh/.
-cp -r $DOCS_LOCATION/doc/en/html/* $DESTINATION_DIR/en/.
+cp -R $DOCS_LOCATION/doc/ $DESTINATION_DIR/.

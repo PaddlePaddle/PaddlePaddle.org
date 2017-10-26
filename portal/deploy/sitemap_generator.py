@@ -11,8 +11,15 @@ def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, vers
     versioned_dest_dir = _get_destination_documentation_dir(version, output_dir_name)
     print 'GENERATING SITEMAP FOR PADDLE'
 
-    for lang in ['en', 'zh']:
-        index_html_path = '%s/%s/index.html' % (generated_documentation_dir, lang)
+    parent_path_map = { 'en': '/en/html/',
+                        'zh': '/cn/html/' }
+
+    if version == '0.10.0' or version == '0.9.0':
+        parent_path_map = { 'en': '/doc/',
+                            'zh': '/doc_cn/'}
+
+    for lang, parent_path in parent_path_map.items():
+        index_html_path = '%s/%s/index.html' % (generated_documentation_dir, parent_path)
 
         sitemap = _create_sphinx_site_map_from_index(index_html_path, lang)
         sitemap_ouput_path = os.path.join(versioned_dest_dir, 'site.%s.json' % lang)

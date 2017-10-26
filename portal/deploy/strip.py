@@ -30,16 +30,16 @@ def sphinx(generated_documentation_dir, version, output_dir_name):
 
     new_path_map = {
         'develop': {
-            '/en/': '/en/',
-            '/zh/': '/zh/',
+            '/en/html/': '/en/',
+            '/cn/html/': '/zh/',
         },
         '0.10.0': {
-            '/en/':    '/en/',
-            '/zh/': '/zh/',
+            '/doc/':    '/en/',
+            '/doc_cn/': '/zh/',
         },
         '0.9.0': {
-            '/en/':    '/en/',
-            '/zh/': '/zh/',
+            '/doc/':    '/en/',
+            '/doc_cn/': '/zh/',
         }
     }
 
