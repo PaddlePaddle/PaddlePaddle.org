@@ -32,6 +32,10 @@ def _load_sitemap_from_file(version, language):
     if os.path.isfile(sitemap_path):
         # Sitemap file exists, lets load it
         try:
+            # TODO[thuan]: Lets fix this in the next request (or remove it)
+            # The temp file location may be different for each process.  So if we try to
+            # regenerate it from python manage.py, it may not overwrite the sitemap
+            # from the server
             pass
             # print "Loading sitemap from %s" % sitemap_path
             # json_data = open(sitemap_path).read()

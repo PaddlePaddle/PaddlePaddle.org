@@ -78,7 +78,6 @@ def nav_bar(context):
         lang_label = "English"
         lang_link = '/change-lang?lang_code=en'
 
-    # import pdb; pdb.set_trace()
     return _common_context(context, {
         'root_nav': root_navigation,
         'lang_def': { 'label': lang_label, 'link': lang_link }
@@ -95,8 +94,6 @@ def content_links(context, book_id):
         docs_version,
         current_lang_code
     )
-
-    print json.dumps(side_nav_content)
 
     return _common_context(context, {
         'side_nav_content': side_nav_content,
