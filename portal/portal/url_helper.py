@@ -11,6 +11,7 @@ DOCUMENTATION_ROOT = 'documentation/'
 MODEL_ROOT = 'models/'
 GITHUB_ROOT = 'https://raw.githubusercontent.com'
 
+URL_NAME_CONTENT_ROOT = 'content_root'
 URL_NAME_BLOG_ROOT = 'blog_root'
 URL_NAME_DOCS_ROOT = "docs_root"
 URL_NAME_DOCS = 'docs_path'

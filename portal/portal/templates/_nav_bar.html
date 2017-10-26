@@ -11,12 +11,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item{% if book_id == 'tutorial' %} active{% endif %}">
-                    <a class="nav-link" href="{% url url_helper.URL_NAME_TUTORIAL_ROOT CURRENT_DOCS_VERSION %}">{% trans "Tutorial" %}<span class="sr-only">(current)</span></a>
+                {% for b_id, book in root_nav.items %}
+                    {% translation_assignment book.title as book_title %}
+                    {% if book_title != none %}
+                <li class="nav-item{% if book_id == id %} active{% endif %}">
+                    <a class="nav-link" href="{% url url_helper.URL_NAME_CONTENT_ROOT CURRENT_DOCS_VERSION b_id %}">{% translation book.title %}<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item{% if book_id == 'documentation' %} active{% endif %}">
-                    <a class="nav-link" href="{% url url_helper.URL_NAME_DOCS_ROOT CURRENT_DOCS_VERSION %}">{% trans "Documentation" %}</a>
-                </li>
+                    {% endif %}
+                {% endfor %}
 
                 {% if not settings.DOC_MODE %}
                 <li class="nav-item{% apply_class_if_template 'blog.html' ' active' %}">

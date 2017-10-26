@@ -25,19 +25,21 @@ def sphinx(generated_documentation_dir, version, output_dir_name):
     if os.path.exists(destination_documentation_dir) and os.path.isdir(destination_documentation_dir):
         rmtree(destination_documentation_dir)
 
+    if generated_documentation_dir:
+        generated_documentation_dir = generated_documentation_dir.rstrip('/')
 
     new_path_map = {
         'develop': {
-            '/en/html/': '/en/',
-            '/cn/html/': '/cn/',
+            '/en/': '/en/',
+            '/zh/': '/zh/',
         },
         '0.10.0': {
-            '/doc/':    '/doc/',
-            '/doc_cn/': '/doc_cn/',
+            '/en/':    '/en/',
+            '/zh/': '/zh/',
         },
         '0.9.0': {
-            '/doc/':    '/doc/',
-            '/doc_cn/': '/doc_cn/',
+            '/en/':    '/en/',
+            '/zh/': '/zh/',
         }
     }
 

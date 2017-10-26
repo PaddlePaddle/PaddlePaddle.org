@@ -13,4 +13,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if 'version' in options:
             for version in options['version']:
-                sitemap_helper.generate_sitemap(version)
+                sitemap_helper.generate_sitemap(version, 'en')
+                sitemap_helper.generate_sitemap(version, 'zh')

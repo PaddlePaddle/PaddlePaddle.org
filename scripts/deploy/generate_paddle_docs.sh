@@ -22,9 +22,12 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 # Compile Documentation only.
-cmake "$DOCS_LOCATION" -DCMAKE_BUILD_TYPE=Debug -DWITH_GPU=OFF -DWITH_MKLDNN=OFF -DWITH_MKLML=OFF -DWITH_DOC=ON
+cmake "$DOCS_LOCATION" -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_BUILD_TYPE=Debug -DWITH_GPU=OFF -DWITH_MKLDNN=OFF -DWITH_MKLML=OFF -DWITH_DOC=ON
 make -j $processors gen_proto_py
 make -j $processors paddle_docs paddle_docs_cn
 
-cp -r $DOCS_LOCATION/doc/cn $DESTINATION_DIR/.
-cp -r $DOCS_LOCATION/doc/en $DESTINATION_DIR/.
+mkdir -p $DESTINATION_DIR/zh/
+mkdir -p $DESTINATION_DIR/en/
+
+cp -r $DOCS_LOCATION/doc/cn/html/* $DESTINATION_DIR/zh/.
+cp -r $DOCS_LOCATION/doc/en/html/* $DESTINATION_DIR/en/.

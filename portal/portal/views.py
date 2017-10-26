@@ -30,17 +30,27 @@ def _get_static_content_from_template(path):
 
 
 def home_root(request):
-    if settings.DOC_MODE:
-        return tutorial_root(request)
-    else:
-        return render(request, 'index.html')
+    # if settings.DOC_MODE:
+    #     return tutorial_root(request)
+    # else:
+    return render(request, 'index.html')
 
 
 def change_version(request):
     preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOCS_VERSION)
     portal_helper.set_preferred_version(request, preferred_version)
 
-    return tutorial_root(request, preferred_version)
+    lang = portal_helper.get_preferred_language(request)
+    root_navigation = sitemap_helper.get_sitemap(preferred_version, lang)
+
+    if root_navigation and len(root_navigation) > 0:
+        for book_id, book in root_navigation.items():
+            if book:
+                return _redirect_first_link_in_book(request, preferred_version, book_id)
+
+        return home_root(request)
+    else:
+        return home_root(request)
 
 
 def change_lang(request):
@@ -95,16 +105,12 @@ def blog_sub_path(request, path):
     return render(request, 'blog.html', context)
 
 
-def tutorial_root(request, version):
-    return _redirect_first_link_in_book(request, version, 'tutorial')
+def content_root(request, version, book_id):
+    return _redirect_first_link_in_book(request, version, book_id)
 
 
 def book_sub_path(request, version, path=None):
     return _render_static_content(request, version, 'tutorial', 'book')
-
-
-def documentation_root(request, version):
-    return _redirect_first_link_in_book(request, version, 'documentation')
 
 
 def documentation_path(request, version, path=None):
@@ -114,32 +120,16 @@ def documentation_path(request, version, path=None):
     template = 'documentation'     # TODO[thuan]: do this in a less hacky way
     allow_search = True
 
-    # Note: The Source section in 0.9.0 also applies to the "Documentation" book
-    if ('/api/' not in path and not path.endswith('search.html')) and ('/source/' not in path and not path.endswith('search.html')):
-        template = 'tutorial'
-        allow_search = False
-
     search_url = None
     if allow_search:
         # TODO[thuan]: Implement proper full text search
-        if version == 'develop':
-            if lang == 'en':
-                search_url = 'en/search.html'
-            elif lang == 'zh':
-                search_url = 'cn/search.html'
-
-        elif version == '0.9.0' or version == '0.10.0':
-            if lang == 'en':
-                search_url = 'doc/search.html'
-            elif lang == 'zh':
-                search_url = 'doc_cn/search.html'
-
+        search_url = '%s/search.html' % lang
     extra_context =  { 'allow_search': allow_search, 'search_url': search_url }
     return _render_static_content(request, version, template, 'docs', extra_context)
 
 
 def models_path(request, version, path=None):
-    return _render_static_content(request, version, 'documentation', 'models')
+    return _render_static_content(request, version, 'models', None)
 
 
 def other_path(request, version, path=None):
@@ -179,10 +169,10 @@ def flush_other_page(request, version):
 def _redirect_first_link_in_book(request, version, book_id):
     portal_helper.set_preferred_version(request, version)
     lang = portal_helper.get_preferred_language(request)
-    root_navigation = sitemap_helper.get_sitemap(version)
+    root_navigation = sitemap_helper.get_sitemap(version, lang)
 
     try:
-        # Get the first section link from the tutorial book
+        # Get the first section link from book
         path = None
         book = root_navigation[book_id]
         path = _get_first_link_in_book(book, lang)
@@ -218,9 +208,12 @@ def _get_first_link_in_book(book, lang):
     path = None
 
     if book:
-        if book and len(book) > 0:
-            _, first_chapter = book.items()[0]
-        if first_chapter and ('sections' in first_chapter) and len(first_chapter['sections']) > 0:
+        first_chapter = None
+        if book and 'sections' in book and len(book['sections'])>0:
+            first_chapter = book['sections'][0]
+        if first_chapter and 'link' in first_chapter:
+            path = first_chapter['link'][lang]
+        elif first_chapter and ('sections' in first_chapter) and len(first_chapter['sections']) > 0:
             first_section = first_chapter['sections'][0]
             path = first_section['link'][lang]
 
@@ -230,7 +223,8 @@ def _get_first_link_in_book(book, lang):
 def _get_translated_link_in_book(book_id, version, target_link, lang):
     side_nav_content = sitemap_helper.get_book_navigation(
         book_id,
-        version
+        version,
+        lang
     )
 
     translated_path = ""

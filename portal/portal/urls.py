@@ -36,15 +36,18 @@ urlpatterns = [
     url(r'^%s(?P<path>.+html)$' % url_helper.BLOG_ROOT, views.blog_sub_path),
 
     # ---------------
+    # CONTENT ROOT URLS
+    # ---------------
+    url(r'^content-root/(?P<version>.*)/(?P<book_id>.*)$', views.content_root, name=url_helper.URL_NAME_CONTENT_ROOT),
+
+    # ---------------
     # TUTORIAL URLS
     # ---------------
-    url(r'^tutorial/(?P<version>.*)/$', views.tutorial_root, name=url_helper.URL_NAME_TUTORIAL_ROOT),
     url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.BOOK_ROOT, views.book_sub_path, name=url_helper.URL_NAME_TUTORIAL),
 
     # -------------------
     # DOCUMENTATION URLS
     # -------------------
-    url(r'^docs/(?P<version>.*)/$', views.documentation_root, name=url_helper.URL_NAME_DOCS_ROOT),
     url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.DOCUMENTATION_ROOT, views.documentation_path, name=url_helper.URL_NAME_DOCS),
 
     # ---------------

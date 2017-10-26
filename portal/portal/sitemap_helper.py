@@ -2,18 +2,19 @@ import json
 import os
 import collections
 import tempfile
+import traceback
 
 from django.conf import settings
 from django.core.cache import cache
 from portal import url_helper
 
 
-def get_sitemap(version):
+def get_sitemap(version, language):
     cache_key = 'sitemap.%s' % version
     sitemap_cache = cache.get(cache_key, None)
 
     if not sitemap_cache:
-        sitemap_cache = _load_sitemap_from_file(version)
+        sitemap_cache = _load_sitemap_from_file(version, language)
 
         if sitemap_cache:
             timeout = settings.DEFAULT_CACHE_EXPIRY
@@ -24,54 +25,56 @@ def get_sitemap(version):
     return sitemap_cache
 
 
-def _load_sitemap_from_file(version):
+def _load_sitemap_from_file(version, language):
     sitemap = None
-    sitemap_path = _get_sitemap_path(version)
+    sitemap_path = _get_sitemap_path(version, language)
 
     if os.path.isfile(sitemap_path):
         # Sitemap file exists, lets load it
         try:
-            print "Loading sitemap from %s" % sitemap_path
-            json_data = open(sitemap_path).read()
-            sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+            pass
+            # print "Loading sitemap from %s" % sitemap_path
+            # json_data = open(sitemap_path).read()
+            # sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
         except Exception as e:
             print "Cannot load sitemap from file %s: %s" % (sitemap_path, e.message)
 
     if not sitemap:
         # We couldn't load sitemap.<version>.json file, lets generate it
-        sitemap = generate_sitemap(version)
+        sitemap = generate_sitemap(version, language)
 
     return sitemap
 
 
-def generate_sitemap(version):
+def generate_sitemap(version, language):
     sitemap = None
     sitemap_template_path = "%s/assets/sitemaps/%s.json" % (settings.PROJECT_ROOT, version)
 
     try:
         json_data = open(sitemap_template_path).read()
         sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
-        sitemap = _resolve_references(sitemap, version)
+        sitemap = _resolve_references(sitemap, version, language)
         _transform_urls(version, sitemap)
 
-        sitemap_path = _get_sitemap_path(version)
+        sitemap_path = _get_sitemap_path(version, language)
         with open(sitemap_path, 'w') as fp:
             json.dump(sitemap, fp)
 
     except Exception as e:
         print "Cannot generate sitemap from %s: %s" % (sitemap_template_path, e.message)
+        traceback.print_exc()
 
     return sitemap
 
 
-def load_json_and_resolve_references(path, version):
+def load_json_and_resolve_references(path, version, language):
     sitemap = None
     sitemap_path = "%s/docs/%s/%s" % (settings.EXTERNAL_TEMPLATE_DIR, version, path)
 
     try:
         json_data = open(sitemap_path).read()
         sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
-        sitemap = _resolve_references(sitemap, version)
+        sitemap = _resolve_references(sitemap, version, language)
 
     except Exception as e:
         print "Cannot resolve sitemap from %s: %s" % (sitemap_path, e.message)
@@ -79,13 +82,13 @@ def load_json_and_resolve_references(path, version):
     return sitemap
 
 
-def _resolve_references(navigation, version):
+def _resolve_references(navigation, version, language):
     if isinstance(navigation, list):
         # navigation is type list, resolved_navigation should also be type list
         resolved_navigation = []
 
         for item in navigation:
-            resolved_navigation.append(_resolve_references(item, version))
+            resolved_navigation.append(_resolve_references(item, version, language))
 
         return resolved_navigation
 
@@ -94,12 +97,12 @@ def _resolve_references(navigation, version):
         resolved_navigation = collections.OrderedDict()
 
         for key, value in navigation.items():
-            if key == "$ref":
+            if key == "$ref" and language in value:
                 # The value is the relative path to the associated json file
-                referenced_json = load_json_and_resolve_references(value, version)
+                referenced_json = load_json_and_resolve_references(value[language], version, language)
                 resolved_navigation = referenced_json
             else:
-                resolved_navigation[key] = _resolve_references(value, version)
+                resolved_navigation[key] = _resolve_references(value, version, language)
 
         return resolved_navigation
 
@@ -122,67 +125,49 @@ def _transform_urls(version, sitemap):
     :return:
     '''
     if sitemap:
+
         for _, book in sitemap.items():
-            for _, chapter in book.items():
+            if book and 'sections' in book:
+                for chapter in book['sections']:
 
-                chapter_link = {}
-                if 'link' in chapter:
-                    chapter_link = chapter['link']
-                    for lang, url in chapter_link.items():
-                        chapter_link[lang] = url_helper.append_prefix_to_path(version, chapter_link[lang])
+                    chapter_link = {}
+                    if 'link' in chapter:
+                        chapter_link = chapter['link']
+                        for lang, url in chapter_link.items():
+                            chapter_link[lang] = url_helper.append_prefix_to_path(version, chapter_link[lang])
 
-                if 'sections' in chapter:
-                    all_links = []
-                    for section in chapter['sections']:
-                        if 'link' in section:
-                            link = section['link']
-                            for lang, url in link.items():
-                                link[lang] = url_helper.append_prefix_to_path(version, link[lang])
-                                all_links.append(link[lang])
-                                if not lang in chapter_link:
-                                    chapter_link[lang] = link[lang]
+                    if 'sections' in chapter:
+                        all_links = []
+                        for section in chapter['sections']:
+                            if 'link' in section:
+                                link = section['link']
+                                for lang, url in link.items():
+                                    link[lang] = url_helper.append_prefix_to_path(version, link[lang])
+                                    all_links.append(link[lang])
+                                    if not lang in chapter_link:
+                                        chapter_link[lang] = link[lang]
 
-                        if 'sub_sections' in section:
-                            all_sub_section_links = []
-                            for subsection in section['sub_sections']:
-                                if 'link' in subsection:
-                                    link = subsection['link']
-                                    for lang, url in link.items():
-                                        link[lang] = url_helper.append_prefix_to_path(version, link[lang])
-                                        all_links.append(link[lang])
-                                        all_sub_section_links.append(link[lang])
-                                        if not lang in chapter_link:
-                                            chapter_link[lang] = link[lang]
+                            if 'sections' in section:
+                                all_sub_section_links = []
+                                for subsection in section['sections']:
+                                    if 'link' in subsection:
+                                        link = subsection['link']
+                                        for lang, url in link.items():
+                                            link[lang] = url_helper.append_prefix_to_path(version, link[lang])
+                                            all_links.append(link[lang])
+                                            all_sub_section_links.append(link[lang])
+                                            if not lang in chapter_link:
+                                                chapter_link[lang] = link[lang]
 
-                            section['all_links'] = all_sub_section_links
+                                section['all_links'] = all_sub_section_links
 
-                    chapter['all_links'] = all_links
+                        chapter['all_links'] = all_links
 
-                chapter['link'] = chapter_link
-
-
-# Merge all site.json files
-def _load_all_sections(version):
-    # Load from the externalTemplates
-    module_list = ["book", "documentation"]
-
-    all_sections = {}
-    for module_name in module_list:
-        chapter_path = _get_chapter_path(version, module_name)
-        try:
-            chapter_data = open(chapter_path).read()
-            chapter = json.loads(chapter_data)
-
-            for key, value in chapter.iteritems():
-                all_sections["%s.%s" % (module_name, key)] = value
-        except:
-            print "Missing site.json from %s" % chapter_path
-
-    return all_sections
+                    chapter['link'] = chapter_link
 
 
-def get_book_navigation(book_id, version):
-    root_nav = get_sitemap(version)
+def get_book_navigation(book_id, version, language):
+    root_nav = get_sitemap(version, language)
     return root_nav.get(book_id, None)
 
 
@@ -190,16 +175,8 @@ def get_doc_subpath(version):
     return "docs/%s/" % version
 
 
-def _get_book_path(version):
-    return "%s/%ssite.json" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version))
-
-
-def _get_sitemap_path(version):
-    return "%s/sitemap.%s.json" % (tempfile.gettempdir(), version)
-
-
-def _get_chapter_path(version, module):
-    return "%s/%s%s/site.json" % (settings.EXTERNAL_TEMPLATE_DIR, get_doc_subpath(version), module)
+def _get_sitemap_path(version, language):
+    return "%s/sitemap.%s.%s.json" % (tempfile.gettempdir(), version, language)
 
 
 def get_available_versions():
