@@ -32,7 +32,7 @@
 
                     {% if section_title != None and section.sections == None %}
                         {% if section_link != "" %}
-                            <a href="{{ section_link|safe }}" {% if request.path == section_link %} class="active" {% endif %}>{{ section_title }}</a>
+                            <a href="{{ section_link|safe }}">{{ section_title }}</a>
                         {% endif %}
                     {% elif section_title != None and section.sections != None %}
                     <a class="collapsed" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}<span class="dropdown-toggle"></span></a>

@@ -45,6 +45,42 @@ MathJax.Hub.Config({
     // Highlight the code, please.
     hljs.initHighlightingOnLoad();
 </script>
+
+<script>
+    // Use javascript to highlight active links on the side navigation. Since the server does not get the "#" in the
+    // request url, we cannot process the command "if request.path == section_link" reliably.
+    function highlightSideNavActiveLink(link) {
+        var fullPathWithHash = link;
+        if (fullPathWithHash == null) {
+            fullPathWithHash = location.pathname + location.hash;
+        }
+
+        $('#sidebar-nav .chapter').each(function(index) {
+            var chapter = $(this);
+            chapter.find('.section a[href]').each(function(index) {
+                link = $(this);
+                address = link.attr('href');
+                if (address == fullPathWithHash) {
+                    link.addClass('active');
+                } else {
+                    link.removeClass('active');
+                }
+            });
+        });
+    }
+
+    (function() {
+        $('#sidebar-nav .chapter a[href]').each(function(index) {
+            var link = $(this);
+            link.click(function(){
+                //event.preventDefault();
+                highlightSideNavActiveLink(link.attr('href'));
+            });
+        });
+        highlightSideNavActiveLink();
+    })();
+</script>
+
 {% if allow_search %}
 {% include CURRENT_DOCS_VERSION|search_partial %}
 {% endif %}

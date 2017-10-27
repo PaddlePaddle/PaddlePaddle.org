@@ -12,12 +12,12 @@
         HAS_SOURCE:  true,
         SOURCELINK_SUFFIX: ".txt",
     };
-</script>
 
-<script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-    jQuery('.doc-content-wrap > div[role="navigation"]').remove();
-    jQuery('.doc-content-wrap').css('padding-top', 0);
+    if (location.pathname.endsWith('/search.html')) {
+        jQuery(function() { Search.loadIndex("searchindex.js"); });
+        jQuery('.doc-content-wrap > div[role="navigation"]').remove();
+        jQuery('.doc-content-wrap').css('padding-top', 0);
+    }
 </script>
 
 <script type="text/javascript" id="searchindexloader"></script>
