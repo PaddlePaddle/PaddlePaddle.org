@@ -29,6 +29,32 @@ def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, vers
 
 
 def _create_sphinx_site_map_from_index(index_html_path, language):
+    '''
+    Creates Paddle doc TOC from HTML navigation.  Example of HTML:
+      <nav class="doc-menu-vertical" role="navigation">
+    <ul>
+      <li class="toctree-l1">
+        <a class="reference internal" href="getstarted/index_en.html">GET STARTED</a>
+        <ul>
+          <li class="toctree-l2">
+            <a class="reference internal" href="getstarted/build_and_install/index_en.html">Install and Build</a>
+            <ul>
+              <li class="toctree-l3">
+                <a class="reference internal" href="getstarted/build_and_install/docker_install_en.html">PaddlePaddle in Docker Containers</a>
+              </li>
+              <li class="toctree-l3">
+                <a class="reference internal" href="getstarted/build_and_install/build_from_source_en.html">Installing from Sources</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal" href="howto/index_en.html">HOW TO</a>
+      </li>
+    </ul>
+  </nav>
+    '''
     with open(index_html_path) as html:
         chapters = []
 
@@ -68,7 +94,6 @@ def _create_sphinx_site_map(parent_list, iterator_idx, level, li_elements, langu
                 child_node_dict = OrderedDict()
                 previous_child_node = child_node_dict
                 parent_list.append(child_node_dict)
-
                 link_url = '/documentation/%s/%s' % (language, first_anchor['href'])
                 child_node_dict['title'] = OrderedDict({ language: first_anchor.text})
                 child_node_dict['link'] = OrderedDict({ language: link_url})
