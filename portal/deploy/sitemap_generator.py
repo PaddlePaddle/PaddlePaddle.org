@@ -91,12 +91,14 @@ def _create_sphinx_site_map(parent_list, iterator_idx, level, li_elements, langu
                 raise Exception('Invalid TOC level for li %s' % li)
 
             if li_level == level:
-                child_node_dict = OrderedDict()
-                previous_child_node = child_node_dict
-                parent_list.append(child_node_dict)
-                link_url = '/documentation/%s/%s' % (language, first_anchor['href'])
-                child_node_dict['title'] = OrderedDict({ language: first_anchor.text})
-                child_node_dict['link'] = OrderedDict({ language: link_url})
+                if '#' not in first_anchor['href']:
+                    # Do not include links that contains anchor references
+                    child_node_dict = OrderedDict()
+                    previous_child_node = child_node_dict
+                    parent_list.append(child_node_dict)
+                    link_url = '/documentation/%s/%s' % (language, first_anchor['href'])
+                    child_node_dict['title'] = OrderedDict({ language: first_anchor.text})
+                    child_node_dict['link'] = OrderedDict({ language: link_url})
 
             elif li_level > level:
                 # This is a child level, lets recursively process it

@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block side_nav_content %}
-{% cache settings.DEFAULT_CACHE_EXPIRY sidebar LANGUAGE_CODE request.path %}
+{% cache settings.CACHES.default.TIMEOUT sidebar LANGUAGE_CODE request.path %}
 {% content_links book_id %}
 {% endcache %}
 {% endblock %}

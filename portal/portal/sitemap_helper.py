@@ -173,8 +173,7 @@ def _transform_urls(version, sitemap, language):
                         key = os.path.split(item)[0]
                         all_links_cache[key] = item
 
-    timeout = settings.DEFAULT_CACHE_EXPIRY
-    cache.set(language, all_links_cache, timeout)
+    cache.set(language, all_links_cache)
 
 def get_book_navigation(book_id, version, language):
     root_nav = get_sitemap(version, language)

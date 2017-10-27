@@ -83,12 +83,10 @@ TEMPLATES = [
     },
 ]
 
-DEFAULT_CACHE_EXPIRY = 5 if DEBUG else 300
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': DEFAULT_CACHE_EXPIRY
+        'TIMEOUT': 5 if DEBUG else 300
     }
 }
 
