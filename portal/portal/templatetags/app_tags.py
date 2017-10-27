@@ -35,20 +35,6 @@ def translation_assignment(context, leaf_node):
     return translation(context, leaf_node)
 
 
-@register.filter(name='search_partial')
-def search_partial(version):
-    # TODO[thuan]: Implement proper full text search
-    partial = None
-
-    if version:
-        if version == 'develop' or version == '0.10.0':
-            partial = '_search_0_10_0.html'
-        elif version == '0.9.0':
-            partial = '_search_0_9_0.html'
-
-    return partial
-
-
 @register.simple_tag(takes_context=True)
 def apply_class_if_template(context, template_file_name, class_name):
     '''

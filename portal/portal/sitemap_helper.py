@@ -64,7 +64,7 @@ def generate_sitemap(version, language):
     sitemaps.
     """
     sitemap = None
-    sitemap_template_path = settings.SITEMAP_TEMPLATE_PATH % (settings.PROJECT_ROOT, version)
+    sitemap_template_path = '%s/assets/sitemaps/sitemap_tmpl.json' % settings.PROJECT_ROOT
 
     try:
         # Read the sitemap template.

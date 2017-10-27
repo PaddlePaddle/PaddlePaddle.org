@@ -1,0 +1,124 @@
+{  
+   "title":{  
+      "en":"Documentation"
+   },
+   "sections":[  
+      {  
+         "title":{  
+            "en":"User Guide"
+         },
+         "sections":[  
+            {  
+               "title":{  
+                  "en":"Introduction"
+               },
+               "link":{  
+                  "en":"/documentation/en/introduction/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Quick Start"
+               },
+               "link":{  
+                  "en":"/documentation/en/demo/quick_start/index_en.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Build and Installation"
+               },
+               "link":{  
+                  "en":"/documentation/en/build/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Contribute Code"
+               },
+               "link":{  
+                  "en":"/documentation/en/build/contribute_to_paddle.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"User Interface"
+               },
+               "link":{  
+                  "en":"/documentation/en/ui/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Model Config Interface"
+               },
+               "link":{  
+                  "en":"/documentation/en/ui/api/trainer_config_helpers/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Example and Demo"
+               },
+               "link":{  
+                  "en":"/documentation/en/demo/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Cluster Train"
+               },
+               "link":{  
+                  "en":"/documentation/en/cluster/index.html"
+               }
+            }
+         ]
+      },
+      {  
+         "title":{  
+            "en":"Development Guide"
+         },
+         "sections":[  
+            {  
+               "title":{  
+                  "en":"Layer Documents"
+               },
+               "link":{  
+                  "en":"/documentation/en/layer.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Writing New Layers"
+               },
+               "link":{  
+                  "en":"/documentation/en/dev/new_layer/index.html"
+               }
+            },
+            {  
+               "title":{  
+                  "en":"Source Code Documents"
+               },
+               "link":{  
+                  "en":"/documentation/en/source/index.html"
+               }
+            }
+         ]
+      },
+      {  
+         "title":{  
+            "en":"Algorithm Tutorial"
+         },
+         "sections":[  
+            {  
+               "title":{  
+                  "en":"RNN Configuration"
+               },
+               "link":{  
+                  "en":"/documentation/en/algorithm/rnn/rnn.html"
+               }
+            }
+         ]
+      }
+   ]
+}

@@ -1,0 +1,155 @@
+{
+  "title": {
+    "zh": "\u6587\u6863"
+  },
+  "sections": [
+    {
+      "title": {
+        "zh": "\u4f7f\u7528\u6307\u5357"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "\u4ecb\u7ecd"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/introduction\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u5feb\u901f\u5165\u95e8"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/demo\/quick_start\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u57fa\u672c\u4f7f\u7528\u6982\u5ff5"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/concepts\/use_concepts.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u7f16\u8bd1\u4e0e\u5b89\u88c5"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/build_and_install\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u7528\u6237\u63a5\u53e3"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/ui\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u4f7f\u7528\u793a\u4f8b"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/demo\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u6a21\u578b\u914d\u7f6e"
+          },
+          "link": {
+            "zh": "\/documentation\/en\/ui\/api\/trainer_config_helpers\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u96c6\u7fa4\u8bad\u7ec3"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/cluster\/index.html"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "zh": "\u5f00\u53d1\u6307\u5357"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "\u65b0\u5199Layer"
+          },
+          "link": {
+            "zh": "\/documentation\/en\/dev\/new_layer\/index.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u5982\u4f55\u8d21\u732e\u6587\u6863"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/howto\/how_to_write_docs\/index.html"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "zh": "\u7b97\u6cd5\u6559\u7a0b"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "Recurrent Group\u6559\u7a0b"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/algorithm\/rnn\/rnn-tutorial.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u5355\u5c42RNN\u793a\u4f8b"
+          },
+          "link": {
+            "zh": "\/documentation\/en\/algorithm\/rnn\/rnn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u53cc\u5c42RNN\u793a\u4f8b"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/algorithm\/rnn\/hierarchical-rnn.html"
+          }
+        },
+        {
+          "title": {
+            "zh": "\u652f\u6301\u53cc\u5c42\u5e8f\u5217\u4f5c\u4e3a\u8f93\u5165\u7684Layer"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/algorithm\/rnn\/hierarchical-layer.html"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "zh": "\u5e38\u89c1\u95ee\u9898"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "\u5e38\u89c1\u95ee\u9898"
+          },
+          "link": {
+            "zh": "\/documentation\/zh\/faq\/index.html"
+          }
+        }
+      ]
+    }
+  ]
+}

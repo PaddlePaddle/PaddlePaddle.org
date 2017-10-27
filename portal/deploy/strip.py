@@ -26,8 +26,8 @@ def sphinx(generated_documentation_dir, version, output_dir_name):
             '/cn/html/': '/zh/',
         },
         '0.10.0': {
-            '/doc/':    '/en/',
-            '/doc_cn/': '/zh/',
+            '/en/html/':    '/en/',
+            '/cn/html/': '/zh/',
         },
         '0.9.0': {
             '/doc/':    '/en/',

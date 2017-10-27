@@ -18,7 +18,7 @@ def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, vers
     parent_path_map = { 'en': '/en/html/',
                         'zh': '/cn/html/' }
 
-    if version == '0.10.0' or version == '0.9.0':
+    if version == '0.9.0':
         parent_path_map = { 'en': '/doc/',
                             'zh': '/doc_cn/'}
 

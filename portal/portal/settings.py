@@ -66,7 +66,6 @@ GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
 EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 
 OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
-SITEMAP_TEMPLATE_PATH = '%s/assets/sitemaps/%s.json'
 
 TEMPLATES = [
     {
