@@ -14,7 +14,7 @@
     };
 
     if (location.pathname.endsWith('/search.html')) {
-        //jQuery(function() { Search.loadIndex("searchindex.js"); });
+        jQuery(function() { Search.loadIndex("searchindex.js"); });
         jQuery('.doc-content-wrap > div[role="navigation"]').remove();
         jQuery('.doc-content-wrap').css('padding-top', 0);
     }

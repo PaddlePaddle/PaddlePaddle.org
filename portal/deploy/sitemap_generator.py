@@ -82,9 +82,8 @@ def _create_sphinx_site_map(parent_list, node, language):
         if parent_list != None:
             parent_list.append(node_dict)
 
-        links = node.findAll('a', recursive=False)
-        if len(links) > 0:
-            first_link = links[0]
+        first_link = node.find('a')
+        if first_link:
             link_url = '/documentation/%s/%s' % (language, first_link['href'])
             node_dict['title'] = OrderedDict({ language: first_link.text })
             node_dict['link'] = OrderedDict({ language: link_url})
