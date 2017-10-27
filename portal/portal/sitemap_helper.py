@@ -1,9 +1,7 @@
 import json
 import os
 import collections
-import tempfile
 import traceback
-import re
 
 from django.conf import settings
 from django.core.cache import cache
@@ -40,14 +38,11 @@ def _load_sitemap_from_file(version, language):
     if os.path.isfile(sitemap_path):
         # Sitemap file exists, lets load it
         try:
-            # TODO[thuan]: Lets fix this in the next request (or remove it)
-            # The temp file location may be different for each process.  So if we try to
-            # regenerate it from python manage.py, it may not overwrite the sitemap
-            # from the server
-            pass
-            # print "Loading sitemap from %s" % sitemap_path
-            # json_data = open(sitemap_path).read()
-            # sitemap = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+            with open(sitemap_path) as json_data:
+                print "Loading sitemap from %s" % sitemap_path
+                sitemap = json.loads(json_data.read(), object_pairs_hook=collections.OrderedDict)
+                cache.set(get_all_links_cache_key(version, language), sitemap['all_links_cache'], None)
+
         except Exception as e:
             print 'Cannot load sitemap from file %s: %s' % (sitemap_path, e.message)
 
@@ -205,7 +200,7 @@ def _transform_urls(version, sitemap, language):
                         key = url_helper.link_cache_key(path)
                         all_links_cache[key] = path
 
-    # Don't expire all_links_cache. It is possible that the sitemap is loaded from saved file and bypass the generator.
+    sitemap['all_links_cache'] = all_links_cache
     cache.set(get_all_links_cache_key(version, language), all_links_cache, None)
 
 
@@ -223,9 +218,12 @@ def get_doc_subpath(version):
 
 def _get_sitemap_path(version, language):
     """
-    Give a new temporarily sitemap path.
+    Get the sitemap path to the current version and language.
     """
-    return '%s/sitemap.%s.%s.json' % (tempfile.gettempdir(), version, language)
+    if not os.path.exists(settings.RESOLVED_SITEMAP_DIR):
+        os.makedirs(settings.RESOLVED_SITEMAP_DIR)
+
+    return '%s/sitemap.%s.%s.json' % (settings.RESOLVED_SITEMAP_DIR, version, language)
 
 
 def get_available_versions():

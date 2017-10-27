@@ -64,6 +64,7 @@ CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
 WORKSPACE_DIR = '%s/.ppo_workspace' % CONTENT_DIR
 GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
 EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
+RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR
 
 OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
 SITEMAP_TEMPLATE_PATH = '%s/assets/sitemaps/%s.json'
