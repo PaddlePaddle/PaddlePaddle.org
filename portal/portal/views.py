@@ -114,7 +114,6 @@ def _redirect_first_link_in_contents(request, version, content_id):
 
     try:
         # Get the first section link from the content.
-        path = None
         content = root_navigation[content_id]
         path = _get_first_link_in_contents(content, lang)
 
