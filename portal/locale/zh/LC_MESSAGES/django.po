@@ -222,7 +222,7 @@ msgstr "PaddlePaddle 文档查看器"
 msgid ""
 "Welcome to PaddlePaddle.org document viewer.  To get started, please clone "
 "one or more documentation repos."
-msgstr "欢迎使用paddlepaddle.org文档查看器。请先复制一个或多个文件代码库开始。"
+msgstr "欢迎使用paddlepaddle.org文档查看器。一开始，请先复制一个或多个文件代码库。"
 
 #: portal/templates/index_doc_mode.html:25
 msgid "Start PaddlePaddle.org document viewer"
