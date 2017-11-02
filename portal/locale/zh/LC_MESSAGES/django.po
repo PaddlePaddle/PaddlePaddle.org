@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 22:03+0000\n"
+"POT-Creation-Date: 2017-11-02 21:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,29 +17,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: portal/settings.py:102
+#: portal/settings.py:115
 msgid "English"
 msgstr ""
 
-#: portal/settings.py:103
+#: portal/settings.py:116
 msgid "Chinese"
 msgstr ""
 
-#: portal/templates/_base.html:9
+#: portal/templates/_base.html:10
 msgid "PaddlePaddle - Train and deploy deep learning at scale"
 msgstr ""
 
-#: portal/templates/_nav_bar.html:15
-msgid "Tutorial"
-msgstr "教程"
+#: portal/templates/_nav_bar.html:30
+msgid "Refresh Content"
+msgstr "刷新内容"
 
-#: portal/templates/_nav_bar.html:18
-msgid "Documentation"
-msgstr "文档中心"
-
-#: portal/templates/_nav_bar.html:23
+#: portal/templates/_nav_bar.html:37
 msgid "Blog"
 msgstr "博客文章"
+
+#: portal/templates/content.html:91
+msgid "Refreshing "
+msgstr "刷新"
+
+#: portal/templates/content.html:92
+msgid ". This may take up to 5 minutes, please wait..."
+msgstr "中。这可能需要5分钟，请稍候…"
 
 #: portal/templates/index.html:16
 msgid "PArallel Distributed Deep LEarning"
@@ -49,7 +53,7 @@ msgstr "易学易用的分布式深度学习平台"
 msgid "An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform"
 msgstr "正在为100+项产品提供深度学习算法支持"
 
-#: portal/templates/index.html:21
+#: portal/templates/index.html:21 portal/templates/index.html.py:96
 msgid "Quick Start"
 msgstr "快速入门"
 
@@ -94,12 +98,6 @@ msgid ""
 "Using Deep Learning on Recommendation Systems to Help Users Find Interests."
 msgstr "分析用户特征、电影特征、点评分数，预测新用户对不同电影的打分"
 
-#: portal/templates/index.html:96
-#, fuzzy
-#| msgid "Quick Start"
-msgid "Quick start"
-msgstr "快速入门"
-
 #: portal/templates/index.html:99
 msgid "Install and make predictions in 5 minutes"
 msgstr "五分钟快速上手"
@@ -127,9 +125,9 @@ msgid ""
 ", and then <a href=\"https://docs.docker.com/engine/installation/\" target="
 "\"_blank\">install Docker</a> on your computer. After installing Docker, "
 "create a new file called "
-msgstr "之後 <a href=\"https://docs.docker.com/engine/installation/\" target="
-"\"_blank\">安装 Docker</a> 在你的电脑上。"
-"安装后，创建 "
+msgstr ""
+"之後 <a href=\"https://docs.docker.com/engine/installation/\" target=\"_blank"
+"\">安装 Docker</a> 在你的电脑上。安装后，创建 "
 
 #: portal/templates/index.html:112
 msgid " in an new and empty directory:"
@@ -215,3 +213,40 @@ msgid ""
 "PaddlePaddle makes it easy to scale heterogeneous computing resources and "
 "storage to accelerate the training process."
 msgstr "全面支持多核、多GPU、多机环境。轻松应对大规模训练需求"
+
+#: portal/templates/index_doc_mode.html:16
+msgid "PaddlePaddle Document Viewer"
+msgstr "PaddlePaddle 文档查看器"
+
+#: portal/templates/index_doc_mode.html:19
+msgid ""
+"Welcome to PaddlePaddle.org document viewer.  To get started, please clone "
+"one or more documentation repos."
+msgstr "欢迎使用paddlepaddle.org文档查看器。请先复制一个或多个文件代码库开始。"
+
+#: portal/templates/index_doc_mode.html:25
+msgid "Start PaddlePaddle.org document viewer"
+msgstr "启动paddlepaddle.org文档查看器"
+
+#: portal/templates/index_doc_mode.html:27
+msgid "Refresh This page"
+msgstr "刷新本页"
+
+#: portal/templates/index_doc_mode.html:28
+msgid "Refresh"
+msgstr "刷新"
+
+#: portal/templates/index_doc_mode.html:31
+msgid "Select content repo to generate documentation:"
+msgstr "选择内容代码库以生成文档："
+
+#~ msgid "Tutorial"
+#~ msgstr "教程"
+
+#~ msgid "Documentation"
+#~ msgstr "文档中心"
+
+#, fuzzy
+#~| msgid "Quick Start"
+#~ msgid "Quick start"
+#~ msgstr "快速入门"

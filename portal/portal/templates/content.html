@@ -88,8 +88,8 @@ MathJax.Hub.Config({
 {% if settings.DOC_MODE %}
 <script>
     function showFullpageSpinnerForContentId(folderName) {
-        var message = "Refreshing " + folderName +
-                        ". This may take up to 5 minutes, please wait...";
+        var message = '{% trans "Refreshing " %}' + folderName +
+                        '{% trans ". This may take up to 5 minutes, please wait..." %}';
         $('.spinner-container').show();
         $('.spinner-label').text(message);
         return true;

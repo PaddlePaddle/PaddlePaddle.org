@@ -27,7 +27,7 @@
                 </li>
                 {% if content_id %}
                 <li>
-                    <a class="nav-link border" href="{% url 'reload_docs' %}?content_id={{ content_id }}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');">Refresh Content</a>
+                    <a class="nav-link border" href="{% url 'reload_docs' %}?content_id={{ content_id }}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');">{% trans "Refresh Content" %}</a>
                 </li>
                 {% endif %}
 
