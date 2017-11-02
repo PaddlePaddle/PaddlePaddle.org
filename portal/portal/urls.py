@@ -40,31 +40,16 @@ urlpatterns = [
     # ---------------
     url(r'^content-root/(?P<version>.*)/(?P<content_id>.*)$', views.content_root, name=url_helper.URL_NAME_CONTENT_ROOT),
 
-    # ---------------
-    # TUTORIAL URLS
-    # ---------------
-    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.BOOK_ROOT, views.book_sub_path, name=url_helper.URL_NAME_TUTORIAL),
-
-    # -------------------
-    # DOCUMENTATION URLS
-    # -------------------
-    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.DOCUMENTATION_ROOT, views.documentation_path, name=url_helper.URL_NAME_DOCS),
-
-    # ---------------
-    # MODELS URLS
-    # ---------------
-    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.MODEL_ROOT, views.models_path, name=url_helper.URL_NAME_MODEL),
-
-    # ---------------
-    # MOBILE URLS
-    # ---------------
-    url(r'^docs/(?P<version>.*)/%s(?P<path>.*)$' % url_helper.MOBILE_ROOT, views.mobile_path, name=url_helper.URL_NAME_MOBILE),
-
     # -------------------
     # OTHER ARBITRARY URLS
     # -------------------
     url(r'^docs/(?P<version>.*)/other/(?P<path>.*)$', views.other_path, name=url_helper.URL_NAME_OTHER),
     url(r'^docs/(?P<version>.*)/flush$', views.flush_other_page, name='flush_other_page'),
+
+    # ---------------
+    # CONTENT URLS
+    # ---------------
+    url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
 
     # ---------------
     # ACTION URLS

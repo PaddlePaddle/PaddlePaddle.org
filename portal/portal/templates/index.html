@@ -40,9 +40,9 @@
                         <p>{% blocktrans %}Using a Convolutional Neural Network (CNN) for Image Recognition and Object Detection.{% endblocktrans %}</p>
                         <div>
                             {% if LANGUAGE_CODE == 'zh' %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '03.image_classification/index.cn.html' %}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/03.image_classification/index.cn.html' %}">{% trans "Read more >"%}</a>
                             {% else %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '03.image_classification/index.html' %}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/03.image_classification/index.html' %}">{% trans "Read more >"%}</a>
                             {% endif %}
                         </div>
                     </div>
@@ -60,9 +60,9 @@
                         <p>{% blocktrans %}Using a Recurrent Neural Network (RNN) for Sentiment Analysis.{% endblocktrans %}</p>
                         <div>
                             {% if LANGUAGE_CODE == 'zh' %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '06.understand_sentiment/index.cn.html'%}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/06.understand_sentiment/index.cn.html'%}">{% trans "Read more >"%}</a>
                             {% else %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '06.understand_sentiment/index.html'%}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/06.understand_sentiment/index.html'%}">{% trans "Read more >"%}</a>
                             {% endif %}
                         </div>
                     </div>
@@ -80,9 +80,9 @@
                         <p>{% blocktrans %}Using Deep Learning on Recommendation Systems to Help Users Find Interests.{% endblocktrans %}</p>
                         <div>
                             {% if LANGUAGE_CODE == 'zh' %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '05.recommender_system/index.cn.html'%}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/05.recommender_system/index.cn.html'%}">{% trans "Read more >"%}</a>
                             {% else %}
-                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_TUTORIAL settings.DEFAULT_DOCS_VERSION '05.recommender_system/index.html'%}">{% trans "Read more >"%}</a>
+                            <a role="button" class="view-more" href="{% url url_helper.URL_NAME_CONTENT settings.DEFAULT_DOCS_VERSION 'book/05.recommender_system/index.html'%}">{% trans "Read more >"%}</a>
                             {% endif %}
                         </div>
                     </div>

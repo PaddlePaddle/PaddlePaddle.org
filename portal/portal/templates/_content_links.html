@@ -3,7 +3,7 @@
 <nav class="sidebar collapse fixed-left" id="sidebar-nav">
     {% if allow_search %}
     <div class='search-form' role="search">
-      <form action="{% url url_helper.URL_NAME_DOCS CURRENT_DOCS_VERSION search_url %}">
+      <form action="{% url url_helper.URL_NAME_CONTENT CURRENT_DOCS_VERSION search_url %}">
         <input class="query "type="text" name="q" placeholder="Search docs" />
         <i class="fa fa-search" aria-hidden="true"></i>
         <input type="hidden" name="check_keywords" value="yes" />
