@@ -76,7 +76,7 @@ def _create_sphinx_site_map_from_index(index_html_path, language):
         chapters = []
 
         sitemap = OrderedDict()
-        sitemap['title'] = OrderedDict( { 'en': 'Documentation', 'zh': '文件'} )
+        sitemap['title'] = OrderedDict( { 'en': 'Documentation', 'zh': '文档'} )
         sitemap['sections'] = chapters
 
         navs = BeautifulSoup(html, 'lxml').findAll('nav', class_='doc-menu-vertical')
@@ -162,7 +162,7 @@ def _create_models_sitemap(generated_documentation_dir, version, html_file_name,
     # Create models sitemap template
     sections = []
 
-    title = '模型' if language == 'zh' else 'Models'
+    title = '模型库' if language == 'zh' else 'Models'
     link = 'models/%s' % html_file_name
 
     sitemap = {
@@ -225,7 +225,7 @@ def _book_sitemap_with_lang(original_documentation_dir, generated_documentation_
     sections_title = 'Deep Learning 101'
 
     if lang == 'zh':
-        title = '专题文章'
+        title = '教程'
         root_json_path_template = '.tools/templates/index.cn.html.json'
         output_file_name = 'site.zh.json'
         sections_title = '深度学习入门'

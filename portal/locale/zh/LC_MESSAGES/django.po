@@ -35,7 +35,7 @@ msgstr "刷新内容"
 
 #: portal/templates/_nav_bar.html:37
 msgid "Blog"
-msgstr "博客文章"
+msgstr "博客"
 
 #: portal/templates/content.html:91
 msgid "Refreshing "
