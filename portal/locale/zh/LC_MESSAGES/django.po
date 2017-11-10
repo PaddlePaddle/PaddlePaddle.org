@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-10 03:02+0000\n"
+"POT-Creation-Date: 2017-11-10 21:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgid ""
 "installed"
 msgstr "在 CentOS 7，Ubuntu 16.04， MacOS 10.12，Python 2.7.x 环境下测试过"
 
-#: portal/templates/index.html:109 portal/templates/index.html.py:112
+#: portal/templates/index.html:109
 msgid "Download "
 msgstr "下载"
 
@@ -122,16 +122,18 @@ msgstr "和在电脑上安装PaddlePaddle"
 
 #: portal/templates/index.html:112
 msgid ""
-", and then <a href=\"https://docs.docker.com/engine/installation/\" target="
-"\"_blank\">install Docker</a> on your computer. After installing Docker, "
-"create a new file called "
+"Download, and then <a href=\"https://docs.docker.com/engine/installation/\" "
+"target=\"_blank\">install Docker</a> on your computer."
 msgstr ""
-"<a href=\"https://docs.docker.com/engine/installation/\" target=\"_blank"
-"\">安装 Docker</a> 在你的电脑上。安装后，创建 "
+"在您的电脑上<a href=\"https://docs.docker.com/engine/installation/\" "
+"target=\"_blank\">安装Docker。</a>"
 
 #: portal/templates/index.html:112
-msgid " in a new and empty directory:"
-msgstr " 在一个新的空目录中："
+msgid ""
+"After installing Docker, create a new file called <em>housing.py</em> in a "
+"new and empty directory:"
+msgstr ""
+"安裝好後，在一個新的目錄下创建一个<em>housing.py</em> "
 
 #: portal/templates/index.html:116
 msgid "Instructions on installing pip"
@@ -160,7 +162,9 @@ msgid ""
 "the trained housing prices model</a> into the <code>~/workspace</code> "
 "directory, and paste this Python code in <em>housing.py</em> using your "
 "favorite editor"
-msgstr "房价模型</a> 且放在<code>~/workspace</code> 目录下，使用您喜欢的编辑器粘贴此Python代码到<em>housing.py</em>"
+msgstr ""
+"房价模型</a> 且放在<code>~/workspace</code> 目录下，使用您喜欢的编辑器粘贴此"
+"Python代码到<em>housing.py</em>"
 
 #: portal/templates/index.html:142
 msgid "Run "
@@ -261,6 +265,9 @@ msgstr "启动paddlepaddle.org文档查看器"
 #: portal/templates/index_doc_view_mode.html:27
 msgid "Downloading latest documentation, this could take several minutes..."
 msgstr ""
+
+#~ msgid " in a new and empty directory:"
+#~ msgstr " 在一个新的空目录中："
 
 #~ msgid "Now paste this Python code in the file using your favorite editor"
 #~ msgstr "使用您喜欢的编辑器将Python代码粘贴到文件中。"
