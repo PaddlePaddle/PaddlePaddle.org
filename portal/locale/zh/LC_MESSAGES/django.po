@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-10 21:52+0000\n"
+"POT-Creation-Date: 2017-11-10 22:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgid "Refreshing "
 msgstr "刷新"
 
 #: portal/templates/content.html:92
-msgid ". This may take up to 5 minutes, please wait..."
-msgstr "中。这可能需要5分钟，请稍候…"
+msgid ". This may take a few minutes, please wait..."
+msgstr "中。这可能需要几分钟，请稍候…"
 
 #: portal/templates/index.html:16
 msgid "PArallel Distributed Deep LEarning"
@@ -125,15 +125,14 @@ msgid ""
 "Download, and then <a href=\"https://docs.docker.com/engine/installation/\" "
 "target=\"_blank\">install Docker</a> on your computer."
 msgstr ""
-"在您的电脑上<a href=\"https://docs.docker.com/engine/installation/\" "
-"target=\"_blank\">安装Docker。</a>"
+"在您的电脑上<a href=\"https://docs.docker.com/engine/installation/\" target="
+"\"_blank\">安装Docker。</a>"
 
 #: portal/templates/index.html:112
 msgid ""
 "After installing Docker, create a new file called <em>housing.py</em> in a "
 "new and empty directory:"
-msgstr ""
-"安裝好後，在一個新的目錄下创建一个<em>housing.py</em> "
+msgstr "安裝好後，在一個新的目錄下创建一个<em>housing.py</em> "
 
 #: portal/templates/index.html:116
 msgid "Instructions on installing pip"

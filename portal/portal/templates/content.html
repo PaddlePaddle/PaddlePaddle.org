@@ -89,7 +89,7 @@ MathJax.Hub.Config({
 <script>
     function showFullpageSpinnerForContentId(folderName) {
         var message = '{% trans "Refreshing " %}' + folderName +
-                        '{% trans ". This may take up to 5 minutes, please wait..." %}';
+                        '{% trans ". This may take a few minutes, please wait..." %}';
         $('.spinner-container').show();
         $('.spinner-label').text(message);
         return true;
