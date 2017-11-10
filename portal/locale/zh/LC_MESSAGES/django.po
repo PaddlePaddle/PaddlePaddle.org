@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-02 21:16+0000\n"
+"POT-Creation-Date: 2017-11-10 03:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: portal/settings.py:115
+#: portal/settings.py:139
 msgid "English"
 msgstr ""
 
-#: portal/settings.py:116
+#: portal/settings.py:140
 msgid "Chinese"
 msgstr ""
 
@@ -29,11 +29,11 @@ msgstr ""
 msgid "PaddlePaddle - Train and deploy deep learning at scale"
 msgstr ""
 
-#: portal/templates/_nav_bar.html:30
+#: portal/templates/_nav_bar.html:31
 msgid "Refresh Content"
 msgstr "刷新内容"
 
-#: portal/templates/_nav_bar.html:37
+#: portal/templates/_nav_bar.html:38
 msgid "Blog"
 msgstr "博客"
 
@@ -106,13 +106,13 @@ msgstr "五分钟快速上手"
 msgid ""
 "Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x "
 "installed"
-msgstr ""
+msgstr "在 CentOS 7，Ubuntu 16.04， MacOS 10.12，Python 2.7.x 环境下测试过"
 
 #: portal/templates/index.html:109 portal/templates/index.html.py:112
 msgid "Download "
 msgstr "下载"
 
-#: portal/templates/index.html:109 portal/templates/index.html.py:112
+#: portal/templates/index.html:109
 msgid "the trained housing prices model"
 msgstr "房价模型"
 
@@ -130,7 +130,7 @@ msgstr ""
 "\">安装 Docker</a> 在你的电脑上。安装后，创建 "
 
 #: portal/templates/index.html:112
-msgid " in an new and empty directory:"
+msgid " in a new and empty directory:"
 msgstr " 在一个新的空目录中："
 
 #: portal/templates/index.html:116
@@ -145,70 +145,83 @@ msgstr "创建一个 "
 msgid ", and paste this Python code"
 msgstr " 并粘贴此Python代码"
 
-#: portal/templates/index.html:119
-msgid "Now paste this Python code in the file using your favorite editor"
-msgstr "使用您喜欢的编辑器将Python代码粘贴到文件中。"
+#: portal/templates/index.html:118
+msgid ""
+"(make sure to set the right path based on the location of <em>fit_a_line."
+"tar</em> on your computer):"
+msgstr "(请确保<em>fit_a_line.tar</em> 是在正确的路径上)"
 
-#: portal/templates/index.html:144
+#: portal/templates/index.html:119
+msgid "Now download "
+msgstr "下载"
+
+#: portal/templates/index.html:119
+msgid ""
+"the trained housing prices model</a> into the <code>~/workspace</code> "
+"directory, and paste this Python code in <em>housing.py</em> using your "
+"favorite editor"
+msgstr "房价模型</a> 且放在<code>~/workspace</code> 目录下，使用您喜欢的编辑器粘贴此Python代码到<em>housing.py</em>"
+
+#: portal/templates/index.html:142
 msgid "Run "
 msgstr "执行"
 
-#: portal/templates/index.html:144
+#: portal/templates/index.html:142
 msgid ""
 " and <strong>voila</strong>! It should print out a list of predictions for "
 "the test housing data."
 msgstr " <strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
 
-#: portal/templates/index.html:146
+#: portal/templates/index.html:144
 msgid "Now run this code in a new PaddlePaddle Docker container:"
 msgstr "在一个新的paddlepaddle Docker容器运行这个代码："
 
-#: portal/templates/index.html:149
+#: portal/templates/index.html:147
 msgid ""
 "<strong>Voila</strong>! It should print out a list of predictions for the "
 "test housing data."
 msgstr "<strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
 
-#: portal/templates/index.html:155
+#: portal/templates/index.html:153
 msgid "Technical Features"
 msgstr "技术和服务优势"
 
-#: portal/templates/index.html:163
+#: portal/templates/index.html:161
 msgid "Ease of use"
 msgstr "易用性"
 
-#: portal/templates/index.html:164
+#: portal/templates/index.html:162
 msgid ""
 "PaddlePaddle provides an intuitive and flexible interface for loading data "
 "and specifying model structures."
 msgstr "为用户提供了直观、灵活的数据接口和模型配置接口"
 
-#: portal/templates/index.html:172
+#: portal/templates/index.html:170
 msgid "Flexibility"
 msgstr "灵活性"
 
-#: portal/templates/index.html:173
+#: portal/templates/index.html:171
 msgid ""
 "It supports CNN, RNN and various variants and configures complicated deep "
 "models easily."
 msgstr ""
 "支持CNN、RNN等多种神经网络结构和优化算法。简单书写配置文件即可实现复杂模型"
 
-#: portal/templates/index.html:181
+#: portal/templates/index.html:179
 msgid "Efficiency"
 msgstr "高效性"
 
-#: portal/templates/index.html:182
+#: portal/templates/index.html:180
 msgid ""
 "It also provides extremely optimized operations, memory recycling, and "
 "network communication."
 msgstr "在计算、存储、通信、架构等方面都做了高效优化，充分发挥各种资源的性能"
 
-#: portal/templates/index.html:189
+#: portal/templates/index.html:187
 msgid "Scalability"
 msgstr "扩展性"
 
-#: portal/templates/index.html:190
+#: portal/templates/index.html:188
 msgid ""
 "PaddlePaddle makes it easy to scale heterogeneous computing resources and "
 "storage to accelerate the training process."
@@ -222,7 +235,8 @@ msgstr "PaddlePaddle 文档查看器"
 msgid ""
 "Welcome to PaddlePaddle.org document viewer.  To get started, please clone "
 "one or more documentation repos."
-msgstr "欢迎使用paddlepaddle.org文档查看器。一开始，请先复制一个或多个文件代码库。"
+msgstr ""
+"欢迎使用paddlepaddle.org文档查看器。一开始，请先复制一个或多个文件代码库。"
 
 #: portal/templates/index_doc_mode.html:25
 msgid "Start PaddlePaddle.org document viewer"
@@ -239,6 +253,17 @@ msgstr "刷新"
 #: portal/templates/index_doc_mode.html:31
 msgid "Select content repo to generate documentation:"
 msgstr "选择内容代码库以生成文档："
+
+#: portal/templates/index_doc_view_mode.html:16
+msgid "Welcome to PaddlePaddle.org Document Viewer"
+msgstr "启动paddlepaddle.org文档查看器"
+
+#: portal/templates/index_doc_view_mode.html:27
+msgid "Downloading latest documentation, this could take several minutes..."
+msgstr ""
+
+#~ msgid "Now paste this Python code in the file using your favorite editor"
+#~ msgstr "使用您喜欢的编辑器将Python代码粘贴到文件中。"
 
 #~ msgid "Tutorial"
 #~ msgstr "教程"
