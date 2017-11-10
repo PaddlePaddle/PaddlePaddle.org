@@ -126,7 +126,7 @@ msgid ""
 "\"_blank\">install Docker</a> on your computer. After installing Docker, "
 "create a new file called "
 msgstr ""
-"之後 <a href=\"https://docs.docker.com/engine/installation/\" target=\"_blank"
+"<a href=\"https://docs.docker.com/engine/installation/\" target=\"_blank"
 "\">安装 Docker</a> 在你的电脑上。安装后，创建 "
 
 #: portal/templates/index.html:112
