@@ -85,13 +85,13 @@ def generate_models_docs(original_documentation_dir, output_dir_name):
                         for link in all_local_links:
                             link_path, md_extension = os.path.splitext(link['href'])
 
-                            if not md_extension:
-                                # Remove the github link and version.
-                                link_path = link_path.replace(github_url, '')
-                                link_path = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", '', link_path)
+                            # Remove the github link and version.
+                            link_path = link_path.replace(github_url, '')
+                            link_path = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", '', link_path)
 
-                                # TODO[thuan]:  Since all markdown are named README.md, we need to hardcode this for now, regardless of language.
-                                # We need to communicate this with the team to get it corrected
+                            # TODO[thuan]:  Since all markdown are named README.md, we need to hardcode this for now, regardless of language.
+                            # We need to communicate this with the team to get it corrected
+                            if not md_extension:
                                 link['href'] = link_path + '/README.html'
 
                         new_html_partial.write(
