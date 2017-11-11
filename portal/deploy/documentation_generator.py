@@ -72,6 +72,9 @@ def generate_models_docs(original_documentation_dir, output_dir_name):
                 with open(os.path.join(subdir, file)) as original_md_file:
                     markdown_body = original_md_file.read()
 
+                    # This is to solve the issue where <s> and <e> are interpreted as HTML tags
+                    markdown_body = markdown_body.replace('\<s>', '&lt;s&gt;').replace('\<e>', '&lt;e&gt;')
+
                     with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
                         # Strip out the wrapping HTML
                         html = markdown.markdown(
