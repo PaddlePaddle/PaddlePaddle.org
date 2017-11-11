@@ -191,13 +191,7 @@ def _create_models_sitemap(generated_documentation_dir, version, html_file_name,
             # Transform them into relative URL for local HTML files.
             # Dynamically remove develop or v0.10.0, etc
             # NOTE: Use of `link_zh` instead of `link` because all the links lead to Chinese pages.
-            link_zh = tag['href'].replace(github_path, '')
-
-            # TODO[thuan]:  Since all markdown are named README.md, we need to hardcode this for now, regardless of language.
-            # We need to communicate this with the team to get it corrected
-            # link_zh = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", 'models/', link_zh) + '/' + html_file_name
-            link_zh = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", 'models/', link_zh) + '/README.html'
-
+            link_zh = 'models' + '/' + tag['href']
             link = { language: link_zh }
 
             section = { 'title': title, 'link': link }

@@ -7,6 +7,7 @@ from subprocess import call
 from bs4 import BeautifulSoup
 from django.conf import settings
 import markdown
+import re
 
 from deploy.operators import generate_operators_page
 
@@ -73,12 +74,25 @@ def generate_models_docs(original_documentation_dir, output_dir_name):
 
                     with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
                         # Strip out the wrapping HTML
-                        new_html_partial.write(
-                            '{% verbatim %}\n' + markdown.markdown(
-                                unicode(markdown_body, 'utf-8'),
-                                extensions=MARKDOWN_EXTENSIONS
-                            ) + '\n{% endverbatim %}'
+                        html = markdown.markdown(
+                            unicode(markdown_body, 'utf-8'),
+                            extensions=MARKDOWN_EXTENSIONS
                         )
+
+                        github_url = 'https://github.com/PaddlePaddle/models/tree/'
+                        soup = BeautifulSoup(html, 'lxml')
+                        all_local_links = soup.select('a[href^=%s]' % github_url)
+                        for link in all_local_links:
+                            # Remove the github link and version.
+                            link_path = link['href'].replace(github_url, '')
+                            link_path = re.sub(r"^v?[0-9]+\.[0-9]+\.[0-9]+/|^develop/", '', link_path)
+
+                            # TODO[thuan]:  Since all markdown are named README.md, we need to hardcode this for now, regardless of language.
+                            # We need to communicate this with the team to get it corrected
+                            link['href'] = link_path + '/README.html'
+
+                        new_html_partial.write(
+                            '{% verbatim %}\n' + unicode(str(soup), 'utf-8') + '\n{% endverbatim %}')
 
             elif 'images' in subpath:
                 shutil.copyfile(os.path.join(subdir, file), new_path)
