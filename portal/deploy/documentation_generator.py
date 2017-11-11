@@ -94,8 +94,14 @@ def generate_models_docs(original_documentation_dir, output_dir_name):
                             if not md_extension:
                                 link['href'] = link_path + '/README.html'
 
-                        new_html_partial.write(
-                            '{% verbatim %}\n' + unicode(str(soup), 'utf-8') + '\n{% endverbatim %}')
+                        try:
+                            # NOTE: The 6:-7 removes the opening and closing body tag.
+                            new_html_partial.write('{% verbatim %}\n' + unicode(
+                                str(soup.select('body')[0])[6:-7], 'utf-8'
+                            ) + '\n{% endverbatim %}')
+                        except:
+                            print 'Cannot generated a page for: ' + subpath
+
 
             elif 'images' in subpath:
                 shutil.copyfile(os.path.join(subdir, file), new_path)
