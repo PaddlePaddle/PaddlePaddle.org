@@ -316,7 +316,7 @@ def blog_root(request):
 
     return render(request, 'content.html', {
         'static_content': _get_static_content_from_template(path),
-        'content_id': 'Blog'
+        'content_id': Content.BLOG
     })
 
 
@@ -325,7 +325,7 @@ def blog_sub_path(request, path):
 
     return render(request, 'content.html', {
         'static_content': _get_static_content_from_template(static_content_path),
-        'content_id': 'Blog'
+        'content_id': Content.BLOG
     })
 
 
