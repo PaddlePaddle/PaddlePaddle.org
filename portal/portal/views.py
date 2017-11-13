@@ -17,7 +17,7 @@ from django.http import JsonResponse
 from portal import sitemap_helper, portal_helper, url_helper
 from deploy.documentation import transform, fetch_and_transform
 from portal import url_helper
-
+from portal_helper import Content
 
 def change_version(request):
     """
@@ -261,7 +261,7 @@ def _render_static_content(request, version, content_id, additional_context=None
         context.update(additional_context)
 
     template = 'content_panel.html'
-    if content_id in ['models', 'mobile']:
+    if content_id in [Content.MOBILE, Content.MODELS]:
         template = 'content_doc.html'
 
     response = render(request, template, context)
@@ -296,7 +296,7 @@ def home_root(request):
     elif settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE:
         if portal_helper.has_downloaded_workspace_file():
             preferred_version = portal_helper.get_preferred_version(request)
-            return _redirect_first_link_in_contents(request, preferred_version, 'documentation')
+            return _redirect_first_link_in_contents(request, preferred_version, Content.DOCUMENTATION)
         else:
             response = render(request, 'index_doc_view_mode.html')
             portal_helper.set_preferred_version(request, response, 'develop')
@@ -315,7 +315,8 @@ def blog_root(request):
     path = sitemap_helper.get_external_file_path('blog/index.html')
 
     return render(request, 'content.html', {
-        'static_content': _get_static_content_from_template(path)
+        'static_content': _get_static_content_from_template(path),
+        'content_id': Content.BLOG
     })
 
 
@@ -323,12 +324,9 @@ def blog_sub_path(request, path):
     static_content_path = sitemap_helper.get_external_file_path(request.path)
 
     return render(request, 'content.html', {
-        'static_content': _get_static_content_from_template(static_content_path)
+        'static_content': _get_static_content_from_template(static_content_path),
+        'content_id': Content.BLOG
     })
-
-
-def book_sub_path(request, version, path=None):
-    return _render_static_content(request, version, 'book', 'book')
 
 
 def content_sub_path(request, version, path=None):
@@ -336,19 +334,19 @@ def content_sub_path(request, version, path=None):
     additional_context = None
 
     if path.startswith(url_helper.DOCUMENTATION_ROOT):
-        content_id = 'documentation'
+        content_id = Content.DOCUMENTATION
         lang = portal_helper.get_preferred_language(request)
         search_url = '%s/%s/search.html' % (content_id, lang)
         additional_context = { 'allow_search': True, 'search_url': search_url }
 
     elif path.startswith(url_helper.BOOK_ROOT):
-        content_id = 'book'
+        content_id = Content.BOOK
 
     elif path.startswith(url_helper.MODEL_ROOT):
-        content_id = 'models'
+        content_id = Content.MODELS
 
     elif path.startswith(url_helper.MOBILE_ROOT):
-        content_id = 'mobile'
+        content_id = Content.MOBILE
 
     return _render_static_content(request, version, content_id, additional_context)
 
@@ -366,7 +364,7 @@ def other_path(request, version, path=None):
         # Else, fetch the page, and run through a generic stripper.
         fetch_and_transform(url_helper.GITHUB_ROOT + '/' + os.path.splitext(path)[0] + '.md', version)
 
-    return _render_static_content(request, version, 'tutorial', 'other')
+    return _render_static_content(request, version, Content.OTHER)
 
 
 def flush_other_page(request, version):

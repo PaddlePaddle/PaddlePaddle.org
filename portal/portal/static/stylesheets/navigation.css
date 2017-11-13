@@ -233,8 +233,9 @@ body.invert .footer-nav {
   height: 60px;
   visibility: hidden;
 }
+
 /* line 202, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav {
+.permalinks-nav {
   margin: 0;
   display: block;
   width: 100%;
@@ -242,13 +243,13 @@ body.invert .footer-nav {
   margin: 30px 16px 0 16px;
 }
 /* line 209, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav ol, .panel-layout .panel-content .panel-inner .permalinks-nav ul {
+.permalinks-nav ol, .permalinks-nav ul {
   padding-left: 12px;
   margin-bottom: 0px;
   border-left: 2px solid #000;
 }
 /* line 214, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav ol a, .panel-layout .panel-content .panel-inner .permalinks-nav ul a {
+.permalinks-nav ol a, .permalinks-nav ul a {
   width: 100%;
   display: block;
   white-space: nowrap;
@@ -257,11 +258,11 @@ body.invert .footer-nav {
   color: #000;
 }
 /* line 221, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav ol a:hover, .panel-layout .panel-content .panel-inner .permalinks-nav ol a.active, .panel-layout .panel-content .panel-inner .permalinks-nav ul a:hover, .panel-layout .panel-content .panel-inner .permalinks-nav ul a.active {
+.permalinks-nav ol a:hover, .permalinks-nav ol a.active, .permalinks-nav ul a:hover, .permalinks-nav ul a.active {
   color: #597cf1;
 }
 /* line 225, ../sass/navigation.sass */
-.panel-layout .panel-content .panel-inner .permalinks-nav ol li a, .panel-layout .panel-content .panel-inner .permalinks-nav ul li a {
+.permalinks-nav ol li a, .permalinks-nav ul li a {
   padding-left: 15px;
 }
 
@@ -282,41 +283,54 @@ body.invert .footer-nav {
   .panel-layout .panel-content {
     margin-left: 300px;
   }
-  /* line 245, ../sass/navigation.sass */
-  .panel-layout .panel-content .panel-inner .doc-content {
-    width: 100%;
-  }
-  /* line 248, ../sass/navigation.sass */
-  .panel-layout .panel-content .panel-inner .doc-content.with-permalink-nav {
+
+  /* line 243, ../sass/navigation.sass */
+  .with-permalink-nav {
     width: -moz-calc(100% - 200px);
     width: -webkit-calc(100% - 200px);
     width: calc(100% - 200px);
   }
-  /* line 251, ../sass/navigation.sass */
-  .panel-layout .panel-content .panel-inner .permalinks-nav {
+
+  /* line 246, ../sass/navigation.sass */
+  .permalinks-nav {
     width: 200px;
     float: right;
     padding-left: 0px;
     padding-bottom: 160px;
   }
+  /* line 252, ../sass/navigation.sass */
+  .permalinks-nav a {
+    text-decoration: none;
+    color: black;
+  }
+  /* line 256, ../sass/navigation.sass */
+  .permalinks-nav a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  /* line 260, ../sass/navigation.sass */
+  .permalinks-nav a:hover {
+    color: #597cf1;
+    text-decoration: none;
+  }
 
-  /* line 257, ../sass/navigation.sass */
+  /* line 264, ../sass/navigation.sass */
   .sidebar-toggle {
     display: none;
   }
 
-  /* line 260, ../sass/navigation.sass */
+  /* line 267, ../sass/navigation.sass */
   .sidebar.collapse {
     display: block;
   }
 }
-/* line 263, ../sass/navigation.sass */
+/* line 270, ../sass/navigation.sass */
 .footer-nav {
   color: #ccc;
   margin: 0px 30px;
   border-top: 1px solid #eee;
 }
-/* line 268, ../sass/navigation.sass */
+/* line 275, ../sass/navigation.sass */
 .footer-nav .intern-console {
   margin-left: 50px;
   margin-right: 19px;
@@ -327,7 +341,7 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 278, ../sass/navigation.sass */
+/* line 285, ../sass/navigation.sass */
 .footer-nav .chat-console {
   padding-left: 50px;
   color: #ccc;
@@ -338,7 +352,7 @@ body.invert .footer-nav {
   border-left: 1px solid rgba(241, 242, 244, 0.2);
   border-right: 1px solid rgba(241, 242, 244, 0.2);
 }
-/* line 287, ../sass/navigation.sass */
+/* line 294, ../sass/navigation.sass */
 .footer-nav .chat-console .sub-top-nava > li {
   line-height: 30px;
   width: 25%;
@@ -346,7 +360,7 @@ body.invert .footer-nav {
   display: inline;
   margin-bottom: 20px;
 }
-/* line 294, ../sass/navigation.sass */
+/* line 301, ../sass/navigation.sass */
 .footer-nav .public-console {
   margin-left: 49px;
   margin-right: 50px;
@@ -354,20 +368,20 @@ body.invert .footer-nav {
   float: left;
   display: inline;
 }
-/* line 301, ../sass/navigation.sass */
+/* line 308, ../sass/navigation.sass */
 .footer-nav .public-console > * {
   vertical-align: left;
 }
-/* line 303, ../sass/navigation.sass */
+/* line 310, ../sass/navigation.sass */
 .footer-nav .public-console > img {
   margin-right: 5px;
 }
-/* line 305, ../sass/navigation.sass */
+/* line 312, ../sass/navigation.sass */
 .footer-nav .public-console > p {
   color: #ccc;
   font-size: 14px;
 }
-/* line 308, ../sass/navigation.sass */
+/* line 315, ../sass/navigation.sass */
 .footer-nav .contact-us {
   color: #fff;
   text-align: center;
@@ -376,35 +390,35 @@ body.invert .footer-nav {
   margin-bottom: 20px;
   padding-top: 40px;
 }
-/* line 316, ../sass/navigation.sass */
+/* line 323, ../sass/navigation.sass */
 .footer-nav .contact-us > * {
   vertical-align: middle;
 }
-/* line 318, ../sass/navigation.sass */
+/* line 325, ../sass/navigation.sass */
 .footer-nav .contact-us > img {
   margin-right: 5px;
 }
-/* line 320, ../sass/navigation.sass */
+/* line 327, ../sass/navigation.sass */
 .footer-nav .contact-us > a {
   color: #fff;
 }
-/* line 322, ../sass/navigation.sass */
+/* line 329, ../sass/navigation.sass */
 .footer-nav .friendly-links {
   text-align: center;
   margin-bottom: 40px;
 }
-/* line 325, ../sass/navigation.sass */
+/* line 332, ../sass/navigation.sass */
 .footer-nav .friendly-links > li {
   display: inline-block;
   padding: 0 10px;
   line-height: 12px;
 }
-/* line 329, ../sass/navigation.sass */
+/* line 336, ../sass/navigation.sass */
 .footer-nav .friendly-links > li > a {
   color: #ccc;
   font-size: 12px;
 }
-/* line 332, ../sass/navigation.sass */
+/* line 339, ../sass/navigation.sass */
 .footer-nav .copyright {
   color: #666;
   font-size: 12px;
@@ -413,7 +427,7 @@ body.invert .footer-nav {
   padding: 20px 0 20px;
   margin-bottom: 0px;
 }
-/* line 340, ../sass/navigation.sass */
+/* line 347, ../sass/navigation.sass */
 .footer-nav .copyright > a {
   color: #fff;
 }

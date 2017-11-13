@@ -7,11 +7,20 @@ from django.conf import settings
 from portal import sitemap_helper
 
 
+class Content:
+    DOCUMENTATION = 'documentation'
+    MODELS = 'models'
+    BOOK = 'book'
+    MOBILE = 'mobile'
+    BLOG = 'blog'
+    OTHER = 'other'
+
 CONTENT_ID_TO_FOLDER_MAP = {
-    'documentation': 'Paddle',
-    'models': 'models',
-    'book': 'book',
-    'mobile': 'Mobile'
+    Content.DOCUMENTATION: 'Paddle',
+    Content.MODELS: 'models',
+    Content.BOOK: 'book',
+    Content.MOBILE: 'Mobile',
+    Content.BLOG: 'blog'
 }
 
 # Invert the keys and value.  This assumes that the values are all unique

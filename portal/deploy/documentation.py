@@ -8,7 +8,8 @@ from django.conf import settings
 
 from deploy import documentation_generator, strip, sitemap_generator
 from portal import sitemap_helper
-
+from portal.portal_helper import Content
+from portal import portal_helper
 
 def transform(original_documentation_dir, generated_docs_dir, version):
     """
@@ -39,33 +40,30 @@ def transform(original_documentation_dir, generated_docs_dir, version):
             version = version[1:]
 
         # If this seems like a request to build/transform the core Paddle docs.
-        if path_base_name.lower() == 'paddle':
+        content_id = portal_helper.FOLDER_MAP_TO_CONTENT_ID.get(path_base_name, None)
+        if content_id == Content.DOCUMENTATION:
             doc_generator = documentation_generator.generate_paddle_docs
             convertor = strip.sphinx
             sm_generator = sitemap_generator.sphinx_sitemap
-            output_dir_name = 'documentation'
 
         # Or if this seems like a request to build/transform the book.
-        elif path_base_name.lower() == 'book':
+        elif content_id == Content.BOOK:
             doc_generator = documentation_generator.generate_book_docs
             convertor = strip.default
             sm_generator = sitemap_generator.book_sitemap
-            output_dir_name = path_base_name.lower()
 
         # Or if this seems like a request to build/transform the models.
-        elif path_base_name.lower() == 'models':
+        elif content_id == Content.MODELS:
             doc_generator = documentation_generator.generate_models_docs
             convertor = strip.default
             sm_generator = sitemap_generator.models_sitemap
-            output_dir_name = path_base_name.lower()
 
-        elif path_base_name.lower() == 'mobile':
+        elif content_id == Content.MOBILE:
             doc_generator = documentation_generator.generate_mobile_docs
             convertor = strip.default
             sm_generator = sitemap_generator.mobile_sitemap
-            output_dir_name = path_base_name.lower()
 
-        elif original_documentation_dir.lower().endswith('/blog'):
+        elif content_id == Content.BLOG:
             doc_generator = documentation_generator.generate_blog_docs
 
             # move the folder _site/ from generated_docs_dir to content_dir
@@ -74,9 +72,10 @@ def transform(original_documentation_dir, generated_docs_dir, version):
             # sm_generator = sitemap_generator.models_sitemap
             sm_generator = None
 
-            output_dir_name = 'blog'
         else:
             raise Exception('Unsupported content.')
+
+        output_dir_name = content_id
 
         if not generated_docs_dir:
             # If we have not already generated the documentation, then run the document generator

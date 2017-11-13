@@ -6,23 +6,25 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block head %}
-{{ block.super }}
+
     <!-- code highlighter -->
     <link href="//cdn.bootcss.com/highlight.js/9.9.0/styles/darcula.min.css" rel="stylesheet">
     <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
-{% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE or settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE %}
+{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
     <link href="/static/stylesheets/spinner.css" media="screen, projection" rel="stylesheet" type="text/css" />
 {% endif %}
 
-{% endblock %}
-
-{% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE or settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE %}
-{% block content_root %}
-{% include '_full_page_spinner.html' %}
 {{ block.super }}
 {% endblock %}
+
+{% block content_root %}
+{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
+{% include '_full_page_spinner.html' %}
 {% endif %}
+{{ block.super }}
+{% endblock %}
+
 
 {% block scripts %}
 {{ block.super }}
@@ -85,7 +87,7 @@ MathJax.Hub.Config({
     })();
 </script>
 
-{% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE or settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE %}
+{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
 <script>
     function showFullpageSpinnerForContentId(folderName) {
         var message = '{% trans "Refreshing " %}' + folderName +

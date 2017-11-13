@@ -199,31 +199,31 @@ body
                     height: $primary-nav-height
                     visibility: hidden
 
-            .permalinks-nav
-                margin: 0
-                display: block
-                width: 100%
-                height: 100%
-                margin: $content-padding 16px 0 16px
+.permalinks-nav
+    margin: 0
+    display: block
+    width: 100%
+    height: 100%
+    margin: $content-padding 16px 0 16px
 
-                ol,ul
-                    padding-left: 12px
-                    margin-bottom: 0px
-                    border-left: 2px solid $theme-color
+    ol,ul
+        padding-left: 12px
+        margin-bottom: 0px
+        border-left: 2px solid $theme-color
 
-                    a
-                        width: 100%
-                        display: block
-                        white-space: nowrap
-                        text-overflow: ellipsis
-                        overflow: hidden
-                        color: $primary-text-color
-                        &:hover,&.active
-                            color: $accent-color
+        a
+            width: 100%
+            display: block
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+            color: $primary-text-color
+            &:hover,&.active
+                color: $accent-color
 
-                    li
-                        a
-                            padding-left: 15px
+        li
+            a
+                padding-left: 15px
 
 @media (min-width: 992px)
     .panel-layout
@@ -240,19 +240,26 @@ body
         .panel-content
             margin-left: $sidebar-width
 
-            .panel-inner
+    .with-permalink-nav
+        @include calc( width, '100% - ' + $permalink-nav-width)
 
-                .doc-content
-                    width: 100%
+    .permalinks-nav
+        width: $permalink-nav-width
+        float: right
+        padding-left: 0px
+        padding-bottom: 160px
 
-                    &.with-permalink-nav
-                        @include calc( width, '100% - ' + $permalink-nav-width)
+        a
+            text-decoration: none
+            color: black
 
-                .permalinks-nav
-                    width: $permalink-nav-width
-                    float: right
-                    padding-left: 0px
-                    padding-bottom: 160px
+            &:visited
+                color: black
+                text-decoration: none
+
+            &:hover
+                color: $accent-color
+                text-decoration: none
 
     .sidebar-toggle
         display: none

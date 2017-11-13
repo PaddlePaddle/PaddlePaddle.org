@@ -18,6 +18,19 @@ MARKDOWN_EXTENSIONS = [
 ]
 
 
+def sanitize_markdown(markdown_body):
+    """
+    There are some symbols used in the markdown body, which when go through Markdown -> HTML
+    conversion, break. This does a global replace on markdown strings for these symbols.
+    """
+    return markdown_body.replace(
+        # This is to solve the issue where <s> and <e> are interpreted as HTML tags
+        '&lt;', '<').replace(
+        '&gt;', '>').replace(
+        '\<s>', '&lt;s&gt;').replace(
+        '\<e>', '&lt;e&gt;')
+
+
 def generate_paddle_docs(original_documentation_dir, output_dir_name):
     """
     Given a Paddle doc directory, invoke a script to generate docs using Sphinx
@@ -70,10 +83,7 @@ def generate_models_docs(original_documentation_dir, output_dir_name):
             if '.md' in file:
                 # Convert the contents of the MD file.
                 with open(os.path.join(subdir, file)) as original_md_file:
-                    markdown_body = original_md_file.read()
-
-                    # This is to solve the issue where <s> and <e> are interpreted as HTML tags
-                    markdown_body = markdown_body.replace('\<s>', '&lt;s&gt;').replace('\<e>', '&lt;e&gt;')
+                    markdown_body = sanitize_markdown(original_md_file.read())
 
                     with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
                         # Strip out the wrapping HTML
@@ -139,7 +149,7 @@ def generate_mobile_docs(original_documentation_dir, output_dir_name):
             if '.md' in file:
                 # Convert the contents of the MD file.
                 with open(os.path.join(subdir, file)) as original_md_file:
-                    markdown_body = original_md_file.read()
+                    markdown_body = sanitize_markdown(original_md_file.read())
 
                     with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
                         # Strip out the wrapping HTML
@@ -223,7 +233,7 @@ def generate_book_docs(original_documentation_dir, output_dir_name):
                 if '.md' in file:
                     # Convert the contents of the MD file.
                     with open(os.path.join(subdir, file)) as original_md_file:
-                        markdown_body = original_md_file.read()
+                        markdown_body = sanitize_markdown(original_md_file.read())
 
                     # Mathjax formula like $n$ would cause the conversion from markdown to html
                     # mal-formatted. So we first store the existing formulas to formula_map and replace

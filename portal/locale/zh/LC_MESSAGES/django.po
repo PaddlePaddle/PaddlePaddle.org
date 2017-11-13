@@ -132,7 +132,7 @@ msgstr ""
 msgid ""
 "After installing Docker, create a new file called <em>housing.py</em> in a "
 "new and empty directory:"
-msgstr "安裝好後，在一個新的目錄下创建一个<em>housing.py</em> "
+msgstr "安装好后，在一个新的目录下创建一个<em>housing.py</em> "
 
 #: portal/templates/index.html:116
 msgid "Instructions on installing pip"

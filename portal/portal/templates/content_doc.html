@@ -1,10 +1,13 @@
 {% extends "content.html" %}
 
 {% block content %}
-    <div id="content" class="container doc-content">
+    <div id="content" class="container">
         <div class="row">
             <div class="col-lg-12">
-                {{ static_content|safe }}
+                <div class="permalinks-nav fixed-right"></div>
+                <div class="doc-content">
+                    {{ static_content|safe }}
+                </div>
             </div>
         </div>
     </div>

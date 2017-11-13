@@ -9,7 +9,7 @@ var PermalinkNav = {
         navContainer = $(navContainerSelector);
 
         if (navContainer.length) {
-            permalinks = $("h1,h2");
+            permalinks = $(".doc-content").find("h1,h2");
 
             if (permalinks.length <= 1) {
                 navContainer.hide()
