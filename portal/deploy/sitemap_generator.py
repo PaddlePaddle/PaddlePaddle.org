@@ -5,6 +5,7 @@ import json
 from collections import OrderedDict, Mapping
 from django.conf import settings
 from bs4 import BeautifulSoup
+from portal.portal_helper import Content
 
 
 def sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
@@ -105,7 +106,7 @@ def _create_sphinx_site_map(parent_list, node, language):
 
         first_link = node.find('a')
         if first_link:
-            link_url = '/documentation/%s/%s' % (language, first_link['href'])
+            link_url = '/%s/%s/%s' % (Content.DOCUMENTATION, language, first_link['href'])
             node_dict['title'] = OrderedDict({ language: first_link.text })
             node_dict['link'] = OrderedDict({ language: link_url})
 
@@ -131,7 +132,7 @@ def inject_operators_link(sitemap, lang):
     if sections:
         sections.append({
             '$ref': {
-                lang: 'documentation/%s' % get_operator_sitemap_name(lang)
+                lang: '%s/%s' % (Content.DOCUMENTATION, get_operator_sitemap_name(lang))
             }
         })
 
@@ -163,7 +164,7 @@ def _create_models_sitemap(generated_documentation_dir, version, html_file_name,
     sections = []
 
     title = '模型库' if language == 'zh' else 'Models'
-    link = 'models/%s' % html_file_name
+    link = '%s/%s' % (Content.MODELS, html_file_name)
 
     sitemap = {
         'title': { language: title },
@@ -191,7 +192,7 @@ def _create_models_sitemap(generated_documentation_dir, version, html_file_name,
             # Transform them into relative URL for local HTML files.
             # Dynamically remove develop or v0.10.0, etc
             # NOTE: Use of `link_zh` instead of `link` because all the links lead to Chinese pages.
-            link_zh = 'models' + '/' + tag['href']
+            link_zh = Content.MODELS + '/' + tag['href']
             link = { language: link_zh }
 
             section = { 'title': title, 'link': link }
@@ -244,7 +245,7 @@ def _book_sitemap_with_lang(original_documentation_dir, generated_documentation_
 
         if chapter['link']:
             link = chapter['link']
-            link = link.replace('./', 'book/', 1)
+            link = link.replace('./', '%s/' % Content.BOOK, 1)
             parsed_section['link'] = {lang: link}
 
         sections.append(parsed_section)
@@ -264,7 +265,7 @@ def mobile_sitemap(original_documentation_dir, generated_documentation_dir, vers
 
     root_section = {
         'title': {language: 'Mobile'},
-        'link': {language: '/mobile/README.html'}
+        'link': {language: '/%s/README.html' % Content.MOBILE}
     }
 
     sitemap = root_section.copy()
@@ -280,7 +281,7 @@ def mobile_sitemap(original_documentation_dir, generated_documentation_dir, vers
         # Extract the links and the article titles
         for tag in anchor_tags:
             title = {language: tag.text}
-            href = tag['href'].replace('./', 'mobile/', 1)
+            href = tag['href'].replace('./', '%s/' % Content.MOBILE, 1)
             link = {language: href}
             section = {'title': title, 'link': link}
             sub_section.append(section)
