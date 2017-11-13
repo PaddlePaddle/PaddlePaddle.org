@@ -7,7 +7,11 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
+        {% if content_id == None or content_id == '' %}
         <title>{% trans "PaddlePaddle - Train and deploy deep learning at scale"%}</title>
+        {% else %}
+        <title>PaddlePaddle - {{ content_id|title }} </title>
+        {% endif %}
         <link rel="icon" type="image/png" href="/static/images/favicon.ico">
         <!-- TODO: set og: meta attributes-->
         {% block head %}
