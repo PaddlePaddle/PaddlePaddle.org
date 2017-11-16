@@ -83,6 +83,7 @@ def sphinx(generated_documentation_dir, version, output_dir_name):
                     elif 'searchindex.js' in subpath:
                         copyfile(os.path.join(subdir, file), new_path)
 
+    print 'strip.sphinx done'
 
 def default(generated_documentation_dir, version, output_dir_name):
     """
