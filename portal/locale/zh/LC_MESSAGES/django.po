@@ -29,9 +29,13 @@ msgstr ""
 msgid "PaddlePaddle - Train and deploy deep learning at scale"
 msgstr ""
 
-#: portal/templates/_nav_bar.html:37 portal/templates/_nav_bar.html.py:41
+#: portal/templates/_nav_bar.html:37 portal/templates/_nav_bar.html:41
 msgid "Refresh Content"
 msgstr "刷新内容"
+
+#: portal/templates/_nav_bar.html:24
+msgid "Documentation"
+msgstr "文档"
 
 #: portal/templates/content.html:85
 #: visualDL/templates/visualdl/content.html:85
