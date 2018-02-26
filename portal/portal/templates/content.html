@@ -77,6 +77,11 @@ MathJax.Hub.Config({
         });
         highlightSideNavActiveLink();
     })();
+
+    $( document ).on( "content-updated", function( event, arg1, arg2 ) {
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    });
+
 </script>
 
 {% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
