@@ -33,10 +33,6 @@ msgstr ""
 msgid "Refresh Content"
 msgstr "刷新内容"
 
-#: portal/templates/_nav_bar.html:24
-msgid "Documentation"
-msgstr "文档"
-
 #: portal/templates/content.html:85
 #: visualDL/templates/visualdl/content.html:85
 msgid "Refreshing "
