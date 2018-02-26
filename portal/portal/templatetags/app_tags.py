@@ -135,7 +135,6 @@ def _common_context(context, additional_context):
     additional_context.update({
         'request': context.request,
         'template': context.template,
-        'form': context.get('form', None),
         'url_helper': context.get('url_helper', None),
         'settings': context.get('settings', None),
         'content_id': context.get('content_id', ''),

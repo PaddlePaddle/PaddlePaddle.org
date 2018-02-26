@@ -3,7 +3,6 @@
 
 {% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE and content_id == 'documentation' %}
 {% include '_paddle_docs_modal.html' %}
-{% include '_paddle_operators_reload_modal.html' %}
 {% endif %}
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -36,7 +35,6 @@
                     {% if content_id == 'documentation' %}
                     <a class="nav-link border" href="#" data-toggle="modal" data-target="#paddleDocsModal">{% trans "Refresh Content" %}</a>
                     {% include '_paddle_docs_modal.html' %}
-                    {% include '_paddle_operators_reload_modal.html' %}
                     {% else %}
                     <a class="nav-link border" href="{% url 'reload_docs' %}?content_id={{ content_id }}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');">{% trans "Refresh Content" %}</a>
                     {% endif %}
