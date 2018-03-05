@@ -34,27 +34,6 @@
                 &.border
                     border: 1px solid white
 
-    .version-toggler
-        height: 100%
-        a, a:visited, a:hover
-            color: $accent-color !important
-
-        .btn-group
-            border: none
-            height: 100%
-
-            .btn
-                border-radius: 0px
-
-            .selected-version
-                height: 100%
-                color: white
-                background-color: transparent
-
-            .dropdown-toggle::after
-                vertical-align: .1em
-
-
 body
     >#content
         margin-top: $primary-nav-height
@@ -105,6 +84,34 @@ body
 
             .chapter
                 margin: 0px
+
+            .version-row
+                border-bottom: 1px solid black
+                margin-top: 8px
+                padding: 8px 0px
+
+                .version-label:
+                    display: inline
+
+                .version-toggler
+                    float: right
+                    a, a:visited, a:hover
+                        color: black !important
+
+                    button
+                        display: inline
+                        border-width: 0px
+
+                    .selected-version
+                        height: 100%
+                        color: black
+                        background-color: transparent
+
+                    .dropdown-toggle::after
+                        vertical-align: .1em
+
+                    .dropdown-menu
+                        width: 100%
 
             .search-form
                 .query

@@ -42,7 +42,6 @@
                 {% endif %}
 
                 {% else %}
-                <li>{% version_links content_id %}</li>
                 <li>
                     <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
                 </li>

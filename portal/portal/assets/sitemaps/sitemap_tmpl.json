@@ -15,19 +15,22 @@
         "$ref": {
             "en": "book/site.en.json",
             "zh": "book/site.zh.json"
-        }
+        },
+        "default-branch": "develop"
     },
     "models": {
         "$ref": {
             "en": "models/site.en.json",
             "zh": "models/site.zh.json"
-        }
+        },
+        "default-branch": "develop"
     },
     "mobile": {
         "$ref": {
             "en": "mobile/site.en.json",
             "zh": "mobile/site.zh.json"
-        }
+        },
+        "default-branch": "develop"
     },
     "visualdl": {
         "$ref": {

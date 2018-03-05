@@ -12,6 +12,13 @@
     </div>
     {% endif %}
 
+    {% if allow_version %}
+    <div class="version-row">
+        <span class="version-label">Version: </span>
+        {% version_links content_id %}
+    </div>
+    {% endif %}
+
     {% for chapter in side_nav_content.sections %}
     <ol class="content-links chapter">
         {% translation_assignment chapter.title as chapter_title %}

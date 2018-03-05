@@ -2,6 +2,7 @@ import re
 
 
 MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.fenced_code',
     'markdown.extensions.tables',
     'pymdownx.superfences',
     'pymdownx.escapeall'

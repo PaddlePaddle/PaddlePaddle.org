@@ -177,8 +177,6 @@ def _redirect_first_link_in_contents(request, version, content_id):
             msg = 'Cannot perform reverse lookup on link: %s' % path
             raise Exception(msg)
 
-        response = redirect(path)
-        portal_helper.set_preferred_version(request, response, version)
         return redirect(path)
 
     except Exception as e:
@@ -295,9 +293,6 @@ def _render_static_content(request, version, content_id, additional_context=None
             template = 'content_doc.html'
 
         response = render(request, template, context)
-        if version:
-            portal_helper.set_preferred_version(request, response, version)
-
         return response
 
 
@@ -377,7 +372,7 @@ def content_sub_path(request, version, path=None):
         content_id = Content.DOCUMENTATION
         lang = portal_helper.get_preferred_language(request)
         search_url = '%s/%s/search.html' % (content_id, lang)
-        additional_context = { 'allow_search': True, 'search_url': search_url }
+        additional_context = { 'allow_search': True, 'allow_version': True, 'search_url': search_url }
 
     elif path.startswith(url_helper.VISUALDL_ROOT):
         content_id = Content.VISUALDL
@@ -394,7 +389,7 @@ def content_sub_path(request, version, path=None):
     elif path.startswith(url_helper.API_ROOT):
         content_id = Content.API
         search_url = '%s/%s/search.html' % (content_id, 'en')
-        additional_context = {'allow_search': True, 'search_url': search_url}
+        additional_context = {'allow_search': True, 'allow_version': True, 'search_url': search_url}
 
 
     return _render_static_content(request, version, content_id, additional_context)

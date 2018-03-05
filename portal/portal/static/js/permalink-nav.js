@@ -47,7 +47,7 @@ var PermalinkNav = {
                     var header = $(this);
 
                     var headerId = header.attr('id');
-                    var headerText = header.immediateText();
+                    var headerText = header.text().replace('¶', '');
 
                     if (!headerText && header.has("span")) {
                         firstSpan = header.find("span").first();

@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import markdown
 
 from django.conf import settings
+from deploy.utils import MARKDOWN_EXTENSIONS
 
 
 def sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
@@ -179,7 +180,7 @@ def markdown_file(source_markdown_file, version, tmp_dir, new_path=None):
             new_html_partial.write(
                 '{% verbatim %}\n' + markdown.markdown(
                     unicode(markdown_body, 'utf-8'),
-                    extensions=['markdown.extensions.fenced_code', 'markdown.extensions.tables']
+                    extensions=MARKDOWN_EXTENSIONS
                 ) + '\n{% endverbatim %}'
             )
 

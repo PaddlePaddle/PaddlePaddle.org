@@ -24,6 +24,8 @@ from django.core.cache import cache
 from portal import url_helper
 
 
+DEFAULT_BRANCH = 'default-branch'
+
 def get_sitemap(version, language):
     """
     Given a version and language, fetch the sitemap for all contents from the
@@ -141,6 +143,9 @@ def _resolve_references(navigation, version, language):
         # navigation is type dict, resolved_navigation should also be type dict
         resolved_navigation = collections.OrderedDict()
 
+        if DEFAULT_BRANCH in navigation:
+            version = navigation[DEFAULT_BRANCH]
+
         for key, value in navigation.items():
             if key == '$ref' and language in value:
                 # The value is the relative path to the associated json file
@@ -172,6 +177,8 @@ def _transform_sitemap_urls(version, sitemap, language):
     all_links_cache = {}
     if sitemap:
         for _, book in sitemap.items():
+            if book and DEFAULT_BRANCH in book:
+                version = book[DEFAULT_BRANCH]
             _transform_urls(version, sitemap, book, all_links_cache, language)
 
     sitemap['all_links_cache'] = all_links_cache
@@ -240,7 +247,7 @@ def _get_sitemap_path(version, language):
     return '%s/sitemap.%s.%s.json' % (settings.RESOLVED_SITEMAP_DIR, version, language)
 
 
-def get_available_versions():
+def get_available_versions(content_id=None):
     """
     Go through all the generated folders inside the parent content directory's
     versioned `docs` dir, and return a list of the first-level of subdirectories.
@@ -260,6 +267,13 @@ def get_available_versions():
 
     if versions:
         for version in versions:
+            if content_id:
+                folder_path = '%s/%s/%s' % (path, version, content_id)
+                if not os.path.isdir(folder_path):
+                    # If content_id folder does not exists in versioned directory,
+                    # then don't add it to list of available versions
+                    continue
+
             normalized_version = version.split('.')
             if len(normalized_version) > 1:
                 number_based_version.append(version)
@@ -267,10 +281,11 @@ def get_available_versions():
                 string_based_version.append(version)
 
     # Sort both versions
-    number_based_version.sort(key = lambda s: list(map(int, s.split('.'))))
+    number_based_version.sort(key = lambda s: list(map(int, s.split('.'))),
+                              reverse=True)
     string_based_version.sort()
 
-    return number_based_version + string_based_version
+    return string_based_version + number_based_version
 
 
 def get_all_links_cache_key(version, lang):
