@@ -9,7 +9,7 @@
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             {% for version in version_list %}
-            <a class="dropdown-item" href="{% url 'set_version' %}?preferred_version={{ version }}&content_id={{ content_id }}">{{ version }}</a>
+            <a class="dropdown-item version-align-right" href="{% url 'set_version' %}?preferred_version={{ version }}&content_id={{ content_id }}">{{ version }}</a>
             {% endfor %}
         </div>
     </div>
