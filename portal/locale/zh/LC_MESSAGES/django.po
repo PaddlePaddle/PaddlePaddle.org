@@ -265,7 +265,7 @@ msgstr ""
 
 #: visualDL/templates/visualdl/index.html:17
 msgid "Visualize your deep learning training and data flawlessly"
-msgstr "完美图视化你的深度学习训练和数据"
+msgstr "完美可视化你的深度学习训练和数据"
 
 #: visualDL/templates/visualdl/index.html:18
 msgid ""
