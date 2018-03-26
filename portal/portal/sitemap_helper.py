@@ -150,7 +150,8 @@ def _resolve_references(navigation, version, language):
             if key == '$ref' and language in value:
                 # The value is the relative path to the associated json file
                 referenced_json = load_json_and_resolve_references(value[language], version, language)
-                resolved_navigation = referenced_json
+                if referenced_json:
+                    resolved_navigation = referenced_json
             else:
                 resolved_navigation[key] = _resolve_references(value, version, language)
 

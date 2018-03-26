@@ -40,19 +40,14 @@ def transform(original_documentation_dir, generated_docs_dir, version, options=N
         if content_id == Content.DOCUMENTATION:
             # Generate Paddle Documentation
             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_paddle_docs, strip.sphinx,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle,
                      sitemap_generator.paddle_sphinx_sitemap, None, options)
 
             # Generate Paddle API Documentation
-            output_dir_name = Content.API
-            if generated_docs_dir:
-                # Since Paddle API documents exists as a subdirectory 'api' within paddle docs, we append 'api' to it
-                generated_docs_dir = '%s/%s' % (generated_docs_dir, output_dir_name)
-
             # TODO(thuan): Fix document generator for API documentation.  For now, we are only going to support
             #   stripping/generating sitemaps for pre generated Paddle documentation
             _execute(original_documentation_dir, generated_docs_dir, version, 'api',
-                     documentation_generator.generate_paddle_docs, strip.sphinx,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_api,
                      sitemap_generator.paddle_api_sphinx_sitemap, None, options)
 
         # Or if this seems like a request to build/transform the book.

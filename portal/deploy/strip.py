@@ -10,7 +10,35 @@ from django.conf import settings
 from deploy.utils import MARKDOWN_EXTENSIONS
 
 
-def sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+def sphinx_paddle(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    new_path_map = {
+        'develop': {
+            '/v2/en/html/': '/en/',
+            '/v2/cn/html/': '/zh/'
+        },
+        '0.10.0': {
+            '/en/html/': '/en/',
+            '/cn/html/': '/zh/',
+        },
+        '0.9.0': {
+            '/doc/': '/en/',
+            '/doc_cn/': '/zh/',
+        }
+    }
+    sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
+
+
+def sphinx_paddle_api(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    new_path_map = {
+        'develop': {
+            '/v2/api/en/html/': '/en/',
+            '/v2/api/cn/html/': '/zh/'
+        }
+    }
+    sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
+
+
+def sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map=None):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
@@ -22,20 +50,21 @@ def sphinx(original_documentation_dir, generated_documentation_dir, version, out
     if generated_documentation_dir:
         generated_documentation_dir = generated_documentation_dir.rstrip('/')
 
-    new_path_map = {
-        'develop': {
-            '/en/html/': '/en/',
-            '/cn/html/': '/zh/'
-        },
-        '0.10.0': {
-            '/en/html/':    '/en/',
-            '/cn/html/': '/zh/',
-        },
-        '0.9.0': {
-            '/doc/':    '/en/',
-            '/doc_cn/': '/zh/',
+    if not new_path_map:
+        new_path_map = {
+            'develop': {
+                '/en/html/': '/en/',
+                '/cn/html/': '/zh/'
+            },
+            '0.10.0': {
+                '/en/html/':    '/en/',
+                '/cn/html/': '/zh/',
+            },
+            '0.9.0': {
+                '/doc/':    '/en/',
+                '/doc_cn/': '/zh/',
+            }
         }
-    }
 
     # if the version is not supported, fall back to 'develop'
     if version not in new_path_map:
