@@ -23,7 +23,6 @@ from django.core.cache import cache
 
 from portal import url_helper
 
-
 DEFAULT_BRANCH = 'default-branch'
 
 def get_sitemap(version, language):
@@ -180,7 +179,9 @@ def _transform_sitemap_urls(version, sitemap, language):
         for _, book in sitemap.items():
             if book and DEFAULT_BRANCH in book:
                 version = book[DEFAULT_BRANCH]
-            _transform_urls(version, sitemap, book, all_links_cache, language)
+
+            for category_data in book['categories'].itervalues():
+                _transform_urls(version, sitemap, category_data, all_links_cache, language)
 
     sitemap['all_links_cache'] = all_links_cache
     cache.set(get_all_links_cache_key(version, language), all_links_cache, None)
@@ -225,12 +226,28 @@ def _transform_urls(version, sitemap, node, all_links_cache, language):
     return all_node_links
 
 
-def get_content_navigation(content_id, version, language):
+def get_content_navigation(request, content_id, version, language):
     """
     Get the navigation sitemap for a particular content service.
     """
+    from portal import portal_helper
+
+    category_data = None
     root_nav = get_sitemap(version, language)
-    return root_nav.get(content_id, None)
+    book = root_nav.get(content_id, None)
+    if book:
+        category = book['default-category']
+
+        if content_id == portal_helper.Content.DOCUMENTATION or \
+                        content_id == portal_helper.Content.API:
+            # For Documentation or API, we also filter by category
+            api_category = portal_helper.get_preferred_api_version(request)
+            if api_category:
+                category = api_category
+
+        category_data = book['categories'][category]
+
+    return category_data, category
 
 
 def get_doc_subpath(version):
@@ -281,12 +298,23 @@ def get_available_versions(content_id=None):
             else:
                 string_based_version.append(version)
 
-    # Sort both versions
+    # Sort both versions, make sure the latest version is at the top of the list
     number_based_version.sort(key = lambda s: list(map(int, s.split('.'))),
                               reverse=True)
     string_based_version.sort()
 
     return string_based_version + number_based_version
+
+
+def is_version_greater_eq(v1, v2):
+    f = lambda s: list(map(int, s.split('.')))
+    if v1 == 'develop':
+        return True
+
+    try:
+        return f(v1) >= f(v2)
+    except:
+        return False
 
 
 def get_all_links_cache_key(version, lang):

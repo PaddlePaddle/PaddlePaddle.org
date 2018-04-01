@@ -38,17 +38,28 @@ def transform(original_documentation_dir, generated_docs_dir, version, options=N
         # If this seems like a request to build/transform the core Paddle docs.
         content_id = portal_helper.FOLDER_MAP_TO_CONTENT_ID.get(path_base_name, None)
         if content_id == Content.DOCUMENTATION:
-            # Generate Paddle Documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle,
-                     sitemap_generator.paddle_sphinx_sitemap, None, options)
+            strip.remove_old_dir(version, Content.DOCUMENTATION)
+            strip.remove_old_dir(version, Content.API)
 
-            # Generate Paddle API Documentation
-            # TODO(thuan): Fix document generator for API documentation.  For now, we are only going to support
-            #   stripping/generating sitemaps for pre generated Paddle documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, 'api',
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_api,
-                     sitemap_generator.paddle_api_sphinx_sitemap, None, options)
+            # Generate Paddle fluid Documentation
+            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid,
+                     sitemap_generator.paddle_sphinx_fluid_sitemap, None, options)
+
+            # Generate Paddle v2v1 Documentation
+            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1,
+                     sitemap_generator.paddle_sphinx_v2v1_sitemap, None, options)
+
+            # Process fluid API documentation
+            _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid_api,
+                     sitemap_generator.paddle_api_sphinx_fluid_sitemap, None, options)
+
+            # Process V2V1 API documentation
+            _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1_api,
+                     sitemap_generator.paddle_api_sphinx_v2v1_sitemap, None, options)
 
         # Or if this seems like a request to build/transform the book.
         elif content_id == Content.BOOK:
@@ -73,6 +84,8 @@ def transform(original_documentation_dir, generated_docs_dir, version, options=N
                      None, None, options)
 
         elif content_id == Content.VISUALDL:
+            strip.remove_old_dir(version, content_id)
+
             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
                      documentation_generator.generate_visualdl_docs, strip.sphinx,
                      sitemap_generator.visualdl_sphinx_sitemap, None, options)

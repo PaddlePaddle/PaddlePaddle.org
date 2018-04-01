@@ -13,35 +13,71 @@ class SphinxContent:
     VISUALDL = 'visualdl'
 
 
-def paddle_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+def paddle_sphinx_fluid_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    """
+    Generates a sitemap for all languages for the paddle documentation.
+    """
+    print 'Generating sitemap for Paddle Fluid'
+    parent_path_map = { 'en': '/fluid/en/html/',
+                        'zh': '/fluid/cn/html/' }
+    output_dir_name = output_dir_name + '/fluid'
+    _paddle_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name,
+                           parent_path_map)
+
+
+def paddle_sphinx_v2v1_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    """
+    Generates a sitemap for all languages for the paddle documentation.
+    """
+    print 'Generating sitemap for Paddle V2V1'
+    parent_path_map = { 'en': '/v2/en/html/',
+                        'zh': '/v2/cn/html/' }
+    _paddle_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name,
+                           parent_path_map)
+
+
+def _paddle_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name, parent_path_map):
     """
     Generates a sitemap for all languages for the paddle documentation.
     """
     versioned_dest_dir = get_destination_documentation_dir(version, output_dir_name)
-    print 'Generating sitemap for Paddle'
-
-    parent_path_map = { 'en': '/v2/en/html/',
-                        'zh': '/v2/cn/html/' }
 
     for lang, parent_path in parent_path_map.items():
         sitemap = None
         # Using the index.html of the generated Sphinx HTML documentation,
         # separately for each language, generate a sitemap.
         index_html_path = '%s/%s/index.html' % (generated_documentation_dir, parent_path)
-        sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.DOCUMENTATION)
+        sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.DOCUMENTATION, output_dir_name)
         _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
 
 
-def paddle_api_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+def paddle_api_sphinx_fluid_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    """
+    Generates a sitemap for all languages for the paddle documentation.
+    """
+    print 'Generating sitemap for Paddle fluid API'
+    parent_path_map = { 'en': '/fluid/api/en/html/',
+                        'zh': '/fluid/api/cn/html/' }
+    output_dir_name = output_dir_name + '/fluid'
+    _paddle_api_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name, parent_path_map)
+
+
+def paddle_api_sphinx_v2v1_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     """
     Generates a sitemap for all languages for the paddle documentation.
     """
     versioned_dest_dir = get_destination_documentation_dir(version, output_dir_name)
-    print 'Generating sitemap for Paddle API'
-
+    print 'Generating sitemap for Paddle V2V1 API'
     parent_path_map = { 'en': '/v2/api/en/html/',
                         'zh': '/v2/api/cn/html/' }
+    _paddle_api_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name, parent_path_map)
 
+
+def _paddle_api_sphinx_sitemap(original_documentation_dir, generated_documentation_dir, version, output_dir_name, parent_path_map):
+    """
+    Generates a sitemap for all languages for the paddle documentation.
+    """
+    versioned_dest_dir = get_destination_documentation_dir(version, output_dir_name)
     for lang, parent_path in parent_path_map.items():
         sitemap = None
         # Using the index.html of the generated Sphinx HTML documentation,
@@ -49,13 +85,13 @@ def paddle_api_sphinx_sitemap(original_documentation_dir, generated_documentatio
         index_html_path = '%s/%s/index.html' % (generated_documentation_dir, parent_path)
 
         if lang == 'en':
-            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.API)
+            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.API, output_dir_name)
             _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
 
             # Make a copy of EN documentation for now, since we only have API docs in english
             # We override the link language prefix
             # TODO(thuan): Fix this once we have chinese API documentation
-            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, 'zh', Content.API, 'en')
+            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, 'zh', Content.API, output_dir_name, 'en')
             _write_sphinx_sitemap(sitemap, versioned_dest_dir, 'zh')
 
 
@@ -75,7 +111,7 @@ def visualdl_sphinx_sitemap(original_documentation_dir, generated_documentation_
         # Using the index.html of the generated Sphinx HTML documentation,
         # separately for each language, generate a sitemap.
         index_html_path = '%s/%s/index.html' % (generated_documentation_dir, parent_path)
-        sitemap = _create_visualdl_sphinx_site_map_from_index(index_html_path, lang)
+        sitemap = _create_visualdl_sphinx_site_map_from_index(index_html_path, lang, output_dir_name)
         _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
 
 
@@ -101,20 +137,20 @@ def _sphinx_sitemap(original_documentation_dir, generated_documentation_dir, ver
         index_html_path = '%s/%s/index.html' % (generated_documentation_dir, parent_path)
 
         if sphinx_content == SphinxContent.PADDLE:
-            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.DOCUMENTATION)
+            sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.DOCUMENTATION, output_dir_name)
             _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
         elif sphinx_content == SphinxContent.PADDLE_API:
             if lang == 'en':
-                sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.API)
+                sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, lang, Content.API, output_dir_name)
                 _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
 
                 # Make a copy of EN documentation for now, since we only have API docs in english
                 # We override the link language prefix
                 # TODO(thuan): Fix this once we have chinese API documentation
-                sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, 'zh', Content.API, 'en')
+                sitemap = _create_paddle_sphinx_site_map_from_index(index_html_path, 'zh', Content.API, output_dir_name, 'en')
                 _write_sphinx_sitemap(sitemap, versioned_dest_dir, 'zh')
         elif sphinx_content == SphinxContent.VISUALDL:
-            sitemap = _create_visualdl_sphinx_site_map_from_index(index_html_path, lang)
+            sitemap = _create_visualdl_sphinx_site_map_from_index(index_html_path, lang, output_dir_name)
             _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang)
 
 
@@ -126,7 +162,7 @@ def _write_sphinx_sitemap(sitemap, versioned_dest_dir, lang):
             json.dump(sitemap, outfile)
 
 
-def _create_paddle_sphinx_site_map_from_index(index_html_path, language, content_id, link_language_prefix=None):
+def _create_paddle_sphinx_site_map_from_index(index_html_path, language, content_id, output_dir_name, link_language_prefix=None):
     """
     Given an index.html generated from running Sphinx on a doc directory, parse
     the HTML tree to get the links from the navigation menu.
@@ -180,14 +216,14 @@ def _create_paddle_sphinx_site_map_from_index(index_html_path, language, content
             if chapters_container:
 
                 for chapter in chapters_container.find_all('li', recursive=False):
-                    _create_sphinx_site_map(chapters, chapter, language, content_id, allow_parent_links, link_language_prefix)
+                    _create_sphinx_site_map(chapters, chapter, language, content_id, output_dir_name, allow_parent_links, link_language_prefix)
         else:
             print 'Cannot generate sphinx sitemap, nav.doc-menu-vertical not found in %s' % index_html_path
 
         return sitemap
 
 
-def _create_visualdl_sphinx_site_map_from_index(index_html_path, language):
+def _create_visualdl_sphinx_site_map_from_index(index_html_path, language, output_dir_name):
     with open(index_html_path) as html:
         chapters = []
 
@@ -202,14 +238,14 @@ def _create_visualdl_sphinx_site_map_from_index(index_html_path, language):
             if chapters_container:
 
                 for chapter in chapters_container.find_all('li', recursive=False):
-                    _create_sphinx_site_map(chapters, chapter, language, Content.VISUALDL)
+                    _create_sphinx_site_map(chapters, chapter, language, Content.VISUALDL, output_dir_name)
         else:
             print 'Cannot generate sphinx sitemap, nav.wy-nav-side not found in %s' % index_html_path
 
         return sitemap
 
 
-def _create_sphinx_site_map(parent_list, node, language, content_id, allow_parent_links=True, link_language_prefix=None):
+def _create_sphinx_site_map(parent_list, node, language, content_id, output_dir_name, allow_parent_links=True, link_language_prefix=None):
     """
     Recursive function to append links to a new parent list object by going down the
     nested lists inside the HTML, using BeautifulSoup tree parser.
@@ -224,7 +260,7 @@ def _create_sphinx_site_map(parent_list, node, language, content_id, allow_paren
         first_link = node.find('a')
         if first_link:
             link_language = link_language_prefix if link_language_prefix else language
-            link_url = '/%s/%s/%s' % (content_id, link_language, first_link['href'])
+            link_url = '/%s/%s/%s' % (output_dir_name, link_language, first_link['href'])
             node_dict['title'] = OrderedDict({ language: first_link.text })
 
             if allow_parent_links:
@@ -241,7 +277,7 @@ def _create_sphinx_site_map(parent_list, node, language, content_id, allow_paren
                 node_dict['sections'] = []
 
                 for sub_section in sub_sections:
-                    _create_sphinx_site_map(node_dict['sections'], sub_section, language, content_id, allow_parent_links, link_language_prefix)
+                    _create_sphinx_site_map(node_dict['sections'], sub_section, language, content_id, output_dir_name, allow_parent_links, link_language_prefix)
 
 
 def inject_operators_link(sitemap, lang):

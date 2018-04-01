@@ -10,7 +10,17 @@ from django.conf import settings
 from deploy.utils import MARKDOWN_EXTENSIONS
 
 
-def sphinx_paddle(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+def sphinx_paddle_fluid(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    new_path_map = {
+        'develop': {
+            '/fluid/en/html/': '/fluid/en/',
+            '/fluid/cn/html/': '/fluid/zh/'
+        }
+    }
+    sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
+
+
+def sphinx_paddle_v2v1(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     new_path_map = {
         'develop': {
             '/v2/en/html/': '/en/',
@@ -28,7 +38,17 @@ def sphinx_paddle(original_documentation_dir, generated_documentation_dir, versi
     sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
 
 
-def sphinx_paddle_api(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+def sphinx_paddle_fluid_api(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    new_path_map = {
+        'develop': {
+            '/fluid/api/en/html/': '/fluid/en/',
+            '/fluid/api/cn/html/': '/fluid/zh/'
+        }
+    }
+    sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
+
+
+def sphinx_paddle_v2v1_api(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
     new_path_map = {
         'develop': {
             '/v2/api/en/html/': '/en/',
@@ -44,9 +64,6 @@ def sphinx(original_documentation_dir, generated_documentation_dir, version, out
     headers, and body.
     """
     destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
-    if os.path.exists(destination_documentation_dir) and os.path.isdir(destination_documentation_dir):
-        rmtree(destination_documentation_dir)
-
     if generated_documentation_dir:
         generated_documentation_dir = generated_documentation_dir.rstrip('/')
 
@@ -145,6 +162,12 @@ def sphinx(original_documentation_dir, generated_documentation_dir, version, out
                             copyfile(os.path.join(subdir, file), new_path)
                         elif 'searchindex.js' in subpath:
                             copyfile(os.path.join(subdir, file), new_path)
+
+
+def remove_old_dir(version, output_dir_name):
+    destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
+    if os.path.exists(destination_documentation_dir) and os.path.isdir(destination_documentation_dir):
+        rmtree(destination_documentation_dir)
 
 
 def _find_relative_path(path, subpath_language_dir):

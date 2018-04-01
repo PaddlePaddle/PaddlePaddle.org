@@ -43,9 +43,10 @@ CONTENT_ID_TO_FOLDER_MAP = {
 # Invert the keys and value.  This assumes that the values are all unique
 FOLDER_MAP_TO_CONTENT_ID = {v: k for k, v in CONTENT_ID_TO_FOLDER_MAP.iteritems()}
 
+
 def get_preferred_version(request):
     """
-    Observes the user's session to find the preferred documentation version.
+    Observes the user's cookie to find the preferred documentation version.
     """
     preferred_version = request.COOKIES.get(settings.PREFERRED_VERSION_NAME, settings.DEFAULT_DOCS_VERSION)
     if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE:
@@ -55,18 +56,25 @@ def get_preferred_version(request):
     return preferred_version
 
 
-def set_preferred_version(request, response, preferred_version):
+def set_preferred_version(response, preferred_version):
     """
-    Sets the preferred documentation version in the user's session.
+    Sets the preferred documentation version in the user's cookie.
     """
     if preferred_version:
-        if request:
-            request.session[settings.PREFERRED_VERSION_NAME] = preferred_version
-
         if response:
             response.set_cookie(settings.PREFERRED_VERSION_NAME, preferred_version)
 
-    request.session.modified = True
+
+def get_preferred_api_version(request):
+    return request.COOKIES.get(settings.PREFERRED_API_VERSION_NAME, None)
+
+
+def set_preferred_api_version(response, preferred_api_version):
+    """
+    Sets the preferred document api version in the user's session.
+    """
+    if preferred_api_version and response:
+        response.set_cookie(settings.PREFERRED_API_VERSION_NAME, preferred_api_version)
 
 
 def get_preferred_language(request):

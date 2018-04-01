@@ -52,6 +52,26 @@ def translation_assignment(context, leaf_node):
     return translation(context, leaf_node)
 
 
+@register.assignment_tag(takes_context=True)
+def first_book_url_assignment(context, book, content_id):
+    # Finds the first url in the book in the default category
+    if book and 'default-category' in book:
+        category = book['default-category']
+
+        if content_id == portal_helper.Content.DOCUMENTATION or \
+           content_id == portal_helper.Content.API:
+            # For Documentation or API, we also filter by category
+            api_category = context.get('CURRENT_API_VERSION', None)
+            if api_category:
+                category = api_category
+
+        leaf_node = book['categories'][category]
+        if ('link' in leaf_node):
+            return translation(context, leaf_node['link'])
+
+    return ''
+
+
 @register.simple_tag(takes_context=True)
 def apply_class_if_template(context, template_file_name, class_name):
     '''
@@ -101,7 +121,8 @@ def content_links(context, content_id):
     current_lang_code = context.request.LANGUAGE_CODE
     docs_version = context.get('CURRENT_DOCS_VERSION', None)
 
-    side_nav_content = sitemap_helper.get_content_navigation(
+    side_nav_content, category = sitemap_helper.get_content_navigation(
+        context.request,
         content_id,
         docs_version,
         current_lang_code
@@ -109,6 +130,7 @@ def content_links(context, content_id):
 
     return _common_context(context, {
         'side_nav_content': side_nav_content,
+        'category': category,
         'allow_search': context.get('allow_search', False),
         'allow_version': context.get('allow_version', False),
         'search_url': context.get('search_url', None)
@@ -116,17 +138,48 @@ def content_links(context, content_id):
 
 
 @register.inclusion_tag('_version_links.html', takes_context=True)
-def version_links(context, content_id):
-    versions = sitemap_helper.get_available_versions(content_id)
+def version_links(context, content_id, category):
+    if content_id == portal_helper.Content.DOCUMENTATION or \
+                    content_id == portal_helper.Content.API:
+        # API section needs to be additonally filtered by API Version
+        versions = _get_api_version_to_paddle_versions(content_id)
+    else:
+        versions = [
+            {
+                "versions": sitemap_helper.get_available_versions(content_id)
+            }
+        ]
 
     is_hidden = True
     if context.template and content_id:
         is_hidden = False
 
     return _common_context(context, {
-        'version_list': versions,
+        'versions': versions,
+        'category': category,
         'is_hidden': is_hidden
     })
+
+
+def _get_api_version_to_paddle_versions(content_id):
+    versions = sitemap_helper.get_available_versions(content_id)
+
+    fluid_min_version = '0.12.0'
+    v1v2_min_version = '0.9.0'  # TODO: Implement upper bounds for v1v2 once its deprecated
+
+    api_version_to_paddle_version = [
+        {
+            'key': 'fluid',
+            'title': 'Fluid',
+            'versions': [v for v in versions if sitemap_helper.is_version_greater_eq(v, fluid_min_version)]
+        },
+        {
+            'key': 'v2/v1',
+            'title': 'V2/V1',
+            'versions': [v for v in versions if sitemap_helper.is_version_greater_eq(v, v1v2_min_version)]
+        }
+    ]
+    return api_version_to_paddle_version
 
 
 def _common_context(context, additional_context):
@@ -139,7 +192,8 @@ def _common_context(context, additional_context):
         'url_helper': context.get('url_helper', None),
         'settings': context.get('settings', None),
         'content_id': context.get('content_id', ''),
-        'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', '')
+        'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', ''),
+        'CURRENT_API_VERSION': context.get('CURRENT_API_VERSION', '')
     })
 
     return additional_context

@@ -84,7 +84,7 @@ def _render_static_content(request, version, content_id, additional_context=None
 
     response = render(request, template, context)
     if version:
-        portal_helper.set_preferred_version(request, response, version)
+        portal_helper.set_preferred_version(response, version)
 
     return response
 

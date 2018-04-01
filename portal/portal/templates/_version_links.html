@@ -4,12 +4,17 @@
 <form action="{% url 'set_version' %}" class="version-toggler{% if is_hidden %} invisible{% endif %}" method="post">{% csrf_token %}
     <div>
         <button class="selected-version dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ CURRENT_DOCS_VERSION }}
+            {{ category }} ({{ CURRENT_DOCS_VERSION }})
         </button>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {% for version in version_list %}
-            <a class="dropdown-item version-align-right" href="{% url 'set_version' %}?preferred_version={{ version }}&content_id={{ content_id }}">{{ version }}</a>
+            {% for version_map in versions %}
+            {% if version_map.title %}
+            <div class="title">{{ version_map.title }}</div>
+            {% endif %}
+            {% for version in version_map.versions %}
+            <a class="dropdown-item" href="{% url 'set_version' %}?preferred_version={{ version }}&api_version={{ version_map.key }}&content_id={{ content_id }}">{{ version }}</a>
+            {% endfor %}
             {% endfor %}
         </div>
     </div>

@@ -1,41 +1,107 @@
 {
     "documentation": {
-        "$ref": {
-            "en": "documentation/site.en.json",
-            "zh": "documentation/site.zh.json"
-        }
+        "title":{
+           "en":"Documentation",
+           "zh":"\u4f7f\u7528\u6587\u6863"
+        },
+        "categories": {
+            "fluid": {
+                "$ref": {
+                    "en": "documentation/fluid/site.en.json",
+                    "zh": "documentation/fluid/site.zh.json"
+                }
+            },
+            "v2/v1": {
+                "$ref": {
+                    "en": "documentation/site.en.json",
+                    "zh": "documentation/site.zh.json"
+                }
+            }
+        },
+        "default-category": "fluid"
     },
     "api": {
-        "$ref": {
-            "en": "api/site.en.json",
-            "zh": "api/site.zh.json"
-        }
+        "title":{
+           "en":"API",
+           "zh":"API"
+        },
+        "categories": {
+            "fluid": {
+                "$ref": {
+                    "en": "api/fluid/site.en.json",
+                    "zh": "api/fluid/site.zh.json"
+                }
+            },
+            "v2/v1": {
+                "$ref": {
+                    "en": "api/site.en.json",
+                    "zh": "api/site.zh.json"
+                }
+            }
+        },
+         "default-category": "fluid"
     },
     "book": {
-        "$ref": {
-            "en": "book/site.en.json",
-            "zh": "book/site.zh.json"
+        "title":{
+           "en":"Book",
+           "zh":"\u6df1\u5ea6\u5b66\u4e60101"
         },
-        "default-branch": "develop"
+        "categories": {
+            "default": {
+                "$ref": {
+                    "en": "book/site.en.json",
+                    "zh": "book/site.zh.json"
+                }
+            }
+        },
+        "default-branch": "develop",
+        "default-category": "default"
     },
     "models": {
-        "$ref": {
-            "en": "models/site.en.json",
-            "zh": "models/site.zh.json"
+        "title":{
+           "en":"Models",
+           "zh":"\u6a21\u578b\u5e93"
         },
-        "default-branch": "develop"
+        "categories": {
+            "default": {
+                "$ref": {
+                    "en": "models/site.en.json",
+                    "zh": "models/site.zh.json"
+                }
+            }
+        },
+        "default-branch": "develop",
+        "default-category": "default"
     },
     "mobile": {
-        "$ref": {
-            "en": "mobile/site.en.json",
-            "zh": "mobile/site.zh.json"
+        "title":{
+           "en":"Mobile",
+           "zh":"\u79fb\u52a8\u7aef"
         },
-        "default-branch": "develop"
+        "categories": {
+            "default": {
+                "$ref": {
+                    "en": "mobile/site.en.json",
+                    "zh": "mobile/site.zh.json"
+                }
+            }
+        },
+        "default-branch": "develop",
+        "default-category": "default"
     },
     "visualdl": {
-        "$ref": {
-            "en": "visualdl/site.en.json",
-            "zh": "visualdl/site.zh.json"
-        }
+        "title":{
+           "en":"Documentation",
+           "zh":"\u6587\u6863"
+        },
+        "categories": {
+            "default": {
+                "$ref": {
+                    "en": "visualdl/site.en.json",
+                    "zh": "visualdl/site.zh.json"
+                }
+            }
+        },
+        "default-category": "default"
     }
 }

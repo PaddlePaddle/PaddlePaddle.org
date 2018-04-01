@@ -13,7 +13,7 @@
             <ul class="navbar-nav ml-auto">
                 {% get_dict_item root_nav 'visualdl' as book %}
                 {% translation_assignment book.title as book_title %}
-                {% translation_assignment book.link as book_url %}
+                {% first_book_url_assignment book 'visualdl' as book_url %}
                 {% if book_title != none and book_title != "" %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ book_url }}">{% translation book.title %}<span class="sr-only">(current)</span></a>

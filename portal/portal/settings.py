@@ -107,6 +107,7 @@ MIDDLEWARE_CLASSES = (
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 PREFERRED_VERSION_NAME = 'preferred_version'
+PREFERRED_API_VERSION_NAME = 'preferred_api_version'
 
 ROOT_URLCONF = 'portal.urls'
 
