@@ -28,3 +28,11 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "portal.settings")
 
 application = get_wsgi_application()
+
+if os.environ['ENV'] == 'release':
+    import newrelic.agent
+    newrelic.agent.initialize(os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'newrelic.ini'))
+
+    application = newrelic.agent.WSGIApplicationWrapper(
+        application, os.environ['ENV'])
