@@ -58,6 +58,16 @@ def sphinx_paddle_v2v1_api(original_documentation_dir, generated_documentation_d
     sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
 
 
+def sphinx_paddle_mobile_docs(original_documentation_dir, generated_documentation_dir, version, output_dir_name):
+    new_path_map = {
+        'develop': {
+            '/mobile/en/html/': '/en/',
+            '/mobile/cn/html/': '/zh/'
+        }
+    }
+    sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
+
+
 def sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map=None):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
