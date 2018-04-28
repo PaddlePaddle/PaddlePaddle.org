@@ -18,3 +18,4 @@ class Command(BaseCommand):
             options['source'],
             options.get('dest_gen_docs_dir', None),
             options['doc_version'])
+

@@ -231,14 +231,14 @@ def _create_visualdl_sphinx_site_map_from_index(index_html_path, language, outpu
         sitemap['title'] = OrderedDict( { 'en': 'Documentation', 'zh': '文档'} )
         sitemap['sections'] = chapters
 
-        navs = BeautifulSoup(html, 'lxml').findAll('nav', class_='wy-nav-side')
+        navs = BeautifulSoup(html, 'lxml').findAll('nav', class_='doc-menu-vertical')
 
         if len(navs) > 0:
             chapters_container = navs[0].find('ul', recursive=True)
             if chapters_container:
 
                 for chapter in chapters_container.find_all('li', recursive=False):
-                    _create_sphinx_site_map(chapters, chapter, language, Content.VISUALDL, output_dir_name)
+                    _create_sphinx_site_map(chapters, chapter, language, Content.VISUALDL, output_dir_name, allow_parent_links=False)
         else:
             print 'Cannot generate sphinx sitemap, nav.wy-nav-side not found in %s' % index_html_path
 

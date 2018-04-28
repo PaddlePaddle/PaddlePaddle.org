@@ -61,6 +61,11 @@ def transform(original_documentation_dir, generated_docs_dir, version, options=N
                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1_api,
                      sitemap_generator.paddle_api_sphinx_v2v1_sitemap, None, options)
 
+            # Process paddle mobile documentation
+            _execute(original_documentation_dir, generated_docs_dir, version, 'mobile',
+                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_mobile_docs,
+                     None, None, options)
+
         # Or if this seems like a request to build/transform the book.
         elif content_id == Content.BOOK:
             _execute(original_documentation_dir, generated_docs_dir, version, content_id,

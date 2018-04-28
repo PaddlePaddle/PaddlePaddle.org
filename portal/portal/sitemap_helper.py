@@ -142,7 +142,7 @@ def _resolve_references(navigation, version, language):
         # navigation is type dict, resolved_navigation should also be type dict
         resolved_navigation = collections.OrderedDict()
 
-        if DEFAULT_BRANCH in navigation:
+        if DEFAULT_BRANCH in navigation and version != 'doc_test':
             version = navigation[DEFAULT_BRANCH]
 
         for key, value in navigation.items():
@@ -177,7 +177,7 @@ def _transform_sitemap_urls(version, sitemap, language):
     all_links_cache = {}
     if sitemap:
         for _, book in sitemap.items():
-            if book and DEFAULT_BRANCH in book:
+            if book and DEFAULT_BRANCH in book and version != 'doc_test':
                 version = book[DEFAULT_BRANCH]
 
             for category_data in book['categories'].itervalues():

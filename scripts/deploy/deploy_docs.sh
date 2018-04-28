@@ -38,7 +38,7 @@ chmod 400 content_mgr.pem
 
 ssh-add content_mgr.pem
 
-export STAGE_DEPLOY_IP=52.76.173.135
+export STAGE_DEPLOY_IP=13.229.163.131
 
 rsync -r $DEPLOY_DOCS_DIR/content content_mgr@$STAGE_DEPLOY_IP:/var/content/.ppo_workspace
 
