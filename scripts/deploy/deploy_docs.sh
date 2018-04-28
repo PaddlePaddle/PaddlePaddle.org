@@ -25,7 +25,7 @@ cd PaddlePaddle.org-$PPO_BRANCH/
 
 cd portal/
 
-sudo pip install -r requirements.txt
+sudo pip install --ignore-installed -r requirements.txt
 
 python manage.py deploy_documentation --source=$SOURCE_DIR --dest_gen_docs_dir=$GENERATED_DOCS_DIR --doc_version=$GITHUB_BRANCH
 
