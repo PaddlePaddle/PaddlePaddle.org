@@ -39,43 +39,89 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-
-class PPO_MODES:
-    '''
-    PPO has 3 modes:
-    1)  Default:  Default website mode.
-    2)  DOC_EDIT_MODE: Document editor mode.  This will allow document editors to generate and view
-        their documentation.  This mode is activated if there is no 'ENV' environment variable set and
-        HAS_MOUNT is NOT set or set to '1' (ie:  We have mounted a volume to /var/content in Docker).
-    3)  DOC_VIEW_MODE: Document viewer mode.  This will allow users to view the latest PaddlePaddle
-        documentation.  This mode is activated if there is no 'ENV' environment variable set AND
-        'HAS_MOUNT' is set to 0 (meaning there is no mount set for the content directory)
-    '''
-    Default, DOC_EDIT_MODE, DOC_VIEW_MODE = range(3)
-
-CURRENT_PPO_MODE = PPO_MODES.Default
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
 ENV = os.environ.get('ENV', None)
-HAS_MOUNT = os.environ.get('HAS_MOUNT', '1')
+
+if ENV == 'production':
+    DEBUG = False
+else:
+    DEBUG = True
+
+DEFAULT_DOCS_VERSION = '0.11.0' if ENV in ['production', 'staging'] else 'develop'
 
 WORKSPACE_ZIP_FILE_NAME = 'workspace.tar.gz'
 WORKSPACE_DOWNLOAD_URL = 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/%s' % WORKSPACE_ZIP_FILE_NAME
 
-if not ENV:
-    if HAS_MOUNT == '0':
-        CURRENT_PPO_MODE = PPO_MODES.DOC_VIEW_MODE
-    else:
-        CURRENT_PPO_MODE = PPO_MODES.DOC_EDIT_MODE
+# class PPO_MODES:
+#     '''
+#     PPO has 3 modes:
+#     1)  Default:  Default website mode.
+#     2)  DOC_EDIT_MODE: Document editor mode.  This will allow document editors to generate and view
+#         their documentation.  This mode is activated if there is no 'ENV' environment variable set and
+#         HAS_MOUNT is NOT set or set to '1' (ie:  We have mounted a volume to /var/content in Docker).
+#     3)  DOC_VIEW_MODE: Document viewer mode.  This will allow users to view the latest PaddlePaddle
+#         documentation.  This mode is activated if there is no 'ENV' environment variable set AND
+#         'HAS_MOUNT' is set to 0 (meaning there is no mount set for the content directory)
+#     '''
+#     Default, DOC_EDIT_MODE, DOC_VIEW_MODE = range(3)
+#
+# CURRENT_PPO_MODE = PPO_MODES.Default
 
-    DEBUG = True
+# HAS_MOUNT = os.environ.get('HAS_MOUNT', '1')
 
-elif ENV == 'development':
-    DEBUG = True
+# if not ENV:
+#     if HAS_MOUNT == '0':
+#         CURRENT_PPO_MODE = PPO_MODES.DOC_VIEW_MODE
+#     else:
+#         CURRENT_PPO_MODE = PPO_MODES.DOC_EDIT_MODE
+#
+#     DEBUG = True
+#
+# elif ENV == 'development':
+#     DEBUG = True
+#
 
-DEFAULT_DOCS_VERSION = '0.14.0' if CURRENT_PPO_MODE != PPO_MODES.DOC_EDIT_MODE else 'doc_test'
+TOP_LEVEL_NAVIGATION = [
+    {
+        'title': {
+            'en':'Documentation',
+            'zh':'\u4f7f\u7528\u6587\u6863'
+        },
+        'path': '/documentation',
+        'dir': os.environ.get('PADDLE_PATH', None)
+    },
+    {
+        'title': {
+            'en':'API',
+            'zh':'API'
+        },
+        'path': '/api',
+        'dir': os.environ.get('PADDLE_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Book',
+            'zh':'\u6df1\u5ea6\u5b66\u4e60101'
+        },
+        'path': '/book',
+        'dir': os.environ.get('BOOK_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Models',
+            'zh':'\u6a21\u578b\u5e93'
+        },
+        'path': '/models',
+        'dir': os.environ.get('MODELS_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Mobile',
+            'zh':'\u79fb\u52a8\u7aef'
+        },
+        'path': '/mobile',
+        'dir': os.environ.get('MOBILE_PATH', None)
+    }
+]
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -112,8 +158,9 @@ PREFERRED_API_VERSION_NAME = 'preferred_api_version'
 ROOT_URLCONF = 'portal.urls'
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
-CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
-WORKSPACE_DIR = '%s/.ppo_workspace' % CONTENT_DIR
+#CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
+
+WORKSPACE_DIR = 'static'
 GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
 EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR

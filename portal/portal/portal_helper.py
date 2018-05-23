@@ -49,9 +49,9 @@ def get_preferred_version(request):
     Observes the user's cookie to find the preferred documentation version.
     """
     preferred_version = request.COOKIES.get(settings.PREFERRED_VERSION_NAME, settings.DEFAULT_DOCS_VERSION)
-    if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE:
-        # In document generation mode, we only allow for 'doc_test' version
-        preferred_version = settings.DEFAULT_DOCS_VERSION
+    # if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE:
+    #     # In document generation mode, we only allow for 'doc_test' version
+    #     preferred_version = settings.DEFAULT_DOCS_VERSION
 
     return preferred_version
 

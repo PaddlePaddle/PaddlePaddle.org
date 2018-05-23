@@ -173,7 +173,7 @@ def _redirect_first_link_in_contents(request, version, content_id, category=None
     navigation.
     """
     lang = portal_helper.get_preferred_language(request)
-    root_navigation = sitemap_helper.get_sitemap(version, lang)
+    root_navigation = sitemap_helper.get_sitemap(version, lang, content_id)
 
     try:
         # Get the first section link from the content.
@@ -297,23 +297,23 @@ def _get_static_content_from_template(path):
 
 
 def home_root(request):
-    if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE:
-        context = {
-            'folder_names': portal_helper.get_available_doc_folder_names(),
-        }
-        return render(request, 'index_doc_mode.html', context)
-
-    elif settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE:
-        if portal_helper.has_downloaded_workspace_file():
-            preferred_version = portal_helper.get_preferred_version(request)
-            return _redirect_first_link_in_contents(request, preferred_version, Content.DOCUMENTATION)
-        else:
-            response = render(request, 'index_doc_view_mode.html')
-            portal_helper.set_preferred_version(response, 'develop')
-            return response
-
-    else:
-        return render(request, 'index.html')
+    # if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE:
+    #     context = {
+    #         'folder_names': portal_helper.get_available_doc_folder_names(),
+    #     }
+    #     return render(request, 'index_doc_mode.html', context)
+    #
+    # elif settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_VIEW_MODE:
+    #     if portal_helper.has_downloaded_workspace_file():
+    #         preferred_version = portal_helper.get_preferred_version(request)
+    #         return _redirect_first_link_in_contents(request, preferred_version, Content.DOCUMENTATION)
+    #     else:
+    #         response = render(request, 'index_doc_view_mode.html')
+    #         portal_helper.set_preferred_version(response, 'develop')
+    #         return response
+    #
+    # else:
+    return render(request, 'index.html')
 
 
 def cn_home_root(request):
@@ -330,6 +330,11 @@ def about_en(request):
 
 def about_cn(request):
     return render(request, 'about_cn.html')
+
+
+def documentation_home(request):
+    return _redirect_first_link_in_contents(
+        request, portal_helper.get_preferred_version(request), 'documentation')
 
 
 def download_latest_doc_workspace(request):

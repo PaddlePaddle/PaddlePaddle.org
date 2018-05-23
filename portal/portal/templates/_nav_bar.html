@@ -17,21 +17,30 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                {% for b_id, book in root_nav.items %}
-                    {% translation_assignment book.title as book_title %}
-                    {% first_book_url_assignment book b_id as book_url %}
-                    {% if book_title != none and book_title != "" %}
+            {% for category in root_nav %}
+                {# translation_assignment book.title as book_title #}
+                {# first_book_url_assignment book b_id as book_url #}
+                {# if book_title != none and book_title != "" #}
                 <li class="nav-item{% if content_id == b_id %} active{% endif %}">
-                    <a class="nav-link" href="{{ book_url }}">{% translation book.title %}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ category.path }}">{# translation book.title #}{{ category.title.en }}<span class="sr-only">(current)</span></a>
                 </li>
-                    {% endif %}
-                {% endfor %}
+                {# endif #}
+            {% endfor %}
 
-                {% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE %}
+            <li>
+                <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
+            </li>
+            <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
+                Github
+            </a></li>
+            {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
 
-                <li>
-                    <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
-                </li>
                 {% if content_id %}
                 <li>
                     {% if content_id == 'documentation' %}
@@ -42,23 +51,7 @@
                     {% endif %}
                 </li>
                 {% endif %}
-
-                {% else %}
-
-                <li>
-                    <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
-                </li>
-                <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                    Github
-                </a></li>
-                <li>
-                    <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label }}</a>
-                </li>
-                {% endif %}
-
+            {% endif %}
             </ul>
         </div>
     </div>

@@ -25,7 +25,32 @@ from portal import url_helper
 
 DEFAULT_BRANCH = 'default-branch'
 
-def get_sitemap(version, language):
+
+def find_in_top_level_navigation(path):
+    for i in settings.TOP_LEVEL_NAVIGATION:
+        if i['path'] == path:
+            return i
+
+
+def _find_sitemap_in_repo(path, filename):
+    import fnmatch
+
+    matches = []
+    for root, dirnames, filenames in os.walk(path):
+        for filename in fnmatch.filter(filenames, filename):
+            return os.path.join(root, filename)
+
+    return None
+
+
+def get_top_level_navigation(version, language):
+    """
+    Returns a list of categories available for this version & language.
+    """
+    return filter(lambda i: i['dir'] is not None, settings.TOP_LEVEL_NAVIGATION)
+
+
+def get_sitemap(version, language, content_id):
     """
     Given a version and language, fetch the sitemap for all contents from the
     cache, if available, or load them from the pre-compiled sitemap.
@@ -34,7 +59,7 @@ def get_sitemap(version, language):
     sitemap_cache = cache.get(cache_key, None)
 
     if not sitemap_cache:
-        sitemap_cache = _load_sitemap_from_file(version, language)
+        sitemap_cache = _load_sitemap_from_file(version, language, content_id)
 
         if sitemap_cache:
             cache.set(cache_key, sitemap_cache)
@@ -44,12 +69,17 @@ def get_sitemap(version, language):
     return sitemap_cache
 
 
-def _load_sitemap_from_file(version, language):
+def _load_sitemap_from_file(version, language, content_id):
     """
     [For now] Returns a freshly generated sitemap file, given a version and language.
     """
     sitemap = None
-    sitemap_path = _get_sitemap_path(version, language)
+
+    sitemap_filename = ('sitemap.%s.json' % language)
+    sitemap_path = _get_sitemap_path(sitemap_filename, content_id)
+
+    if not sitemap_path:
+        raise Exception('Cannot find a sitemap file with the name %s in the directory for: %s' % (sitemap_filename, content_id))
 
     if os.path.isfile(sitemap_path):
         # Sitemap file exists, lets load it
@@ -295,15 +325,21 @@ def get_doc_subpath(version):
     return 'docs/%s/' % version
 
 
-def _get_sitemap_path(version, language):
+def _get_sitemap_path(sitemap_filename, content_id):
     """
     Get the sitemap path to the current version and language.
     """
-    if not os.path.exists(settings.RESOLVED_SITEMAP_DIR):
-        os.makedirs(settings.RESOLVED_SITEMAP_DIR)
-        os.chmod(settings.RESOLVED_SITEMAP_DIR, 0775)
+    repo_path = find_in_top_level_navigation('/' + content_id)
 
-    return '%s/sitemap.%s.%s.json' % (settings.RESOLVED_SITEMAP_DIR, version, language)
+    if os.path.exists(repo_path['dir']):
+        # os.makedirs(settings.RESOLVED_SITEMAP_DIR)
+        # os.chmod(settings.RESOLVED_SITEMAP_DIR, 0775)
+        return _find_sitemap_in_repo(repo_path['dir'], sitemap_filename)
+
+    raise Exception('Cannot find the directory for %s: %s' % (
+        content_id, repo_path['dir']))
+
+    #return '%s/sitemap.%s.%s.json' % (settings.RESOLVED_SITEMAP_DIR, version, language)
 
 
 def get_available_versions(content_id=None):

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Code inspired from http://linuxcommand.org/lc3_wss0120.php.
+
+paddle_path=
+book_path=
+models_path=
+mobile_path=
+
+function usage {
+    echo "To run the website locally, pass the directories where your content exists"
+}
+
+
+# Build the paths to be set as environment variables from the arguments.
+while [ "$1" != "" ]; do
+    case $1 in
+        -p | --paddle)
+            shift
+            paddle_path=$1
+            ;;
+        -b | --book)
+            shift
+            book_path=$1
+            ;;
+        -m | --models)
+            shift
+            models_path=$1
+            ;;
+        -b | --mobile)
+            shift
+            mobile_path=$1
+            ;;
+        -h | --help)
+            usage
+            exit
+            ;;
+        *)
+            usage
+            exit 1
+    esac
+    shift
+done
+
+if [ "$paddle_path" != "" ]; then
+    export PADDLE_PATH=$paddle_path
+fi
+
+if [ "$book_path" != "" ]; then
+    export BOOK_PATH=$book_path
+fi
+
+if [ "$models_path" != "" ]; then
+    export MODELS_PATH=$models_path
+fi
+
+if [ "$mobile_path" != "" ]; then
+    export MOBILE_PATH=$mobile_path
+fi
+
+python manage.py runserver

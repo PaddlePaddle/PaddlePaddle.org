@@ -63,6 +63,7 @@ urlpatterns = [
     # ---------------
     # CONTENT URLS
     # ---------------
+    url(r'^documentation$', views.documentation_home, name='documentation'),
     url(r'^docs/(?P<version>[^/]+)/(?P<path>[^./]+)/?$', views.content_root_path, name=url_helper.URL_NAME_CONTENT_ROOT),
     url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
 
