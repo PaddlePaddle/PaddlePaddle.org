@@ -93,10 +93,12 @@ def nav_bar(context):
     Build the navigation based on the current language.
     """
     current_lang_code = context.request.LANGUAGE_CODE
-    root_navigation = sitemap_helper.get_sitemap(
+
+    root_navigation = sitemap_helper.get_top_level_navigation(
         portal_helper.get_preferred_version(context.request),
         current_lang_code
     )
+
 
     # TODO[thuan]: This is kinda hacky, need to find better way of removing visualdl docs from PPO
     if 'visualdl' in root_navigation:
