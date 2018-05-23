@@ -17,15 +17,18 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 
 2. Pull PaddlePaddle.org into a new directory and install its dependencies.
+
     ```
     git clone git@github.com:PaddlePaddle/PaddlePaddle.org.git
-    cd portal; pip install -r requirements.txt
+    cd portal
+    pip install -r requirements.txt
     ```
 
 3. Run PaddlePaddle.org locally.
-    Pass the list of directories you wish to load and build content from (options include `-paddle`, `-book`, `-models`, and `-mobile`)
+
+    Pass the list of directories you wish to load and build content from (options include `--paddle`, `--book`, `--models`, and `--mobile`)
     ```
-    ./runserver -paddle <path to paddle dir> -book <path to book dir>
+    ./runserver --paddle <path_to_paddle_dir> --book <path_to_book_dir>
     ```
 
     Open up your browser and navigate to [http://localhost:8000](http://localhost:8000).
@@ -33,20 +36,26 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 ## Writing new content
 
+All repositories support content contribution formatted as [Markdown](https://guides.github.com/features/mastering-markdown/) (the GitHub flavor). The Paddle repo, where majority of the documentation lies, also support the [reStructured Text](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) format.
+
+After you have gone through the installation steps above, here are the steps you need to take:
+
+- Before you start writing, we recommend reviewing these [guidelines on contributing content]().
+- Create a new .md (or .rst, only in the case of Paddle) file OR edit an old article.
+- To view the changes in your browser, click 'Regenerate' on the top-righthand side corner.
+- To add it to a menu or change its position on the menu, open the file `navigation.en.json` (or `navigation.cn.json`) and modify [using this guide](). Click 'Regenerate' to see your changes.
+
+
+## Writing or modifying APIs
 
 
 
 
-```
-
-## Additional Resources
-- To develop on PaddlePaddle.org, please refer to [Development Guide](DEVELOPING.md)
-- Information about how content repositories are structured and consumed: [Content repositories](CONTENT_REPO.md)
 
 
 ## Contributing to improve the tools
 
-We appreciate contribution to various aspects of the platform and supporting content, apart from better presenting these materials. You may fork or clone this repository, or begin asking questions and providing feedback and leave bug reports on Github Issues.
+We appreciate contribution to various aspects of the platform and supporting content, apart from better presenting these materials. You may fork or clone this repository, or begin asking questions and providing feedback and leave bug reports on Github Issues. Please refer to [Development Guide](DEVELOPING.md) on how to get started.
 
 
 ## Copyright and License
