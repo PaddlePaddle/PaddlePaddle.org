@@ -43,14 +43,35 @@ After you have gone through the installation steps above, here are the steps you
 - Before you start writing, we recommend reviewing these [guidelines on contributing content]().
 - Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file.
 - To view the changes in your browser, click **Regenerate** on the top-righthand side corner.
-- To add it to a menu or change its position on the menu, open the file `navigation.en.json` (or `navigation.cn.json`) and modify [using this guide](). Click **Regenerate** to see your changes.
+- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
 
 
+## Writing or modifying the Python API
+
+After you have built your new `pybind` targets, and have tested your new Python API, you can continue with testing how your documentation strings and comments show up:
+
+- We recommend reviewing these [guidelines on contributing API documentation]().
+- On the specific "API" page you wish to update, click **Regenerate** on the top-righthand side corner.
+- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
+
+
+
+<!---
 ## Writing or modifying APIs
 
+There are two kinds of API updates you can make: the Python API for users, and the list of available operators. Before you are ready to test how your documentation strings and comments show, we recommend reviewing these [guidelines on contributing API documentation]().
 
 
+### Python API updates
 
+- On the specific "API" page you wish to update, click **Regenerate** on the top-righthand side corner.
+- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
+
+
+### Operators updates
+
+If you have added or removed operators, or made changes to their "RDOC", after you build your new `pybind` targets, also build the `operators`
+--->
 
 
 ## Contributing to improve the tools
