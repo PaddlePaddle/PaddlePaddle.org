@@ -7,7 +7,7 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 ## Installation
 
-1. Since this repo does not hold the content rendered on website, download / clone ONLY the relevant repos with content and code that you want to update and test (if you don't already have them):
+1. **Since this repo does not hold the content rendered on website, download / clone ONLY the relevant repos with content and code that you want to update and test (if you don't already have them):**
    - [PaddlePaddle](https://github.com/PaddlePaddle/Paddle) (contains all articles AND codebase to render the API documentation)
    - [Book](https://github.com/PaddlePaddle/book) (contains chapter pages)
    - [Models](https://github.com/PaddlePaddle/models) (contains the code to build models for different applications, including a few articles)
@@ -16,7 +16,7 @@ The tutorials here guide you to setup the website locally, so you can see exactl
    You can place these anywhere on the computer; at a later step we will tell PaddlePaddle.org where they are.
 
 
-2. Pull PaddlePaddle.org into a new directory and install its dependencies.
+2. **Pull PaddlePaddle.org into a new directory and install its dependencies.**
 
     ```
     git clone git@github.com:PaddlePaddle/PaddlePaddle.org.git
@@ -24,7 +24,7 @@ The tutorials here guide you to setup the website locally, so you can see exactl
     pip install -r requirements.txt
     ```
 
-3. Run PaddlePaddle.org locally.
+3. **Run PaddlePaddle.org locally.**
 
     Pass the list of directories you wish to load and build content from (options include `--paddle`, `--book`, `--models`, and `--mobile`)
     ```
@@ -41,9 +41,9 @@ All repositories support content contribution formatted as [Markdown](https://gu
 After you have gone through the installation steps above, here are the steps you need to take:
 
 - Before you start writing, we recommend reviewing these [guidelines on contributing content]().
-- Create a new .md (or .rst, only in the case of Paddle) file OR edit an old article.
-- To view the changes in your browser, click 'Regenerate' on the top-righthand side corner.
-- To add it to a menu or change its position on the menu, open the file `navigation.en.json` (or `navigation.cn.json`) and modify [using this guide](). Click 'Regenerate' to see your changes.
+- Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file.
+- To view the changes in your browser, click **Regenerate** on the top-righthand side corner.
+- To add it to a menu or change its position on the menu, open the file `navigation.en.json` (or `navigation.cn.json`) and modify [using this guide](). Click **Regenerate** to see your changes.
 
 
 ## Writing or modifying APIs
