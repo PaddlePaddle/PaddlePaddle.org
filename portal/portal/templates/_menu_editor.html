@@ -1,0 +1,316 @@
+<div id="menu-editor-modal" class="modal fade" tabindex="-1" role="dialog"><!--style="display: block"-->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/" method="post">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit navigation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="menu-editor-wrapper"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<div class="modal-backdrop fade"></div>-->
+
+<script crossorigin src="//unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="//unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="//unpkg.com/react-dnd@2.6.0/dist/ReactDnD.min.js"></script>
+<script src="//unpkg.com/react-dnd-html5-backend@2.6.0/dist/ReactDnDHTML5Backend.min.js"></script>
+<script>
+'use strict';
+
+const e = React.createElement;
+
+var LinkSource = {
+  beginDrag: function (props) {
+    return {
+      sectionId: props.sectionId,
+      sitemap: props.sitemap
+    };
+  }
+}
+
+const LinkTarget = {
+	hover(props, monitor, component) {
+		const drag = props.sitemap[monitor.getItem().sectionId],
+            hover = props.sitemap[props.sectionId];
+
+        if (props.sectionId === drag.parent)
+            return;
+
+        const dragIndex = drag.position
+		const hoverIndex = hover.position
+
+		// Don't replace items with themselves
+		if (monitor.getItem().sectionId === props.sectionId) {
+			return
+		}
+
+		// Determine rectangle on screen
+		const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect()
+
+		// Get vertical middle
+		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+
+		// Determine mouse position
+		const clientOffset = monitor.getClientOffset()
+
+		// Get pixels to the top
+		const hoverClientY = clientOffset.y - hoverBoundingRect.top
+
+		// Only perform the move when the mouse has crossed half of the items height
+		// When dragging downwards, only move when the cursor is below 50%
+		// When dragging upwards, only move when the cursor is above 50%
+
+		// Dragging downwards
+		if (drag.parent === hover.parent && (dragIndex < hoverIndex && hoverClientY < hoverMiddleY)) {
+			return
+		}
+
+		// Dragging upwards
+		if (drag.parent === hover.parent && (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)) {
+			return
+		}
+
+		// Time to actually perform the action
+		props.moveLink(monitor.getItem().sectionId, drag, props.sectionId, hover)
+
+		// Note: we're mutating the monitor item here!
+		// Generally it's better to avoid mutations,
+		// but it's good here for the sake of performance
+		// to avoid expensive index searches.
+		monitor.getItem().sectionId = props.sectionId
+	},
+};
+
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+
+class Link extends React.Component {
+    render(){
+        const {
+			text,
+			isDragging,
+			connectDragSource,
+			connectDropTarget,
+
+            sectionId,
+            moveLink,
+            sitemap
+		} = this.props;
+
+        return connectDragSource(connectDropTarget(e('div', { 'class': 'menu-editor-link' },
+            e('div', { 'class': 'menu-editor-link-title' }, sitemap[sectionId].title.en),
+            e(LinkItems, { moveLink, sectionId, sitemap })
+        )))
+    }
+}
+
+class LinkItems extends React.Component {
+    render(){
+        const { moveLink, parent, sectionId, sitemap } = this.props;
+
+        // Get unique sections.
+        const sections = Object.keys(sitemap).filter(
+            (sId) => sitemap[sId].parent === sectionId).sort((a, b) => {
+                return sitemap[a].position - sitemap[b].position;
+            });
+
+        return sections ? e('div', null, sections.map((si) => (
+            e(Link, { sectionId: si, moveLink, parent, sitemap })
+        ))) : null;
+    }
+}
+
+class Menu extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.flattenSitemap = this.flattenSitemap.bind(this);
+        this.unflattenSitemap = this.unflattenSitemap.bind(this);
+
+        this.state = { sitemap: this.flattenSitemap({
+           "title":{
+              "en":"Documentation"
+           },
+           "sections":[
+              {
+                 "title":{
+                    "en":"Getting Started"
+                 },
+                 "sections":[
+                    {
+                       "title":{
+                          "en":"Introduction"
+                       },
+                       "link":{
+                          "en":"getstarted/quickstart_en.rst"
+                       }
+                    },
+                    {
+                       "title":{
+                          "en":"Quick Start"
+                       },
+                       "link":{
+                          "en":"getstarted/overview_en.rst"
+                       }
+                    },
+                    {
+                       "title":{
+                          "en":"Build and Installation"
+                       },
+                       "link":{
+                          "en":"getstarted/running_a_program_en.rst"
+                       }
+                    },
+                    {
+                       "title":{
+                          "en":"Contribute Code"
+                       },
+                       "link":{
+                          "en":"concepts/index_en.rst"
+                       }
+                    }
+                 ]
+              },
+              {
+                 "title":{
+                    "en":"Algorithm Tutorial"
+                 },
+                 "sections":[
+                    {
+                       "title":{
+                          "en":"RNN Configuration"
+                       },
+                       "link":{
+                          "en":"build_and_install/pip_install_en.rst"
+                       }
+                    }
+                 ]
+              }
+           ]
+        }) }
+
+        this.moveLink = this.moveLink.bind(this);
+    }
+
+    uuid(){
+        /*jshint bitwise:false */
+        var i, random;
+        var uuid = '';
+
+        for (i = 0; i < 32; i++) {
+            random = Math.random() * 16 | 0;
+            if (i === 8 || i === 12 || i === 16 || i === 20) {
+                uuid += '-';
+            }
+            uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+        }
+
+        return uuid;
+    }
+
+    flattenSitemap(sitemap){
+        var flatSitemap = {}, view = this, sectionId;
+        sitemap.sections.forEach((section, index) => {
+            sectionId = view.uuid();
+            flatSitemap[sectionId] = {
+                title: section.title,
+                parent: -1,
+                position: index
+            }
+
+            section.sections.forEach((sec, i) => {
+                flatSitemap[view.uuid()] = {
+                    title: sec.title,
+                    parent: sectionId,
+                    position: i
+                }
+            });
+        });
+
+        return flatSitemap;
+    }
+
+    unflattenSitemap(event){
+        const { sitemap } = this.state;
+        let unflattenedSitemap = { sections: []}, sections;
+
+        var topLevelSections = Object.keys(sitemap).filter(
+            (sId) => sitemap[sId].parent === -1).sort((a, b) => {
+                return sitemap[a].position - sitemap[b].position;
+            });
+
+        unflattenedSitemap.sections = topLevelSections.map((sectionId) => {
+            sections = Object.keys(sitemap).filter(
+                (sId) => sitemap[sId].parent === sectionId).map(
+                    (sId) => { return { title: sitemap[sId].title } });
+
+            return { title: sitemap[sectionId].title, sections };
+        });
+
+        event.preventDefault();
+
+        return unflattenedSitemap;
+    }
+
+    moveLink(dragSectionId, drag, hoverSectionId, hover){
+        if (drag.parent === hover.parent){
+            var dragPosition = drag.position;
+
+            this.setState({ sitemap: Object.assign(this.state.sitemap, {
+                [dragSectionId]: Object.assign(drag, { position: hover.position }),
+                [hoverSectionId]: Object.assign(hover, { position: dragPosition })
+            }) });
+        }
+    }
+
+	render() {
+        const { sitemap } = this.state;
+
+        // Get unique sections.
+        const sections = sitemap ? Object.keys(sitemap).filter(
+            (sId) => sitemap[sId].parent === -1).sort((a, b) => {
+                return sitemap[a].position - sitemap[b].position;
+            }) : null;
+
+		return (
+			e('div', {id: 'menu-editor'}, [
+                e('div', { 'class': 'modal-body' }, [
+                    sitemap ? e('div', {class:'menu-editor-links'}, sections.map((sectionId) => (
+                        e(Link, { sectionId, moveLink: this.moveLink, parent: -1, sitemap })
+                    ))) : null,
+                    e('div', { 'class': 'text-right' }, [
+                        e('button', { 'class': 'btn btn-outline-secondary', 'type': 'button' }, '+ Add section'),
+                        e('button', { 'class': 'btn btn-outline-primary', 'type': 'button' }, '+ Add link')
+                    ])
+                ]),
+                e('div', { 'class': 'modal-footer' }, [
+                    e('button', { 'class': 'btn btn-secondary', 'type': 'button', 'data-dismiss': 'modal' }, 'Cancel'),
+                    e('button', { 'class': 'btn btn-primary', onClick: this.unflattenSitemap }, 'Save')
+                ])
+			])
+		);
+	}
+}
+
+Menu = ReactDnD.DragDropContext(ReactDnDHTML5Backend)(Menu);
+
+Link = ReactDnD.DragSource('LINK', LinkSource, collect)(Link);
+Link = ReactDnD.DropTarget('LINK', LinkTarget, connect => ({
+	connectDropTarget: connect.dropTarget(),
+}))(Link);
+
+
+ReactDOM.render(e(Menu), document.getElementById('menu-editor-wrapper'));
+</script>

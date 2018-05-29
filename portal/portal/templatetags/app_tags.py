@@ -126,7 +126,8 @@ def content_links(context, content_id):
     current_lang_code = context.request.LANGUAGE_CODE
     docs_version = context.get('CURRENT_DOCS_VERSION', None)
 
-    side_nav_content, category = sitemap_helper.get_content_navigation(
+    #side_nav_content, category = sitemap_helper.get_content_navigation(
+    side_nav_content = sitemap_helper.get_content_navigation(
         context.request,
         content_id,
         docs_version,
@@ -135,7 +136,7 @@ def content_links(context, content_id):
 
     return _common_context(context, {
         'side_nav_content': side_nav_content,
-        'category': category,
+        # 'category': category,
         'allow_search': context.get('allow_search', False),
         'allow_version': context.get('allow_version', False),
         'search_url': context.get('search_url', None)
