@@ -64,6 +64,13 @@ urlpatterns = [
     # CONTENT URLS
     # ---------------
     url(r'^documentation$', views.documentation_home, name='documentation'),
+    # url(r'^api$', views.api_home, name='api'),
+    url(r'^book$', views.book_home, name='book'),
+    # url(r'^models$', views.models_home, name='models'),
+    # url(r'^mobile$', views.mobile_home, name='mobile'),
+
+    url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
+
     url(r'^docs/(?P<version>[^/]+)/(?P<path>[^./]+)/?$', views.content_root_path, name=url_helper.URL_NAME_CONTENT_ROOT),
     url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
 

@@ -59,14 +59,14 @@ def get_sitemap(version, language, content_id):
     sitemap_cache = cache.get(cache_key, None)
 
     if not sitemap_cache:
-        sitemap_cache = _load_sitemap_from_file(version, language, content_id)
+        sitemap_cache, sitemap_dir  = _load_sitemap_from_file(version, language, content_id)
 
         if sitemap_cache:
             cache.set(cache_key, sitemap_cache)
         else:
             raise Exception('Cannot generate sitemap for version %s' % version)
 
-    return sitemap_cache
+    return sitemap_cache, sitemap_dir
 
 
 def _load_sitemap_from_file(version, language, content_id):
@@ -75,7 +75,8 @@ def _load_sitemap_from_file(version, language, content_id):
     """
     sitemap = None
 
-    sitemap_filename = ('sitemap.%s.json' % language)
+    #sitemap_filename = ('sitemap.%s.json' % language)
+    sitemap_filename = ('sitemap.json')
     sitemap_path = _get_sitemap_path(sitemap_filename, content_id)
 
     if not sitemap_path:
@@ -86,17 +87,19 @@ def _load_sitemap_from_file(version, language, content_id):
         try:
             with open(sitemap_path) as json_data:
                 print 'Loading sitemap from %s' % sitemap_path
-                sitemap = json.loads(json_data.read(), object_pairs_hook=collections.OrderedDict)
-                cache.set(get_all_links_cache_key(version, language), sitemap['all_links_cache'], None)
+                sitemap = json.loads(json_data.read())
+
+                # sitemap = json.loads(json_data.read(), object_pairs_hook=collections.OrderedDict)
+                # cache.set(get_all_links_cache_key(version, language), sitemap['all_links_cache'], None)
 
         except Exception as e:
             print 'Cannot load sitemap from file %s: %s' % (sitemap_path, e.message)
 
-    if not sitemap:
-        # We couldn't load sitemap.<version>.json file, lets generate it
-        sitemap = generate_sitemap(version, language)
+    # if not sitemap:
+    #     # We couldn't load sitemap.<version>.json file, lets generate it
+    #     sitemap = generate_sitemap(version, language)
 
-    return sitemap
+    return sitemap, sitemap_path
 
 
 def generate_sitemap(version, language):
@@ -263,21 +266,24 @@ def get_content_navigation(request, content_id, version, language):
     from portal import portal_helper
 
     category_data = None
-    root_nav = get_sitemap(version, language)
-    book = root_nav.get(content_id, None)
-    if book:
-        category = book['default-category']
+    navigation, sitemap_dir = get_sitemap(version, language, content_id)
+    # book = root_nav.get(content_id, None)
 
-        if content_id == portal_helper.Content.DOCUMENTATION or \
-                        content_id == portal_helper.Content.API:
-            # For Documentation or API, we also filter by category
-            api_category = portal_helper.get_preferred_api_version(request)
-            if api_category:
-                category = api_category
+    return navigation
 
-        category_data = book['categories'][category]
-
-    return category_data, category
+    # if book:
+    #     category = book['default-category']
+    #
+    #     if content_id == portal_helper.Content.DOCUMENTATION or \
+    #                     content_id == portal_helper.Content.API:
+    #         # For Documentation or API, we also filter by category
+    #         api_category = portal_helper.get_preferred_api_version(request)
+    #         if api_category:
+    #             category = api_category
+    #
+    #     category_data = book['categories'][category]
+    #
+    # return category_data, category
 
 def get_all_navigation(request, version, language):
     """
@@ -348,7 +354,9 @@ def get_available_versions(content_id=None):
     versioned `docs` dir, and return a list of the first-level of subdirectories.
     """
     versions = None
-    path = '%s/docs' % settings.EXTERNAL_TEMPLATE_DIR
+    #path = '%s/docs' % settings.EXTERNAL_TEMPLATE_DIR
+    path = os.path.join(settings.WORKSPACE_DIR, content_id)
+
     for root, dirs, files in os.walk(path):
         if root == path:
             versions = dirs
@@ -362,12 +370,12 @@ def get_available_versions(content_id=None):
 
     if versions:
         for version in versions:
-            if content_id:
-                folder_path = '%s/%s/%s' % (path, version, content_id)
-                if not os.path.isdir(folder_path):
-                    # If content_id folder does not exists in versioned directory,
-                    # then don't add it to list of available versions
-                    continue
+            # if content_id:
+            #     folder_path = '%s/%s/%s' % (path, version, content_id)
+            #     if not os.path.isdir(folder_path):
+            #         # If content_id folder does not exists in versioned directory,
+            #         # then don't add it to list of available versions
+            #         continue
 
             normalized_version = version.split('.')
             if len(normalized_version) > 1:
@@ -400,7 +408,8 @@ def get_all_links_cache_key(version, lang):
 
 
 def get_external_file_path(sub_path):
-    return '%s/%s' % (settings.EXTERNAL_TEMPLATE_DIR, sub_path)
+    #return '%s/%s' % (settings.EXTERNAL_TEMPLATE_DIR, sub_path)
+    return os.path.join(settings.WORKSPACE_DIR, sub_path)
 
 
 def remove_all_resolved_sitemaps():

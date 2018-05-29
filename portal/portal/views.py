@@ -17,6 +17,7 @@ import os
 import posixpath
 import urllib
 from urlparse import urlparse
+from subprocess import call
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -173,51 +174,84 @@ def _redirect_first_link_in_contents(request, version, content_id, category=None
     navigation.
     """
     lang = portal_helper.get_preferred_language(request)
-    root_navigation = sitemap_helper.get_sitemap(version, lang, content_id)
+    navigation, sitemap_dir = sitemap_helper.get_sitemap(version, lang, content_id)
 
     try:
         # Get the first section link from the content.
-        content = root_navigation[content_id]
-        path = _get_first_link_in_contents(content, lang, category)
+        # content = root_navigation[content_id]
+
+        content_path = _get_content_prefix(
+            navigation, sitemap_dir, content_id, lang, version)
+        path = _get_first_link_in_contents(navigation, lang)
 
         if not path:
             msg = 'Cannot perform reverse lookup on link: %s' % path
             raise Exception(msg)
 
-        return redirect(path)
+        # TODO: Needs to be replaced with a reverse like in url_helper.append_prefix_to_path.
+
+        path = os.path.splitext(urlparse(path).path)[0] + '.html'
+        return redirect('%s/%s' % (content_path, path))
 
     except Exception as e:
         print e.message
         return redirect('/')
 
 
-def _get_first_link_in_contents(book, lang, category):
+def _get_content_prefix(navigation, sitemap_dir, content_id, lang, version):
+    # Try to seek whether this content has been generated yet.
+    workspace_path = os.path.join(settings.BASE_DIR, settings.WORKSPACE_DIR)
+
+    if not os.path.exists(workspace_path):
+        os.makedirs(workspace_path)
+
+    # If it hasn't, try generating it.
+    content_prefix = '%s/%s/%s' % (content_id, lang, version)
+    content_path = '%s/%s' % (workspace_path, content_prefix)
+    if not os.path.exists(content_path):
+        # Generate the directory.
+        os.makedirs(content_path)
+
+        # Regenerate its contents.
+        if content_id == 'documentation':
+            call(['sphinx-build', '-b', 'html', '-c',
+                settings.SPHINX_CONFIG_DIR, os.path.dirname(sitemap_dir),
+                content_path])
+
+        # transform('%s/%s' % (settings.CONTENT_DIR, folder_name),
+        #           None,
+        #           settings.DEFAULT_DOCS_VERSION,
+        #           options)
+    return content_prefix
+
+
+def _get_first_link_in_contents(navigation, lang):
     """
     Given a content's sitemap, and a language choice, get the first available link.
     """
-    if not category:
-        category = 'default'
+    # if not category:
+    #     category = 'default'
 
-    if book and 'categories' in book and category in book['categories']:
-        content = book['categories'][category]
+    # if navigation and 'categories' in navigation and category in navigation['categories']:
+    #     navigation = navigation['categories'][category]
 
-        # If there are sections in the root of the sitemap.
-        first_chapter = None
-        if content and 'sections' in content and len(content['sections']) > 0:
-            first_chapter = content['sections'][0]
+    # If there are sections in the root of the sitemap.
+    first_chapter = None
+    if navigation and 'sections' in navigation and len(navigation['sections']) > 0:
+        first_chapter = navigation['sections'][0]
 
-        # If there is a known root "section" with links.
-        if first_chapter and 'link' in first_chapter:
-            return first_chapter['link'][lang]
+    # If there is a known root "section" with links.
+    if first_chapter and 'link' in first_chapter:
+        return first_chapter['link'][lang]
 
-        # Or if there is a known root section with subsections with links.
-        elif first_chapter and ('sections' in first_chapter) and len(first_chapter['sections']) > 0:
-            first_section = first_chapter['sections'][0]
-            return first_section['link'][lang]
+    # Or if there is a known root section with subsections with links.
+    elif first_chapter and ('sections' in first_chapter) and len(first_chapter['sections']) > 0:
+        first_section = first_chapter['sections'][0]
+        return first_section['link'][lang]
 
-        # Last option is to attempt to see if there is only one link on the title level.
-        elif 'link' in content:
-            return content['link'][lang]
+    # Last option is to attempt to see if there is only one link on the title level.
+    elif 'link' in navigation:
+        return navigation['link'][lang]
 
 
 
@@ -252,16 +286,16 @@ def static_file_handler(request, path, extension, insecure=False, **kwargs):
     return static.serve(request, path, document_root=document_root, **kwargs)
 
 
-def _render_static_content(request, version, content_id, additional_context=None):
+def _render_static_content(request, path, content_id, additional_context=None):
     """
     This is the primary function that renders all static content (.html) pages.
     It builds the context and passes it to the only documentation template rendering template.
     """
-    isRaw = request.GET.get('raw', None)
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
-    static_content = _get_static_content_from_template(static_content_path)
+    is_raw = request.GET.get('raw', None)
+    #static_content_path = sitemap_helper.get_external_file_path(path)
+    static_content = _get_static_content_from_template(path)
 
-    if isRaw and isRaw == '1':
+    if is_raw and is_raw == '1':
         response = HttpResponse(static_content, content_type="text/html")
         return response
     else:
@@ -360,7 +394,7 @@ def blog_sub_path(request, path):
     })
 
 
-def content_sub_path(request, version, path=None):
+def content_sub_path(request, path=None):
     content_id = ''
     additional_context = {}
 
@@ -399,11 +433,10 @@ def content_sub_path(request, version, path=None):
 
         additional_context = {'allow_search': True, 'allow_version': True, 'search_url': search_url}
 
+    return _render_static_content(request, path, content_id, additional_context)
 
-    return _render_static_content(request, version, content_id, additional_context)
 
-
-def content_root_path(request, version, path):
+def content_root_path(request, path):
     content_id = ''
     path = path + '/'
 
@@ -435,7 +468,7 @@ def other_path(request, version, path=None):
         # Else, fetch the page, and run through a generic stripper.
         fetch_and_transform(url_helper.GITHUB_ROOT + '/' + os.path.splitext(path)[0] + '.md', version)
 
-    return _render_static_content(request, version, Content.OTHER)
+    return _render_static_content(request, path, version, Content.OTHER)
 
 
 def flush_other_page(request, version):

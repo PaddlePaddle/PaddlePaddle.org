@@ -160,9 +160,11 @@ ROOT_URLCONF = 'portal.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
 #CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
 
-WORKSPACE_DIR = 'static'
+SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
+
+WORKSPACE_DIR = 'pages'
 GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
-EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
+#EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR
 
 OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
@@ -170,7 +172,7 @@ OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, EXTERNAL_TEMPLATE_DIR],
+        'DIRS': [TEMPLATE_DIR, os.path.join(BASE_DIR, WORKSPACE_DIR)],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
