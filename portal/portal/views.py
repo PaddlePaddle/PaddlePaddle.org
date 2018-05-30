@@ -18,6 +18,7 @@ import posixpath
 import urllib
 from urlparse import urlparse
 from subprocess import call
+import json
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -198,7 +199,33 @@ def _redirect_first_link_in_contents(request, version, content_id, category=None
         return redirect('/')
 
 
-def _get_content_prefix(navigation, sitemap_dir, content_id, lang, version):
+def _get_links_in_sections(sections):
+    links = []
+
+    for section in sections:
+        if 'link' in section:
+            for lang, lang_link in section['link'].items():
+                links.append('  ' + lang_link)
+
+        if 'sections' in section:
+            links += _get_links_in_sections(section['sections'])
+
+    return links
+
+
+def _build_sphinx_index_from_sitemap(sitemap_path):
+    links = ['..  toctree::', '  :maxdepth: 1', '']
+
+    # Generate an index.rst based on the sitemap.
+    with open(sitemap_path, 'r') as sitemap_file:
+        sitemap = json.loads(sitemap_file.read())
+        links += _get_links_in_sections(sitemap['sections'])
+
+    with open(os.path.dirname(sitemap_path) + '/index_en.rst', 'w') as index_file:
+        index_file.write('\n'.join(links))
+
+
+def _get_content_prefix(navigation, sitemap_path, content_id, lang, version):
     # Try to seek whether this content has been generated yet.
     workspace_path = os.path.join(settings.BASE_DIR, settings.WORKSPACE_DIR)
 
@@ -212,10 +239,12 @@ def _get_content_prefix(navigation, sitemap_dir, content_id, lang, version):
         # Generate the directory.
         os.makedirs(content_path)
 
+        _build_sphinx_index_from_sitemap(sitemap_path)
+
         # Regenerate its contents.
-        if content_id == 'documentation':
+        if content_id in ['documentation', 'api']:
             call(['sphinx-build', '-b', 'html', '-c',
-                settings.SPHINX_CONFIG_DIR, os.path.dirname(sitemap_dir),
+                settings.SPHINX_CONFIG_DIR, os.path.dirname(sitemap_path),
                 content_path])
 
         # transform('%s/%s' % (settings.CONTENT_DIR, folder_name),
@@ -366,9 +395,17 @@ def about_cn(request):
     return render(request, 'about_cn.html')
 
 
-def documentation_home(request):
+def content_home(request):
+    path = request.path[1:]
+
+    if '/' in path:
+        path = path[0, path.index('/')]
+
+    if '?' in path:
+        path = path[0, path.index('?')]
+
     return _redirect_first_link_in_contents(
-        request, portal_helper.get_preferred_version(request), 'documentation')
+        request, portal_helper.get_preferred_version(request), path)
 
 
 def download_latest_doc_workspace(request):

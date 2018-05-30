@@ -63,11 +63,11 @@ urlpatterns = [
     # ---------------
     # CONTENT URLS
     # ---------------
-    url(r'^documentation$', views.documentation_home, name='documentation'),
-    # url(r'^api$', views.api_home, name='api'),
-    url(r'^book$', views.book_home, name='book'),
-    # url(r'^models$', views.models_home, name='models'),
-    # url(r'^mobile$', views.mobile_home, name='mobile'),
+    url(r'^documentation$', views.content_home, name='documentation'),
+    url(r'^api$', views.content_home, name='api'),
+    url(r'^book$', views.content_home, name='book'),
+    url(r'^models$', views.content_home, name='models'),
+    url(r'^mobile$', views.content_home, name='mobile'),
 
     url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
 

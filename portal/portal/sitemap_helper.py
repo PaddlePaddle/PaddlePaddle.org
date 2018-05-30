@@ -37,8 +37,9 @@ def _find_sitemap_in_repo(path, filename):
 
     matches = []
     for root, dirnames, filenames in os.walk(path):
-        for filename in fnmatch.filter(filenames, filename):
-            return os.path.join(root, filename)
+        for filename in fnmatch.filter(map(
+            lambda x: root + '/' + x, filenames), '*' + filename):
+            return filename
 
     return None
 
@@ -340,6 +341,9 @@ def _get_sitemap_path(sitemap_filename, content_id):
     if os.path.exists(repo_path['dir']):
         # os.makedirs(settings.RESOLVED_SITEMAP_DIR)
         # os.chmod(settings.RESOLVED_SITEMAP_DIR, 0775)
+        if content_id == 'api':
+            sitemap_filename = 'api/' + sitemap_filename
+
         return _find_sitemap_in_repo(repo_path['dir'], sitemap_filename)
 
     raise Exception('Cannot find the directory for %s: %s' % (
