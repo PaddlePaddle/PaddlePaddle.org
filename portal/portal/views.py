@@ -17,8 +17,6 @@ import os
 import posixpath
 import urllib
 from urlparse import urlparse
-from subprocess import call
-import json
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -175,15 +173,26 @@ def _redirect_first_link_in_contents(request, version, content_id, category=None
     navigation.
     """
     lang = portal_helper.get_preferred_language(request)
-    navigation, sitemap_dir = sitemap_helper.get_sitemap(version, lang, content_id)
+
+    # These are the repos without menus.
+    if content_id in ['models', 'mobile']:
+        navigation = None
+        path = 'README.html'
+        sitemap_dir = sitemap_helper._get_sitemap_path('', content_id)
+
+    else:
+        navigation, sitemap_dir = sitemap_helper.get_sitemap(
+            version, lang, content_id)
 
     try:
         # Get the first section link from the content.
         # content = root_navigation[content_id]
 
         content_path = _get_content_prefix(
-            navigation, sitemap_dir, content_id, lang, version)
-        path = _get_first_link_in_contents(navigation, lang)
+            sitemap_dir, content_id, lang, version)
+
+        if navigation:
+            path = _get_first_link_in_contents(navigation, lang)
 
         if not path:
             msg = 'Cannot perform reverse lookup on link: %s' % path
@@ -191,66 +200,32 @@ def _redirect_first_link_in_contents(request, version, content_id, category=None
 
         # TODO: Needs to be replaced with a reverse like in url_helper.append_prefix_to_path.
 
-        path = os.path.splitext(urlparse(path).path)[0] + '.html'
-        return redirect('%s/%s' % (content_path, path))
+        # path = os.path.splitext(urlparse(path).path)[0] + '.html'
+        # return redirect('%s/%s' % (content_path, path))
+        return redirect(url_helper.get_html_page_path(content_path, path))
 
     except Exception as e:
         print e.message
         return redirect('/')
 
 
-def _get_links_in_sections(sections):
-    links = []
-
-    for section in sections:
-        if 'link' in section:
-            for lang, lang_link in section['link'].items():
-                links.append('  ' + lang_link)
-
-        if 'sections' in section:
-            links += _get_links_in_sections(section['sections'])
-
-    return links
-
-
-def _build_sphinx_index_from_sitemap(sitemap_path):
-    links = ['..  toctree::', '  :maxdepth: 1', '']
-
-    # Generate an index.rst based on the sitemap.
-    with open(sitemap_path, 'r') as sitemap_file:
-        sitemap = json.loads(sitemap_file.read())
-        links += _get_links_in_sections(sitemap['sections'])
-
-    with open(os.path.dirname(sitemap_path) + '/index_en.rst', 'w') as index_file:
-        index_file.write('\n'.join(links))
-
-
-def _get_content_prefix(navigation, sitemap_path, content_id, lang, version):
+def _get_content_prefix(menu_path, content_id, lang, version):
     # Try to seek whether this content has been generated yet.
     workspace_path = os.path.join(settings.BASE_DIR, settings.WORKSPACE_DIR)
 
     if not os.path.exists(workspace_path):
         os.makedirs(workspace_path)
 
-    # If it hasn't, try generating it.
-    content_prefix = '%s/%s/%s' % (content_id, lang, version)
+    content_prefix = url_helper.get_page_url_prefix(content_id, lang, version)
     content_path = '%s/%s' % (workspace_path, content_prefix)
+
+    # If it hasn't, try generating it.
     if not os.path.exists(content_path):
         # Generate the directory.
         os.makedirs(content_path)
 
-        _build_sphinx_index_from_sitemap(sitemap_path)
+        transform(content_id, os.path.dirname(menu_path), content_path)
 
-        # Regenerate its contents.
-        if content_id in ['documentation', 'api']:
-            call(['sphinx-build', '-b', 'html', '-c',
-                settings.SPHINX_CONFIG_DIR, os.path.dirname(sitemap_path),
-                content_path])
-
-        # transform('%s/%s' % (settings.CONTENT_DIR, folder_name),
-        #           None,
-        #           settings.DEFAULT_DOCS_VERSION,
-        #           options)
     return content_prefix
 
 
@@ -286,8 +261,8 @@ def _get_first_link_in_contents(navigation, lang):
 
 def static_file_handler(request, path, extension, insecure=False, **kwargs):
     """
-    Note: This is static handler is only used during development.  In production, the Docker image uses NGINX to serve
-    static content.
+    Note: This is static handler is only used during development.
+    In production, the Docker image uses NGINX to serve static content.
 
     Serve static files below a given point in the directory structure or
     from locations inferred from the staticfiles finders.
@@ -304,7 +279,7 @@ def static_file_handler(request, path, extension, insecure=False, **kwargs):
 
     normalized_path = posixpath.normpath(unquote(path)).lstrip('/')
 
-    absolute_path = settings.EXTERNAL_TEMPLATE_DIR + '/' + append_path + normalized_path + '.' + extension
+    absolute_path = settings.WORKSPACE_DIR + '/' + append_path + normalized_path + '.' + extension
     if not absolute_path:
         if path.endswith('/') or path == '':
             raise Http404('Directory indexes are not allowed here.')

@@ -71,3 +71,12 @@ def link_cache_key(path):
     key = key.replace('/zh/', '/')
 
     return key
+
+
+def get_html_page_path(prefix, path):
+    transformed_path = os.path.splitext(urlparse(path).path)[0] + '.html'
+    return '/%s/%s' % (prefix, transformed_path)
+
+
+def get_page_url_prefix(content_id, lang, version):
+    return '%s/%s/%s' % (content_id, lang, version)

@@ -3,6 +3,8 @@ import tempfile
 import requests
 import traceback
 from urlparse import urlparse
+import json
+from subprocess import call
 
 from django.conf import settings
 
@@ -12,95 +14,161 @@ from portal import sitemap_helper
 from portal.portal_helper import Content
 from portal import portal_helper
 
-def transform(original_documentation_dir, generated_docs_dir, version, options=None):
-    """
-    Given a raw repo directory contents, perform the following steps (conditional to the repo):
-    - Generate the output HTML contents from its source content generator engine.
-    - Strip their contents from the static files and header, footers, that cause inconsistencies.
-    - Generate individual sitemaps.
-    """
-    try:
-        print 'Processing docs at %s to %s for version %s' % (original_documentation_dir, generated_docs_dir, version)
-        if not os.path.exists(os.path.dirname(original_documentation_dir)):
-            print 'Cannot strip documentation, source_dir=%s does not exists' % original_documentation_dir
-            return
 
-        if original_documentation_dir:
-            original_documentation_dir = original_documentation_dir.rstrip('/')
+def _get_links_in_sections(sections):
+    links = []
 
-        dir_path = os.path.dirname(original_documentation_dir)
-        path_base_name = os.path.basename(original_documentation_dir)
+    for section in sections:
+        if 'link' in section:
+            for lang, lang_link in section['link'].items():
+                links.append('  ' + lang_link)
 
-        # Remove the heading 'v', left in for purely user-facing convenience.
-        if version[0] == 'v':
-            version = version[1:]
+        if 'sections' in section:
+            links += _get_links_in_sections(section['sections'])
 
-        # If this seems like a request to build/transform the core Paddle docs.
-        content_id = portal_helper.FOLDER_MAP_TO_CONTENT_ID.get(path_base_name, None)
-        if content_id == Content.DOCUMENTATION:
-            strip.remove_old_dir(version, Content.DOCUMENTATION)
-            strip.remove_old_dir(version, Content.API)
+    return links
 
-            # Generate Paddle fluid Documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid,
-                     sitemap_generator.paddle_sphinx_fluid_sitemap, None, options)
 
-            # Generate Paddle v2v1 Documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1,
-                     sitemap_generator.paddle_sphinx_v2v1_sitemap, None, options)
+def _build_sphinx_index_from_sitemap(sitemap_path):
+    links = ['..  toctree::', '  :maxdepth: 1', '']
 
-            # Process fluid API documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid_api,
-                     sitemap_generator.paddle_api_sphinx_fluid_sitemap, None, options)
+    # Generate an index.rst based on the sitemap.
+    with open(sitemap_path, 'r') as sitemap_file:
+        sitemap = json.loads(sitemap_file.read())
+        links += _get_links_in_sections(sitemap['sections'])
 
-            # Process V2V1 API documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1_api,
-                     sitemap_generator.paddle_api_sphinx_v2v1_sitemap, None, options)
+    with open(os.path.dirname(sitemap_path) + '/index_en.rst', 'w') as index_file:
+        index_file.write('\n'.join(links))
 
-            # Process paddle mobile documentation
-            _execute(original_documentation_dir, generated_docs_dir, version, 'mobile',
-                     documentation_generator.generate_paddle_docs, strip.sphinx_paddle_mobile_docs,
-                     None, None, options)
 
-        # Or if this seems like a request to build/transform the book.
-        elif content_id == Content.BOOK:
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_book_docs, strip.default,
-                     sitemap_generator.book_sitemap, None, options)
+def transform(content_id, source_dir, destination_dir):
+    # try:
+    print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
-        # Or if this seems like a request to build/transform the models.
-        elif content_id == Content.MODELS:
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_models_docs, strip.default,
-                     sitemap_generator.models_sitemap, None, options)
+    menu_path = source_dir + '/menu.json'
 
-        elif content_id == Content.MOBILE:
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_mobile_docs, strip.default,
-                     sitemap_generator.mobile_sitemap, None, options)
+    # Regenerate its contents.
+    if content_id in ['documentation', 'api']:
+        _build_sphinx_index_from_sitemap(menu_path)
 
-        elif content_id == Content.BLOG:
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_blog_docs, strip.default,
-                     None, None, options)
+        import shutil
 
-        elif content_id == Content.VISUALDL:
-            strip.remove_old_dir(version, content_id)
+        sphinx_output_dir = tempfile.mkdtemp()
 
-            _execute(original_documentation_dir, generated_docs_dir, version, content_id,
-                     documentation_generator.generate_visualdl_docs, strip.sphinx,
-                     sitemap_generator.visualdl_sphinx_sitemap, None, options)
+        call(['sphinx-build', '-b', 'html', '-c',
+            settings.SPHINX_CONFIG_DIR, source_dir, sphinx_output_dir])
 
-        else:
-            raise Exception('Unsupported content.')
+        strip.sphinx(source_dir, sphinx_output_dir, destination_dir)
 
-    except Exception as e:
-        print 'Unable to process documentation: %s' % e
-        traceback.print_exc(original_documentation_dir)
+        shutil.rmtree(sphinx_output_dir)
+
+    elif content_id == 'book':
+        documentation_generator.generate_book_docs(source_dir, destination_dir)
+
+    elif content_id == 'models':
+        documentation_generator.generate_models_docs(
+            source_dir, destination_dir)
+
+
+    # except Exception as e:
+    #     print 'Unable to process documentation: %s' % e
+    #     traceback.print_exc(original_documentation_dir)
+
+
+
+
+
+
+
+# def transformer(original_documentation_dir, generated_docs_dir, version, options=None):
+#     """
+#     Given a raw repo directory contents, perform the following steps (conditional to the repo):
+#     - Generate the output HTML contents from its source content generator engine.
+#     - Strip their contents from the static files and header, footers, that cause inconsistencies.
+#     - Generate individual sitemaps.
+#     """
+#     try:
+#         print 'Processing docs at %s to %s for version %s' % (original_documentation_dir, generated_docs_dir, version)
+#         if not os.path.exists(os.path.dirname(original_documentation_dir)):
+#             print 'Cannot strip documentation, source_dir=%s does not exists' % original_documentation_dir
+#             return
+#
+#         if original_documentation_dir:
+#             original_documentation_dir = original_documentation_dir.rstrip('/')
+#
+#         dir_path = os.path.dirname(original_documentation_dir)
+#         path_base_name = os.path.basename(original_documentation_dir)
+#
+#         # Remove the heading 'v', left in for purely user-facing convenience.
+#         if version[0] == 'v':
+#             version = version[1:]
+#
+#         # If this seems like a request to build/transform the core Paddle docs.
+#         content_id = portal_helper.FOLDER_MAP_TO_CONTENT_ID.get(path_base_name, None)
+#         if content_id == Content.DOCUMENTATION:
+#             strip.remove_old_dir(version, Content.DOCUMENTATION)
+#             strip.remove_old_dir(version, Content.API)
+#
+#             # Generate Paddle fluid Documentation
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid,
+#                      sitemap_generator.paddle_sphinx_fluid_sitemap, None, options)
+#
+#             # Generate Paddle v2v1 Documentation
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1,
+#                      sitemap_generator.paddle_sphinx_v2v1_sitemap, None, options)
+#
+#             # Process fluid API documentation
+#             _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
+#                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_fluid_api,
+#                      sitemap_generator.paddle_api_sphinx_fluid_sitemap, None, options)
+#
+#             # Process V2V1 API documentation
+#             _execute(original_documentation_dir, generated_docs_dir, version, Content.API,
+#                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_v2v1_api,
+#                      sitemap_generator.paddle_api_sphinx_v2v1_sitemap, None, options)
+#
+#             # Process paddle mobile documentation
+#             _execute(original_documentation_dir, generated_docs_dir, version, 'mobile',
+#                      documentation_generator.generate_paddle_docs, strip.sphinx_paddle_mobile_docs,
+#                      None, None, options)
+#
+#         # Or if this seems like a request to build/transform the book.
+#         elif content_id == Content.BOOK:
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_book_docs, strip.default,
+#                      sitemap_generator.book_sitemap, None, options)
+#
+#         # Or if this seems like a request to build/transform the models.
+#         elif content_id == Content.MODELS:
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_models_docs, strip.default,
+#                      sitemap_generator.models_sitemap, None, options)
+#
+#         elif content_id == Content.MOBILE:
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_mobile_docs, strip.default,
+#                      sitemap_generator.mobile_sitemap, None, options)
+#
+#         elif content_id == Content.BLOG:
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_blog_docs, strip.default,
+#                      None, None, options)
+#
+#         elif content_id == Content.VISUALDL:
+#             strip.remove_old_dir(version, content_id)
+#
+#             _execute(original_documentation_dir, generated_docs_dir, version, content_id,
+#                      documentation_generator.generate_visualdl_docs, strip.sphinx,
+#                      sitemap_generator.visualdl_sphinx_sitemap, None, options)
+#
+#         else:
+#             raise Exception('Unsupported content.')
+#
+#     except Exception as e:
+#         print 'Unable to process documentation: %s' % e
+#         traceback.print_exc(original_documentation_dir)
 
 
 def _execute(original_documentation_dir, generated_docs_dir, version, output_dir_name, doc_generator,
