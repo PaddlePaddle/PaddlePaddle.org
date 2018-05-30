@@ -19,7 +19,7 @@
                 </div>
 
                 <button id="banner_quick_start" class="btn selected col-lg-3">{% trans "Get Started"%}</button>
-                
+
                 <button id="banner_learn_more" class="btn col-lg-3" href="/about_{% if LANGUAGE_CODE != 'zh' %}en{% else %}cn{% endif %}.html" type="text/html" >{% trans "Learn more"%}</button>
 
             </div>
@@ -669,7 +669,7 @@ infer(save_dirname)</code>
 
         // Update video link
         $('#vid-link').attr("href", videoLinks[count % 3]);
-        
+
         // Update title and desc with fade in and fade out
         $('#vid-title').fadeOut(500, function() {
           $(this).text(videoTitles[count % 3]).fadeIn(500);

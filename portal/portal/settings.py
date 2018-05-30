@@ -163,7 +163,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
 
 WORKSPACE_DIR = 'pages'
-GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
+# GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
 #EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
 RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR
 

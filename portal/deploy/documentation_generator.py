@@ -79,13 +79,13 @@ def generate_visualdl_docs(original_documentation_dir, output_dir_name, options=
         raise Exception('Cannot generate documentation, directory %s does not exists.' % original_documentation_dir)
 
 
-def generate_models_docs(original_documentation_dir, output_dir_name, options=None):
+def generate_models_docs(original_documentation_dir, destination_documentation_dir, options=None):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
-    destination_documentation_dir = _get_destination_documentation_dir(output_dir_name)
+    #destination_documentation_dir = _get_destination_documentation_dir(output_dir_name)
 
     for subdir, dirs, all_files in os.walk(original_documentation_dir):
         for file in all_files:
@@ -224,13 +224,13 @@ def generate_mobile_docs(original_documentation_dir, output_dir_name, options=No
     return destination_documentation_dir
 
 
-def generate_book_docs(original_documentation_dir, output_dir_name, options=None):
+def generate_book_docs(original_documentation_dir, destination_documentation_dir, options=None):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
-    destination_documentation_dir = _get_destination_documentation_dir(output_dir_name)
+    #destination_documentation_dir = _get_destination_documentation_dir(output_dir_name)
 
     # Remove old generated docs directory
     if os.path.exists(destination_documentation_dir) and os.path.isdir(destination_documentation_dir):

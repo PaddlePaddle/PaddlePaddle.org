@@ -3,6 +3,8 @@ import tempfile
 import requests
 import traceback
 from urlparse import urlparse
+import json
+from subprocess import call
 
 from django.conf import settings
 
@@ -11,6 +13,7 @@ from deploy.operators import generate_operators_docs_with_generated_doc_dir
 from portal import sitemap_helper
 from portal.portal_helper import Content
 from portal import portal_helper
+
 
 def transform(original_documentation_dir, generated_docs_dir, version, options=None):
     """

@@ -54,9 +54,6 @@ urlpatterns = [
     # -------------------
     # OTHER ARBITRARY URLS
     # -------------------
-    url(r'^docs/(?P<version>.*)/other/(?P<path>.*)$', views.other_path, name=url_helper.URL_NAME_OTHER),
-    url(r'^docs/(?P<version>.*)/flush$', views.flush_other_page, name='flush_other_page'),
-    url(r'^book$', views.book_home, name=url_helper.URL_NAME_BOOK_ROOT),
     url(r'^about_en.html', views.about_en, name='about_en'),
     url(r'^about_cn.html', views.about_cn, name='about_cn'),
 
@@ -81,4 +78,11 @@ urlpatterns = [
     url(r'^change-lang$', views.change_lang, name='change_lang'),
     url(r'^reload-docs$', views.reload_docs, name='reload_docs'),
     url(r'^download_latest_doc_workspace$', views.download_latest_doc_workspace, name='download_latest_doc_workspace'),
+
+    # -------------------
+    # OTHER ARBITRARY URLS
+    # -------------------
+    url(r'^docs/(?P<version>.*)/other/(?P<path>.*)$', views.other_path, name=url_helper.URL_NAME_OTHER),
+    url(r'^docs/(?P<version>.*)/flush$', views.flush_other_page, name='flush_other_page'),
+    # url(r'^book$', views.book_home, name=url_helper.URL_NAME_BOOK_ROOT),
 ]

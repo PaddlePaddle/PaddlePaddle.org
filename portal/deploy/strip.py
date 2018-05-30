@@ -68,34 +68,35 @@ def sphinx_paddle_mobile_docs(original_documentation_dir, generated_documentatio
     sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map)
 
 
-def sphinx(original_documentation_dir, generated_documentation_dir, version, output_dir_name, new_path_map=None):
+def sphinx(original_documentation_dir, generated_documentation_dir, destination_documentation_dir, version=None, output_dir_name=None, new_path_map=None):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
-    destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
-    if generated_documentation_dir:
-        generated_documentation_dir = generated_documentation_dir.rstrip('/')
-
+    # destination_documentation_dir = _get_destination_documentation_dir(version, output_dir_name)
+    # if generated_documentation_dir:
+    #     generated_documentation_dir = generated_documentation_dir.rstrip('/')
+    #
     if not new_path_map:
         new_path_map = {
             'develop': {
-                '/en/html/': '/en/',
-                '/cn/html/': '/zh/'
-            },
-            '0.10.0': {
-                '/en/html/':    '/en/',
-                '/cn/html/': '/zh/',
-            },
-            '0.9.0': {
-                '/doc/':    '/en/',
-                '/doc_cn/': '/zh/',
+                '/fluid/en/html/': '/fluid/en/',
+                '/fluid/cn/html/': '/fluid/zh/'
             }
         }
+    #         '0.10.0': {
+    #             '/en/html/':    '/en/',
+    #             '/cn/html/': '/zh/',
+    #         },
+    #         '0.9.0': {
+    #             '/doc/':    '/en/',
+    #             '/doc_cn/': '/zh/',
+    #         }
+    #     }
 
     # if the version is not supported, fall back to 'develop'
-    if version not in new_path_map:
-        version = 'develop'
+    # if version not in new_path_map:
+    version = 'develop'
 
     # Go through each file, and if it is a .html, extract the .document object
     #   contents
@@ -108,6 +109,7 @@ def sphinx(original_documentation_dir, generated_documentation_dir, version, out
 
                 for subpath_language_dir in subpath_language_dirs:
                     # Check if the we should process the file or not
+                    print subpath
                     if subpath_language_dir and subpath.startswith(subpath_language_dir):
                         new_path = destination_documentation_dir + (
                             new_path_map[version][subpath_language_dir]
