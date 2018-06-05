@@ -84,7 +84,7 @@ TOP_LEVEL_NAVIGATION = [
     {
         'title': {
             'en':'Documentation',
-            'zh':'\u4f7f\u7528\u6587\u6863'
+            'zh': u'\u4f7f\u7528\u6587\u6863'
         },
         'path': '/documentation',
         'dir': os.environ.get('PADDLE_PATH', None)
@@ -100,7 +100,7 @@ TOP_LEVEL_NAVIGATION = [
     {
         'title': {
             'en':'Book',
-            'zh':'\u6df1\u5ea6\u5b66\u4e60101'
+            'zh':u'\u6df1\u5ea6\u5b66\u4e60101'
         },
         'path': '/book',
         'dir': os.environ.get('BOOK_PATH', None)
@@ -108,7 +108,7 @@ TOP_LEVEL_NAVIGATION = [
     {
         'title': {
             'en':'Models',
-            'zh':'\u6a21\u578b\u5e93'
+            'zh':u'\u6a21\u578b\u5e93'
         },
         'path': '/models',
         'dir': os.environ.get('MODELS_PATH', None)
@@ -116,7 +116,7 @@ TOP_LEVEL_NAVIGATION = [
     {
         'title': {
             'en':'Mobile',
-            'zh':'\u79fb\u52a8\u7aef'
+            'zh':u'\u79fb\u52a8\u7aef'
         },
         'path': '/mobile',
         'dir': os.environ.get('MOBILE_PATH', None)

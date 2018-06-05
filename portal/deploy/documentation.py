@@ -5,6 +5,7 @@ import traceback
 from urlparse import urlparse
 import json
 from subprocess import call
+import shutil
 
 from django.conf import settings
 
@@ -29,7 +30,7 @@ def _get_links_in_sections(sections):
     return links
 
 
-def _build_sphinx_index_from_sitemap(sitemap_path):
+def _build_sphinx_index_from_sitemap(sitemap_path, lang):
     links = ['..  toctree::', '  :maxdepth: 1', '']
 
     # Generate an index.rst based on the sitemap.
@@ -37,11 +38,20 @@ def _build_sphinx_index_from_sitemap(sitemap_path):
         sitemap = json.loads(sitemap_file.read())
         links += _get_links_in_sections(sitemap['sections'])
 
-    with open(os.path.dirname(sitemap_path) + '/index_en.rst', 'w') as index_file:
+    # Manual hack because the documentation marks the language code differently.
+    if lang == 'zh':
+        lang = 'cn'
+
+    with open(os.path.dirname(sitemap_path) + ('/index_%s.rst' % lang), 'w') as index_file:
         index_file.write('\n'.join(links))
 
 
-def transform(content_id, source_dir, destination_dir):
+def _remove_sphinx_menu(menu_path, lang):
+    """Undoes the function above"""
+    os.remove(os.path.dirname(sitemap_path) + ('/index_%s.rst' % lang))
+
+
+def transform(content_id, lang, source_dir, destination_dir):
     # try:
     print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
@@ -49,16 +59,16 @@ def transform(content_id, source_dir, destination_dir):
 
     # Regenerate its contents.
     if content_id in ['documentation', 'api']:
-        _build_sphinx_index_from_sitemap(menu_path)
-
-        import shutil
+        _build_sphinx_index_from_sitemap(menu_path, lang)
 
         sphinx_output_dir = tempfile.mkdtemp()
 
         call(['sphinx-build', '-b', 'html', '-c',
-            settings.SPHINX_CONFIG_DIR, source_dir, sphinx_output_dir])
+            os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, sphinx_output_dir])
 
         strip.sphinx(source_dir, sphinx_output_dir, destination_dir)
+
+        _remove_sphinx_menu(menu_path, lang)
 
         shutil.rmtree(sphinx_output_dir)
 

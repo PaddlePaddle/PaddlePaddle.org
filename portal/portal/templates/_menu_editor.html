@@ -1,20 +1,22 @@
-<div id="menu-editor-modal" class="modal fade" tabindex="-1" role="dialog"><!--style="display: block"-->
+<div id="menu-edit-link-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="/" method="post">
-                {% csrf_token %}
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit navigation</h5>
+                    <h5 class="modal-title">Add or edit link</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div id="menu-editor-wrapper"></div>
+                <!-- <div id="menu-editor-wrapper"></div> -->
             </form>
         </div>
     </div>
 </div>
-<!--<div class="modal-backdrop fade"></div>-->
+
+<div id="menu-editor-wrapper"></div>
+
+<div class="modal-backdrop fade show"></div>
 
 <script crossorigin src="//unpkg.com/react@16/umd/react.production.min.js"></script>
 <script crossorigin src="//unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
@@ -25,6 +27,144 @@
 
 const e = React.createElement;
 
+
+class Modal extends React.Component {
+    render(){
+        return e('div', { 'id': 'menu-editor-modal', 'class': 'modal fade' + (this.props.open ? ' show' : ''), 'tabindex': -1, role: 'dialog', style: this.props.open ? { display: 'block' } : null },
+        // <div id="menu-editor-modal" class="modal fade show" tabindex="-1" role="dialog" style="display: block">
+            e('div', { 'class': 'modal-dialog', role: 'document' },
+            // <div class="modal-dialog" role="document">
+                e('div', { 'class': 'modal-content' }, this.props.children)
+                // <div class="modal-content">
+            // </div>
+            )
+        // </div>
+        );
+    }
+}
+
+
+class MenuEditor extends React.Component {
+    render(){
+        var {menu, sections, addSection, unflattenSitemap, moveLink,
+            addEditLink, deleteLink, saveLink} = this.props;
+
+        return e(Modal, { open: true },
+            e('form', { 'action': '/', 'method': 'post' },
+            // <form action="/" method="post">
+                // {% csrf_token %}
+                e('div', { 'class': 'modal-header' }, [
+                // <div class="modal-header">
+                    e('h5', { 'class': 'modal-title' }, 'Edit navigation'),
+                    // <h5 class="modal-title">Edit navigation</h5>
+                    e('button', { 'type': 'button', 'class': 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                        e('span', { 'aria-hidden': 'true' }, '×')
+                    ),
+                    // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    //     <span aria-hidden="true">&times;</span>
+                    // </button>
+                // </div>
+                ]),
+                e('div', { 'class': 'modal-body' }, [
+                    menu ? e('div', {class:'menu-editor-links'}, sections.map((sectionId) => (
+                        e(Link, { sectionId, moveLink, parent: -1, sitemap: menu, edit: addEditLink, deleteLink, save: saveLink })
+                    ))) : null,
+                    e('div', { 'class': 'text-right' }, [
+                        e('button', { 'class': 'btn btn-outline-secondary', 'type': 'button', onClick: addSection }, '+ Add section'),
+                        e('button', { 'class': 'btn btn-outline-primary', 'type': 'button', onClick: addEditLink }, '+ Add link')
+                    ])
+                ]),
+                e('div', { 'class': 'modal-footer' }, [
+                    e('button', { 'class': 'btn btn-secondary', 'type': 'button', 'data-dismiss': 'modal' }, 'Cancel'),
+                    e('button', { 'class': 'btn btn-primary', onClick: unflattenSitemap }, 'Save')
+                ])
+                // <!-- <div id="menu-editor-wrapper"></div> -->
+            // </form>
+            )
+        );
+    }
+}
+
+
+class LinkEditor extends React.Component {
+    componentDidUpdate(prevProps, prevState){
+        if (this.props.linkToAddEdit !== prevProps.linkToAddEdit){
+            var {enTitle, enURL, zhTitle, zhURL} = this.refs;
+
+            if (this.props.linkToAddEdit){
+                var link = this.props.menu[this.props.linkToAddEdit];
+
+                enTitle.value = link.title.en;
+
+                if (enURL)
+                    enURL.value = link.link.en;
+
+                zhTitle.value = link.title.zh;
+                if (zhURL)
+                    zhURL.value = link.link.zh;
+
+            } else {
+                // Remove all fields.
+                enTitle.value = zhTitle.value = '';
+
+                if (enURL)
+                    enURL.value = zhURL.value = '';
+            }
+        }
+    }
+
+    saveLink(){
+        var {enTitle, enURL, zhTitle, zhURL} = this.refs;
+
+        var newLinkProps = {
+            title: {
+                en: enTitle.value,
+                zh: zhTitle.value
+            }
+        }
+        if (this.props.linkToAddEdit === null || this.props.menu[this.props.linkToAddEdit].parent !== -1)
+            newLinkProps.link = {
+                en: enURL.value,
+                zh: zhURL.value
+            };
+
+        this.props.saveLink(this.props.linkToAddEdit, newLinkProps);
+    }
+
+    render(){
+        var languageFields = [
+            { id: 'en', language: 'English', titleLabel: 'Link title', urlLabel: 'Paste path to file'},
+            { id: 'zh', language: '中文', titleLabel: 'Link title', urlLabel: 'Paste path to file'}
+        ];
+
+        return e(Modal, { open: this.props.linkToAddEdit !== undefined }, [
+            e('div', { 'class': 'modal-header' }, [
+                e('h5', { 'class': 'modal-title' }, 'Add or edit link'),
+                e('button', { 'type': 'button', 'class': 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                    e('span', { 'aria-hidden': 'true', onClick: this.props.closeAddEditLink }, '×')
+                ),
+            ]),
+            e('div', { 'class': 'modal-body container' }, languageFields.map((languageField) => {
+                return e('div', { 'class': 'row' }, [
+                    e('div', {'class': 'col'}, languageField.language),
+                    e('div', {'class': 'col-5'},
+                        e('input', {'type': 'text', 'class': 'form-control', placeholder: languageField.titleLabel, ref: languageField.id + 'Title' })
+                    ),
+                    this.props.linkToAddEdit === null || (this.props.linkToAddEdit &&
+                        this.props.menu[this.props.linkToAddEdit].parent !== -1) ? e('div', {'class': 'col-5'},
+                        e('input', {'type': 'text', 'class': 'form-control', placeholder: languageField.urlLabel, ref: languageField.id + 'URL' })
+                    ) : null
+                ]);
+            })),
+            e('div', { 'class': 'modal-footer' }, [
+                e('button', { 'class': 'btn btn-secondary', 'type': 'button', 'data-dismiss': 'modal', onClick: this.props.closeAddEditLink }, 'Cancel'),
+                e('button', { 'class': 'btn btn-primary', onClick: this.saveLink.bind(this) }, 'Save')
+            ])
+        ]);
+    }
+}
+
+
 var LinkSource = {
   beginDrag: function (props) {
     return {
@@ -33,6 +173,7 @@ var LinkSource = {
     };
   }
 }
+
 
 const LinkTarget = {
 	hover(props, monitor, component) {
@@ -97,6 +238,20 @@ function collect(connect, monitor) {
 
 
 class Link extends React.Component {
+    edit(event){
+        var {edit, sectionId, sitemap} = this.props;
+        edit(sectionId);
+    }
+
+    delete(event){
+        var {deleteLink, sectionId, sitemap} = this.props,
+            link = sitemap[sectionId];
+
+        if (window.confirm('Are you sure you want to delete the link: "' + (
+            link.title.en + ' / ' + link.title.zh + '"?')))
+            deleteLink(sectionId);
+    }
+
     render(){
         const {
 			text,
@@ -106,19 +261,30 @@ class Link extends React.Component {
 
             sectionId,
             moveLink,
-            sitemap
+            deleteLink,
+            sitemap,
+            edit
 		} = this.props;
 
-        return connectDragSource(connectDropTarget(e('div', { 'class': 'menu-editor-link' },
-            e('div', { 'class': 'menu-editor-link-title' }, sitemap[sectionId].title.en),
-            e(LinkItems, { moveLink, sectionId, sitemap })
+        var section = sitemap[sectionId];
+
+        return connectDragSource(connectDropTarget(e('div', { 'class': 'menu-editor-link' + (section.parent === -1 ? ' container' : '') },
+            e('div', { 'class': 'menu-editor-link-info row justify-content-between' },
+                e('div', { 'class': 'menu-editor-link-info-title col-8' }, section.title.en + ' / ' + section.title.zh),
+                e('div', { 'class': 'menu-editor-link-info-actions col' }, [
+                    e('span', { 'class': 'menu-editor-link-info-action', onClick: this.edit.bind(this) }, e('i', { 'class': 'fas fa-edit' })),
+                    e('span', { 'class': 'menu-editor-link-info-action', onClick: this.delete.bind(this) }, e('i', { 'class': 'fas fa-trash' }))
+                ])
+            ),
+            e(LinkItems, { moveLink, sectionId, sitemap, edit, deleteLink })
         )))
     }
 }
 
+
 class LinkItems extends React.Component {
     render(){
-        const { moveLink, parent, sectionId, sitemap } = this.props;
+        const { moveLink, parent, sectionId, sitemap, edit, deleteLink } = this.props;
 
         // Get unique sections.
         const sections = Object.keys(sitemap).filter(
@@ -127,81 +293,39 @@ class LinkItems extends React.Component {
             });
 
         return sections ? e('div', null, sections.map((si) => (
-            e(Link, { sectionId: si, moveLink, parent, sitemap })
+            e(Link, { sectionId: si, moveLink, parent, sitemap, edit, deleteLink })
         ))) : null;
     }
 }
 
-class Menu extends React.Component {
+
+class MenuEditorWrapper extends React.Component {
     constructor(props){
         super(props);
 
         this.flattenSitemap = this.flattenSitemap.bind(this);
         this.unflattenSitemap = this.unflattenSitemap.bind(this);
 
-        this.state = { sitemap: this.flattenSitemap({
-           "title":{
-              "en":"Documentation"
-           },
-           "sections":[
-              {
-                 "title":{
-                    "en":"Getting Started"
-                 },
-                 "sections":[
-                    {
-                       "title":{
-                          "en":"Introduction"
-                       },
-                       "link":{
-                          "en":"getstarted/quickstart_en.rst"
-                       }
-                    },
-                    {
-                       "title":{
-                          "en":"Quick Start"
-                       },
-                       "link":{
-                          "en":"getstarted/overview_en.rst"
-                       }
-                    },
-                    {
-                       "title":{
-                          "en":"Build and Installation"
-                       },
-                       "link":{
-                          "en":"getstarted/running_a_program_en.rst"
-                       }
-                    },
-                    {
-                       "title":{
-                          "en":"Contribute Code"
-                       },
-                       "link":{
-                          "en":"concepts/index_en.rst"
-                       }
-                    }
-                 ]
-              },
-              {
-                 "title":{
-                    "en":"Algorithm Tutorial"
-                 },
-                 "sections":[
-                    {
-                       "title":{
-                          "en":"RNN Configuration"
-                       },
-                       "link":{
-                          "en":"build_and_install/pip_install_en.rst"
-                       }
-                    }
-                 ]
-              }
-           ]
-        }) }
+        this.state = {};
 
         this.moveLink = this.moveLink.bind(this);
+        this.getSectionIds = this.getSectionIds.bind(this);
+        this.getLinksIdsForParent = this.getLinksIdsForParent.bind(this);
+        this.getSortedSectionIds = this.getSortedSectionIds.bind(this);
+        this.positionSorter = this.positionSorter.bind(this);
+
+        this.addSection = this.addSection.bind(this);
+        this.addEditLink = this.addEditLink.bind(this);
+        this.closeAddEditLink = this.closeAddEditLink.bind(this);
+        this.deleteLink = this.deleteLink.bind(this);
+        this.saveLink = this.saveLink.bind(this);
+    }
+
+    componentWillMount(){
+        var view = this;
+        $.get('/get-menu', function(response, xhr){
+            view.setState({ sitemap: view.flattenSitemap(response) });
+        });
     }
 
     uuid(){
@@ -220,23 +344,20 @@ class Menu extends React.Component {
         return uuid;
     }
 
-    flattenSitemap(sitemap){
-        var flatSitemap = {}, view = this, sectionId;
-        sitemap.sections.forEach((section, index) => {
+    flattenSitemap(sitemap, flatSitemap={}, parent=-1){
+        var view = this, sectionId;
+
+        if (!sitemap.sections)
+            return;
+
+        sitemap.sections.forEach((section, position) => {
             sectionId = view.uuid();
             flatSitemap[sectionId] = {
-                title: section.title,
-                parent: -1,
-                position: index
+                title: section.title, link: section.link,
+                parent, position
             }
 
-            section.sections.forEach((sec, i) => {
-                flatSitemap[view.uuid()] = {
-                    title: sec.title,
-                    parent: sectionId,
-                    position: i
-                }
-            });
+            view.flattenSitemap(section, flatSitemap, sectionId);
         });
 
         return flatSitemap;
@@ -261,7 +382,9 @@ class Menu extends React.Component {
 
         event.preventDefault();
 
-        return unflattenedSitemap;
+        $.post('/save-menu', { menu: JSON.stringify(unflattenedSitemap) }, () => {
+            window.location.reload();
+        });
     }
 
     moveLink(dragSectionId, drag, hoverSectionId, hover){
@@ -275,42 +398,137 @@ class Menu extends React.Component {
         }
     }
 
-	render() {
-        const { sitemap } = this.state;
+    getSectionIds(){
+        return this.getLinksIdsForParent();
+    }
+
+    getLinksIdsForParent(parent=-1){
+        var {sitemap} = this.state;
+
+        return sitemap ? Object.keys(sitemap).filter(
+            (sId) => sitemap[sId].parent === parent) : null;
+    }
+
+    getSortedSectionIds(parent=-1){
+        var {sitemap} = this.state,
+            sectionIds = this.getLinksIdsForParent(parent);
 
         // Get unique sections.
-        const sections = sitemap ? Object.keys(sitemap).filter(
-            (sId) => sitemap[sId].parent === -1).sort((a, b) => {
-                return sitemap[a].position - sitemap[b].position;
-            }) : null;
+        return sectionIds ? sectionIds.sort(this.positionSorter): null;
+    }
+
+    positionSorter(a, b){
+        var {sitemap} = this.state;
+        return sitemap[a].position - sitemap[b].position;
+    }
+
+    addSection(eventOrId){
+        var {sitemap} = this.state,
+            defaultName;
+
+        if (typeof(eventOrId) === 'string')
+            defaultName = this.state.sitemap[eventOrId].title;
+
+        var sectionName = prompt('Name your new section (in English)',
+            defaultName);
+
+        if (sectionName){
+            var sortedSectionIds = this.getSortedSectionIds();
+
+            this.setState({ sitemap: Object.assign(this.state.sitemap, { [this.uuid()]: {
+                title: { en: sectionName, zh: null },
+                parent: -1,
+                position: sortedSectionIds ? sitemap[sortedSectionIds[sortedSectionIds.length - 1]].position + 1 : 0
+            } }) });
+        }
+    }
+
+    addEditLink(eventOrId){
+        var linkId = typeof(eventOrId) === 'string' ? eventOrId : null;
+
+        this.setState({ linkToAddEdit: linkId });
+    }
+
+    closeAddEditLink(){
+        this.setState({ linkToAddEdit: undefined });
+    }
+
+    deleteLink(linkId){
+        var {sitemap} = this.state,
+            link = sitemap[linkId],
+            siblings = this.getLinksIdsForParent(link.parent),
+
+            // Push back positions of items after this.
+            siblingsAfterThisIds = siblings.filter(function(sibling){
+                return sitemap[sibling].position > sitemap[linkId].position;
+            }),
+
+            siblingAfterThis;
+
+        delete sitemap[linkId];
+
+        siblingsAfterThisIds.forEach((siblingAfterThisId) => {
+            siblingAfterThis = sitemap[siblingAfterThisId];
+            sitemap = Object.assign(sitemap, { [siblingAfterThisId]: Object.assign(
+                siblingAfterThis, { position: siblingAfterThis.position - 1 }) });
+        });
+
+        this.setState({ sitemap });
+    }
+
+    saveLink(linkId, newProps){
+        var {sitemap} = this.state;
+
+        if (linkId)
+            this.setState({ sitemap: Object.assign(sitemap, {
+                [linkId]: Object.assign(sitemap[linkId], newProps)
+            })});
+        else {
+            var sortedSectionIds = this.getSortedSectionIds(),
+                lastSectionId = sortedSectionIds[sortedSectionIds.length - 1],
+                lastLinkIdOfLastSection = this.getSortedSectionIds(lastSectionId);
+
+            this.setState({ sitemap: Object.assign(sitemap, {
+                [this.uuid()]: {...newProps, parent: lastSectionId,
+                    position: lastLinkIdOfLastSection ? sitemap[lastLinkIdOfLastSection].position + 1 : 0
+                }
+            }) });
+        }
+
+        this.setState({ linkToAddEdit: undefined });
+    }
+
+	render() {
+        const {addSection, unflattenSitemap, moveLink,
+            addEditLink, closeAddEditLink, deleteLink, saveLink} = this,
+            { sitemap, linkToAddEdit } = this.state,
+            sections = this.getSortedSectionIds();
+
+        var menu = sitemap;
 
 		return (
 			e('div', {id: 'menu-editor'}, [
-                e('div', { 'class': 'modal-body' }, [
-                    sitemap ? e('div', {class:'menu-editor-links'}, sections.map((sectionId) => (
-                        e(Link, { sectionId, moveLink: this.moveLink, parent: -1, sitemap })
-                    ))) : null,
-                    e('div', { 'class': 'text-right' }, [
-                        e('button', { 'class': 'btn btn-outline-secondary', 'type': 'button' }, '+ Add section'),
-                        e('button', { 'class': 'btn btn-outline-primary', 'type': 'button' }, '+ Add link')
-                    ])
-                ]),
-                e('div', { 'class': 'modal-footer' }, [
-                    e('button', { 'class': 'btn btn-secondary', 'type': 'button', 'data-dismiss': 'modal' }, 'Cancel'),
-                    e('button', { 'class': 'btn btn-primary', onClick: this.unflattenSitemap }, 'Save')
-                ])
+                e(MenuEditor, {
+                    menu, sections,
+                    addSection, unflattenSitemap, moveLink, addEditLink,
+                    deleteLink
+                }),
+                e(LinkEditor, { linkToAddEdit, menu, closeAddEditLink, saveLink })
 			])
 		);
 	}
 }
 
-Menu = ReactDnD.DragDropContext(ReactDnDHTML5Backend)(Menu);
+
+MenuEditorWrapper = ReactDnD.DragDropContext(ReactDnDHTML5Backend)(MenuEditorWrapper);
+
 
 Link = ReactDnD.DragSource('LINK', LinkSource, collect)(Link);
 Link = ReactDnD.DropTarget('LINK', LinkTarget, connect => ({
 	connectDropTarget: connect.dropTarget(),
 }))(Link);
 
-
-ReactDOM.render(e(Menu), document.getElementById('menu-editor-wrapper'));
+window.addEventListener('load', ()=>{
+    ReactDOM.render(e(MenuEditorWrapper), document.getElementById('menu-editor-wrapper'));
+})
 </script>

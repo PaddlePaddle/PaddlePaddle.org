@@ -385,15 +385,34 @@ body
     > .menu-editor-link
         margin-bottom: 12px
 
-        > .menu-editor-link-title
+        > .menu-editor-link-info .menu-editor-link-info-title
             font-weight: bold
 
     .menu-editor-link
-        cursor: move
-
-        .menu-editor-link-title
-            padding: 6px
+        .menu-editor-link-info
+            padding-top: 6px
+            padding-bottom: 6px
             border: 1px solid #efefef
 
+            .menu-editor-link-info-title
+                cursor: move
+
+            .menu-editor-link-info-actions
+                text-align: right
+
+                .menu-editor-link-info-action
+                    cursor: pointer
+                    opacity: 0.5
+                    margin-right: 12px
+
+                    &:hover
+                        opacity: 1
+
+        // Accounting for 2 levels of nesting.
         .menu-editor-link
-            margin-left: 24px
+            .menu-editor-link-info-title
+                margin-left: 24px
+
+            .menu-editor-link
+                .menu-editor-link-info-title
+                    margin-left: 48px
