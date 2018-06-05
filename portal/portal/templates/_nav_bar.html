@@ -18,20 +18,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
             {% for category in root_nav %}
-                {# translation_assignment book.title as book_title #}
+                {% translation_assignment category.title as book_title %}
                 {# first_book_url_assignment book b_id as book_url #}
                 {# if book_title != none and book_title != "" #}
                 <li class="nav-item{% if content_id == b_id %} active{% endif %}">
-                    <a class="nav-link" href="{{ category.path }}">{# translation book.title #}{{ category.title.en }}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ category.path }}">{% translation category.title %}<span class="sr-only">(current)</span></a>
                 </li>
                 {# endif #}
             {% endfor %}
 
             <li>
+<<<<<<< HEAD
                 <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
             </li>
             <li>
                 <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
+=======
+                <a class="nav-link" href="{{ lang_def.link }}">{{ lang_def.label}}</a>
+>>>>>>> More language toggling and menu editor fixes / updates
             </li>
             <li>
                 <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
@@ -43,12 +47,13 @@
 
                 {% if content_id %}
                 <li>
-                    {% if content_id == 'documentation' %}
-                    <a class="nav-link border" href="#" data-toggle="modal" data-target="#paddleDocsModal">{% trans "Refresh Content" %}</a>
-                    {% include '_paddle_docs_modal.html' %}
-                    {% else %}
-                    <a class="nav-link border" href="{% url 'reload_docs' %}?content_id={{ content_id }}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');">{% trans "Refresh Content" %}</a>
-                    {% endif %}
+                    {# if content_id == 'documentation' #}
+                    <!--<a class="nav-link border" href="#" data-toggle="modal" data-target="#paddleDocsModal">{% trans "Refresh Content" %}</a>-->
+                    {# include '_paddle_docs_modal.html' #}
+                    {# else #}
+                    <!-- onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"-->
+                    <a class="nav-link border" href="{% url 'reload_docs' %}">{% trans "Refresh Content" %}</a>
+                    {# endif #}
                 </li>
                 {% endif %}
             {% endif %}

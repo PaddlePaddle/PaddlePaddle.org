@@ -42,7 +42,7 @@ urlpatterns = [
     # HOME PAGE URLS
     # ---------------
     url(r'^$', views.home_root, name='home'),
-    url(r'^index.cn.html', views.cn_home_root, name='cn_home'),
+    url(r'^zh', views.cn_home_root, name='cn_home'),
 
     # ---------------
     # BLOG URLS
@@ -66,8 +66,6 @@ urlpatterns = [
     url(r'^models$', views.content_home, name='models'),
     url(r'^mobile$', views.content_home, name='mobile'),
 
-    url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
-
     url(r'^docs/(?P<version>[^/]+)/(?P<path>[^./]+)/?$', views.content_root_path, name=url_helper.URL_NAME_CONTENT_ROOT),
     url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
 
@@ -85,4 +83,10 @@ urlpatterns = [
     url(r'^docs/(?P<version>.*)/other/(?P<path>.*)$', views.other_path, name=url_helper.URL_NAME_OTHER),
     url(r'^docs/(?P<version>.*)/flush$', views.flush_other_page, name='flush_other_page'),
     # url(r'^book$', views.book_home, name=url_helper.URL_NAME_BOOK_ROOT),
+
+    url(r'^get-menu$', views.get_menu, name='get_menu'),
+    url(r'^save-menu$', views.save_menu, name='save_menu'),
+
+    # HAS TO BE KEPT IN THE END, because it picks everything.
+    url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
 ]

@@ -20,6 +20,58 @@ from django.conf import settings, urls
 from django.core.urlresolvers import reverse
 
 
+def get_raw_page_path_from_html(url_path):
+    """Does the opposite of `get_html_page_path`"""
+    url_path_pieces = url_path.strip('/').split('/')
+
+    if len(url_path_pieces) > 3:
+        html_path = '/'.join(url_path_pieces[3:-1])
+        extensionless_file_name = os.path.splitext(
+            urlparse(url_path_pieces[-1]).path)[0]
+        return (
+            '%s/%s' % (html_path, extensionless_file_name + '.rst'),
+            '%s/%s' % (html_path, extensionless_file_name + '.md')
+        )
+
+    return None
+
+
+def get_html_page_path(prefix, path):
+    transformed_path = os.path.splitext(urlparse(path).path)[0] + '.html'
+    return '/%s/%s' % (prefix, transformed_path)
+
+
+def get_page_url_prefix(content_id, lang, version):
+    return '%s/%s/%s' % (content_id, lang, version)
+
+
+def get_parts_from_url_path(url_path):
+    url_path_pieces = url_path.strip('/').split('/')
+
+    if len(url_path_pieces) > 3:
+        return url_path_pieces[0], url_path_pieces[1], url_path_pieces[2]
+
+    return url_path_pieces[0], None, None
+
+
+def get_full_content_path(content_id, lang, version):
+    """
+    Given content_id, language, and version, return the local path of the
+    location of the content.
+    """
+    workspace_path = os.path.join(settings.BASE_DIR, settings.WORKSPACE_DIR)
+
+    if not os.path.exists(workspace_path):
+        os.makedirs(workspace_path)
+
+    content_prefix = get_page_url_prefix(content_id, lang, version)
+
+    return '%s/%s' % (workspace_path, content_prefix), content_prefix
+
+
+###########################################
+
+
 BLOG_ROOT = 'blog/'
 BOOK_ROOT = 'book/'
 DOCUMENTATION_ROOT = 'documentation/'
@@ -71,12 +123,3 @@ def link_cache_key(path):
     key = key.replace('/zh/', '/')
 
     return key
-
-
-def get_html_page_path(prefix, path):
-    transformed_path = os.path.splitext(urlparse(path).path)[0] + '.html'
-    return '/%s/%s' % (prefix, transformed_path)
-
-
-def get_page_url_prefix(content_id, lang, version):
-    return '%s/%s/%s' % (content_id, lang, version)

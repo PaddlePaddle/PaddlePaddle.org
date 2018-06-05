@@ -5,6 +5,7 @@ import traceback
 from urlparse import urlparse
 import json
 from subprocess import call
+import shutil
 
 from django.conf import settings
 

@@ -24,6 +24,9 @@ The tutorials here guide you to setup the website locally, so you can see exactl
     pip install -r requirements.txt
     ```
 
+    *Optional: If you plan on translating website content between English and Chinese for improving PaddlePaddle.org, install [GNU gettext](https://www.gnu.org/software/gettext/) too.*
+
+
 3. **Run PaddlePaddle.org locally.**
 
     Pass the list of directories you wish to load and build content from (options include `--paddle`, `--book`, `--models`, and `--mobile`)
@@ -31,7 +34,8 @@ The tutorials here guide you to setup the website locally, so you can see exactl
     ./runserver --paddle <path_to_paddle_dir> --book <path_to_book_dir>
     ```
 
-    Open up your browser and navigate to [http://localhost:8000](http://localhost:8000). **NOTE**: *Links may take a few seconds to load the first time around since they are probably being built.*
+    Open up your browser and navigate to [http://localhost:8000](http://localhost:8000).
+    **NOTE**: *Links may take a few seconds to load the first time around since they are probably being built.*
 
 
 ## Writing new content
@@ -41,7 +45,7 @@ All repositories support content contribution formatted as [Markdown](https://gu
 After you have gone through the installation steps above, here are the steps you need to take:
 
 - Before you start writing, we recommend reviewing these [guidelines on contributing content]().
-- Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file.
+- Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file within the appropriate directory of the repo you are contributing to.
 - To view the changes in your browser, click **Regenerate** on the top-righthand side corner.
 - To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
 

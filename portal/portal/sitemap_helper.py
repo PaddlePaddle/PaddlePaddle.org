@@ -25,6 +25,42 @@ from django.core.cache import cache
 from portal import url_helper
 
 
+def find_all_languages_for_link(possible_links, current_lang, sections, desired_lang):
+    for section in sections:
+        if 'link' in section and current_lang in section['link']:
+            if (section['link'][current_lang] == possible_links[0] or (
+                section['link'][current_lang] == possible_links[1])) and desired_lang in section['link']:
+                return section['link'][desired_lang]
+
+        if 'sections' in section:
+            return find_all_languages_for_link(
+                possible_links, current_lang, section['sections'], desired_lang)
+
+    return None
+
+
+def set_menu_path_cache(content_id, lang, version, path):
+    cache.set(
+        '%s/%s' % ('menu_path', url_helper.get_page_url_prefix(
+            content_id, lang, version)),
+        path
+    )
+
+
+def get_menu_path_cache(content_id, lang, version):
+    menu_path = cache.get(
+        '%s/%s' % ('menu_path', url_helper.get_page_url_prefix(
+            content_id, lang, version)),
+        None
+    )
+
+    if not menu_path:
+        menu_path = get_sitemap(version, lang, content_id)[1]
+        set_menu_path_cache(content_id, lang, version, menu_path)
+
+    return menu_path
+
+
 def find_in_top_level_navigation(path):
     for i in settings.TOP_LEVEL_NAVIGATION:
         if i['path'] == path:
@@ -55,18 +91,22 @@ def get_sitemap(version, language, content_id):
     Given a version and language, fetch the sitemap for all contents from the
     cache, if available, or load them from the pre-compiled sitemap.
     """
-    cache_key = 'menu.%s.%s' % (version, language)
-    sitemap_cache = cache.get(cache_key, None)
+    # cache_key = 'menu.%s.%s' % (version, language)
+    # sitemap_cache = cache.get(cache_key, None)
 
-    if not sitemap_cache:
-        sitemap_cache, sitemap_dir  = _load_sitemap_from_file(version, language, content_id)
+    # These are the repos without menus.
+    if content_id in ['models', 'mobile']:
+        # NOTE(varunarora): This is a hack because there is no menu.json here.
+        return None, _get_sitemap_path('', content_id)
 
-        if sitemap_cache:
-            cache.set(cache_key, sitemap_cache)
-        else:
-            raise Exception('Cannot generate sitemap for version %s' % version)
+    else:
+        # if not sitemap_cache:
+        return _load_sitemap_from_file(version, language, content_id)
 
-    return sitemap_cache, sitemap_dir
+        # if sitemap_cache:
+        #     cache.set(cache_key, sitemap_cache)
+        # else:
+        #     raise Exception('Cannot generate sitemap for version %s' % version)
 
 
 def _load_sitemap_from_file(version, language, content_id):
@@ -76,13 +116,14 @@ def _load_sitemap_from_file(version, language, content_id):
     sitemap = None
 
     #sitemap_filename = ('sitemap.%s.json' % language)
-    sitemap_filename = ('menu.json')
-    sitemap_path = _get_sitemap_path(sitemap_filename, content_id)
+    sitemap_path = _get_sitemap_path('menu.json', content_id)
 
     if not sitemap_path:
         raise Exception('Cannot find a sitemap file with the name %s in the directory for: %s' % (sitemap_filename, content_id))
 
     if os.path.isfile(sitemap_path):
+        set_menu_path_cache(content_id, language, version, sitemap_path)
+
         # Sitemap file exists, lets load it
         try:
             with open(sitemap_path) as json_data:
@@ -103,7 +144,7 @@ def _load_sitemap_from_file(version, language, content_id):
 
 
 
-def _transform_section_urls(section, prefix):
+def _transform_section_urls(section, prefix, content_id):
     # """
     # Since paths defined in assets/sitemaps/<version>.json are defined relative to the folder structure of the content
     # directories, we will need to append the URL path prefix so our URL router knows how to resolve the URLs.
@@ -127,12 +168,16 @@ def _transform_section_urls(section, prefix):
                 new_subsection['link'] = {}
 
                 for lang, lang_link in subsection['link'].items():
+                    if content_id in ['book']:
+                        lang_link = os.path.join(os.path.dirname(lang_link), 'index.%shtml' % (
+                            '' if lang == 'en' else 'cn.'))
+
                     new_subsection['link'][lang] = url_helper.get_html_page_path(
                         prefix, lang_link)
 
             elif key == 'sections':
                 new_subsection['sections'] = _transform_section_urls(
-                    subsection, prefix)
+                    subsection, prefix, content_id)
 
             else:
                 new_subsection[key] = value
@@ -157,7 +202,8 @@ def get_content_navigation(request, content_id, version, language):
     # category_data = None
     navigation = {'sections': _transform_section_urls(
         get_sitemap(version, language, content_id)[0],
-        url_helper.get_page_url_prefix(content_id, language, version)
+        url_helper.get_page_url_prefix(content_id, language, version),
+        content_id
     )}
 
     # book = root_nav.get(content_id, None)

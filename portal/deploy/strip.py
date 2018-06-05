@@ -111,7 +111,8 @@ def sphinx(original_documentation_dir, generated_documentation_dir, destination_
                     # Check if the we should process the file or not
                     # if subpath_language_dir and subpath.startswith(subpath_language_dir):
 
-            if not subpath.startswith('/.') and not subpath.startswith('/_'):
+            if not subpath.startswith('/.') and not subpath.startswith(
+                '/_static') and not subpath.startswith('/_doctrees'):
                 # new_path = destination_documentation_dir + (
                 #     new_path_map[version][subpath_language_dir]
                 #     + subpath[len(subpath_language_dir):])

@@ -17,6 +17,7 @@ import os
 import posixpath
 import urllib
 from urlparse import urlparse
+import json
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -84,39 +85,78 @@ def change_lang(request):
     response = redirect('/')
 
     # Needs to set the preferred language first in case the following code reads lang from portal_helper.
-    portal_helper.set_preferred_language(request, response, lang)
+    # portal_helper.set_preferred_language(request, response, lang)
 
     # Use the page the user was on, right before attempting to change the language.
     # If there is a known page the user was on, attempt to redirect to it's root contents.
-    from_path = urllib.unquote(request.GET.get('path', None))
+    # from_path = urllib.unquote(request.GET.get('path', None))
 
-    if from_path:
-        # Get which content the user was reading.
-        content_id = request.GET.get('content_id')
+    # if from_path:
+    # # which content the user was reading.
+    # content_id = request.GET.get('content_id')
 
-        if content_id:
-            # Get the proper version.
-            docs_version = portal_helper.get_preferred_version(request)
+    # if content_id:
 
-            # Grabbing root_navigation to check if the current lang supports this book
-            # It also makes sure that all_links_cache is ready.
-            root_navigation = sitemap_helper.get_sitemap(docs_version, lang)
+    path = urlparse(request.META.get('HTTP_REFERER')).path
 
-            if content_id in root_navigation:
-                all_links_cache = cache.get(sitemap_helper.get_all_links_cache_key(docs_version, lang), None)
+    if not path == '/':
+        # Get the proper version.
+        # docs_version = portal_helper.get_preferred_version(request)
 
-                key = url_helper.link_cache_key(from_path)
+        # # Grabbing root_navigation to check if the current lang supports this book
+        # # It also makes sure that all_links_cache is ready.
+        # root_navigation = sitemap_helper.get_sitemap(docs_version, lang, content_id)
 
-                if all_links_cache and key in all_links_cache:
-                    response = redirect(all_links_cache[key])
-                else:
-                    # There is no translated path. Use the first link in the contents instead
-                    response = _redirect_first_link_in_contents(request, docs_version, content_id)
+        content_id, old_lang, version = url_helper.get_parts_from_url_path(
+            path)
+
+        # Try to find the page in this content's navigation.
+        menu_path = sitemap_helper.get_menu_path_cache(
+            content_id, old_lang, version)
+
+        if content_id in ['book']:
+            path = os.path.join(os.path.dirname(
+                path), 'README.%smd' % ('' if old_lang == 'en' else 'cn.'))
+
+        matching_link = None
+        if menu_path.endswith('.json'):
+            with open(menu_path, 'r') as menu_file:
+                matching_link = sitemap_helper.find_all_languages_for_link(
+                    url_helper.get_raw_page_path_from_html(path),
+                    old_lang, json.loads(menu_file.read())['sections'], lang
+                )
+
+        if matching_link:
+            content_path, content_prefix = url_helper.get_full_content_path(
+                content_id, lang, version)
+
+            # Because READMEs get replaced by index.htmls, so we have to undo that.
+            if content_id in ['book']:
+                matching_link = os.path.join(os.path.dirname(
+                    matching_link), 'index.%shtml' % ('' if lang == 'en' else 'cn.'))
+
+            response = redirect(url_helper.get_html_page_path(content_prefix, matching_link))
+
+        # If no such page is found, redirect to first link in the content.
+        else:
+            response = _redirect_first_link_in_contents(
+                request, content_id, version, lang)
+
+        # if content_id in root_navigation:
+        # all_links_cache = cache.get(sitemap_helper.get_all_links_cache_key(docs_version, lang), None)
+        #
+        # key = url_helper.link_cache_key(from_path)
+        #
+        # if all_links_cache and key in all_links_cache:
+        #     response = redirect(all_links_cache[key])
+        # else:
+        # There is no translated path. Use the first link in the contents instead
+        #response = _redirect_first_link_in_contents(request, docs_version, content_id)
 
         # If the user happens to be coming from the blog.
-        elif from_path.startswith('/blog'):
-            # Blog doesn't a content_id and translated version. Simply redirect back to the original path.
-            response = redirect(from_path)
+        # elif from_path.startswith('/blog'):
+        #     # Blog doesn't a content_id and translated version. Simply redirect back to the original path.
+        #     response = redirect(from_path)
 
     portal_helper.set_preferred_language(request, response, lang)
 
@@ -125,108 +165,111 @@ def change_lang(request):
 
 def reload_docs(request):
     try:
-        if settings.CURRENT_PPO_MODE != settings.PPO_MODES.DOC_EDIT_MODE:
-            raise Exception("Can only reload docs in DOCS_MODE")
+        # if settings.CURRENT_PPO_MODE != settings.PPO_MODES.DOC_EDIT_MODE:
+        #     raise Exception("Can only reload docs in DOCS_MODE")
 
-        folder_name = request.GET.get('folder_name', None)
-        build_type = request.GET.get('build_type', None)
+        # folder_name = request.GET.get('folder_name', None)
+        # build_type = request.GET.get('build_type', None)
+        #
+        # options = None
+        # if build_type:
+        #     options = { 'build_type': build_type }
 
-        options = None
-        if build_type:
-            options = { 'build_type': build_type }
+        # if folder_name:
+        #     content_id = portal_helper.content_id_for_folder_name(folder_name)
+        # else:
+        #     content_id = request.GET.get('content_id', None)
+        #     if content_id:
+        #         folder_name = portal_helper.folder_name_for_content_id(content_id)
+        #
+        # if not folder_name:
+        #     raise Exception("Cannot get folder name")
+        #
+        # transform('%s/%s' % (settings.CONTENT_DIR, folder_name),
+        #           None,
+        #           settings.DEFAULT_DOCS_VERSION,
+        #           options)
+        path = urlparse(request.META.get('HTTP_REFERER')).path
 
-        if folder_name:
-            content_id = portal_helper.content_id_for_folder_name(folder_name)
-        else:
-            content_id = request.GET.get('content_id', None)
-            if content_id:
-                folder_name = portal_helper.folder_name_for_content_id(content_id)
+        # Get all the params from the URL and settings to generate new content.
+        content_id, lang, version = url_helper.get_parts_from_url_path(
+            path)
+        menu_path = sitemap_helper.get_menu_path_cache(
+            content_id, lang, version)
+        content_path, content_prefix = url_helper.get_full_content_path(
+            content_id, lang, version)
 
-        if not folder_name:
-            raise Exception("Cannot get folder name")
+        # Generate new content.
+        _generate_content(os.path.dirname(
+            menu_path), content_path, content_id, lang, version)
 
-        transform('%s/%s' % (settings.CONTENT_DIR, folder_name),
-                  None,
-                  settings.DEFAULT_DOCS_VERSION,
-                  options)
 
-        sitemap_helper.generate_sitemap(settings.DEFAULT_DOCS_VERSION, 'en')
-        sitemap_helper.generate_sitemap(settings.DEFAULT_DOCS_VERSION, 'zh')
+        # sitemap_helper.generate_sitemap(settings.DEFAULT_DOCS_VERSION, 'en')
+        # sitemap_helper.generate_sitemap(settings.DEFAULT_DOCS_VERSION, 'zh')
 
-        if content_id:
-            # The default category for documentation is 'fluid'
-            category = 'default'
-            if content_id == Content.DOCUMENTATION:
-                category = 'fluid'
-
-            return _redirect_first_link_in_contents(request, settings.DEFAULT_DOCS_VERSION, content_id, category)
-        else:
-            return redirect('/')
+        # if content_id:
+        #return _redirect_first_link_in_contents(request, version, content_id)
+        # else:
+        return redirect(path)
 
     except Exception as e:
         return HttpResponseServerError("Cannot reload docs: %s" % e)
 
 
-def _redirect_first_link_in_contents(request, version, content_id, category=None):
+def _redirect_first_link_in_contents(request, content_id, version=None, lang=None):
     """
     Given a version and a content service, redirect to the first link in it's
     navigation.
     """
-    lang = portal_helper.get_preferred_language(request)
+    if not lang:
+        lang = portal_helper.get_preferred_language(request)
 
-    # These are the repos without menus.
-    if content_id in ['models', 'mobile']:
-        navigation = None
-        path = 'README.html'
-        sitemap_dir = sitemap_helper._get_sitemap_path('', content_id)
-
-    else:
-        navigation, sitemap_dir = sitemap_helper.get_sitemap(
-            version, lang, content_id)
+    # else:
+    navigation, menu_path = sitemap_helper.get_sitemap(
+        version, lang, content_id)
 
     try:
         # Get the first section link from the content.
         # content = root_navigation[content_id]
 
-        content_path = _get_content_prefix(
-            sitemap_dir, content_id, lang, version)
+        # Get the directory paths on the filesystem, AND of the URL.
+        content_path, content_prefix = url_helper.get_full_content_path(
+            content_id, lang, version)
+
+        # If the content doesn't exist yet, try generating it.
+        if not os.path.exists(content_path):
+            _generate_content(os.path.dirname(
+                menu_path), content_path, content_id, lang, version)
 
         if navigation:
             path = _get_first_link_in_contents(navigation, lang)
+        else:
+            path = 'README.cn.html' if lang == 'zh' else 'README.html'
+
+        # Because READMEs get replaced by index.htmls, so we have to undo that.
+        if content_id in ['book']:
+            path = os.path.join(os.path.dirname(path), 'index.%shtml' % (
+                '' if lang == 'en' else 'cn.'))
 
         if not path:
             msg = 'Cannot perform reverse lookup on link: %s' % path
             raise Exception(msg)
 
-        # TODO: Needs to be replaced with a reverse like in url_helper.append_prefix_to_path.
-
-        # path = os.path.splitext(urlparse(path).path)[0] + '.html'
-        # return redirect('%s/%s' % (content_path, path))
-        return redirect(url_helper.get_html_page_path(content_path, path))
+        return redirect(url_helper.get_html_page_path(content_prefix, path))
 
     except Exception as e:
         print e.message
         return redirect('/')
 
 
-def _get_content_prefix(menu_path, content_id, lang, version):
-    # Try to seek whether this content has been generated yet.
-    workspace_path = os.path.join(settings.BASE_DIR, settings.WORKSPACE_DIR)
+def _generate_content(source_dir, destination_dir, content_id, lang, version):
+    # If this content has been generated yet, try generating it.
+    if not os.path.exists(destination_dir):
 
-    if not os.path.exists(workspace_path):
-        os.makedirs(workspace_path)
-
-    content_prefix = url_helper.get_page_url_prefix(content_id, lang, version)
-    content_path = '%s/%s' % (workspace_path, content_prefix)
-
-    # If it hasn't, try generating it.
-    if not os.path.exists(content_path):
         # Generate the directory.
-        os.makedirs(content_path)
+        os.makedirs(destination_dir)
 
-        transform(content_id, os.path.dirname(menu_path), content_path)
-
-    return content_prefix
+    transform(content_id, lang, source_dir, destination_dir)
 
 
 def _get_first_link_in_contents(navigation, lang):
@@ -256,7 +299,6 @@ def _get_first_link_in_contents(navigation, lang):
     # Last option is to attempt to see if there is only one link on the title level.
     elif 'link' in navigation:
         return navigation['link'][lang]
-
 
 
 def static_file_handler(request, path, extension, insecure=False, **kwargs):
@@ -319,6 +361,44 @@ def _render_static_content(request, path, content_id, additional_context=None):
         return response
 
 
+def get_menu(request):
+    if not settings.DEBUG:
+        return HttpResponseServerError('You need to be in a local development environment to show the raw menu')
+
+    #path = urlparse(request.META.get('HTTP_REFERER')).path
+    path = '/documentation/en/develop/getstarted/quickstart_en.html'
+
+    content_id, lang, version = url_helper.get_parts_from_url_path(
+        path)
+
+    navigation, menu_path = sitemap_helper.get_sitemap(
+        version, lang, content_id)
+
+    return HttpResponse(json.dumps(navigation), content_type='application/json')
+
+
+def save_menu(request):
+    try:
+        assert settings.DEBUG
+        menu = json.loads(request.POST.get('menu'), None)
+    except:
+        return HttpResponseServerError('You didn\'t submit a valid menu')
+
+    # Write the new menu to disk.
+    #path = urlparse(request.META.get('HTTP_REFERER')).path
+    path = '/documentation/en/develop/getstarted/quickstart_en.html'
+
+    content_id, lang, version = url_helper.get_parts_from_url_path(
+        path)
+    menu_path = sitemap_helper.get_menu_path_cache(
+        content_id, lang, version)
+
+    with open(menu_path, 'w') as menu_file:
+        menu_file.write(json.dumps(menu, indent=4))
+
+    return HttpResponse(status='200')
+
+
 ######## Paths and content roots below ########################
 
 def _get_static_content_from_template(path):
@@ -360,11 +440,9 @@ def cn_home_root(request):
     return response
 
 
-def book_home(request):
-    return _redirect_first_link_in_contents(request, 'develop', Content.BOOK)
-
 def about_en(request):
     return render(request, 'about_en.html')
+
 
 def about_cn(request):
     return render(request, 'about_cn.html')
@@ -380,30 +458,7 @@ def content_home(request):
         path = path[0, path.index('?')]
 
     return _redirect_first_link_in_contents(
-        request, portal_helper.get_preferred_version(request), path)
-
-
-def download_latest_doc_workspace(request):
-    portal_helper.download_and_extract_workspace()
-    return redirect('/')
-
-
-def blog_root(request):
-    path = sitemap_helper.get_external_file_path('blog/index.html')
-
-    return render(request, 'content.html', {
-        'static_content': _get_static_content_from_template(path),
-        'content_id': Content.BLOG
-    })
-
-
-def blog_sub_path(request, path):
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
-
-    return render(request, 'content.html', {
-        'static_content': _get_static_content_from_template(static_content_path),
-        'content_id': Content.BLOG
-    })
+        request, path, portal_helper.get_preferred_version(request))
 
 
 def content_sub_path(request, path=None):
@@ -446,6 +501,36 @@ def content_sub_path(request, path=None):
         additional_context = {'allow_search': True, 'allow_version': True, 'search_url': search_url}
 
     return _render_static_content(request, path, content_id, additional_context)
+
+
+####################################################
+
+
+def book_home(request):
+    return _redirect_first_link_in_contents(request, 'develop', Content.BOOK)
+
+
+def download_latest_doc_workspace(request):
+    portal_helper.download_and_extract_workspace()
+    return redirect('/')
+
+
+def blog_root(request):
+    path = sitemap_helper.get_external_file_path('blog/index.html')
+
+    return render(request, 'content.html', {
+        'static_content': _get_static_content_from_template(path),
+        'content_id': Content.BLOG
+    })
+
+
+def blog_sub_path(request, path):
+    static_content_path = sitemap_helper.get_external_file_path(request.path)
+
+    return render(request, 'content.html', {
+        'static_content': _get_static_content_from_template(static_content_path),
+        'content_id': Content.BLOG
+    })
 
 
 def content_root_path(request, path):
