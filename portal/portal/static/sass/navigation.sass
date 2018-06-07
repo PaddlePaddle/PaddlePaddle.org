@@ -31,8 +31,39 @@
             .nav-link
                 color: $white
 
-                &.border
-                    border: 1px solid white
+                &.primary
+                    background-color: #0073eb
+
+                    &:hover
+                        background-color: #3095ff
+
+                i
+                    margin-right: 6px
+
+            .version-row
+                button
+                    display: inline
+                    border-width: 0px
+                    cursor: pointer
+
+                .selected-version
+                    height: 100%
+                    background-color: transparent
+                    color: #fff
+
+                .dropdown-toggle::after
+                    vertical-align: .1em
+
+                .dropdown-menu
+                    padding: 0px
+                    margin: 0px
+
+                    .dropdown-item
+                        color: $primary-text-color
+
+                    .version-api
+                        color: #afafaf
+
 
 body
     >#content
@@ -85,40 +116,22 @@ body
             .chapter
                 margin: 0px
 
-            .version-row
-                border-bottom: 1px solid black
-                margin-top: 8px
-                padding: 8px 0px
 
-                .version-label:
-                    display: inline
+            .sidebar-edit-wrapper
+                text-align: right
 
-                .version-toggler
-                    float: right
-                    a, a:visited, a:hover
-                        color: black !important
+                .sidebar-edit
+                    background-color: transparent
+                    border-width: 0px
+                    margin-top: 12px
+                    cursor: pointer
+                    opacity: 0.5
 
-                    button
-                        display: inline
-                        border-width: 0px
+                    &:hover
+                        opacity: 1
 
-                    .selected-version
-                        height: 100%
-                        color: black
-                        background-color: transparent
-
-                    .dropdown-toggle::after
-                        vertical-align: .1em
-
-                    .dropdown-menu
-                        padding: 0px
-                        margin: 0px
-                        .title
-                            width: 100%
-                            height: 100%
-                            padding: 4px 8px
-                            background-color: $concrete
-
+                    i
+                        margin-right: 6px
 
             .search-form
                 .query

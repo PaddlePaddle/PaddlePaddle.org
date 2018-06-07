@@ -160,26 +160,24 @@ def content_links(context, content_id):
 
 
 @register.inclusion_tag('_version_links.html', takes_context=True)
-def version_links(context, content_id, category):
-    if content_id == portal_helper.Content.DOCUMENTATION or \
-                    content_id == portal_helper.Content.API:
-        # API section needs to be additonally filtered by API Version
-        versions = _get_api_version_to_paddle_versions(content_id)
-    else:
-        versions = [
-            {
-                "versions": sitemap_helper.get_available_versions(content_id)
-            }
-        ]
+def version_links(context):
+    # if content_id == portal_helper.Content.DOCUMENTATION or \
+    #                 content_id == portal_helper.Content.API:
+    #     # API section needs to be additonally filtered by API Version
+    #     versions = _get_api_version_to_paddle_versions(content_id)
+    # else:
+    #     versions = [
+    #         {
+    #             "versions": sitemap_helper.get_available_versions(content_id)
+    #         }
+    #     ]
 
-    is_hidden = True
-    if context.template and content_id:
-        is_hidden = False
+    # Make a copy because otherwise settings persist in the process.
+    versions = list(settings.VERSIONS)
+    versions.reverse()
 
     return _common_context(context, {
-        'versions': versions,
-        'category': category,
-        'is_hidden': is_hidden
+        'versions':versions,
     })
 
 

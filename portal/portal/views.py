@@ -43,36 +43,95 @@ def change_version(request):
     Change current documentation version.
     """
     # Look for a new version in the URL get params.
-    preferred_version = request.GET.get('preferred_version', settings.DEFAULT_DOCS_VERSION)
-    api_version = request.GET.get('api_version', None)
+    version = request.GET.get('preferred_version', settings.DEFAULT_DOCS_VERSION)
+    # api_version = request.GET.get('api_version', None)
 
     # Refers to the name of the contents service, for eg. 'models', 'documentation', or 'book'.
-    content_id = request.GET.get('content_id', None)
+    # content_id = request.GET.get('content_id', None)
 
     # Infer language based on session/cookie.
-    lang = portal_helper.get_preferred_language(request)
+    # lang = portal_helper.get_preferred_language(request)
 
-    root_navigation = sitemap_helper.get_sitemap(preferred_version, lang)
+    response = redirect('/')
 
-    response = home_root(request)
+    path = urlparse(request.META.get('HTTP_REFERER')).path
 
-    if content_id:
-        if content_id in root_navigation and root_navigation[content_id]:
-            response = _redirect_first_link_in_contents(request, preferred_version, content_id, api_version)
-        else:
-            # This version doesn't support this book. Redirect it back to home
-            response = redirect('/')
+    if not path == '/':
+        # root_navigation = sitemap_helper.get_sitemap(preferred_version, lang)
+        response = _find_matching_equivalent_page_for(path, request, None, version)
 
-    # If no content service specified, just redirect to first page of root site navigation.
-    elif root_navigation and len(root_navigation) > 0:
-        for content_id, content in root_navigation.items():
-            if content:
-                response = _redirect_first_link_in_contents(request, preferred_version, content_id, api_version)
+    # response = home_root(request)
+    #
+    # if content_id:
+    #     if content_id in root_navigation and root_navigation[content_id]:
+    #         response = _redirect_first_link_in_contents(request, preferred_version, content_id, api_version)
+    #     else:
+    #         # This version doesn't support this book. Redirect it back to home
+    #         response = redirect('/')
 
-    portal_helper.set_preferred_version(response, preferred_version)
-    portal_helper.set_preferred_api_version(response, api_version)
+    # # If no content service specified, just redirect to first page of root site navigation.
+    # elif root_navigation and len(root_navigation) > 0:
+    #     for content_id, content in root_navigation.items():
+    #         if content:
+    #             response = _redirect_first_link_in_contents(request, preferred_version, content_id, api_version)
+
+    portal_helper.set_preferred_version(response, version)
+    # portal_helper.set_preferred_api_version(response, api_version)
 
     return response
+
+
+def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
+    content_id, old_lang, old_version = url_helper.get_parts_from_url_path(
+        path)
+
+    # Try to find the page in this content's navigation.
+    menu_path = sitemap_helper.get_menu_path_cache(
+        content_id, old_lang, old_version)
+
+    if content_id in ['book']:
+        path = os.path.join(os.path.dirname(
+            path), 'README.%smd' % ('' if old_lang == 'en' else 'cn.'))
+
+    matching_link = None
+    if menu_path.endswith('.json'):
+        with open(menu_path, 'r') as menu_file:
+            menu = json.loads(menu_file.read())
+            path_to_seek = url_helper.get_raw_page_path_from_html(path)
+
+            if lang:
+                matching_link = sitemap_helper.find_all_languages_for_link(
+                    path_to_seek,
+                    old_lang, menu['sections'], lang
+                )
+                version = old_version
+
+            else:
+                path_prefix = url_helper.get_page_url_prefix(
+                    content_id, old_lang, old_version)
+
+                # Try to find this link in the menu path.
+                # NOTE: We account for the first and last '/'.
+                # print menu['sections']
+                matching_link = sitemap_helper.find_link_in_sections(
+                    menu['sections'], path_to_seek)
+                lang = old_lang
+
+    if matching_link:
+        content_path, content_prefix = url_helper.get_full_content_path(
+            content_id, lang, version)
+
+        # Because READMEs get replaced by index.htmls, so we have to undo that.
+        if content_id in ['book'] and old_lang != lang:
+            matching_link = os.path.join(os.path.dirname(
+                matching_link), 'index.%shtml' % ('' if lang == 'en' else 'cn.'))
+
+        return redirect((url_helper.get_html_page_path(content_prefix, matching_link)))
+
+    # If no such page is found, redirect to first link in the content.
+    else:
+        return _redirect_first_link_in_contents(
+            request, content_id, version, lang)
 
 
 def change_lang(request):
@@ -107,40 +166,7 @@ def change_lang(request):
         # # It also makes sure that all_links_cache is ready.
         # root_navigation = sitemap_helper.get_sitemap(docs_version, lang, content_id)
 
-        content_id, old_lang, version = url_helper.get_parts_from_url_path(
-            path)
-
-        # Try to find the page in this content's navigation.
-        menu_path = sitemap_helper.get_menu_path_cache(
-            content_id, old_lang, version)
-
-        if content_id in ['book']:
-            path = os.path.join(os.path.dirname(
-                path), 'README.%smd' % ('' if old_lang == 'en' else 'cn.'))
-
-        matching_link = None
-        if menu_path.endswith('.json'):
-            with open(menu_path, 'r') as menu_file:
-                matching_link = sitemap_helper.find_all_languages_for_link(
-                    url_helper.get_raw_page_path_from_html(path),
-                    old_lang, json.loads(menu_file.read())['sections'], lang
-                )
-
-        if matching_link:
-            content_path, content_prefix = url_helper.get_full_content_path(
-                content_id, lang, version)
-
-            # Because READMEs get replaced by index.htmls, so we have to undo that.
-            if content_id in ['book']:
-                matching_link = os.path.join(os.path.dirname(
-                    matching_link), 'index.%shtml' % ('' if lang == 'en' else 'cn.'))
-
-            response = redirect(url_helper.get_html_page_path(content_prefix, matching_link))
-
-        # If no such page is found, redirect to first link in the content.
-        else:
-            response = _redirect_first_link_in_contents(
-                request, content_id, version, lang)
+        response = _find_matching_equivalent_page_for(path, request, lang)
 
         # if content_id in root_navigation:
         # all_links_cache = cache.get(sitemap_helper.get_all_links_cache_key(docs_version, lang), None)
@@ -365,8 +391,7 @@ def get_menu(request):
     if not settings.DEBUG:
         return HttpResponseServerError('You need to be in a local development environment to show the raw menu')
 
-    #path = urlparse(request.META.get('HTTP_REFERER')).path
-    path = '/documentation/en/develop/getstarted/quickstart_en.html'
+    path = urlparse(request.META.get('HTTP_REFERER')).path
 
     content_id, lang, version = url_helper.get_parts_from_url_path(
         path)
@@ -385,8 +410,7 @@ def save_menu(request):
         return HttpResponseServerError('You didn\'t submit a valid menu')
 
     # Write the new menu to disk.
-    #path = urlparse(request.META.get('HTTP_REFERER')).path
-    path = '/documentation/en/develop/getstarted/quickstart_en.html'
+    path = urlparse(request.META.get('HTTP_REFERER')).path
 
     content_id, lang, version = url_helper.get_parts_from_url_path(
         path)
@@ -506,10 +530,6 @@ def content_sub_path(request, path=None):
 ####################################################
 
 
-def book_home(request):
-    return _redirect_first_link_in_contents(request, 'develop', Content.BOOK)
-
-
 def download_latest_doc_workspace(request):
     portal_helper.download_and_extract_workspace()
     return redirect('/')
@@ -531,25 +551,6 @@ def blog_sub_path(request, path):
         'static_content': _get_static_content_from_template(static_content_path),
         'content_id': Content.BLOG
     })
-
-
-def content_root_path(request, path):
-    content_id = ''
-    path = path + '/'
-
-    if path == url_helper.DOCUMENTATION_ROOT:
-        content_id = Content.DOCUMENTATION
-
-    elif path == url_helper.BOOK_ROOT:
-        content_id = Content.BOOK
-
-    elif path == url_helper.MODEL_ROOT:
-        content_id = Content.MODELS
-
-    elif path == url_helper.MOBILE_ROOT:
-        content_id = Content.MOBILE
-
-    return _redirect_first_link_in_contents(request, version, content_id)
 
 
 def other_path(request, version, path=None):

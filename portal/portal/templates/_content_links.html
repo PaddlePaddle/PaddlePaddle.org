@@ -1,21 +1,9 @@
 {% load app_tags %}
 
 <nav class="sidebar collapse fixed-left" id="sidebar-nav">
-    {% if allow_search %}
-    <div class='search-form' role="search">
-      <form action="{% url url_helper.URL_NAME_CONTENT CURRENT_DOCS_VERSION search_url %}">
-        <input class="query "type="text" name="q" placeholder="Search docs" />
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="hidden" name="check_keywords" value="yes" />
-        <input type="hidden" name="area" value="default" />
-      </form>
-    </div>
-    {% endif %}
-
-    {% if allow_version %}
-    <div class="version-row">
-        <span class="version-label">Version </span>
-        {% version_links content_id category %}
+    {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+    <div class="sidebar-edit-wrapper">
+        <button class="sidebar-edit" data-toggle="modal" data-target="#menu-editor-modal"><i class='fas fa-edit'></i>Edit menu</button>
     </div>
     {% endif %}
 

@@ -39,6 +39,19 @@ def find_all_languages_for_link(possible_links, current_lang, sections, desired_
     return None
 
 
+def find_link_in_sections(sections, possible_links):
+    for section in sections:
+        if 'link' in section:
+            for lang, lang_link in section['link'].items():
+                if lang_link == possible_links[0] or lang_link == possible_links[1]:
+                    return lang_link
+
+        if 'sections' in section:
+            lang_link = find_link_in_sections(section['sections'], possible_links)
+            if lang_link:
+                return lang_link
+
+
 def set_menu_path_cache(content_id, lang, version, path):
     cache.set(
         '%s/%s' % ('menu_path', url_helper.get_page_url_prefix(
@@ -119,7 +132,7 @@ def _load_sitemap_from_file(version, language, content_id):
     sitemap_path = _get_sitemap_path('menu.json', content_id)
 
     if not sitemap_path:
-        raise Exception('Cannot find a sitemap file with the name %s in the directory for: %s' % (sitemap_filename, content_id))
+        raise Exception('Cannot find a sitemap file with the name %s in the directory for: %s' % (sitemap_path, content_id))
 
     if os.path.isfile(sitemap_path):
         set_menu_path_cache(content_id, language, version, sitemap_path)

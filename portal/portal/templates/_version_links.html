@@ -1,21 +1,11 @@
 {% load app_tags %}
 
+<button class="selected-version dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{ CURRENT_DOCS_VERSION }}
+</button>
 
-<form action="{% url 'set_version' %}" class="version-toggler{% if is_hidden %} invisible{% endif %}" method="post">{% csrf_token %}
-    <div>
-        <button class="selected-version dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ category|title }} ({{ CURRENT_DOCS_VERSION }})
-        </button>
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {% for version_map in versions %}
-            {% if version_map.title %}
-            <div class="title">{{ version_map.title }}</div>
-            {% endif %}
-            {% for version in version_map.versions %}
-            <a class="dropdown-item" href="{% url 'set_version' %}?preferred_version={{ version }}&api_version={{ version_map.key }}&content_id={{ content_id }}">{{ version }}</a>
-            {% endfor %}
-            {% endfor %}
-        </div>
-    </div>
-</form>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for version in versions %}
+    <a class="dropdown-item" href="{% url 'set_version' %}?preferred_version={{ version.name }}">{% if version.name != 'develop' %}v{% endif %}{{ version.name }}<span class="version-api"> ({{ version.api }})</span></a>
+    {% endfor %}
+</div>

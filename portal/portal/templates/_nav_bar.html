@@ -3,29 +3,42 @@
 {% load app_tags %}
 {% load i18n %}
 
-{% if settings.ENV != 'production' and settings.ENV != 'staging' %}
-{% include '_menu_editor.html' %}
-{% endif %}
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="/static/images/logo.png"/></a>
+        <div class='search-form' role="search">
+          <form action="{% url 'content' 'api/en/develop/search.html' %}">
+            <input class="query "type="text" name="q" placeholder="Search docs" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-            {% for category in root_nav %}
-                {% translation_assignment category.title as book_title %}
-                {# first_book_url_assignment book b_id as book_url #}
-                {# if book_title != none and book_title != "" #}
-                <li class="nav-item{% if content_id == b_id %} active{% endif %}">
-                    <a class="nav-link" href="{{ category.path }}">{% translation category.title %}<span class="sr-only">(current)</span></a>
+            <ul class="navbar-nav ml-auto mr-3">
+                {% for category in root_nav %}
+                    {% translation_assignment category.title as book_title %}
+                    {# first_book_url_assignment book b_id as book_url #}
+                    {# if book_title != none and book_title != "" #}
+                    <li class="nav-item{% if category.path in request.path %} active{% endif %}">
+                        <a class="nav-link" href="{{ category.path }}"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"{% endif %}>{% translation category.title %}<span class="sr-only">(current)</span></a>
+                    </li>
+                    {# endif #}
+                {% endfor %}
+            </ul>
+            <ul class="navbar-nav mr-3">
+                <li>
+                    <div class="nav-link dropdown version-row">
+                        {% version_links %}
+                    </div>
                 </li>
-                {# endif #}
-            {% endfor %}
+            </ul>
+            <ul class="navbar-nav">
 
             <li>
 <<<<<<< HEAD
@@ -41,7 +54,7 @@
                 <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
             </li>
             <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                Github
+                GitHub
             </a></li>
             {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
 
@@ -52,7 +65,7 @@
                     {# include '_paddle_docs_modal.html' #}
                     {# else #}
                     <!-- onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"-->
-                    <a class="nav-link border" href="{% url 'reload_docs' %}">{% trans "Refresh Content" %}</a>
+                    <a class="nav-link primary" href="{% url 'reload_docs' %}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"><i class="fas fa-sync"></i>{% trans "Refresh Content" %}</a>
                     {# endif #}
                 </li>
                 {% endif %}

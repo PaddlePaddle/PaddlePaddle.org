@@ -11,16 +11,13 @@
     <link href="//cdn.bootcss.com/highlight.js/9.9.0/styles/darcula.min.css" rel="stylesheet">
     <link href="/static/stylesheets/content.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
-{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
-    <link href="/static/stylesheets/spinner.css" media="screen, projection" rel="stylesheet" type="text/css" />
-{% endif %}
-
 {{ block.super }}
 {% endblock %}
 
 {% block content_root %}
-{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
-{% include '_full_page_spinner.html' %}
+{% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+{% include '_menu_editor.html' %}
+
 {% endif %}
 {{ block.super }}
 {% endblock %}
@@ -83,25 +80,6 @@ MathJax.Hub.Config({
     });
 
 </script>
-
-{% if settings.CURRENT_PPO_MODE != settings.PPO_MODES.Default %}
-<script>
-    function showFullpageSpinnerForContentId(folderName) {
-        var message = '{% trans "Refreshing " %}' + folderName +
-                        '{% trans ". This may take a few minutes, please wait..." %}';
-        $('.spinner-container').show();
-        $('.spinner-label').text(message);
-
-        $('#paddleDocsModal').hide();
-        return true;
-    }
-
-    function hideFullpageSpinner() {
-        $('spinner-container').hide();
-        return true;
-    }
-</script>
-{% endif %}
 
 {% if allow_search %}
 {% include '_search.html' %}

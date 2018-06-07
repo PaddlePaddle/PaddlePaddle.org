@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from urlparse import urlparse
+
 from django.conf import settings
 
 from portal import portal_helper
@@ -19,9 +21,13 @@ from portal import url_helper
 
 
 def base_context(request):
+    path = urlparse(request.path).path
+    content_id, lang, version = url_helper.get_parts_from_url_path(
+        path)
+
     return {
-        'CURRENT_DOCS_VERSION': portal_helper.get_preferred_version(request),
-        'CURRENT_API_VERSION': portal_helper.get_preferred_api_version(request),
+        'CURRENT_DOCS_VERSION': version,
+        # 'CURRENT_API_VERSION': portal_helper.get_preferred_api_version(request),
         'settings': settings,
         'url_helper': url_helper
     }

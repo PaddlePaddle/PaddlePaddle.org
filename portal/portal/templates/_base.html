@@ -20,6 +20,9 @@
         <link href="/static/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% endblock %}
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+            <link href="/static/stylesheets/spinner.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        {% endif %}
         <script>
         var _hmt = _hmt || [];
         (function() {
@@ -43,6 +46,9 @@
             {% endblock %}
             </div>
         {% endblock %}
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+        {% include '_full_page_spinner.html' %}
+        {% endif %}
 
         {% block post_content %}{% endblock %}
 
@@ -50,6 +56,23 @@
         <script src="/static/js/popper.min.js"></script>
         <script src="/static/js/jquery-3.2.1.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+        <script>
+            function showFullpageSpinnerForContentId(folderName) {
+                var message = 'Loading...';
+                $('.spinner-container').show();
+                $('.spinner-label').text(message);
+
+                $('#paddleDocsModal').hide();
+                return true;
+            }
+
+            function hideFullpageSpinner() {
+                $('spinner-container').hide();
+                return true;
+            }
+        </script>
+        {% endif %}
         {% endblock %}
     </body>
 
