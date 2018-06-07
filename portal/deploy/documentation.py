@@ -48,7 +48,7 @@ def _build_sphinx_index_from_sitemap(sitemap_path, lang):
 
 def _remove_sphinx_menu(menu_path, lang):
     """Undoes the function above"""
-    os.remove(os.path.dirname(sitemap_path) + ('/index_%s.rst' % lang))
+    os.remove(os.path.dirname(menu_path) + ('/index_%s.rst' % lang))
 
 
 def transform(content_id, lang, source_dir, destination_dir):
@@ -61,7 +61,7 @@ def transform(content_id, lang, source_dir, destination_dir):
     if content_id in ['documentation', 'api']:
         _build_sphinx_index_from_sitemap(menu_path, lang)
 
-        sphinx_output_dir = tempfile.mkdtemp()
+        sphinx_output_dir = '/Users/aroravarun/Code/paddlepaddle/scratch/sp' # tempfile.mkdtemp()
 
         call(['sphinx-build', '-b', 'html', '-c',
             os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, sphinx_output_dir])
@@ -70,7 +70,7 @@ def transform(content_id, lang, source_dir, destination_dir):
 
         _remove_sphinx_menu(menu_path, lang)
 
-        shutil.rmtree(sphinx_output_dir)
+        #shutil.rmtree(sphinx_output_dir)
 
     elif content_id == 'book':
         documentation_generator.generate_book_docs(source_dir, destination_dir)

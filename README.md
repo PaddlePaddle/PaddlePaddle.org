@@ -31,7 +31,7 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
     Pass the list of directories you wish to load and build content from (options include `--paddle`, `--book`, `--models`, and `--mobile`)
     ```
-    ./runserver --paddle <path_to_paddle_dir> --book <path_to_book_dir>
+    ./runserver --paddle <path_to_paddle_doc_version_dir> --book <path_to_book_dir>
     ```
 
     Open up your browser and navigate to [http://localhost:8000](http://localhost:8000).
@@ -46,7 +46,7 @@ After you have gone through the installation steps above, here are the steps you
 
 - Before you start writing, we recommend reviewing these [guidelines on contributing content]().
 - Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file within the appropriate directory of the repo you are contributing to.
-- To view the changes in your browser, click **Regenerate** on the top-righthand side corner.
+- To view the changes in your browser, click **Refresh Content** on the top-righthand side corner.
 - To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
 
 
@@ -55,7 +55,8 @@ After you have gone through the installation steps above, here are the steps you
 After you have built your new `pybind` targets, and have tested your new Python API, you can continue with testing how your documentation strings and comments show up:
 
 - We recommend reviewing these [guidelines on contributing API documentation]().
-- On the specific "API" page you wish to update, click **Regenerate** on the top-righthand side corner.
+- Make sure that the built Python directory (containing `paddle`) is available in the `PYTHONPATH` of where you are running `./runserver` from.
+- On the specific "API" page you wish to update, click **Refresh Content** on the top-righthand side corner.
 - To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
 
 
