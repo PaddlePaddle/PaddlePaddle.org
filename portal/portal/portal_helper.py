@@ -53,6 +53,9 @@ def get_preferred_version(request):
     #     # In document generation mode, we only allow for 'doc_test' version
     #     preferred_version = settings.DEFAULT_DOCS_VERSION
 
+    if not preferred_version:
+        preferred_version = settings.DEFAULT_DOCS_VERSION
+
     return preferred_version
 
 

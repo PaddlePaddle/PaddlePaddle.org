@@ -19,3 +19,4 @@ docker==2.5.1
 paddlepaddle
 pymdown-extensions==4.1.0
 newrelic
+textblob
