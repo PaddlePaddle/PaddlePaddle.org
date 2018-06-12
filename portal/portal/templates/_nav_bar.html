@@ -6,14 +6,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="/static/images/logo.png"/></a>
-        <div class='search-form' role="search">
-          <form action="{% url 'content' 'api/en/develop/search.html' %}">
-            <input class="query "type="text" name="q" placeholder="Search docs" />
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="hidden" name="check_keywords" value="yes" />
-            <input type="hidden" name="area" value="default" />
-          </form>
-        </div>
+        <form action="{% url 'content' 'api/en/develop/search.html' %}" class="form-inline">
+          <input class="form-control mr-sm-2 typeahead" type="search" name="q" placeholder="Search PaddlePaddle.org" />
+        </form>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

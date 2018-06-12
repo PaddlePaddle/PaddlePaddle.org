@@ -19,6 +19,19 @@
             height: $primary-nav-height
             width: auto
 
+    .form-inline
+        margin-left: 12px
+
+        .form-control
+            width: 350px
+            background-color: #000
+            border: 1px solid #666
+            color: #fff
+
+            &:focus
+                background-color: #fff
+                color: $primary-text-color
+
     .navbar-toggler
         margin-top: 0
 
@@ -429,3 +442,84 @@ body
             .menu-editor-link
                 .menu-editor-link-info-title
                     margin-left: 48px
+
+
+// From https://github.com/bassjobsen/typeahead.js-bootstrap4-css/blob/master/typeaheadjs.css.
+span.twitter-typeahead .tt-menu
+    cursor: pointer
+    width: 98%    // Bad way to account for paddings.
+
+
+.dropdown-menu, span.twitter-typeahead .tt-menu
+    position: absolute
+    top: 100%
+    left: 0
+    z-index: 1000
+    display: none
+    float: left
+    min-width: 160px
+    padding: 5px 0
+    //margin: 2px 0 0
+    font-size: 1rem
+    color: #373a3c
+    text-align: left
+    list-style: none
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid rgba(0, 0, 0, 0.15)
+    border-radius: 0.25rem
+
+span.twitter-typeahead .tt-suggestion
+    //display: block
+    // width: 100%
+    // padding: 3px 20px
+    padding: 4px 0px
+    margin: 0px
+    clear: both
+    font-weight: normal
+    line-height: 1.5
+    color: #373a3c
+    text-align: inherit
+    white-space: nowrap
+    background: none
+    border: 0
+
+    .title
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+
+        .prefix
+            color: #999
+
+    .type
+        font-size: $font-small
+        color: $curious-blue
+
+span.twitter-typeahead .tt-suggestion:focus, .dropdown-item:hover, span.twitter-typeahead .tt-suggestion:hover
+    color: #2b2d2f
+    text-decoration: none
+    background-color: #f5f5f5
+
+span.twitter-typeahead .active.tt-suggestion, span.twitter-typeahead .tt-suggestion.tt-cursor, span.twitter-typeahead .active.tt-suggestion:focus, span.twitter-typeahead .tt-suggestion.tt-cursor:focus, span.twitter-typeahead .active.tt-suggestion:hover, span.twitter-typeahead .tt-suggestion.tt-cursor:hover
+    color: #fff
+    text-decoration: none
+    background-color: #0275d8
+    outline: 0
+
+span.twitter-typeahead .disabled.tt-suggestion, span.twitter-typeahead .disabled.tt-suggestion:focus, span.twitter-typeahead .disabled.tt-suggestion:hover
+    color: #818a91
+
+span.twitter-typeahead .disabled.tt-suggestion:focus, span.twitter-typeahead .disabled.tt-suggestion:hover
+    text-decoration: none
+    cursor: not-allowed
+    background-color: transparent
+    background-image: none
+    filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)"
+
+span.twitter-typeahead
+    width: 100%
+    .input-group span.twitter-typeahead
+        display: block !important
+        .input-group span.twitter-typeahead .tt-menu
+            top: 2.375rem !important

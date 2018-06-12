@@ -25,6 +25,9 @@ def base_context(request):
     content_id, lang, version = url_helper.get_parts_from_url_path(
         path)
 
+    if not version:
+        version = portal_helper.get_preferred_version(request)
+
     return {
         'CURRENT_DOCS_VERSION': version,
         # 'CURRENT_API_VERSION': portal_helper.get_preferred_api_version(request),
