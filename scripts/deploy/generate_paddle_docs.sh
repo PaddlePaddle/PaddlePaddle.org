@@ -31,7 +31,6 @@ fi
 cmake "$DOCS_LOCATION" -DCMAKE_BUILD_TYPE=Release -DWITH_GPU=OFF -DWITH_MKL=OFF -DWITH_DOC=ON -DWITH_STYLE_CHECK=OFF
 
 if [ $BUILD_TYPE = "DOC_LITE" ]; then
-    make -j $processors gen_proto_py
     make -j $processors paddle_docs
 elif [ $BUILD_TYPE = "DOC_FULL" ]; then
     make -j $processors gen_proto_py framework_py_proto

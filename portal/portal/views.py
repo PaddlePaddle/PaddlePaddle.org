@@ -154,7 +154,12 @@ def reload_docs(request):
         sitemap_helper.generate_sitemap(settings.DEFAULT_DOCS_VERSION, 'zh')
 
         if content_id:
-            return _redirect_first_link_in_contents(request, settings.DEFAULT_DOCS_VERSION, content_id)
+            # The default category for documentation is 'fluid'
+            category = 'default'
+            if content_id == Content.DOCUMENTATION:
+                category = 'fluid'
+
+            return _redirect_first_link_in_contents(request, settings.DEFAULT_DOCS_VERSION, content_id, category)
         else:
             return redirect('/')
 

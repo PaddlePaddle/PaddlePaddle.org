@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 23:05+0000\n"
+"POT-Creation-Date: 2018-05-25 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: portal/settings.py:141
+#: portal/settings.py:156
 msgid "English"
 msgstr ""
 
-#: portal/settings.py:142
+#: portal/settings.py:157
 msgid "Chinese"
 msgstr ""
 
@@ -29,17 +29,15 @@ msgstr ""
 msgid "PaddlePaddle - Train and deploy deep learning at scale"
 msgstr ""
 
-#: portal/templates/_nav_bar.html:37 portal/templates/_nav_bar.html:41
+#: portal/templates/_nav_bar.html:36 portal/templates/_nav_bar.html.py:39
 msgid "Refresh Content"
 msgstr "刷新内容"
 
-#: portal/templates/content.html:85
-#: visualDL/templates/visualdl/content.html:85
+#: portal/templates/content.html:90 visualDL/templates/visualdl/content.html:85
 msgid "Refreshing "
 msgstr "刷新"
 
-#: portal/templates/content.html:86
-#: visualDL/templates/visualdl/content.html:86
+#: portal/templates/content.html:91 visualDL/templates/visualdl/content.html:86
 msgid ". This may take a few minutes, please wait..."
 msgstr "中。这可能需要几分钟，请稍候…"
 
@@ -85,7 +83,7 @@ msgstr "自然语言理解"
 
 #: portal/templates/index.html:60
 msgid "Using a Recurrent Neural Network (RNN) for Sentiment Analysis."
-msgstr "利用LSTM网络从IMDB电影评论的中分析出评论者情绪的正面和负面"
+msgstr "利用LSTM网络从IMDB电影的评论中分析出评论者的正面情绪和负面情绪"
 
 #: portal/templates/index.html:79
 msgid "Recommender System"
@@ -228,11 +226,11 @@ msgid ""
 "storage to accelerate the training process."
 msgstr "全面支持多核、多GPU、多机环境。轻松应对大规模训练需求"
 
-#: portal/templates/index_doc_mode.html:21
+#: portal/templates/index_doc_mode.html:20
 msgid "PaddlePaddle Document Viewer"
 msgstr "PaddlePaddle 文档查看器"
 
-#: portal/templates/index_doc_mode.html:24
+#: portal/templates/index_doc_mode.html:23
 msgid ""
 "Welcome to PaddlePaddle.org document viewer.  To get started, please clone "
 "one or more documentation repos."

@@ -29,7 +29,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "portal.settings")
 
 application = get_wsgi_application()
 
-if os.environ['ENV'] == 'release':
+ENV = os.environ.get('ENV', None)
+
+if ENV == 'release':
     import newrelic.agent
     newrelic.agent.initialize(os.path.join(os.path.dirname(
         os.path.abspath(__file__)), 'newrelic.ini'))
