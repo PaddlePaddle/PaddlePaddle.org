@@ -23,6 +23,55 @@
 
         </div>
     </section>
+
+    <!-- Features sections, currently supports 4 features -->
+    <section class="features">
+        <div class="container">
+            <div class="bubble-background">
+            </div>
+            <div class="row">
+                <h2 class="col-lg-12"><span>{% trans "Technical Features"%}</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="feature-desc">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-1.png">
+                        </div>
+                        <h3>{% trans "Ease of use"%}</h3>
+                        <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
+                    </div>
+                </div>
+                 <div class="col-lg-3">
+                    <div class="feature-desc">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-2.png">
+                        </div>
+                        <h3>{% trans "Flexibility"%}</h3>
+                        <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="feature-desc">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-3.png">
+                        </div>
+                        <h3>{% trans "Efficiency"%}</h3>
+                        <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
+                    </div>
+                </div><div class="col-lg-3">
+                    <div class="feature-desc">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-4.png">
+                        </div>
+                        <h3>{% trans "Scalability"%}</h3>
+                        <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="services">
         <div class="container">
             <div class="row">
@@ -146,49 +195,6 @@ for i in xrange(len(probs)):
 
         <p class='docker' style="display: none">{% blocktrans %}<strong>Voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
         <p>Want more real-world tutorials? <a href='{% url url_helper.URL_NAME_BOOK_ROOT %}'>Read the book!</a></p>
-    </section>
-
-    <section class="container features">
-        <div class="row">
-            <h2 class="col-lg-12"><span>{% trans "Technical Features"%}</span></h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="feature-desc">
-                    <div class="feature-icon">
-                        <img src="/static/images/feature-1.png">
-                    </div>
-                    <h3>{% trans "Ease of use"%}</h3>
-                    <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
-                </div>
-            </div>
-             <div class="col-lg-3">
-                <div class="feature-desc">
-                    <div class="feature-icon">
-                        <img src="/static/images/feature-2.png">
-                    </div>
-                    <h3>{% trans "Flexibility"%}</h3>
-                    <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="feature-desc">
-                    <div class="feature-icon">
-                        <img src="/static/images/feature-3.png">
-                    </div>
-                    <h3>{% trans "Efficiency"%}</h3>
-                    <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
-                </div>
-            </div><div class="col-lg-3">
-                <div class="feature-desc">
-                    <div class="feature-icon">
-                        <img src="/static/images/feature-4.png">
-                    </div>
-                    <h3>{% trans "Scalability"%}</h3>
-                    <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
-                </div>
-            </div>
-        </div>
     </section>
 </div>
 
