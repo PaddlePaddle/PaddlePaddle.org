@@ -42,7 +42,7 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 ## Writing new content
 
-All repositories support content contribution formatted as [Markdown](https://guides.github.com/features/mastering-markdown/) (the GitHub flavor). The Paddle repo, where majority of the documentation lies, also support the [reStructured Text](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) format.
+All repositories support content contribution formatted as [Markdown](https://guides.github.com/features/mastering-markdown/) (the GitHub flavor). The Paddle repo, where majority of the documentation lies, also supports the [reStructured Text](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) format.
 
 After you have gone through the installation steps above, here are the steps you need to take:
 
