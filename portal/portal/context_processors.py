@@ -30,7 +30,6 @@ def base_context(request):
 
     return {
         'CURRENT_DOCS_VERSION': version,
-        # 'CURRENT_API_VERSION': portal_helper.get_preferred_api_version(request),
         'settings': settings,
         'url_helper': url_helper
     }

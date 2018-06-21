@@ -5,6 +5,7 @@
 <script src="//unpkg.com/react-dnd@2.6.0/dist/ReactDnD.min.js"></script>
 <script src="//unpkg.com/react-dnd-html5-backend@2.6.0/dist/ReactDnDHTML5Backend.min.js"></script>
 <script>
+{% verbatim %}
 'use strict';
 
 const e = React.createElement;
@@ -12,15 +13,10 @@ const e = React.createElement;
 
 class Modal extends React.Component {
     render(){
-        return e('div', { 'id': this.props.id, 'class': 'modal fade'/* + (this.props.open ? ' show' : '')*/, 'tabindex': -1, role: 'dialog'/*, style: this.props.open ? { display: 'block' } : null */},
-        // <div id="menu-editor-modal" class="modal fade show" tabindex="-1" role="dialog" style="display: block">
+        return e('div', { 'id': this.props.id, 'class': 'modal fade', 'tabindex': -1, role: 'dialog'},
             e('div', { 'class': 'modal-dialog' + (this.props.large ? ' modal-lg' : ''), role: 'document' },
-            // <div class="modal-dialog" role="document">
                 e('div', { 'class': 'modal-content' }, this.props.children)
-                // <div class="modal-content">
-            // </div>
             )
-        // </div>
         );
     }
 }
@@ -32,19 +28,11 @@ class MenuEditor extends React.Component {
             addEditLink, deleteLink, saveLink} = this.props;
 
         return e(Modal, { open: false, id: 'menu-editor-modal' },
-        // <form action="/" method="post">
-            // {% csrf_token %}
             e('div', { 'class': 'modal-header' }, [
-            // <div class="modal-header">
                 e('h5', { 'class': 'modal-title' }, 'Edit navigation'),
-                // <h5 class="modal-title">Edit navigation</h5>
                 e('button', { 'type': 'button', 'class': 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
                     e('span', { 'aria-hidden': 'true' }, '×')
                 ),
-                // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                //     <span aria-hidden="true">&times;</span>
-                // </button>
-            // </div>
             ]),
             e('div', { 'class': 'modal-body' }, [
                 menu ? e('div', {class:'menu-editor-links'}, sections.map((sectionId) => (
@@ -59,8 +47,6 @@ class MenuEditor extends React.Component {
                 e('button', { 'class': 'btn btn-secondary', 'type': 'button', 'data-dismiss': 'modal' }, 'Cancel'),
                 e('button', { 'class': 'btn btn-primary', onClick: unflattenSitemap, 'data-dismiss': 'modal' }, 'Save')
             ])
-            // <!-- <div id="menu-editor-wrapper"></div> -->
-        // </form>
         );
     }
 }
@@ -156,6 +142,9 @@ var LinkSource = {
 
 
 const LinkTarget = {
+    canDrop(){
+        return false;
+    },
 	hover(props, monitor, component) {
 		const drag = props.sitemap[monitor.getItem().sectionId],
             hover = props.sitemap[props.sectionId];
@@ -212,7 +201,7 @@ const LinkTarget = {
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }
 
@@ -238,6 +227,8 @@ class Link extends React.Component {
 			isDragging,
 			connectDragSource,
 			connectDropTarget,
+            highlighted,
+            hovered,
 
             sectionId,
             moveLink,
@@ -248,8 +239,8 @@ class Link extends React.Component {
 
         var section = sitemap[sectionId];
 
-        return connectDragSource(connectDropTarget(e('div', { 'class': 'menu-editor-link' + (section.parent === -1 ? ' container' : '') },
-            e('div', { 'class': 'menu-editor-link-info row justify-content-between' },
+        return connectDragSource && connectDropTarget && connectDragSource(connectDropTarget(e('div', { 'class': 'menu-editor-link' + (section.parent === -1 ? ' container' : '') },
+            e('div', { 'class': 'menu-editor-link-info row justify-content-between', style: (hovered ? { backgroundColor: '#efefef', opacity: (isDragging ? 0.5 : 1) } : null) },
                 e('div', { 'class': 'menu-editor-link-info-title col-8' }, section.title.en + ' / ' + section.title.zh),
                 e('div', { 'class': 'menu-editor-link-info-actions col' }, [
                     e('span', { 'class': 'menu-editor-link-info-action', onClick: this.edit.bind(this), 'data-toggle': 'modal', 'data-target': '#menu-link-editor-modal' }, e('i', { 'class': 'fas fa-edit' })),
@@ -315,12 +306,6 @@ class MenuEditorWrapper extends React.Component {
         });
     }
 
-    componentWillUpdate(nextProps, nextState){
-        // if (!this.props.open && nextProps.open)
-        // <div class='modal-backdrop fade'/>
-
-    }
-
     uuid(){
         /*jshint bitwise:false */
         var i, random;
@@ -384,9 +369,10 @@ class MenuEditorWrapper extends React.Component {
 
     moveLink(dragSectionId, drag, hoverSectionId, hover){
         if (drag.parent === hover.parent){
+            window.replaced = true;
             var dragPosition = drag.position;
 
-            this.setState({ sitemap: Object.assign(this.state.sitemap, {
+            this.setState({ sitemap: Object.assign({}, this.state.sitemap, {
                 [dragSectionId]: Object.assign(drag, { position: hover.position }),
                 [hoverSectionId]: Object.assign(hover, { position: dragPosition })
             }) });
@@ -517,13 +503,15 @@ class MenuEditorWrapper extends React.Component {
 
 MenuEditorWrapper = ReactDnD.DragDropContext(ReactDnDHTML5Backend)(MenuEditorWrapper);
 
-
-Link = ReactDnD.DragSource('LINK', LinkSource, collect)(Link);
-Link = ReactDnD.DropTarget('LINK', LinkTarget, connect => ({
+Link = ReactDnD.DropTarget('LINK', LinkTarget, (connect, monitor) => ({
 	connectDropTarget: connect.dropTarget(),
+    highlighted: monitor.canDrop(),
+    hovered: monitor.isOver({ shallow: false })
 }))(Link);
+Link = ReactDnD.DragSource('LINK', LinkSource, collect)(Link);
 
 window.addEventListener('load', ()=>{
     ReactDOM.render(e(MenuEditorWrapper), document.getElementById('menu-editor-wrapper'));
 })
+{% endverbatim %}
 </script>

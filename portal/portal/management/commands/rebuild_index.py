@@ -26,7 +26,11 @@ def tfidf(word, blob, bloblist):
 
 # The class must be named Command, and subclass BaseCommand
 class Command(BaseCommand):
-    API_DOCUMENTS = ['evaluator', 'executor', 'initializer', 'io', 'layers', 'nets', 'optimizer']
+    # TODO(Varun): Do a non-hardcoded approach here.
+    API_DOCUMENTS = [
+        'evaluator', 'executor', 'initializer', 'io', 'layers',
+        'nets', 'optimizer', 'regularizer'
+    ]
 
     # Show this when the user types help
     help = "Usage: python manage.py rebuild_index <language> <version> --content_id=<e.g. documentation>"
@@ -34,7 +38,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('language', nargs='+')
         parser.add_argument('version', nargs='+')
-        parser.add_argument('--content_id', action='store', default=None, dest='content_id')
+        parser.add_argument(
+            '--content_id', action='store', default=None, dest='content_id')
 
 
     def build_api_document(self, source_file):
@@ -64,8 +69,10 @@ class Command(BaseCommand):
                     if document['path'] in self.unique_paths:
                         continue
 
-                    # And extract their document content so that we can TFIDF their contents.
-                    with open(os.path.join(settings.BASE_DIR, subpath)) as html_file:
+                    # And extract their document content so that we can TFIDF
+                    # their contents.
+                    with open(
+                        os.path.join(settings.BASE_DIR, subpath)) as html_file:
                         soup = BeautifulSoup(html_file, 'lxml')
 
                         # Find the first header 1 or h2.
@@ -85,7 +92,7 @@ class Command(BaseCommand):
                     self.documents.append(document)
                     self.unique_paths.append(document['path'])
 
-                    #print 'Found "%s"...' % document['title']
+                    print 'Found "%s"...' % document['title']
 
 
     def handle(self, *args, **options):
@@ -100,7 +107,8 @@ class Command(BaseCommand):
             contents_to_build.append(options['content_id'])
         else:
             for maybe_dir in os.listdir(settings.WORKSPACE_DIR):
-                if os.path.isdir(os.path.join(settings.WORKSPACE_DIR, maybe_dir)):
+                if os.path.isdir(
+                    os.path.join(settings.WORKSPACE_DIR, maybe_dir)):
                     contents_to_build.append(maybe_dir)
 
         # First we need to go through all the generated HTML documents.
@@ -119,15 +127,20 @@ class Command(BaseCommand):
                 self.build_document(source_dir)
 
         # Using this content, we build tfidf for all the content.
-        document_contents = [tb(doc['content']) for doc in self.documents if 'content' in doc]
+        document_contents = [tb(
+            doc['content']) for doc in self.documents if 'content' in doc]
         for document_index, document_content in enumerate(document_contents):
             if not document_content:
                 continue
             print 'Indexing', self.documents[document_index]['title']
 
-            scores = {word: tfidf(word, document_content, document_contents) for word in document_content.words}
-            sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-            self.documents[document_index]['content'] = [word[0].encode('utf-8') for word in sorted_words[:20]]
+            scores = { word: tfidf(
+                word, document_content, document_contents) for (
+                word) in document_content.words }
+            sorted_words = sorted(
+                scores.items(), key=lambda x: x[1], reverse=True)
+            self.documents[document_index]['content'] = [word[0].encode(
+                'utf-8') for word in sorted_words[:20]]
 
         # And create an index JS file that we can import.
         output_index_js = os.path.join(
@@ -140,4 +153,5 @@ class Command(BaseCommand):
             os.makedirs(os.path.dirname(output_index_js))
 
         with open(output_index_js, 'w') as index_file:
-            index_file.write('var index = ' + json.dumps(self.documents + self.api_documents))
+            index_file.write('var index = ' + json.dumps(
+                self.documents + self.api_documents))
