@@ -58,4 +58,6 @@ if [ "$mobile_path" != "" ]; then
     export MOBILE_PATH=$mobile_path
 fi
 
+export ENV=development
+
 python manage.py runserver 0.0.0.0:8000

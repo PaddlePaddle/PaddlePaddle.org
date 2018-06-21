@@ -1,3 +1,4 @@
+paddlepaddle
 Django==1.8.11
 gunicorn==19.7.1
 gevent==1.2.1
@@ -16,7 +17,6 @@ rarfile==3.0
 scipy==0.19.1
 Pillow==4.3.0
 docker==2.5.1
-paddlepaddle
 pymdown-extensions==4.1.0
 newrelic
 textblob
