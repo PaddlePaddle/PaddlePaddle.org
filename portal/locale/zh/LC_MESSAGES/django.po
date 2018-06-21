@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 20:11+0000\n"
+"POT-Creation-Date: 2018-06-20 21:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,9 +29,13 @@ msgstr ""
 msgid "PaddlePaddle - Train and deploy deep learning at scale"
 msgstr ""
 
-#: portal/templates/_nav_bar.html:36 portal/templates/_nav_bar.html.py:39
+#: portal/templates/_nav_bar.html:38 portal/templates/_nav_bar.html.py:41
 msgid "Refresh Content"
 msgstr "刷新内容"
+
+#: portal/templates/_nav_bar.html:48
+msgid "Community"
+msgstr "社区"
 
 #: portal/templates/content.html:90 visualDL/templates/visualdl/content.html:85
 msgid "Refreshing "
