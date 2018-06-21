@@ -4,7 +4,7 @@ def download_latest_doc_workspace(request):
 
 
 def blog_root(request):
-    path = sitemap_helper.get_external_file_path('blog/index.html')
+    path = menu_helper.get_external_file_path('blog/index.html')
 
     return render(request, 'content.html', {
         'static_content': _get_static_content_from_template(path),
@@ -13,7 +13,7 @@ def blog_root(request):
 
 
 def blog_sub_path(request, path):
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
+    static_content_path = menu_helper.get_external_file_path(request.path)
 
     return render(request, 'content.html', {
         'static_content': _get_static_content_from_template(static_content_path),
@@ -28,7 +28,7 @@ def other_path(request, version, path=None):
     try:
         # If the template is found, render it.
         static_content_template = get_template(
-            sitemap_helper.get_external_file_path(request.path))
+            menu_helper.get_external_file_path(request.path))
 
     except TemplateDoesNotExist:
         # Else, fetch the page, and run through a generic stripper.

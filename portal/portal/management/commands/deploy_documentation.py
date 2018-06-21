@@ -4,7 +4,7 @@ from shutil import copyfile
 from django.core.management import BaseCommand
 
 from portal.deploy import transform
-from portal import sitemap_helper
+from portal import menu_helper
 
 
 # The class must be named Command, and subclass BaseCommand
@@ -23,14 +23,14 @@ class Command(BaseCommand):
 
     def save_menu(self, source_dir, content_id, lang, version):
         # Store a copy of the menu to use when not provided in `develop`.
-        menu_path = sitemap_helper.get_production_menu_path(
+        menu_path = menu_helper.get_production_menu_path(
             content_id, lang, version)
         menu_dir = os.path.dirname(menu_path)
 
         if not os.path.exists(menu_dir):
             os.makedirs(menu_dir)
 
-        copyfile(sitemap_helper._find_sitemap_in_repo(
+        copyfile(menu_helper._find_menu_in_repo(
             source_dir, 'menu.json'), menu_path)
 
 

@@ -14,7 +14,7 @@ from django.conf import settings
 from bs4 import BeautifulSoup
 import markdown
 
-from portal import sitemap_helper, portal_helper
+from portal import menu_helper, portal_helper
 
 
 MARKDOWN_EXTENSIONS = [
@@ -66,7 +66,7 @@ def documentation(source_dir, destination_dir, options={}):
         langs = ['en', 'zh']
 
     for lang in langs:
-        _build_sphinx_index_from_sitemap(menu_path, lang)
+        _build_sphinx_index_from_menu(menu_path, lang)
         generated_dir = tempfile.mkdtemp()
 
         call(['sphinx-build', '-b', 'html', '-c',
@@ -396,7 +396,7 @@ def _get_links_in_sections(sections, lang):
     links = []
 
     for section in sections:
-        if 'link' in section:
+        if 'link' in section and lang in section['link']:
             links.append('  ' + section['link'][lang])
 
         if 'sections' in section:
@@ -405,19 +405,19 @@ def _get_links_in_sections(sections, lang):
     return links
 
 
-def _build_sphinx_index_from_sitemap(sitemap_path, lang):
+def _build_sphinx_index_from_menu(menu_path, lang):
     links = ['..  toctree::', '  :maxdepth: 1', '']
 
-    # Generate an index.rst based on the sitemap.
-    with open(sitemap_path, 'r') as sitemap_file:
-        sitemap = json.loads(sitemap_file.read())
-        links += _get_links_in_sections(sitemap['sections'], lang)
+    # Generate an index.rst based on the menu.
+    with open(menu_path, 'r') as menu_file:
+        menu = json.loads(menu_file.read())
+        links += _get_links_in_sections(menu['sections'], lang)
 
     # Manual hack because the documentation marks the language code differently.
     if lang == 'zh':
         lang = 'cn'
 
-    with open(os.path.dirname(sitemap_path) + ('/index_%s.rst' % lang), 'w') as index_file:
+    with open(os.path.dirname(menu_path) + ('/index_%s.rst' % lang), 'w') as index_file:
         index_file.write('\n'.join(links))
 
 

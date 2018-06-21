@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
 from django.shortcuts import render, redirect
 from portal import portal_helper
-from portal import sitemap_helper
+from portal import menu_helper
 
 
 def home_root(request):
@@ -53,7 +53,7 @@ def _common_context(request):
         lang_label = 'English'
         lang_link = '/change-lang?lang_code=en'
 
-    root_navigation = sitemap_helper.get_sitemap(
+    root_navigation = menu_helper.get_menu(
         'develop',
         current_lang_code
     )
@@ -70,7 +70,7 @@ def _render_static_content(request, version, content_id, additional_context=None
     It builds the context and passes it to the only documentation template rendering template.
     """
 
-    static_content_path = sitemap_helper.get_external_file_path(request.path)
+    static_content_path = menu_helper.get_external_file_path(request.path)
 
     context = {
         'static_content': _get_static_content_from_template(static_content_path),

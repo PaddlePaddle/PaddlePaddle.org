@@ -14,7 +14,7 @@
 
 from django.utils.translation import LANGUAGE_SESSION_KEY
 from django.conf import settings
-from portal import sitemap_helper
+from portal import menu_helper
 
 
 def get_preferred_version(request):

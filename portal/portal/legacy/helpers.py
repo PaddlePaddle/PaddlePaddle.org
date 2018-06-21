@@ -83,13 +83,13 @@ def download_and_extract_workspace():
         tar.close()
 
     # Regenerate sitemaps
-    sitemap_helper.remove_all_resolved_sitemaps()
-    sitemap_helper.generate_sitemap('develop', 'en')
-    sitemap_helper.generate_sitemap('develop', 'zh')
+    menu_helper.remove_all_resolved_sitemaps()
+    menu_helper.generate_sitemap('develop', 'en')
+    menu_helper.generate_sitemap('develop', 'zh')
 
 
 def _get_api_version_to_paddle_versions(content_id):
-    versions = sitemap_helper.get_available_versions(content_id)
+    versions = menu_helper.get_available_versions(content_id)
 
     fluid_min_version = '0.12.0'
     v1v2_min_version = '0.9.0'  # TODO: Implement upper bounds for v1v2 once its deprecated
@@ -98,12 +98,12 @@ def _get_api_version_to_paddle_versions(content_id):
         {
             'key': 'fluid',
             'title': 'Fluid',
-            'versions': [v for v in versions if sitemap_helper.is_version_greater_eq(v, fluid_min_version)]
+            'versions': [v for v in versions if menu_helper.is_version_greater_eq(v, fluid_min_version)]
         },
         {
             'key': 'v2/v1',
             'title': 'V2/V1',
-            'versions': [v for v in versions if sitemap_helper.is_version_greater_eq(v, v1v2_min_version)]
+            'versions': [v for v in versions if menu_helper.is_version_greater_eq(v, v1v2_min_version)]
         }
     ]
     return api_version_to_paddle_version
@@ -133,7 +133,7 @@ def generate_sitemap(version, language):
             # Change URLs to represent accurate URL paths and not references to repo directory structures.
             _transform_sitemap_urls(version, sitemap, language)
 
-            sitemap_path = _get_sitemap_path(version, language)
+            sitemap_path = _get_menu_path(version, language)
 
         # Write the built sitemaps to the main sitemap file the app reads.
         with open(sitemap_path, 'w') as fp:
