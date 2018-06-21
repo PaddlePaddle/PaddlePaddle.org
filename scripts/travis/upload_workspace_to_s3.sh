@@ -12,12 +12,11 @@ ssh-add ubuntu.pem
 ssh -i ubuntu.pem ubuntu@$STAGE_DEPLOY_IP << EOF
   set -e
 
-  cd /var/content
-  tar -czvf workspace.tar.gz .ppo_workspace/
+  cd /var/www/portal
+  tar -czvf workspace.tar.gz pages/
   aws s3 cp workspace.tar.gz s3://paddlepaddle.org/workspace.tar.gz --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 EOF
 
 chmod 644 ubuntu.pem
 rm ubuntu.pem
-

@@ -48,38 +48,6 @@ else:
 
 DEFAULT_DOCS_VERSION = '0.11.0' if ENV in ['production', 'staging'] else 'develop'
 
-WORKSPACE_ZIP_FILE_NAME = 'workspace.tar.gz'
-WORKSPACE_DOWNLOAD_URL = 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/%s' % WORKSPACE_ZIP_FILE_NAME
-
-# class PPO_MODES:
-#     '''
-#     PPO has 3 modes:
-#     1)  Default:  Default website mode.
-#     2)  DOC_EDIT_MODE: Document editor mode.  This will allow document editors to generate and view
-#         their documentation.  This mode is activated if there is no 'ENV' environment variable set and
-#         HAS_MOUNT is NOT set or set to '1' (ie:  We have mounted a volume to /var/content in Docker).
-#     3)  DOC_VIEW_MODE: Document viewer mode.  This will allow users to view the latest PaddlePaddle
-#         documentation.  This mode is activated if there is no 'ENV' environment variable set AND
-#         'HAS_MOUNT' is set to 0 (meaning there is no mount set for the content directory)
-#     '''
-#     Default, DOC_EDIT_MODE, DOC_VIEW_MODE = range(3)
-#
-# CURRENT_PPO_MODE = PPO_MODES.Default
-
-# HAS_MOUNT = os.environ.get('HAS_MOUNT', '1')
-
-# if not ENV:
-#     if HAS_MOUNT == '0':
-#         CURRENT_PPO_MODE = PPO_MODES.DOC_VIEW_MODE
-#     else:
-#         CURRENT_PPO_MODE = PPO_MODES.DOC_EDIT_MODE
-#
-#     DEBUG = True
-#
-# elif ENV == 'development':
-#     DEBUG = True
-#
-
 TOP_LEVEL_NAVIGATION = [
     {
         'title': {
@@ -165,16 +133,10 @@ PREFERRED_API_VERSION_NAME = 'preferred_api_version'
 ROOT_URLCONF = 'portal.urls'
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
-#CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
 
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
-
 WORKSPACE_DIR = 'pages'
-# GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
-#EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
-# RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR
-
-OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
+MENUS_DIR = os.path.join(BASE_DIR, 'menus')
 
 TEMPLATES = [
     {

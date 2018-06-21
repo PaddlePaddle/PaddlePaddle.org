@@ -34,6 +34,8 @@ The tutorials here guide you to setup the website locally, so you can see exactl
     ./runserver --paddle <path_to_paddle_doc_version_dir> --book <path_to_book_dir>
     ```
 
+    *NOTE: In case of the --paddle directory, point to the specific API version directory (e.g. `fluid` or `v2`).*
+
     Open up your browser and navigate to [http://localhost:8000](http://localhost:8000).
     **NOTE**: *Links may take a few seconds to load the first time around since they are probably being built.*
 

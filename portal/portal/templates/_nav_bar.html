@@ -17,13 +17,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-3">
                 {% for category in root_nav %}
-                    {% translation_assignment category.title as book_title %}
-                    {# first_book_url_assignment book b_id as book_url #}
-                    {# if book_title != none and book_title != "" #}
                     <li class="nav-item{% if category.path in request.path %} active{% endif %}">
                         <a class="nav-link" href="{{ category.path }}"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"{% endif %}>{% translation category.title %}<span class="sr-only">(current)</span></a>
                     </li>
-                    {# endif #}
                 {% endfor %}
             </ul>
             <ul class="navbar-nav mr-3">
@@ -52,16 +48,9 @@
                 GitHub
             </a></li>
             {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
-
                 {% if content_id %}
                 <li>
-                    {# if content_id == 'documentation' #}
-                    <!--<a class="nav-link border" href="#" data-toggle="modal" data-target="#paddleDocsModal">{% trans "Refresh Content" %}</a>-->
-                    {# include '_paddle_docs_modal.html' #}
-                    {# else #}
-                    <!-- onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"-->
                     <a class="nav-link primary" href="{% url 'reload_docs' %}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"><i class="fas fa-sync"></i>{% trans "Refresh Content" %}</a>
-                    {# endif #}
                 </li>
                 {% endif %}
             {% endif %}
