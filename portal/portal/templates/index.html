@@ -71,6 +71,91 @@
             </div>
         </div>
     </section>
+    <!-- End of Features sections -->
+
+    <!-- Installation Guide Section -->
+    <section class="container installation-guide">
+        <div class="row">
+            <h2 class="col-lg-12">PaddlePaddle Installation</h2>
+        </div>
+        <div class="row">
+            <div class="left col-lg-4">
+                <div class="row">
+                    <h1 class="col-lg-12">Get Started</h1>
+                </div>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scrupulum, inquam, abeunti; Huic mori
+                    optimum esse propter desperationem sapientiae, illi propter spem vivere. Ab his oratores, ab his
+                    imperatores ac rerum publicarum principes extiterunt. Ut in geometria, prima si dederis, danda sunt
+                    omnia.
+                </p>
+            </div>
+            <div class="right col-lg-8">
+                <div class="row">
+                    <div class="col-3">
+                        <p>Processor</p>
+                    </div>
+
+                    <!-- empty span -->
+                    <div class="col-1"></div>
+
+                    <div class="col-3">
+                        <button id="CPU" class="install-option">
+                            CPU
+                        </button>
+                    </div>
+
+                    <!-- empty span -->
+                    <div class="col-1"></div>
+
+                    <div class="col-3">
+                        <button id="GPU" class="install-option selected">
+                            GPU
+                        </button>
+                    </div>
+
+                    <!-- empty span -->
+                    <div class="col-1"></div>
+                </div>
+
+                <!-- cuda version selection bar, only enabled when Cuda selected-->
+                <div id="cuda-version" class="row">
+                    <div class="col-3">
+                        <p>CUDA</p>
+                    </div>
+                    <div class="col-3">
+                        <button id="cuda8" class="install-option cuda selected">
+                            Cuda 8.0
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="cuda9" class="install-option cuda">
+                            Cuda 9.0
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="cuda10" class="install-option cuda">
+                            Cuda 10.0
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Link to docker installation -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="other-install">Other Installation</button>
+                    </div>
+                </div>
+
+                <div>
+                    <p>Run this</p>
+                    <code id="commend">pip install paddlepaddle-gpu-cuda8</code>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Installation Guide Section -->
 
     <section class="models">
         <div class="container">
@@ -191,6 +276,41 @@ for i in xrange(len(probs)):
 
         $('html, body').stop().animate({ scrollTop: $(
             '.quick-start-guide').offset().top - 150 }, 500);
+    });
+
+
+    $('.installation-guide div > .install-option').click(function(event){
+        var installationToShow = event.target.id;
+        var installCommend = 'pip install paddlepaddle';
+
+        if (installationToShow == 'CPU') {
+            // Reverse the currently selected nav button and then select this one.
+            $('#GPU').removeClass('selected');
+            $("#cuda-version").addClass('disable');
+
+            // Select the target
+            $(event.target).addClass('selected');
+
+            installCommend = 'pip install paddlepaddle';
+        } else {
+            if (installationToShow == 'GPU') {
+                $('#CPU').removeClass('selected');
+                $("#cuda-version").removeClass('disable');
+            } else {
+                $('.installation-guide div > .install-option.cuda').removeClass('selected');
+            }
+
+            // Select the target
+            $(event.target).addClass('selected');
+
+            var t = $('.installation-guide div > .install-option.cuda.selected');
+            console.log(t[0].id)
+
+            installCommend = 'pip install paddlepaddle-gpu-' + t[0].id;
+        }
+
+        // Update the installation commend
+        $('#commend').html(installCommend);
     });
 </script>
 
