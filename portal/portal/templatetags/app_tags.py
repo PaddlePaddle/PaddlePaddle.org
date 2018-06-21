@@ -14,7 +14,7 @@
 # limitations under the License.
 
 from django import template
-from portal import sitemap_helper
+from portal import menu_helper
 from portal import portal_helper
 from django.conf import settings
 
@@ -44,7 +44,7 @@ def nav_bar(context):
     """
     current_lang_code = context.request.LANGUAGE_CODE
 
-    root_navigation = sitemap_helper.get_top_level_navigation(
+    root_navigation = menu_helper.get_top_level_navigation(
         portal_helper.get_preferred_version(context.request),
         current_lang_code
     )
@@ -91,7 +91,7 @@ def content_links(context, content_id):
     current_lang_code = context.request.LANGUAGE_CODE
     docs_version = context.get('CURRENT_DOCS_VERSION', None)
 
-    side_nav_content = sitemap_helper.get_content_navigation(
+    side_nav_content = menu_helper.get_content_navigation(
         context.request,
         content_id,
         current_lang_code,
@@ -141,7 +141,7 @@ def translation_assignment(context, leaf_node):
 @register.simple_tag(takes_context=True)
 def translation(context, leaf_node):
     """
-    The leaf node of the sitemap.json could be a dictionary of a string
+    The leaf node of the menu.json could be a dictionary of a string
     When encountering a dictionary leaf node, load the value associated with the current language code
     """
     result = None

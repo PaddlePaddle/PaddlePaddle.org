@@ -30,7 +30,7 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from django import forms
 
-from portal import sitemap_helper, portal_helper, url_helper
+from portal import menu_helper, portal_helper, url_helper
 from deploy import transform
 from portal import url_helper
 
@@ -78,7 +78,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
         path)
 
     # Try to find the page in this content's navigation.
-    menu_path = sitemap_helper.get_menu_path_cache(
+    menu_path = menu_helper.get_menu_path_cache(
         content_id, old_lang, old_version)
 
     if content_id in ['book']:
@@ -92,7 +92,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
             path_to_seek = url_helper.get_raw_page_path_from_html(path)
 
             if lang:
-                matching_link = sitemap_helper.find_all_languages_for_link(
+                matching_link = menu_helper.find_all_languages_for_link(
                     path_to_seek,
                     old_lang, menu['sections'], lang
                 )
@@ -104,7 +104,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
 
                 # Try to find this link in the menu path.
                 # NOTE: We account for the first and last '/'.
-                matching_link = sitemap_helper.find_link_in_sections(
+                matching_link = menu_helper.find_link_in_sections(
                     menu['sections'], path_to_seek)
                 lang = old_lang
 
@@ -132,7 +132,7 @@ def reload_docs(request):
         # Get all the params from the URL and settings to generate new content.
         content_id, lang, version = url_helper.get_parts_from_url_path(
             path)
-        menu_path = sitemap_helper.get_menu_path_cache(
+        menu_path = menu_helper.get_menu_path_cache(
             content_id, lang, version)
         content_path, content_prefix = url_helper.get_full_content_path(
             content_id, lang, version)
@@ -155,7 +155,7 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
     if not lang:
         lang = portal_helper.get_preferred_language(request)
 
-    navigation, menu_path = sitemap_helper.get_sitemap(
+    navigation, menu_path = menu_helper.get_menu(
         content_id, lang, version)
 
     try:
@@ -201,9 +201,9 @@ def _generate_content(source_dir, destination_dir, content_id, lang, version):
 
 def _get_first_link_in_contents(navigation, lang):
     """
-    Given a content's sitemap, and a language choice, get the first available link.
+    Given a content's menu, and a language choice, get the first available link.
     """
-    # If there are sections in the root of the sitemap.
+    # If there are sections in the root of the menu.
     first_chapter = None
     if navigation and 'sections' in navigation and len(navigation['sections']) > 0:
         first_chapter = navigation['sections'][0]
@@ -291,7 +291,7 @@ def get_menu(request):
     content_id, lang, version = url_helper.get_parts_from_url_path(
         path)
 
-    navigation, menu_path = sitemap_helper.get_sitemap(
+    navigation, menu_path = menu_helper.get_menu(
         content_id, lang, version)
 
     return HttpResponse(json.dumps(navigation), content_type='application/json')
@@ -309,7 +309,7 @@ def save_menu(request):
 
     content_id, lang, version = url_helper.get_parts_from_url_path(
         path)
-    menu_path = sitemap_helper.get_menu_path_cache(
+    menu_path = menu_helper.get_menu_path_cache(
         content_id, lang, version)
 
     with open(menu_path, 'w') as menu_file:

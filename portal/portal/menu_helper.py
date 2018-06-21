@@ -68,7 +68,7 @@ def get_menu_path_cache(content_id, lang, version):
     )
 
     if not menu_path:
-        menu_path = get_sitemap(version, lang, content_id)[1]
+        menu_path = get_menu(version, lang, content_id)[1]
         set_menu_path_cache(content_id, lang, version, menu_path)
 
     return menu_path
@@ -84,7 +84,7 @@ def find_in_top_level_navigation(path):
             return i
 
 
-def _find_sitemap_in_repo(path, filename):
+def _find_menu_in_repo(path, filename):
     import fnmatch
 
     matches = []
@@ -108,56 +108,56 @@ def get_top_level_navigation(version, language):
     return filter(lambda i: i['dir'] is not None, settings.TOP_LEVEL_NAVIGATION)
 
 
-def get_sitemap(content_id, lang, version):
+def get_menu(content_id, lang, version):
     """
-    Given a version and language, fetch the sitemap for all contents from the
-    cache, if available, or load them from the pre-compiled sitemap.
+    Given a version and language, fetch the menu for all contents from the
+    cache, if available, or load them from the pre-compiled menu.
 
-    [For now] Returns a freshly generated sitemap file, given a version and language.
+    [For now] Returns a freshly generated menu file, given a version and language.
     """
     # cache_key = 'menu.%s.%s' % (version, language)
-    # sitemap_cache = cache.get(cache_key, None)
+    # menu_cache = cache.get(cache_key, None)
 
-    # if sitemap_cache:
-    #     cache.set(cache_key, sitemap_cache)
+    # if menu_cache:
+    #     cache.set(cache_key, menu_cache)
     # else:
-    #     raise Exception('Cannot generate sitemap for version %s' % version)
+    #     raise Exception('Cannot generate menu for version %s' % version)
 
-    sitemap = None
+    menu = None
 
     # These are the repos without menus.
     if content_id in ['models', 'mobile']:
         # NOTE(varunarora): This is a hack because there is no menu.json here.
-        sitemap_path = None if settings.ENV in ['production', 'staging'] else _get_sitemap_path('', content_id)
+        menu_path = None if settings.ENV in ['production', 'staging'] else _get_menu_path('', content_id)
 
     else:
         if settings.ENV in ['production', 'staging']:
-            sitemap_path = get_production_menu_path(content_id, lang, version)
+            menu_path = get_production_menu_path(content_id, lang, version)
         else:
-            sitemap_path = _get_sitemap_path('menu.json', content_id)
+            menu_path = _get_menu_path('menu.json', content_id)
 
-        if not sitemap_path:
-            raise Exception('Cannot find a sitemap file with the name %s in the directory for: %s' % (sitemap_path, content_id))
+        if not menu_path:
+            raise Exception('Cannot find a menu file with the name %s in the directory for: %s' % (menu_path, content_id))
 
-        if os.path.isfile(sitemap_path):
-            set_menu_path_cache(content_id, lang, version, sitemap_path)
+        if os.path.isfile(menu_path):
+            set_menu_path_cache(content_id, lang, version, menu_path)
 
-            # Sitemap file exists, lets load it
+            # menu file exists, lets load it
             try:
-                with open(sitemap_path) as json_data:
-                    sitemap = json.loads(json_data.read())
+                with open(menu_path) as json_data:
+                    menu = json.loads(json_data.read())
 
-                    # cache.set(get_all_links_cache_key(version, language), sitemap['all_links_cache'], None)
+                    # cache.set(get_all_links_cache_key(version, language), menu['all_links_cache'], None)
 
             except Exception as e:
-                print 'Cannot load sitemap from file %s: %s' % (sitemap_path, e.message)
+                print 'Cannot load menu from file %s: %s' % (menu_path, e.message)
 
-    return sitemap, sitemap_path
+    return menu, menu_path
 
 
 def _transform_section_urls(section, prefix, content_id):
     """
-    Since paths defined in assets/sitemaps/<version>.json are defined relative to the folder structure of the content
+    Since paths defined in assets/menus/<version>.json are defined relative to the folder structure of the content
     directories, we will need to append the URL path prefix so our URL router knows how to resolve the URLs.
     """
     # Make a copy that we shall mutate.
@@ -191,10 +191,10 @@ def _transform_section_urls(section, prefix, content_id):
 
 def get_content_navigation(request, content_id, language, version):
     """
-    Get the navigation sitemap for a particular content service.
+    Get the navigation menu for a particular content service.
     """
     navigation = {'sections': _transform_section_urls(
-        get_sitemap(content_id, language, version)[0],
+        get_menu(content_id, language, version)[0],
         url_helper.get_page_url_prefix(content_id, language, version),
         content_id
     )}
@@ -202,17 +202,17 @@ def get_content_navigation(request, content_id, language, version):
     return navigation
 
 
-def _get_sitemap_path(sitemap_filename, content_id):
+def _get_menu_path(menu_filename, content_id):
     """
-    Get the sitemap path to the current version and language.
+    Get the menu path to the current version and language.
     """
     repo_path = find_in_top_level_navigation('/' + content_id)
 
     if os.path.exists(repo_path['dir']):
         if content_id == 'api':
-            sitemap_filename = 'api/' + sitemap_filename
+            menu_filename = 'api/' + menu_filename
 
-        return _find_sitemap_in_repo(repo_path['dir'], sitemap_filename)
+        return _find_menu_in_repo(repo_path['dir'], menu_filename)
 
     raise Exception('Cannot find the directory for %s: %s' % (
         content_id, repo_path['dir']))

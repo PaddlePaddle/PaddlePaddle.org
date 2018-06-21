@@ -50,7 +50,7 @@ def _execute(original_documentation_dir, generated_docs_dir, version, output_dir
     if convertor:
         convertor(original_documentation_dir, generated_docs_dir, version, output_dir_name)
 
-    print 'Generating sitemap for documentation at %s, gen_docs_dir=%s,  version %s' % \
+    print 'Generating menu for documentation at %s, gen_docs_dir=%s,  version %s' % \
           (original_documentation_dir, generated_docs_dir, version)
     if sm_generator:
         sm_generator(original_documentation_dir, generated_docs_dir, version, output_dir_name)

@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from portal import sitemap_helper
+from portal import menu_helper
 
 #The class must be named Command, and subclass BaseCommand
 class Command(BaseCommand):
@@ -13,5 +13,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if 'version' in options:
             for version in options['version']:
-                sitemap_helper.generate_sitemap(version, 'en')
-                sitemap_helper.generate_sitemap(version, 'zh')
+                menu_helper.generate_sitemap(version, 'en')
+                menu_helper.generate_sitemap(version, 'zh')
