@@ -19,8 +19,8 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 2. **Pull PaddlePaddle.org into a new directory and install its dependencies.**
 
     ```
-    git clone git@github.com:PaddlePaddle/PaddlePaddle.org.git
-    cd portal
+    git clone https://github.com/PaddlePaddle/PaddlePaddle.org.git
+    cd PaddlePaddle.org/portal
     pip install -r requirements.txt
     ```
 
