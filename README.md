@@ -7,7 +7,9 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 ## Installation
 
-1. **Since this repo does not hold the content rendered on website, download / clone ONLY the relevant repos with content and code that you want to update and test (if you don't already have them):**
+1. **Download / clone ONLY the relevant repos with content and code that you want to update and test (if you don't already have them):**
+    (since this repo does not hold the content rendered on website)
+
    - [PaddlePaddle](https://github.com/PaddlePaddle/Paddle) (contains all articles AND codebase to render the API documentation)
    - [Book](https://github.com/PaddlePaddle/book) (contains chapter pages)
    - [Models](https://github.com/PaddlePaddle/models) (contains the code to build models for different applications, including a few articles)
@@ -17,10 +19,19 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 
 2. **Pull PaddlePaddle.org into a new directory and install its dependencies.**
+    But before that, make sure you have Python dependencies installed on your OS. For example, on an Ubuntu, run:
+    ```
+    sudo apt-get update && apt-get install -y python-dev build-essential
+    ```
 
+    Then,
     ```
     git clone https://github.com/PaddlePaddle/PaddlePaddle.org.git
     cd PaddlePaddle.org/portal
+
+    # To install in a virtual environment.
+    # virtualenv venv; source venv/bin/activate
+
     pip install -r requirements.txt
     ```
 
