@@ -379,6 +379,47 @@ for i in xrange(len(probs)):
         <p class='docker' style="display: none">{% blocktrans %}<strong>Voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
         <p>Want more real-world tutorials? <a href='{% url url_helper.URL_NAME_BOOK_ROOT %}'>Read the book!</a></p>
     </section>
+
+    <!-- Resource section: Only in Chinese version -->
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'zh' %}
+
+    <section class="feature">
+        <div class="container resources-guide">
+            <div class="row">
+                <h2 class="col-lg-12"><span>基于PaddlePaddle框架，我们还提供了这些服务和学习资源</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://ai.baidu.com/paddlepaddle/openCourses">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-1.png">
+                        </div>
+                        <h3>深度学习基础知识</h3>
+                        <p>百度联合多家教育培训机构共同打造超过400+节、累计3000+分钟的深度学习精品课程体系，帮助开发者从零掌握深度学习</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="aistudio.baidu.com">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-1.png">
+                        </div>
+                        <h3>AI Studio</h3>
+                        <p>为开发者提供线上深度学习代码环境以及配套的算法、算力、数据支持，一站式满足使用者学习、技术进阶、学术研究的需求</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://visualdl.paddlepaddle.org/">
+                        <img src="/static/images/feature-1.png">
+                        <h3>Visual DL</h3>
+                        <p>通过Visual DL可以帮助开发者方便的观测训练整体趋势、数据样本质量和中间结果、参数分布和变化趋势、以及模型的结构，帮助开发者更便捷的完成编程过程</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- End of Resource sections -->
 </div>
 
 {% endblock %}
