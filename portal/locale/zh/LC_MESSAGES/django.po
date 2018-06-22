@@ -104,7 +104,7 @@ msgstr "框架能够一键安装，针对CPU、GPU都做了众多优化，分布
 
 #: portal/templates/index.html:163
 msgid "Build powerful applications with PaddlePaddle"
-msgstr ""
+msgstr "用PaddlePaddle构建强大的应用"
 
 #: portal/templates/index.html:331
 msgid "Install and make predictions in 5 minutes"
