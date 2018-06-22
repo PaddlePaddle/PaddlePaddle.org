@@ -38,8 +38,8 @@
                         <div class="feature-icon">
                             <img src="/static/images/feature-1.png">
                         </div>
-                        <h3>{% trans "Ease of use"%}</h3>
-                        <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
+                        <h3>{% trans "Easy to learn"%}</h3>
+                        <p>{% blocktrans %}PaddlePaddle provides multitudes of tools and tutorials; Become a deep learning developer in no time.{% endblocktrans %}</p>
                     </div>
                 </div>
                  <div class="col-lg-3">
@@ -47,8 +47,8 @@
                         <div class="feature-icon">
                             <img src="/static/images/feature-2.png">
                         </div>
-                        <h3>{% trans "Flexibility"%}</h3>
-                        <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
+                        <h3>{% trans "Ease of use"%}</h3>
+                        <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures; Bring your creativity to reality.{% endblocktrans %}</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -56,16 +56,16 @@
                         <div class="feature-icon">
                             <img src="/static/images/feature-3.png">
                         </div>
-                        <h3>{% trans "Efficiency"%}</h3>
-                        <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
+                        <h3>{% trans "Security"%}</h3>
+                        <p>{% blocktrans %}PaddlePaddle is backed by Baidu’s AI technology and business practices. The framework is safe and stable. Focus your works and not worries.{% endblocktrans %}</p>
                     </div>
                 </div><div class="col-lg-3">
                     <div class="feature-desc">
                         <div class="feature-icon">
                             <img src="/static/images/feature-4.png">
                         </div>
-                        <h3>{% trans "Scalability"%}</h3>
-                        <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
+                        <h3>{% trans "Efficiency"%}</h3>
+                        <p>{% blocktrans %}It also provides extremely optimized operations, memory, and network communication. Kick start your projects in no time with the latest Baidu business models.{% endblocktrans %}</p>
                     </div>
                 </div>
             </div>
@@ -379,6 +379,47 @@ for i in xrange(len(probs)):
         <p class='docker' style="display: none">{% blocktrans %}<strong>Voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
         <p>Want more real-world tutorials? <a href='{% url url_helper.URL_NAME_BOOK_ROOT %}'>Read the book!</a></p>
     </section>
+
+    <!-- Resource section: Only in Chinese version -->
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'zh' %}
+
+    <section class="feature">
+        <div class="container resources-guide">
+            <div class="row">
+                <h2 class="col-lg-12"><span>基于PaddlePaddle框架，我们还提供了这些服务和学习资源</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://ai.baidu.com/paddlepaddle/openCourses">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-1.png">
+                        </div>
+                        <h3>深度学习基础知识</h3>
+                        <p>百度联合多家教育培训机构共同打造超过400+节、累计3000+分钟的深度学习精品课程体系，帮助开发者从零掌握深度学习</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="aistudio.baidu.com">
+                        <div class="feature-icon">
+                            <img src="/static/images/feature-1.png">
+                        </div>
+                        <h3>AI Studio</h3>
+                        <p>为开发者提供线上深度学习代码环境以及配套的算法、算力、数据支持，一站式满足使用者学习、技术进阶、学术研究的需求</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://visualdl.paddlepaddle.org/">
+                        <img src="/static/images/feature-1.png">
+                        <h3>Visual DL</h3>
+                        <p>通过Visual DL可以帮助开发者方便的观测训练整体趋势、数据样本质量和中间结果、参数分布和变化趋势、以及模型的结构，帮助开发者更便捷的完成编程过程</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- End of Resource sections -->
 </div>
 
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 21:38+0000\n"
+"POT-Creation-Date: 2018-06-22 20:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,74 +53,82 @@ msgstr "易学易用的分布式深度学习平台"
 msgid "An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform"
 msgstr "正在为100+项产品提供深度学习算法支持"
 
-#: portal/templates/index.html:21 portal/templates/index.html.py:96
+#: portal/templates/index.html:21 portal/templates/index.html.py:328
 msgid "Quick Start"
 msgstr "快速入门"
 
-#: portal/templates/index.html:29
-msgid "Diverse Application Scenarios"
-msgstr "丰富的算法服务"
+#: portal/templates/index.html:33
+msgid "Technical Features"
+msgstr "技术和服务优势"
 
-#: portal/templates/index.html:30
-msgid "PaddlePaddle powers hundreds of Baidu's and its partners' products."
-msgstr "易用、高效、灵活、扩展性好"
+#: portal/templates/index.html:41
+msgid "Easy to learn"
+msgstr "易学"
 
-#: portal/templates/index.html:39
-msgid "Computer Vision"
-msgstr "机器视觉"
-
-#: portal/templates/index.html:40
+#: portal/templates/index.html:42
 msgid ""
-"Using a Convolutional Neural Network (CNN) for Image Recognition and Object "
-"Detection."
-msgstr "卷积神经网络可以识别图像中的主要对象，并输出分类结果"
+"PaddlePaddle provides multitudes of tools and tutorials; Become a deep "
+"learning developer in no time."
+msgstr "代码易于理解，官方提供丰富的学习资料及工具；帮助你迅速成为深度学习开发者"
 
-#: portal/templates/index.html:43 portal/templates/index.html.py:45
-#: portal/templates/index.html:63 portal/templates/index.html.py:65
-#: portal/templates/index.html:83 portal/templates/index.html.py:85
-msgid "Read more >"
-msgstr "查看更多 >"
+#: portal/templates/index.html:50
+msgid "Ease of use"
+msgstr "易用性"
+
+#: portal/templates/index.html:51
+msgid ""
+"PaddlePaddle provides an intuitive and flexible interface for loading data "
+"and specifying model structures; Bring your creativity to reality."
+msgstr "框架具备非常好的拓展性，并且提供了丰富全面的API；实现你天马行空的创意"
 
 #: portal/templates/index.html:59
-msgid "Natural Language Understanding"
-msgstr "自然语言理解"
+msgid "Security"
+msgstr "安全"
 
 #: portal/templates/index.html:60
-msgid "Using a Recurrent Neural Network (RNN) for Sentiment Analysis."
-msgstr "利用LSTM网络从IMDB电影的评论中分析出评论者的正面情绪和负面情绪"
-
-#: portal/templates/index.html:79
-msgid "Recommender System"
-msgstr "推荐系统"
-
-#: portal/templates/index.html:80
 msgid ""
-"Using Deep Learning on Recommendation Systems to Help Users Find Interests."
-msgstr "分析用户特征、电影特征、点评分数，预测新用户对不同电影的打分"
+"PaddlePaddle is backed by Baidu’s AI technology and business practices. The "
+"framework is safe and stable. Focus your works and not worries."
+msgstr "基于百度多年的AI技术积累以及大量的业务使用验证，框架安全稳定；替你免除后顾之忧"
 
-#: portal/templates/index.html:99
+#: portal/templates/index.html:67
+msgid "Efficiency"
+msgstr "高效性"
+
+#: portal/templates/index.html:68
+msgid ""
+"It also provides extremely optimized operations, memory, and network "
+"communication. Kick start your projects in no time with the latest Baidu "
+"business models."
+msgstr "框架能够一键安装，针对CPU、GPU都做了众多优化，分布式性能强劲，并且开放多种百度优势业务模型；让你的开发快人一步"
+
+#: portal/templates/index.html:163
+msgid "Build powerful applications with PaddlePaddle"
+msgstr ""
+
+#: portal/templates/index.html:331
 msgid "Install and make predictions in 5 minutes"
 msgstr "五分钟快速上手"
 
-#: portal/templates/index.html:106
+#: portal/templates/index.html:338
 msgid ""
 "Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x "
 "installed"
 msgstr "在 CentOS 7，Ubuntu 16.04， MacOS 10.12，Python 2.7.x 环境下测试过"
 
-#: portal/templates/index.html:109
+#: portal/templates/index.html:341
 msgid "Download "
 msgstr "下载"
 
-#: portal/templates/index.html:109
+#: portal/templates/index.html:341
 msgid "the trained housing prices model"
 msgstr "房价模型"
 
-#: portal/templates/index.html:109
+#: portal/templates/index.html:341
 msgid " and then install PaddlePaddle on your computer:"
 msgstr "和在电脑上安装PaddlePaddle"
 
-#: portal/templates/index.html:112
+#: portal/templates/index.html:344
 msgid ""
 "Download, and then <a href=\"https://docs.docker.com/engine/installation/\" "
 "target=\"_blank\">install Docker</a> on your computer."
@@ -128,35 +136,35 @@ msgstr ""
 "在您的电脑上<a href=\"https://docs.docker.com/engine/installation/\" target="
 "\"_blank\">安装Docker。</a>"
 
-#: portal/templates/index.html:112
+#: portal/templates/index.html:344
 msgid ""
 "After installing Docker, create a new file called <em>housing.py</em> in a "
 "new and empty directory:"
 msgstr "安装好后，在一个新的目录下创建一个<em>housing.py</em> "
 
-#: portal/templates/index.html:116
+#: portal/templates/index.html:348
 msgid "Instructions on installing pip"
 msgstr "pip 安装教学"
 
-#: portal/templates/index.html:118
+#: portal/templates/index.html:350
 msgid "Now, create a new file called "
 msgstr "创建一个 "
 
-#: portal/templates/index.html:118
+#: portal/templates/index.html:350
 msgid ", and paste this Python code"
 msgstr " 并粘贴此Python代码"
 
-#: portal/templates/index.html:118
+#: portal/templates/index.html:350
 msgid ""
 "(make sure to set the right path based on the location of <em>fit_a_line."
 "tar</em> on your computer):"
 msgstr "(请确保<em>fit_a_line.tar</em> 是在正确的路径上)"
 
-#: portal/templates/index.html:119
+#: portal/templates/index.html:351
 msgid "Now download "
 msgstr "下载"
 
-#: portal/templates/index.html:119
+#: portal/templates/index.html:351
 msgid ""
 "the trained housing prices model</a> into the <code>~/workspace</code> "
 "directory, and paste this Python code in <em>housing.py</em> using your "
@@ -165,70 +173,25 @@ msgstr ""
 "房价模型</a> 且放在<code>~/workspace</code> 目录下，使用您喜欢的编辑器粘贴此"
 "Python代码到<em>housing.py</em>"
 
-#: portal/templates/index.html:142
+#: portal/templates/index.html:374
 msgid "Run "
 msgstr "执行"
 
-#: portal/templates/index.html:142
+#: portal/templates/index.html:374
 msgid ""
 " and <strong>voila</strong>! It should print out a list of predictions for "
 "the test housing data."
 msgstr " <strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
 
-#: portal/templates/index.html:144
+#: portal/templates/index.html:376
 msgid "Now run this code in a new PaddlePaddle Docker container:"
 msgstr "在一个新的paddlepaddle Docker容器运行这个代码："
 
-#: portal/templates/index.html:147
+#: portal/templates/index.html:379
 msgid ""
 "<strong>Voila</strong>! It should print out a list of predictions for the "
 "test housing data."
 msgstr "<strong>瞧</strong>！ 它应该打印出预测住房数据的清单。"
-
-#: portal/templates/index.html:153
-msgid "Technical Features"
-msgstr "技术和服务优势"
-
-#: portal/templates/index.html:161
-msgid "Ease of use"
-msgstr "易用性"
-
-#: portal/templates/index.html:162
-msgid ""
-"PaddlePaddle provides an intuitive and flexible interface for loading data "
-"and specifying model structures."
-msgstr "为用户提供了直观、灵活的数据接口和模型配置接口"
-
-#: portal/templates/index.html:170
-msgid "Flexibility"
-msgstr "灵活性"
-
-#: portal/templates/index.html:171
-msgid ""
-"It supports CNN, RNN and various variants and configures complicated deep "
-"models easily."
-msgstr ""
-"支持CNN、RNN等多种神经网络结构和优化算法。简单书写配置文件即可实现复杂模型"
-
-#: portal/templates/index.html:179
-msgid "Efficiency"
-msgstr "高效性"
-
-#: portal/templates/index.html:180
-msgid ""
-"It also provides extremely optimized operations, memory recycling, and "
-"network communication."
-msgstr "在计算、存储、通信、架构等方面都做了高效优化，充分发挥各种资源的性能"
-
-#: portal/templates/index.html:187
-msgid "Scalability"
-msgstr "扩展性"
-
-#: portal/templates/index.html:188
-msgid ""
-"PaddlePaddle makes it easy to scale heterogeneous computing resources and "
-"storage to accelerate the training process."
-msgstr "全面支持多核、多GPU、多机环境。轻松应对大规模训练需求"
 
 #: portal/templates/index_doc_mode.html:20
 msgid "PaddlePaddle Document Viewer"
@@ -325,23 +288,3 @@ msgid ""
 "Run the web-app with one command and instantly visualize the results. Train "
 "again, and refresh results."
 msgstr "运行Web应用程序，即可立即可视化结果。再次训练，并刷新结果。"
-
-#~ msgid "Blog"
-#~ msgstr "博客"
-
-#~ msgid " in a new and empty directory:"
-#~ msgstr " 在一个新的空目录中："
-
-#~ msgid "Now paste this Python code in the file using your favorite editor"
-#~ msgstr "使用您喜欢的编辑器将Python代码粘贴到文件中。"
-
-#~ msgid "Tutorial"
-#~ msgstr "教程"
-
-#~ msgid "Documentation"
-#~ msgstr "文档中心"
-
-#, fuzzy
-#~| msgid "Quick Start"
-#~ msgid "Quick start"
-#~ msgstr "快速入门"
