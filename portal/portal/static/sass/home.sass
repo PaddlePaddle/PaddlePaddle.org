@@ -61,12 +61,22 @@
         background-color: #3095ff
 
   .models
-    background-color: #dce9fd
+    background: linear-gradient(to bottom left, #ffffff, #c6dbfc)
     position: relative
     overflow: hidden
     width: 100%
-    height: 800px
+    height: auto
     padding-bottom: 32px
+
+    .six-dots
+      text-align: center
+
+    .dot
+      height: 10px
+      width: 10px
+      background-color: #f7f7f7
+      border-radius: 50%
+      display: inline-block
 
     .models-slogan
       margin-top: 64px
@@ -87,13 +97,11 @@
     // 6 models in 2 columns
     .model-row
       height: 160px
-      margin: 0 10px 10px 10px
+      margin: 0 10px 40px 10px
 
     .model-cell
       border-radius: 80px
-      //background-color: #ccc
       border: 2px solid #498ffa
-      margin: 0px
 
     .arch
       width: 800px
@@ -291,6 +299,28 @@
       left: -700px
       top: -700px
 
+  .resources-guide
+    padding: 20px
+
+    a
+      color: black
+
+    .row
+      margin-top: 12px
+      margin-bottom: 12px
+
+    .resource-cell
+      display: inline-block
+      background-color: #f4f5f7
+      padding: 16px
+      width: 100%
+      height: 100%
+      text-align: center
+      border-radius: 6px
+
+      &:hover
+        background-color: #efefef
+        
   code
     padding: 0
     padding-top: 0.2em
