@@ -170,6 +170,7 @@
 
   .installation-guide
     padding: 20px
+    background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
 
     .row
       margin-top: 12px
@@ -262,7 +263,7 @@
 
   .features
     padding-bottom: $home-line-spacing * 2
-    background: rgb(245, 245, 245)
+    background: #f7f7f7
     position: relative
     overflow: hidden
 
@@ -275,9 +276,20 @@
 
     h3
       margin: $home-line-spacing 0 $home-line-spacing 0
+      font-size: 24px
+      font-weight: bold
+
+    p
+      font-size: 18px
+      text-align: center
 
     .feature-icon
-      text-align: center
+      width: 100px
+      height: 100px
+      border-radius: 50px
+      background: linear-gradient(to bottom left, #3b85f5, #5a9bff)
+      margin: auto
+      position: relative
 
     .feature-desc
       display: inline-block
@@ -286,15 +298,11 @@
       padding: 8px
       background-color: $secondary-background-color
 
-    p
-      line-height: 24px
-      text-align: center
-
     .bubble-background
       width: 1500px
       height: 1500px
       border-radius: 750px
-      background: rgb(239, 239, 239)
+      background: #f2f2f2
       position: absolute
       left: -700px
       top: -700px
