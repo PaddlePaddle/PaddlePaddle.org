@@ -237,7 +237,7 @@
 
       &.selected
         color: #fff
-        background: linear-gradient(to bottom left, #3b85f5, #5a9bff)
+        background: linear-gradient(to right, #3b85f5, #5a9bff)
 
     .other-install
       float: right
@@ -348,7 +348,7 @@
       width: 150px
       height: 150px
       border-radius: 75px
-      background: linear-gradient(to bottom left, #3b85f5, #5a9bff)
+      background: linear-gradient(to right, #3b85f5, #5a9bff)
       position: relative
       line-height: 150px
       text-align: center
@@ -384,25 +384,61 @@
 
   .resources-guide
     padding: 20px
+    position: relative
+    overflow: hidden
+
+    h2
+      font-size: 36px
+      color: #888888
+      margin-top: 60px
+      margin-bottom: 60px
 
     a
+      color: black
+
+    h3
+      margin: 20px
+
+    p
+      width: 80%
+      margin: auto
+      text-align: center
       color: black
 
     .row
       margin-top: 12px
       margin-bottom: 12px
 
+    .bubble-background
+      width: 1500px
+      height: 1500px
+      border-radius: 750px
+      background: #f7f7f7
+      position: absolute
+      right: -700px
+      top: -700px
+
     .resource-cell
       display: inline-block
-      background-color: #f4f5f7
       padding: 16px
-      width: 100%
-      height: 100%
+      width: 326px
+      height: 326px
       text-align: center
-      border-radius: 6px
+      border-radius: 163px
+      border-color: #3b85f5
+      margin: 8px
+      border-radius: 163px
+      border: 1px solid #498ffa
 
       &:hover
-        background-color: #efefef
+        background-color: #3b85f5
+        color: #fff
+
+        p
+          color: #fff
+
+        img
+          color: #fff
         
   code
     padding: 0

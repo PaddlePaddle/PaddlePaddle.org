@@ -382,10 +382,12 @@ for i in xrange(len(probs)):
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'zh' %}
 
-    <section class="feature">
-        <div class="container resources-guide">
+    <section class="resources-guide">
+        <div class="container">
+            <div class="bubble-background">
+            </div>
             <div class="row">
-                <h2 class="col-lg-12"><span>基于PaddlePaddle框架，我们还提供了这些服务和学习资源</span></h2>
+                <h2 class="col-lg-12">基于PaddlePaddle框架，我们还提供了这些服务和学习资源</h2>
             </div>
             <div class="row">
                 <div class="col-lg-4">
