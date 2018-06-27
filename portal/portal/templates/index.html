@@ -141,6 +141,69 @@
     </section>
     <!-- End of Installation Guide Section -->
 
+    <!-- Start of Step 1-2-3 -->
+    <section class="step-1-2-3">
+        <div class="container">
+            <div class="row">
+                <h2 class="col-lg-12">Get Started</h2>
+            </div>
+
+            <div class="row">
+                <div class="left col-lg-4">
+                    <!-- Step 1. Import PaddlePaddle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="code-step-button-1" class="step-option show in-focus" data-step-id="1">
+                                1. Import PaddlePaddle
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2. Load dataset and train -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="code-step-button-2" class="step-option" data-step-id="2">
+                                2. Load dataset and train
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3. Make a prediction -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="code-step-button-3" class="step-option" data-step-id="3">
+                                3. Make a prediction
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- code panel -->
+                <div class="right col-lg-8">
+                    <div class="code-panel">
+                        <div class="code-panel-bar">
+                        </div>
+                        <div class="row col-lg-12">
+                            <code id="step-1" class="col-lg-12 step">
+                                step 1: Import PaddlePaddle
+                            </code>
+
+                            <code id="step-2" class="col-lg-12 step">
+                                step 2: Load dataset and train
+                            </code>
+
+                            <code id="step-3" class="col-lg-12 step">
+                                step 3: Make a prediction
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- End of Step 1-2-3 -->
+
     <section class="models">
         <div class="container">
             <div class="row models-slogan">
@@ -491,7 +554,6 @@ for i in xrange(len(probs)):
             $(event.target).addClass('selected');
 
             var t = $('.installation-guide div > .install-option.cuda.selected');
-            console.log(t[0].id)
 
             installCommend = 'pip install paddlepaddle-gpu-' + t[0].id;
         }
@@ -499,6 +561,28 @@ for i in xrange(len(probs)):
         // Update the installation commend
         $('#commend').html(installCommend);
     });
+
+    $('.step-option').click(function(event){
+        var steps = $('.step');
+        steps.removeClass('show');
+        steps.removeClass('in-focus');
+
+        var stepToFocusOn = $('#step-' + event.target.dataset.stepId);
+
+        $.each(steps, function(index, step){
+            step = $(step);
+            step.addClass('show');
+
+            return step[0] !== stepToFocusOn[0];
+        });
+
+        stepToFocusOn.addClass('in-focus');
+
+
+        $(".list-group-item").removeClass('active');
+        $(this).addClass('active');
+    });
+
 </script>
 
 {% endblock %}
