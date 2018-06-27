@@ -94,3 +94,5 @@ ENV/
 *.DS_Store
 .gitignore 
 
+# generated css files
+portal/portal/static/stylesheets/home.css
