@@ -11,17 +11,23 @@
 {% block content %}
 <div class="home">
     <section class="container-fluid banner">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="tag-line">{% trans "PArallel Distributed Deep LEarning"%}</h1>
-                <p>{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
-            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="tag-line">{% trans "An easy-to-use, easy-to-learn<br>deep learning platfrom"%}</h1>
+                    <p>{% blocktrans %}An open-source deep learning platform with a<br>simple API, trusted by the world’s leading AI teams{% endblocktrans %}</p>
+                </div>
 
-            <div class="col-lg-12">
-                <a class="quick-start" href="#quick-start-guide">{% trans "Quick Start"%}</a>
-            </div>
+                <button id="banner_quick_start" class="btn selected col-lg-3">{% trans "Get Started"%}</button>
 
-        </div>
+                <button id="banner_learn_more" class="btn col-lg-3">{% trans "Learn more"%}</button>
+
+            </div>
+        <div>
+
+        <div class="arch arch-1"/>
+        <div class="arch arch-2"/>
+        <div class="arch arch-3"/>
     </section>
 
     <!-- Features sections, currently supports 4 features -->
@@ -452,7 +458,7 @@ for i in xrange(len(probs)):
 
 
     // Scroll page down to quick start section on 'Quick Start' button click.
-    $('a.quick-start').click(function(event){
+    $('#banner_quick_start').click(function(event){
         event.preventDefault();
 
         $('html, body').stop().animate({ scrollTop: $(

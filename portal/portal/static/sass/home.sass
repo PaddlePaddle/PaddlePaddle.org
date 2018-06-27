@@ -1,8 +1,9 @@
 @import "_variables.sass"
 
 .home
+  font-family: $primary-font-family
   h1
-    font-size: $font-xlarge
+    font-size: $font-xxxlarge
 
 
   h2
@@ -13,7 +14,7 @@
     font-size: $font-medium
 
 
-  h1, h2, h3
+  h2, h3
     text-align: center
 
 
@@ -28,26 +29,54 @@
     margin: 0px
 
 
-  .banner
-    color: white
-    text-align: center
-    background: url(./../images/banner.jpg) no-repeat center center
-    background-size: cover
-    height: 260px
-    padding-bottom: auto
+  .btn
+    height: 78px
+    border-radius: 39px
+    border: solid $accent-color 1px
+    color: $accent-color
+    font-size: $font-xxlarge
+    background: transparent
 
-    .oster-bg
-      width: 100%
-      max-height: 25rem
-      vertical-align: top
+    &:hover
+      border: none
+      color: white
+      background: $accent-color
+
+    &.selected
+      background: linear-gradient(to left, #5a9bff, $accent-color)
+      border: none
+      color: white
+
+      &:hover
+        background: $accent-color
+
+
+
+  .banner
+    height: 100vh
+    min-height: 800px
+    background: linear-gradient(40deg, rgba(59, 133, 245, 0.2), transparent)
+    padding-top: 25vh
+
+    .content
+      display: inline-block
+      position: absolute
+      top: 0
+      right: 0
 
     .tag-line
+      color: black
       padding-top: $home-line-spacing * 3
       margin-bottom: $home-line-spacing * 2
 
     p
-      color: white
+      font-size: font-xxlarge
+      color: black
       margin-bottom: $home-line-spacing * 2
+
+    button
+      margin-right: 20px
+      cursor: pointer
 
     .quick-start
       display: inline-block
@@ -59,6 +88,24 @@
       &:hover
         color: #fff
         background-color: #3095ff
+
+    .arch
+      width: 1170px
+      height: 1170px
+      border-radius: 50%
+      position: absolute
+      border: 3px solid #e5eff9
+      z-index: -1
+
+    .arch-1
+      left: -500px
+      top: -700px
+    .arch-2
+      left: 300px
+      top: 1200px
+    .arch-3
+      left: 1200px
+      top: -800px
 
   .models
     background: linear-gradient(to bottom left, #ffffff, #c6dbfc)
@@ -524,29 +571,19 @@
     h3
       font-size: $font-xlarge
 
-    h1, h2, h3
+    h2, h3
       text-align: center
 
     hr
       display: none
 
     p
-      font-size: $font-medium
+      font-size: $font-xxlarge
       font-weight: 100
       color: #666
       margin: 0px
 
     .banner
-      color: white
-      height: 525px
-
-      .tag-line
-        padding-top: $home-line-spacing * 6
-        margin-bottom: $home-line-spacing * 3
-
-      p
-        margin-bottom: $home-line-spacing * 3
-
       .quick-start
         line-height: 60px
         font-size: 18px
