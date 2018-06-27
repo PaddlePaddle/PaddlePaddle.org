@@ -196,6 +196,21 @@
     padding: 20px
     background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
 
+    h2
+      text-align: left
+      font-size: 36px
+      color: #888888
+
+    p
+      color: #888888
+
+    a
+      color: #597cf1
+
+    code
+      font-size: 21px
+      color: #fff
+
     .row
       margin-top: 12px
       margin-bottom: 12px
@@ -206,25 +221,47 @@
 
     .install-option
       display: inline-block
-      background-color: #f4f5f7
-      border-radius: 6px
+      color: #3b85f5
+      background-color: transparent
+      border-color: #3b85f5
+      text-align: center
+      font-size: 21px
+      border-radius: 25px
       padding: 12px
       width: 100%
-      text-align: center
+      min-height: 56px
 
       &:hover
-        background-color: #efefef
+        color: #fff
+        background-color: #3b85f5
 
       &.selected
         color: #fff
-        background-color: #9977ef
+        background: linear-gradient(to bottom left, #3b85f5, #5a9bff)
 
     .other-install
-      display: inline-block
       float: right
-      background-color: #f4f5f7
-      border-radius: 6px
-      padding: 12px
+
+    .terminal
+      background-color: black
+      border-radius: 5px
+      overflow: hidden
+      margin-top: 12px
+      margin-bottom: 12px
+      height: calc(100% - 24px)
+
+      p
+        float: left
+        margin-left: 20px
+        margin-right: 20px
+        font-size: 21px
+        color: #3b85f5
+
+      .terminal-bar
+        background-color: rgba(59, 133, 245, 0.75)
+        height: 26px
+        margin-bottom: 10px
+
 
   .quick-start-guide
     h3
@@ -308,19 +345,33 @@
       text-align: center
 
     .feature-icon
-      width: 100px
-      height: 100px
-      border-radius: 50px
+      width: 150px
+      height: 150px
+      border-radius: 75px
       background: linear-gradient(to bottom left, #3b85f5, #5a9bff)
-      margin: auto
       position: relative
+      line-height: 150px
+      text-align: center
+      margin-bottom: 20px
+      margin-left: auto
+      margin-right: auto
+      margin-top: 60px
+
+      p
+        font-size: 24px
+        color: #fff
+        display: inline-block
+        vertical-align: middle
+        line-height: normal
+        width: 50%
 
     .feature-desc
       display: inline-block
       height: 100%
       width: 100%
       padding: 8px
-      background-color: $secondary-background-color
+      margin: 8px
+      background-color: transparent
 
     .bubble-background
       width: 1500px
@@ -481,11 +532,6 @@
       h2
         margin-top: $home-line-spacing * 4
         margin-bottom: $home-line-spacing * 2
-
-      .feature-desc
-        margin: 8px
-        padding: 8px
-        background-color: transparent
 
     .quick-start-guide
       h2
