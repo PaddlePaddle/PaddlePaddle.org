@@ -57,6 +57,8 @@
     min-height: 800px
     background: linear-gradient(40deg, rgba(59, 133, 245, 0.2), transparent)
     padding-top: 25vh
+    position: relative
+    overflow: hidden
 
     .content
       display: inline-block
@@ -70,7 +72,7 @@
       margin-bottom: $home-line-spacing * 2
 
     p
-      font-size: font-xxlarge
+      font-size: $font-xxlarge
       color: black
       margin-bottom: $home-line-spacing * 2
 
@@ -527,14 +529,15 @@
     h2
       font-size: 36px
       color: #888888
-      margin-top: 60px
-      margin-bottom: 60px
+      margin-top: 50px
+      margin-bottom: 50px
 
     a
       color: black
 
     h3
       margin: 20px
+      font-weight: bold
 
     p
       width: 80%
@@ -547,13 +550,13 @@
       margin-bottom: 12px
 
     .bubble-background
-      width: 1500px
-      height: 1500px
+      width: 1400px
+      height: 1400px
       border-radius: 750px
       background: #f7f7f7
       position: absolute
-      right: -700px
-      top: -700px
+      right: -500px
+      top: -800px
 
     .resource-cell
       display: inline-block
@@ -668,7 +671,7 @@
       display: none
 
     p
-      font-size: $font-xxlarge
+      font-size: $font-medium
       font-weight: 100
       color: #666
       margin: 0px
