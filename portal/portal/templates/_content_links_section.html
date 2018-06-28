@@ -6,7 +6,7 @@
 
     {% if section_title != None and section.sections == None or not section.sections|length %}
         {% if section_link != "" %}
-            <a href="{{ section_link|safe }}">{{ section_title }}</a>
+            <a href="{{ section_link|safe }}" {% if request.path in chapter.sections %} class="active" {% endif %}>{{ section_title }}</a>
         {% endif %}
     {% elif section_title != None and section.sections != None %}
 
@@ -16,7 +16,7 @@
     <a class="title-with-toggle" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}</a>
     {% endif %}
 
-    <a class="toggle {% if request.path not in section.links %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"><span class="dropdown-toggle"></span></a>
+    <a class="toggle {% if request.path not in section.sections %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"><span class="dropdown-toggle"></span></a>
 
     <div id="collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"
          class="panel-collapse collapse {% if request.path in section.links %}show{% endif %}">

@@ -90,8 +90,10 @@ def documentation(source_dir, destination_dir, options={}):
             os.path.join(settings.SPHINX_CONFIG_DIR, lang),
             source_dir, generated_dir])
 
-        # Generate a menu from the rst root menu if it doesn't exist.
-        if new_menu:
+    # Generate a menu from the rst root menu if it doesn't exist.
+    if new_menu:
+        # FORCEFULLY generate for both languages.
+        for lang in ['en', 'zh']:
             with open(os.path.join(generated_dir, 'index_%s.html' % (
                 'cn' if lang == 'zh' else 'en'))) as index_file:
                 navs = BeautifulSoup(index_file, 'lxml').findAll(
@@ -108,6 +110,7 @@ def documentation(source_dir, destination_dir, options={}):
                             'documentation', lang, options['version'], source_dir, True
                         )
 
+    for lang in langs:
         # Go through each file, and if it is a .html, extract the .document object
         #   contents
         for subdir, dirs, all_files in os.walk(generated_dir):
@@ -419,7 +422,7 @@ def book(source_dir, destination_dir, options=None):
                 new_menu['sections'] = [
                     {
                         'title': { 'en': c['name'] },
-                        'link': { 'en': c['link'] },
+                        'link': { 'en': c['link'][2:] },
                     } for c in en_menu['chapters']
                 ]
 
@@ -431,7 +434,7 @@ def book(source_dir, destination_dir, options=None):
                     # new_menu['sections'][0]['sections'][index]['title']['zh'] = zh_menu_item['name']
                     # new_menu['sections'][0]['sections'][index]['link']['zh'] = zh_menu_item['link']
                     new_menu['sections'][index]['title']['zh'] = zh_menu_item['name']
-                    new_menu['sections'][index]['link']['zh'] = zh_menu_item['link']
+                    new_menu['sections'][index]['link']['zh'] = zh_menu_item['link'][2:]
 
             with open(menu_json_path, 'w') as menu_file:
                 menu_file.write(json.dumps(new_menu, indent=4))

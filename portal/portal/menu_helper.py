@@ -237,7 +237,10 @@ def _get_menu_path(menu_filename, content_id):
         found_menu_path = _find_menu_in_repo(repo_path['dir'], menu_filename)
 
         if not found_menu_path:
-            raise IOError('Cannot find a menu file in the repository directory', repo_path['dir'])
+            raise IOError(
+                'Cannot find a menu file in the repository directory',
+                os.path.join(repo_path['dir'], menu_filename)
+            )
 
         return found_menu_path
 

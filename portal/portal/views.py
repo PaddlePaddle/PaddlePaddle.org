@@ -160,6 +160,7 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
         content_id, lang, version)
 
     # If the content doesn't exist yet, try generating it.
+    navigation = None
     try:
         navigation, menu_path = menu_helper.get_menu(content_id, lang, version)
         assert os.path.exists(content_path)
@@ -171,6 +172,10 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
 
             _generate_content(os.path.dirname(
                 menu_path), content_path, content_id, lang, version)
+
+            if not navigation:
+                navigation, menu_path = menu_helper.get_menu(
+                    content_id, lang, version)
         else:
             raise e
 
@@ -213,7 +218,11 @@ def _get_first_link_in_contents(navigation, lang):
     # If there are sections in the root of the menu.
     first_chapter = None
     if navigation and 'sections' in navigation and len(navigation['sections']) > 0:
-        first_chapter = navigation['sections'][0]
+        # Gotta find the first chapter in current language.
+        for section in navigation['sections']:
+            if 'title' in section and lang in section['title']:
+                first_chapter = section
+                break
 
     # If there is a known root "section" with links.
     if first_chapter and 'link' in first_chapter:
@@ -280,11 +289,11 @@ def _render_static_content(request, path, content_id, additional_context=None):
         if additional_context:
             context.update(additional_context)
 
-        template = 'content_panel.html'
-        if content_id in ['mobile', 'models']:
-            template = 'content_doc.html'
+        # template = 'content_panel.html'
+        # if content_id in ['mobile', 'models']:
+        #     template = 'content_doc.html'
 
-        response = render(request, template, context)
+        response = render(request, 'content_panel.html', context)
         return response
 
 

@@ -36,7 +36,7 @@ urlpatterns = [
     # ---------------------
     # STATIC FILE HANDLERS
     # ---------------------
-    url(r'^(?P<path>.*)\.(?P<extension>((?!(htm|html|/)).)+)$', views.static_file_handler),
+    url(r'^documentation/(?P<path>.*)\.(?P<extension>((?!(htm|html|/)).)+)$', views.static_file_handler),
 
     # ---------------
     # HOME PAGE URLS
