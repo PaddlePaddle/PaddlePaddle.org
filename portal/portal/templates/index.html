@@ -138,22 +138,19 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End of Installation Guide Section -->
 
-    <!-- Start of Step 1-2-3 -->
-    <section class="step-1-2-3">
-        <div class="container">
+        <!-- Start of Step 1-2-3 -->
+        <div class="container step-1-2-3">
             <div class="row">
                 <h2 class="col-lg-12">Get Started</h2>
             </div>
 
             <div class="row">
-                <div class="left col-lg-4">
+                <div class="left col-sm-4">
                     <!-- Step 1. Import PaddlePaddle -->
                     <div class="row">
                         <div class="col-12">
-                            <button id="code-step-button-1" class="step-option show in-focus" data-step-id="1">
+                            <button class="step-button show in-focus" data-step-id="1">
                                 1. Import PaddlePaddle
                             </button>
                         </div>
@@ -162,7 +159,7 @@
                     <!-- Step 2. Load dataset and train -->
                     <div class="row">
                         <div class="col-12">
-                            <button id="code-step-button-2" class="step-option" data-step-id="2">
+                            <button class="step-button" data-step-id="2">
                                 2. Load dataset and train
                             </button>
                         </div>
@@ -171,7 +168,7 @@
                     <!-- Step 3. Make a prediction -->
                     <div class="row">
                         <div class="col-12">
-                            <button id="code-step-button-3" class="step-option" data-step-id="3">
+                            <button class="step-button" data-step-id="3">
                                 3. Make a prediction
                             </button>
                         </div>
@@ -179,14 +176,35 @@
                 </div>
 
                 <!-- code panel -->
-                <div class="right col-lg-8">
+                <div class="right col-sm-8">
                     <div class="code-panel">
                         <div class="code-panel-bar">
                         </div>
                         <div class="row col-lg-12">
-                            <code id="step-1" class="col-lg-12 step">
-                                step 1: Import PaddlePaddle
-                            </code>
+
+
+                            <pre><code id="step-1">import paddle.v2 as paddle
+
+<span class="hljs-comment"># Initialize PaddlePaddle.</span>
+paddle.init(use_gpu=False, trainer_count=1)
+
+<span class="hljs-comment"># Configure the neural network.</span>
+x = paddle.layer.data(name='x', type=paddle.data_type.dense_vector(13))
+y_predict = paddle.layer.fc(input=x, size=1, act=paddle.activation.Linear())
+
+<span class='pip'>with open('fit_a_line.tar', 'r') as f:</span><span class='docker' style="display: none">with open('/workspace/fit_a_line.tar', 'r') as f:</span>
+    parameters = paddle.parameters.Parameters.from_tar(f)
+
+<span class="hljs-comment"># Infer using provided test data.</span>
+probs = paddle.infer(
+     output_layer=y_predict, parameters=parameters,
+     input=[item for item in paddle.dataset.uci_housing.test()()])
+
+for i in xrange(len(probs)):
+     print 'Predicted price: ${:,.2f}'.format(probs[i][0] * 1000)
+        </code></pre>
+
+
 
                             <code id="step-2" class="col-lg-12 step">
                                 step 2: Load dataset and train
@@ -200,9 +218,9 @@
                 </div>
             </div>
         </div>
+        <!-- End of Step 1-2-3 -->
     </section>
-
-    <!-- End of Step 1-2-3 -->
+    <!-- End of Installation Guide Section -->
 
     <section class="models">
         <div class="container">
@@ -286,7 +304,7 @@
                                         Use Deep Structured Semantic Models to match web search queries and the URL based documents.
                                     </p>
                                     <div class="learn-more">
-                                        <a href="/models/dssm/README{% if lang_label != 'English' %}_en{% endif %}.html" target="_blank">
+                                        <a href="/models/dssm/README{% if LANGUAGE_CODE != 'zh' %}_en{% endif %}.html" target="_blank">
                                             Learn more
                                         </a>
                                     </div>
@@ -586,14 +604,15 @@ for i in xrange(len(probs)):
         $('#commend').html(installCommend);
     });
 
-    $('.step-option').click(function(event){
+    $('.step-button').click(function (event) {
+        console.log('ll');
         var steps = $('.step');
         steps.removeClass('show');
         steps.removeClass('in-focus');
 
         var stepToFocusOn = $('#step-' + event.target.dataset.stepId);
 
-        $.each(steps, function(index, step){
+        $.each(steps, function (index, step) {
             step = $(step);
             step.addClass('show');
 
@@ -601,7 +620,6 @@ for i in xrange(len(probs)):
         });
 
         stepToFocusOn.addClass('in-focus');
-
 
         $(".list-group-item").removeClass('active');
         $(this).addClass('active');
