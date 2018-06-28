@@ -105,7 +105,7 @@ def nav_bar(context):
     # Since we default to english, we set the change lang toggle to chinese
     lang_label = u'中文'
     lang_link = '/change-lang?lang_code=zh'
-    community_link = 'https://github.com/PaddlePaddle/PaddlePaddle.org/issues'
+    community_link = 'https://github.com/PaddlePaddle/Paddle/issues'
 
     if current_lang_code and current_lang_code == 'zh':
         lang_label = 'English'
