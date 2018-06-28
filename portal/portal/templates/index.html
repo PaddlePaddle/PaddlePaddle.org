@@ -25,15 +25,70 @@
             </div>
         <div>
 
+        <div class="dot-area">
+            <div class="dot-group">
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+        </div>
+
         <div class="arch arch-1"/>
         <div class="arch arch-2"/>
         <div class="arch arch-3"/>
     </section>
 
     <!-- Features sections, currently supports 4 features -->
-    <section class="features">
+    <section class="features" id="features-head">
         <div class="container">
-            <div class="bubble-background">
+            <div class="bubble-background" id="features-bubble">
             </div>
             <div class="row">
                 <div class="col-lg-3">
@@ -464,9 +519,9 @@ for i in xrange(len(probs)):
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'zh' %}
 
-    <section class="resources-guide">
+    <section class="resources-guide" id="resources-head">
         <div class="container">
-            <div class="bubble-background">
+            <div class="bubble-background" id="resources-bubble">
             </div>
             <div class="row">
                 <h2 class="col-lg-12">基于PaddlePaddle框架，我们还提供了这些服务和学习资源</h2>
@@ -482,7 +537,7 @@ for i in xrange(len(probs)):
                     </a>
                 </div>
                 <div class="col-lg-4">
-                    <a class="resource-cell" href="aistudio.baidu.com">
+                    <a class="resource-cell" href="http://aistudio.baidu.com">
                         <div class="feature-icon">
                             <img src="/static/images/feature-1.png">
                         </div>
@@ -503,18 +558,20 @@ for i in xrange(len(probs)):
     {% endif %}
     <!-- End of Resources section -->
 
-    <!-- Video section -->
+    <!-- Video section: Only in Chinese -->
+    {% if LANGUAGE_CODE == 'zh' %}
+
     <section class="video">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-1">
                     <div class="big-img">
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <div class="video-cell">
-                        <h2>"the sorting machine has helped us enormously"</h2>
-                        <p>4 enterprising students from Beijing University of Technology decided to use PaddlePaddle to build a robot that helps a farmer sort good peaches from rotten ones. <br/><br/>What they made changed his life.</p>
+                <div class="col-lg-11">
+                    <div class="video-cell" id="vid">
+                        <h2 id="vid-title">PaddlePaddle，让AI触手可及</h2>
+                        <p id="vid-desc">PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意</p>
                         <button class="watch-now">
                             <div class="triangle-right"></div>
                             Watch Video
@@ -524,6 +581,8 @@ for i in xrange(len(probs)):
             </div>
         </div>
     </section>
+
+    {% endif %}
     <!-- End of Video section -->
 
 </div>
@@ -618,6 +677,38 @@ for i in xrange(len(probs)):
 
         $(".step-button").removeClass('selected');
         $(this).addClass('selected');
+    });
+
+    // Start a timer to rotate the video infos and links
+    var rotateTimer = setInterval(rotate, 10000);
+    var videoTitles = ['PaddlePaddle，让AI触手可及', '“桃子分拣机对我的帮助非常大”', 'AI会发现并记录你在公共场所的不良行为'];
+    var videoDescs = ['PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意', '四个大学生用一个假期时间，基于PaddlePaddle平台打造了通过外观、尺寸等特征进行桃子质量分级的机器，帮助桃农节约了大量劳动成本', '百度员工打造的AI控烟方案，当你在禁止吸烟的公共场所吸烟时，就会被AI实时捕捉并将你的吸烟图像投放至附近的屏幕上'];
+    var count = 0;
+
+    function rotate() {
+        count += 1;
+
+        // Toggle the position from left to right
+        $('#vid').toggleClass('align-left');
+
+        // Update title and desc with fade in and fade out
+        $('#vid-title').fadeOut(500, function() {
+          $(this).text(videoTitles[count % 3]).fadeIn(500);
+        });
+
+        $('#vid-desc').fadeOut(500, function() {
+          $(this).text(videoDescs[count % 3]).fadeIn(1500);
+        });
+    }
+
+    // Subtle animation on the bubble
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        var featuresHead = $('#features-head')
+        var resourcesHead = $('#resources-head')
+
+        $('#features-bubble').css('top', (-700 + (scroll - featuresHead.position().top) / 2));
+        $('#resources-bubble').css('top', (-800 + (scroll - resourcesHead.position().top) / 2));
     });
 
 </script>
