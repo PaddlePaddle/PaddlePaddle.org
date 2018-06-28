@@ -376,10 +376,6 @@
       .left-bar
         background-color: green
 
-      //.step
-      //  opacity: 0.1
-        //display: none !important
-
       .show
         opacity: 0.5
 
@@ -405,67 +401,6 @@
       .code-panel-left-decoration
         width: 5px
         color: #3b85f5
-
-
-
-  .quick-start-guide
-    h3
-      color: #666
-
-    p
-      padding: $home-line-spacing 0px
-
-      &.installation-note
-        font-size: 12px
-        text-align: center
-
-      &.sidenote
-        text-align: right
-        font-style: italic
-
-        a
-          color: #666
-
-    nav
-      padding: $home-line-spacing * 2 0
-
-      ul
-        margin: auto
-        overflow: hidden
-        text-align: center
-
-        li
-          border-radius: 6px
-          padding: 24px
-          background-color: #f4f5f7
-          cursor: pointer
-          display: inline-block
-
-          .pip-icon, .docker-icon
-            display: inline-block
-            width: 24px
-            height: 24px
-            background-position: -24px -0px
-            margin-right: 12px
-            float: left
-
-          .pip-icon
-            background-image: url(./../images/pip.png)
-
-          .docker-icon
-            background-image: url(./../images/docker.png)
-
-          &.selected
-            .pip-icon, .docker-icon
-              background-position: 0px 0px
-
-          &:hover
-            background-color: #efefef
-
-          &.selected
-            color: #fff
-            background-color: #9977ef
-
 
   .features
     padding-bottom: $home-line-spacing * 2
@@ -641,7 +576,7 @@
     margin: 0
     background-color: rgba(0, 0, 0, 0.04)
     border-radius: 3px
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace
+    font-family: $code-font-family
     color: #E74C3C
     overflow-x: auto
 
@@ -649,6 +584,7 @@
   pre
     white-space: pre
     padding: 24px
+    padding-top: 0px
     overflow: auto
     line-height: 1.45
     background-color: #f7f7f7
@@ -656,7 +592,6 @@
     word-wrap: normal
     margin-top: 0
     margin-bottom: 0
-    font: Consolas, "Liberation Mono", Menlo, Courier, monospace
     color: #292b2c
 
     > code
@@ -666,6 +601,7 @@
       word-break: normal
       white-space: pre
       background: transparent
+      font-family: $code-font-family
       border: 0
 
     code
@@ -678,6 +614,7 @@
       word-wrap: normal
       background-color: transparent
       border: 0
+      font-family: $code-font-family
       color: #292b2c
 
       &::before, &::after
@@ -765,10 +702,6 @@
       h2
         margin-top: $home-line-spacing * 4
         margin-bottom: $home-line-spacing * 2
-
-    .quick-start-guide
-      h2
-        margin-top: $home-line-spacing * 4
 
     .video-cell
       position: absolute

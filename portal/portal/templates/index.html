@@ -241,24 +241,20 @@
 import paddle.v2 as paddle
 <span class="hljs-comment"># Initialize PaddlePaddle.</span>
 paddle.init(use_gpu=False, trainer_count=1)
-
                                 </code>
 
                                 <code id="step-2" class="step-code">
 <span class="hljs-comment"># Configure the neural network.</span>
 x = paddle.layer.data(name='x', type=paddle.data_type.dense_vector(13))
 y_predict = paddle.layer.fc(input=x, size=1, act=paddle.activation.Linear())
-
 <span class='pip'>with open('fit_a_line.tar', 'r') as f:</span>
     parameters = paddle.parameters.Parameters.from_tar(f)
                                 </code>
-
                                 <code id="step-3" class="step-code">
 <span class="hljs-comment"># Infer using provided test data.</span>
 probs = paddle.infer(
      output_layer=y_predict, parameters=parameters,
      input=[item for item in paddle.dataset.uci_housing.test()()])
-
 for i in xrange(len(probs)):
      print 'Predicted price: ${:,.2f}'.format(probs[i][0] * 1000)
                                 </code>
@@ -459,62 +455,6 @@ for i in xrange(len(probs)):
         </div>
     </section>
 
-    <section class="container quick-start-guide">
-        <h2 class="col-lg-12"><span><a name="quick-start-guide">{% trans "Quick Start" %}</a></span></h2>
-
-
-        <h3>{% blocktrans %}Install and make predictions in 5 minutes{% endblocktrans %}</h3>
-
-        <nav>
-            <ul>
-                <li id='pip' class='selected'><div class='pip-icon'></div>PIP (Python)</li>
-                <li id='docker'><div class='docker-icon'></div>Docker</li>
-            </ul>
-            <p class="installation-note pip">{% blocktrans %}Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x installed{% endblocktrans %}</p>
-        </nav>
-
-        <p class='pip'>{% blocktrans %}Download {% endblocktrans %}<a href="https://raw.githubusercontent.com/PaddlePaddle/book/develop/01.fit_a_line/fit_a_line.tar" target="_blank">{% blocktrans %}the trained housing prices model{% endblocktrans %}</a>{% blocktrans %} and then install PaddlePaddle on your computer:{% endblocktrans %}</p>
-        <pre class='pip'><code>pip install paddlepaddle</code></pre>
-
-        <p class='docker' style="display: none">{% blocktrans %}Download, and then <a href="https://docs.docker.com/engine/installation/" target="_blank">install Docker</a> on your computer.{% endblocktrans %} {% blocktrans %}After installing Docker, create a new file called <em>housing.py</em> in a new and empty directory:{% endblocktrans %}</p>
-        <pre class='docker' style="display: none"><code>mkdir ~/workspace
-cd ~/workspace; touch housing.py</code></pre>
-
-        <p class="sidenote pip"><a href="https://pip.pypa.io/en/stable/installing/" target="_blank">{% blocktrans %}Instructions on installing pip{% endblocktrans %}</a></p>
-
-        <p class='pip'>{% blocktrans %}Now, create a new file called {% endblocktrans %}<em>housing.py</em>{% blocktrans %}, and paste this Python code{% endblocktrans %} {% blocktrans %}(make sure to set the right path based on the location of <em>fit_a_line.tar</em> on your computer):{% endblocktrans %} </p>
-        <p class='docker' style="display: none">{% blocktrans %}Now download {% endblocktrans %}<a href="https://raw.githubusercontent.com/PaddlePaddle/book/develop/01.fit_a_line/fit_a_line.tar" target="_blank">{% blocktrans %}the trained housing prices model</a> into the <code>~/workspace</code> directory, and paste this Python code in <em>housing.py</em> using your favorite editor{% endblocktrans %}:</p>
-        <pre><code>import paddle.v2 as paddle
-
-<span class="hljs-comment"># Initialize PaddlePaddle.</span>
-paddle.init(use_gpu=False, trainer_count=1)
-
-<span class="hljs-comment"># Configure the neural network.</span>
-x = paddle.layer.data(name='x', type=paddle.data_type.dense_vector(13))
-y_predict = paddle.layer.fc(input=x, size=1, act=paddle.activation.Linear())
-
-<span class='pip'>with open('fit_a_line.tar', 'r') as f:</span><span class='docker' style="display: none">with open('/workspace/fit_a_line.tar', 'r') as f:</span>
-    parameters = paddle.parameters.Parameters.from_tar(f)
-
-<span class="hljs-comment"># Infer using provided test data.</span>
-probs = paddle.infer(
-     output_layer=y_predict, parameters=parameters,
-     input=[item for item in paddle.dataset.uci_housing.test()()])
-
-for i in xrange(len(probs)):
-     print 'Predicted price: ${:,.2f}'.format(probs[i][0] * 1000)
-        </code></pre>
-
-
-        <p class='pip'>{% blocktrans %}Run {% endblocktrans %}<code>python housing.py</code>{% blocktrans %} and <strong>voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
-
-        <p class='docker' style="display: none">{% blocktrans %}Now run this code in a new PaddlePaddle Docker container:{% endblocktrans %}</p>
-        <pre class='docker' style="display: none"><code>docker run --rm -v ~/workspace:/workspace paddlepaddle/paddle:latest python /workspace/housing.py</code></pre>
-
-        <p class='docker' style="display: none">{% blocktrans %}<strong>Voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
-        <p>Want more real-world tutorials? <a href='{% url url_helper.URL_NAME_BOOK_ROOT %}'>Read the book!</a></p>
-    </section>
-
     <!-- Resources section: Only in Chinese version -->
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'zh' %}
@@ -659,7 +599,6 @@ for i in xrange(len(probs)):
     });
 
     $('.step-button').click(function (event) {
-        console.log('ll');
         var steps = $('.step-code');
         steps.removeClass('show');
         steps.removeClass('in-focus');

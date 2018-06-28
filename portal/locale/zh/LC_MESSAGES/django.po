@@ -106,10 +106,6 @@ msgstr "框架能够一键安装，针对CPU、GPU都做了众多优化，分布
 msgid "Build powerful applications with PaddlePaddle"
 msgstr "用PaddlePaddle构建强大的应用"
 
-#: portal/templates/index.html:331
-msgid "Install and make predictions in 5 minutes"
-msgstr "五分钟快速上手"
-
 #: portal/templates/index.html:338
 msgid ""
 "Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x "
