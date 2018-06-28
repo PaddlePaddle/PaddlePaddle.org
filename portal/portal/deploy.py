@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import tempfile
 import traceback
@@ -14,7 +16,7 @@ from django.conf import settings
 from bs4 import BeautifulSoup
 import markdown
 
-from portal import menu_helper, portal_helper
+from portal import menu_helper, portal_helper, url_helper
 
 
 MARKDOWN_EXTENSIONS = [
@@ -25,13 +27,13 @@ MARKDOWN_EXTENSIONS = [
 ]
 
 
-def transform(content_id, source_dir, destination_dir, lang=None):
+def transform(source_dir, destination_dir, content_id, lang=None, version=None):
     try:
         print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
         # Regenerate its contents.
-        if content_id in ['documentation', 'api']:
-            documentation(source_dir, destination_dir, { 'lang': lang })
+        if content_id in ['docs', 'api']:
+            documentation(source_dir, destination_dir, { 'lang': lang, 'version': version })
 
         elif content_id == 'book':
             book(source_dir, destination_dir)
@@ -52,7 +54,6 @@ def transform(content_id, source_dir, destination_dir, lang=None):
 
 ########### Individual content convertors ################
 
-
 def documentation(source_dir, destination_dir, options={}):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
@@ -65,13 +66,47 @@ def documentation(source_dir, destination_dir, options={}):
     else:
         langs = ['en', 'zh']
 
+    new_menu = None
+
+    if not settings.SUPPORT_MENU_JSON:
+        new_menu = { 'sections': [] }
+
     for lang in langs:
-        _build_sphinx_index_from_menu(menu_path, lang)
-        generated_dir = tempfile.mkdtemp()
+        if not destination_dir:
+            destination_dir = url_helper.get_full_content_path(
+                'documentation', lang, options['version'])[0]
+
+        generated_dir = '/tmp/documentation'
+        if not os.path.exists(generated_dir):
+            try:
+                os.mkdir(generated_dir)
+            except:
+                generated_dir = tempfile.mkdtemp()
+
+        if not new_menu:
+            _build_sphinx_index_from_menu(menu_path, lang)
 
         call(['sphinx-build', '-b', 'html', '-c',
             os.path.join(settings.SPHINX_CONFIG_DIR, lang),
             source_dir, generated_dir])
+
+        # Generate a menu from the rst root menu if it doesn't exist.
+        if new_menu:
+            with open(os.path.join(generated_dir, 'index_%s.html' % (
+                'cn' if lang == 'zh' else 'en'))) as index_file:
+                navs = BeautifulSoup(index_file, 'lxml').findAll(
+                    'nav', class_='doc-menu-vertical')
+
+                assert navs > 0
+
+                links_container = navs[0].find('ul', recursive=False)
+
+                if links_container:
+                    for link in links_container.find_all('li', recursive=False):
+                        _create_sphinx_menu(
+                            new_menu['sections'], link,
+                            'documentation', lang, options['version'], source_dir, True
+                        )
 
         # Go through each file, and if it is a .html, extract the .document object
         #   contents
@@ -149,8 +184,13 @@ def documentation(source_dir, destination_dir, options={}):
                     elif 'searchindex.js' in subpath:
                         copyfile(os.path.join(subdir, file), new_path)
 
+        # shutil.rmtree(generated_dir)
+
+    if new_menu:
+        with open(menu_path, 'w') as menu_file:
+            menu_file.write(json.dumps(new_menu, indent=4))
+    else:
         _remove_sphinx_menu(menu_path, lang)
-        shutil.rmtree(generated_dir)
 
 
 def models(source_dir, destination_dir, options=None):
@@ -359,6 +399,44 @@ def book(source_dir, destination_dir, options=None):
                 elif 'image/' in subpath:
                     shutil.copyfile(os.path.join(subdir, file), new_path)
 
+        # Generate a menu.json in the source directory.
+        # NOTE: Remove this next segment once menu.json is available.
+        menu_json_path = os.path.join(source_dir, 'menu.json')
+
+        if not settings.SUPPORT_MENU_JSON:
+            new_menu = { 'sections': [
+                # {
+                #     "title":{
+                #         "en":"Deep Learning 101",
+                #         "zh":"Deep Learning 101"
+                #     },
+                #     'sections': []
+                # }
+            ] }
+            with open(os.path.join(source_dir, '.tools/templates/index.html.json'), 'r') as en_menu_file:
+                en_menu = json.loads(en_menu_file.read())
+                # new_menu['sections'][0]['sections'] = [
+                new_menu['sections'] = [
+                    {
+                        'title': { 'en': c['name'] },
+                        'link': { 'en': c['link'] },
+                    } for c in en_menu['chapters']
+                ]
+
+            with open(os.path.join(source_dir, '.tools/templates/index.cn.html.json'), 'r') as zh_menu_file:
+                zh_menu = json.loads(zh_menu_file.read())
+                # for index, section in enumerate(new_menu['sections'][0]['sections']):
+                for index, section in enumerate(new_menu['sections']):
+                    zh_menu_item = zh_menu['chapters'][index]
+                    # new_menu['sections'][0]['sections'][index]['title']['zh'] = zh_menu_item['name']
+                    # new_menu['sections'][0]['sections'][index]['link']['zh'] = zh_menu_item['link']
+                    new_menu['sections'][index]['title']['zh'] = zh_menu_item['name']
+                    new_menu['sections'][index]['link']['zh'] = zh_menu_item['link']
+
+            with open(menu_json_path, 'w') as menu_file:
+                menu_file.write(json.dumps(new_menu, indent=4))
+
+
     else:
         raise Exception('Cannot generate book, directory %s does not exists.' % source_dir)
 
@@ -391,6 +469,44 @@ def visualdl(source_dir, destination_dir, options=None):
 
 
 ########### End individual content convertors ################
+
+def _create_sphinx_menu(parent_list, node, content_id, language, version, source_dir, allow_parent_links=True):
+    """
+    Recursive function to append links to a new parent list object by going down the
+    nested lists inside the HTML, using BeautifulSoup tree parser.
+    """
+    if node:
+        node_dict = {}
+        if parent_list != None:
+            parent_list.append(node_dict)
+
+        sections = node.findAll('ul', recursive=False)
+
+        first_link = node.find('a')
+        if first_link:
+            node_dict['title'] = { language: first_link.text }
+
+            # If we allow parent links, then we will add the link to the parent no matter what
+            # OR if parent links are not allowed, and the parent does not have children then add a link
+            if allow_parent_links or not sections:
+                alternative_urls = url_helper.get_alternative_file_paths(first_link['href'])
+
+                if os.path.exists(os.path.join(source_dir, alternative_urls[0])):
+                    node_dict['link'] = { language: alternative_urls[0] }
+                else:
+                    node_dict['link'] = { language: alternative_urls[1] }
+
+        for section in sections:
+            sub_sections = section.findAll('li', recursive=False)
+
+            if len(sub_sections) > 0:
+                node_dict['sections'] = []
+
+                for sub_section in sub_sections:
+                    _create_sphinx_menu(
+                        node_dict['sections'], sub_section, content_id,
+                        language, version, source_dir, allow_parent_links)
+
 
 def _get_links_in_sections(sections, lang):
     links = []

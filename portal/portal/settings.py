@@ -48,13 +48,13 @@ else:
 
 DEFAULT_DOCS_VERSION = '0.11.0' if ENV in ['production', 'staging'] else 'develop'
 
-TOP_LEVEL_NAVIGATION = [
+SIDE_NAVIGATION = [
     {
         'title': {
             'en':'Documentation',
             'zh': u'\u4f7f\u7528\u6587\u6863'
         },
-        'path': '/documentation',
+        'path': '/docs',
         'dir': os.environ.get('PADDLE_PATH', None)
     },
     {
@@ -135,13 +135,13 @@ ROOT_URLCONF = 'portal.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
 
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
-WORKSPACE_DIR = 'pages'
+WORKSPACE_DIR = 'documentation'
 MENUS_DIR = os.path.join(BASE_DIR, 'menus')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, os.path.join(BASE_DIR, WORKSPACE_DIR)],
+        'DIRS': [TEMPLATE_DIR, BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -198,3 +198,5 @@ STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
 
 TEMPORARY_DIR = '/tmp/'
+
+SUPPORT_MENU_JSON = False

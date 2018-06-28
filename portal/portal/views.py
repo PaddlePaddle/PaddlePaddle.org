@@ -109,7 +109,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
                 lang = old_lang
 
     if matching_link:
-        content_path, content_prefix = url_helper.get_full_content_path(
+        content_path, url_prefix = url_helper.get_full_content_path(
             content_id, lang, version)
 
         # Because READMEs get replaced by index.htmls, so we have to undo that.
@@ -117,7 +117,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
             matching_link = os.path.join(os.path.dirname(
                 matching_link), 'index.%shtml' % ('' if lang == 'en' else 'cn.'))
 
-        return redirect((url_helper.get_html_page_path(content_prefix, matching_link)))
+        return redirect(url_helper.get_url_path(url_prefix, matching_link))
 
     # If no such page is found, redirect to first link in the content.
     else:
@@ -134,7 +134,7 @@ def reload_docs(request):
             path)
         menu_path = menu_helper.get_menu_path_cache(
             content_id, lang, version)
-        content_path, content_prefix = url_helper.get_full_content_path(
+        content_path, url_prefix = url_helper.get_full_content_path(
             content_id, lang, version)
 
         # Generate new content.
@@ -155,19 +155,26 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
     if not lang:
         lang = portal_helper.get_preferred_language(request)
 
-    navigation, menu_path = menu_helper.get_menu(
+    # Get the directory paths on the filesystem, AND of the URL.
+    content_path, url_prefix = url_helper.get_full_content_path(
         content_id, lang, version)
 
+    # If the content doesn't exist yet, try generating it.
     try:
-        # Get the directory paths on the filesystem, AND of the URL.
-        content_path, content_prefix = url_helper.get_full_content_path(
-            content_id, lang, version)
+        navigation, menu_path = menu_helper.get_menu(content_id, lang, version)
+        assert os.path.exists(content_path)
 
-        # If the content doesn't exist yet, try generating it.
-        if not os.path.exists(content_path):
+    except Exception, e:
+        if type(e) in [AssertionError, IOError]:
+            if type(e) == IOError:
+                menu_path = e[1]
+
             _generate_content(os.path.dirname(
                 menu_path), content_path, content_id, lang, version)
+        else:
+            raise e
 
+    try:
         if navigation:
             path = _get_first_link_in_contents(navigation, lang)
         else:
@@ -182,7 +189,7 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
             msg = 'Cannot perform reverse lookup on link: %s' % path
             raise Exception(msg)
 
-        return redirect(url_helper.get_html_page_path(content_prefix, path))
+        return redirect(url_helper.get_url_path(url_prefix, path))
 
     except Exception as e:
         print e.message
@@ -196,7 +203,7 @@ def _generate_content(source_dir, destination_dir, content_id, lang, version):
         # Generate the directory.
         os.makedirs(destination_dir)
 
-    transform(content_id, source_dir, destination_dir, lang)
+    transform(source_dir, destination_dir, content_id, lang, version)
 
 
 def _get_first_link_in_contents(navigation, lang):
@@ -343,6 +350,7 @@ def zh_home_root(request):
     return response
 
 
+<<<<<<< HEAD
 def about_en(request):
     return render(request, 'about_en.html')
 
@@ -352,16 +360,13 @@ def about_cn(request):
 
 
 def content_home(request):
-    path = request.path[1:]
+    content_id = urlparse(request.path).path[15:]
 
-    if '/' in path:
-        path = path[0, path.index('/')]
-
-    if '?' in path:
-        path = path[0, path.index('?')]
+    if content_id == '':
+        content_id = 'docs'
 
     return _redirect_first_link_in_contents(
-        request, path, portal_helper.get_preferred_version(request))
+        request, content_id, portal_helper.get_preferred_version(request))
 
 
 def content_sub_path(request, path=None):
@@ -371,7 +376,7 @@ def content_sub_path(request, path=None):
     content_id, lang, version = url_helper.get_parts_from_url_path(
         request.path)
 
-    if content_id == 'documentation':
+    if content_id == 'docs':
         lang = portal_helper.get_preferred_language(request)
 
         search_url = '%s/%s/search.html' % (content_id, lang)

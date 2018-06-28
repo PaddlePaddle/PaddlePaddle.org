@@ -16,11 +16,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-3">
-                {% for category in root_nav %}
-                    <li class="nav-item{% if category.path in request.path %} active{% endif %}">
-                        <a class="nav-link" href="{{ category.path }}"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"{% endif %}>{% translation category.title %}<span class="sr-only">(current)</span></a>
-                    </li>
-                {% endfor %}
+                <li class="nav-item{% if '/documentation' in request.path %} active{% endif %}">
+                    <a class="nav-link" href="/documentation"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('documentation');"{% endif %}>{% translation "Documentation" %}<span class="sr-only">(current)</span></a>
+                </li>
             </ul>
             <ul class="navbar-nav mr-3">
                 <li>

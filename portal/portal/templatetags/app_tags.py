@@ -44,14 +44,14 @@ def nav_bar(context):
     """
     current_lang_code = context.request.LANGUAGE_CODE
 
-    root_navigation = menu_helper.get_top_level_navigation(
-        portal_helper.get_preferred_version(context.request),
-        current_lang_code
-    )
+    # root_navigation = menu_helper.get_top_level_navigation(
+    #     portal_helper.get_preferred_version(context.request),
+    #     current_lang_code
+    # )
 
     # TODO[thuan]: This is kinda hacky, need to find better way of removing visualdl docs from PPO
-    if 'visualdl' in root_navigation:
-        root_navigation.pop('visualdl')
+    # if 'visualdl' in root_navigation:
+    #     root_navigation.pop('visualdl')
 
     # NOTE: This is to consolidate all into documentation
     if 'book' in root_navigation:
@@ -79,7 +79,7 @@ def nav_bar(context):
         about_link = '/about_cn.html'
 
     return _common_context(context, {
-        'root_nav': root_navigation,
+        # 'root_nav': root_navigation,
         'lang_def': { 'label': lang_label, 'link': lang_link },
         'community_link': community_link,
         'about_link': about_link
@@ -95,7 +95,7 @@ def content_links(context, content_id):
         context.request,
         content_id,
         current_lang_code,
-        docs_version,
+        docs_version
     )
 
     return _common_context(context, {

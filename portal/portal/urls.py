@@ -69,11 +69,8 @@ urlpatterns = [
     # ---------------
     # CONTENT URLS
     # ---------------
-    url(r'^documentation$', views.content_home, name='documentation'),
-    url(r'^api$', views.content_home, name='api'),
-    url(r'^book$', views.content_home, name='book'),
-    url(r'^models$', views.content_home, name='models'),
-    url(r'^mobile$', views.content_home, name='mobile'),
+    url(r'^documentation/?((?!/).)*$', views.content_home, name='documentation'),
+
     # HAS TO BE KEPT IN THE END, because it picks everything.
     url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
 ]
