@@ -1,7 +1,7 @@
 {% load app_tags %}
 
 <nav class="sidebar collapse fixed-left" id="sidebar-nav">
-    {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+    {% if settings.ENV != 'production' and settings.ENV != 'staging' and settings.SUPPORT_MENU_JSON %}
     <div class="sidebar-edit-wrapper">
         <button class="sidebar-edit" data-toggle="modal" data-target="#menu-editor-modal"><i class='fas fa-edit'></i>Edit menu</button>
     </div>

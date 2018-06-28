@@ -4,7 +4,7 @@ from shutil import copyfile
 from django.core.management import BaseCommand
 
 from portal.deploy import transform
-from portal import menu_helper
+from portal import menu_helper, url_helper
 
 
 # The class must be named Command, and subclass BaseCommand
@@ -36,10 +36,13 @@ class Command(BaseCommand):
 
     # A command must define handle()
     def handle(self, *args, **options):
+        version = options['version'][0] if 'version' in options else None
+
         transform(
-            options['content_id'],
             options['source_dir'],
-            options.get('destination_dir', None)
+            options.get('destination_dir', None),
+
+            options['content_id'], None, version
         )
 
         if options['content_id'] not in ['models', 'mobile']:

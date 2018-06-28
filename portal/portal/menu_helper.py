@@ -79,7 +79,7 @@ def get_production_menu_path(content_id, lang, version):
 
 
 def find_in_top_level_navigation(path):
-    for i in settings.TOP_LEVEL_NAVIGATION:
+    for i in settings.SIDE_NAVIGATION:
         if i['path'] == path:
             return i
 
@@ -106,6 +106,10 @@ def get_top_level_navigation(version, language):
         )]
 
     return filter(lambda i: i['dir'] is not None, settings.TOP_LEVEL_NAVIGATION)
+
+
+class MenuDoesntExist(Exception):
+    pass
 
 
 def get_menu(content_id, lang, version):
@@ -135,9 +139,6 @@ def get_menu(content_id, lang, version):
             menu_path = get_production_menu_path(content_id, lang, version)
         else:
             menu_path = _get_menu_path('menu.json', content_id)
-
-        if not menu_path:
-            raise Exception('Cannot find a menu file with the name %s in the directory for: %s' % (menu_path, content_id))
 
         if os.path.isfile(menu_path):
             set_menu_path_cache(content_id, lang, version, menu_path)
@@ -174,7 +175,7 @@ def _transform_section_urls(section, prefix, content_id):
                         lang_link = os.path.join(os.path.dirname(lang_link), 'index.%shtml' % (
                             '' if lang == 'en' else 'cn.'))
 
-                    new_subsection['link'][lang] = url_helper.get_html_page_path(
+                    new_subsection['link'][lang] = url_helper.get_url_path(
                         prefix, lang_link)
 
             elif key == 'sections':
@@ -193,11 +194,32 @@ def get_content_navigation(request, content_id, language, version):
     """
     Get the navigation menu for a particular content service.
     """
-    navigation = {'sections': _transform_section_urls(
-        get_menu(content_id, language, version)[0],
-        url_helper.get_page_url_prefix(content_id, language, version),
-        content_id
-    )}
+    navigation = { 'sections': [] }
+    for index, side_navigation_item in enumerate(settings.SIDE_NAVIGATION):
+        content_id = side_navigation_item['path'][1:]
+
+        try:
+            transformed_menu = _transform_section_urls(
+                get_menu(content_id, language, version)[0],
+                url_helper.get_page_url_prefix(content_id, language, version),
+                content_id
+            )
+
+            if index > 0:
+                navigation['sections'].append({
+                    'title': side_navigation_item['title'],
+                    'sections': transformed_menu
+                })
+            else:
+                navigation['sections'] = transformed_menu
+        except:
+            navigation['sections'].append({
+                'title': side_navigation_item['title'],
+                'link': {
+                    'en': '/documentation' + side_navigation_item['path'],
+                    'zh': '/documentation' + side_navigation_item['path']
+                }
+            })
 
     return navigation
 
@@ -212,7 +234,12 @@ def _get_menu_path(menu_filename, content_id):
         if content_id == 'api':
             menu_filename = 'api/' + menu_filename
 
-        return _find_menu_in_repo(repo_path['dir'], menu_filename)
+        found_menu_path = _find_menu_in_repo(repo_path['dir'], menu_filename)
+
+        if not found_menu_path:
+            raise IOError('Cannot find a menu file in the repository directory', repo_path['dir'])
+
+        return found_menu_path
 
     raise Exception('Cannot find the directory for %s: %s' % (
         content_id, repo_path['dir']))
