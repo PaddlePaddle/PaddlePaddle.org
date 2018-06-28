@@ -297,6 +297,7 @@
       overflow: hidden
       margin-top: 12px
       margin-bottom: 12px
+      padding-bottom: 12px
       height: calc(100% - 24px)
 
       p
@@ -548,6 +549,7 @@
     .row
       margin-top: 12px
       margin-bottom: 12px
+      text-align: center
 
     .bubble-background
       width: 1400px
@@ -579,7 +581,48 @@
 
         img
           color: #fff
-        
+
+  .video
+    background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
+
+    .big-img
+      height: 800px
+
+    .video-cell
+      display: inline-block
+      padding: 16px
+      margin: auto
+      top: 0px
+      bottom: 0px
+      text-align: center
+
+      h2
+        margin-left: auto
+        margin-right: auto
+
+      p
+        max-width: 400px
+        margin-left: auto
+        margin-right: auto
+
+      .watch-now
+        margin-top: 12px
+        padding: 12px
+        width: 200px
+        height: 60px
+        border-radius: 30px
+        background: linear-gradient(to left, #5a9bff, $accent-color)
+        color: white
+
+        .triangle-right
+          width: 0px
+          height: 0px
+          border-top: 10px solid transparent
+          border-left: 20px solid white
+          border-bottom: 10px solid transparent
+          margin-left: 30px
+          float: left
+
   code
     padding: 0
     padding-top: 0.2em
@@ -653,6 +696,19 @@
     width: 100%
     border-color: black
 
+@media (max-width: 991px)
+  .home
+    .big-img
+      display: none
+
+    .video-cell
+      width: 100%
+      height: auto
+
+      h2
+        margin-top: 20px
+        margin-bottom: 20px
+
 @media (min-width: 992px)
   .home
     h1
@@ -702,3 +758,25 @@
     .quick-start-guide
       h2
         margin-top: $home-line-spacing * 4
+
+    .video-cell
+      position: absolute
+      width: 530px
+      height: 530px
+      border-radius: 50%
+      background-color: rgba(255, 255,255, 0.5)
+
+      h2
+        font-size: 36px
+        margin-top: 90px
+        margin-left: auto
+        margin-right: auto
+        margin-bottom: 30px
+        max-width: 400px
+
+      .watch-now
+        position: absolute
+        bottom: 60px
+        margin: auto
+        left: 0px
+        right: 0px

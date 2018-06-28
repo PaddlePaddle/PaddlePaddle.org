@@ -447,7 +447,7 @@ for i in xrange(len(probs)):
         <p>Want more real-world tutorials? <a href='{% url url_helper.URL_NAME_BOOK_ROOT %}'>Read the book!</a></p>
     </section>
 
-    <!-- Resource section: Only in Chinese version -->
+    <!-- Resources section: Only in Chinese version -->
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'zh' %}
 
@@ -488,7 +488,31 @@ for i in xrange(len(probs)):
         </div>
     </section>
     {% endif %}
-    <!-- End of Resource sections -->
+    <!-- End of Resources section -->
+
+    <!-- Video section -->
+    <section class="video">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="big-img">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="video-cell">
+                        <h2>"the sorting machine has helped us enormously"</h2>
+                        <p>4 enterprising students from Beijing University of Technology decided to use PaddlePaddle to build a robot that helps a farmer sort good peaches from rotten ones. <br/><br/>What they made changed his life.</p>
+                        <button class="watch-now">
+                            <div class="triangle-right"></div>
+                            Watch Video
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Video section -->
+
 </div>
 
 {% endblock %}
