@@ -127,7 +127,7 @@ def documentation(source_dir, destination_dir, content_id, version, lang):
                         )
 
     for lang in langs:
-        destination_dir = os.path.join(destination_dir, content_id, lang, version)
+        lang_destination_dir = os.path.join(destination_dir, content_id, lang, version)
 
         # Go through each file, and if it is a .html, extract the .document object
         #   contents
@@ -138,7 +138,7 @@ def documentation(source_dir, destination_dir, content_id, version, lang):
 
                 if not subpath.startswith('/.') and not subpath.startswith(
                     '/_static') and not subpath.startswith('/_doctrees'):
-                    new_path = destination_dir + subpath
+                    new_path = lang_destination_dir + subpath
 
                     if '.html' in file or '_images' in subpath or '.txt' in file or '.json' in file:
                         if not os.path.exists(os.path.dirname(new_path)):
