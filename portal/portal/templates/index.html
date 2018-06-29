@@ -80,9 +80,9 @@
             </div>
         </div>
 
-        <div class="arch arch-1"/>
-        <div class="arch arch-2"/>
-        <div class="arch arch-3"/>
+        <div class="arch arch-1"></div>
+        <div class="arch arch-2"></div>
+        <div class="arch arch-3"></div>
     </section>
 
     <!-- Features sections, currently supports 4 features -->
@@ -533,36 +533,12 @@ for i in xrange(len(probs)):
 {{ block.super }}
 
 <script>
-    var allInstallationOptions = ['pip', 'docker'];
-
-    $('.quick-start-guide nav ul > li').click(function(event){
-        // The tab is of tag type 'li' and the icon inside is a 'div'
-        if (event.target.tagName == 'DIV')
-            event.target = $(event.target).parent()[0];
-
-        var installationToShow = event.target.id;
-
-        // Reverse the currently selected nav button and then select this one.
-        $('.quick-start-guide nav ul > li.selected').removeClass('selected');
-        $(event.target).addClass('selected');
-
-
-        $('.quick-start-guide .' + installationToShow).show();
-
-        // Hide all elements that are of other options.
-        $.each(allInstallationOptions, function(index, option){
-            if (option !== installationToShow)
-                $('.quick-start-guide .' + option).hide();
-        });
-    });
-
-
     // Scroll page down to quick start section on 'Quick Start' button click.
     $('#banner_quick_start').click(function(event){
         event.preventDefault();
 
         $('html, body').stop().animate({ scrollTop: $(
-            '.quick-start-guide').offset().top - 150 }, 500);
+            '.step-1-2-3').offset().top - 70 }, 500);
     });
 
     $('#banner_learn_more').click(function(event){
