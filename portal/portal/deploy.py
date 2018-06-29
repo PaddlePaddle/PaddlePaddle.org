@@ -47,7 +47,7 @@ def transform(source_dir, destination_dir, content_id, version, lang=None):
             # Build APIs explicity, if this is from the CI.
             if not lang:
                 documentation(os.path.join(
-                    source_dir, 'api'), destination_dir, content_id, version, lang)
+                    source_dir, 'api'), destination_dir, 'api', version, lang)
 
             documentation(source_dir, destination_dir, content_id, version, lang)
 
@@ -70,15 +70,15 @@ def transform(source_dir, destination_dir, content_id, version, lang=None):
 
 ########### Individual content convertors ################
 
-def documentation(source_dir, destination_dir, content_id, version, lang):
+def documentation(source_dir, destination_dir, content_id, version, original_lang):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
     menu_path = source_dir + '/menu.json'
 
-    if lang:
-        langs = [lang]
+    if original_lang:
+        langs = [original_lang]
     else:
         langs = ['en', 'zh']
 
@@ -127,7 +127,10 @@ def documentation(source_dir, destination_dir, content_id, version, lang):
                         )
 
     for lang in langs:
-        lang_destination_dir = os.path.join(destination_dir, content_id, lang, version)
+        if original_lang:
+            lang_destination_dir = destination_dir
+        else:
+            lang_destination_dir = os.path.join(destination_dir, content_id, lang, version)
 
         # Go through each file, and if it is a .html, extract the .document object
         #   contents
