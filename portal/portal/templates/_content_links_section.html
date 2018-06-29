@@ -1,31 +1,33 @@
 {% load app_tags %}
 
-<li>
-    {% translation_assignment section.title as section_title %}
-    {% translation_assignment section.link as section_link %}
+{% translation_assignment section.title as section_title %}
+{% translation_assignment section.link as section_link %}
 
-    {% if section_title != None and section.sections == None or not section.sections|length %}
+{% if section_title %}
+<li>
+    {% if section.sections == None or not section.sections|length %}
         {% if section_link != "" %}
             <a href="{{ section_link|safe }}" {% if request.path in chapter.sections %} class="active" {% endif %}>{{ section_title }}</a>
         {% endif %}
-    {% elif section_title != None and section.sections != None %}
+    {% elif section.sections != None %}
+        {% if section_link != None %}
+        <a class="title-with-toggle" href="{{ section_link|safe }}">{{ section_title }}</a>
+        {% else %}
+        <a class="title-with-toggle" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}</a>
+        {% endif %}
 
-    {% if section_link != None %}
-    <a class="title-with-toggle" href="{{ section_link|safe }}">{{ section_title }}</a>
-    {% else %}
-    <a class="title-with-toggle" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}</a>
+        <a class="toggle {% if request.path not in section.sections %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">
+            <span class="dropdown-toggle"></span>
+        </a>
+
+        <div id="collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"
+             class="panel-collapse collapse {% if request.path in section.links %}show{% endif %}">
+        <ol class="section">
+            {% for section in section.sections %}
+            {% include "_content_links_section.html" %}
+            {% endfor %}
+        </ol>
+        </div>
     {% endif %}
-
-    <a class="toggle {% if request.path not in section.sections %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"><span class="dropdown-toggle"></span></a>
-
-    <div id="collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"
-         class="panel-collapse collapse {% if request.path in section.links %}show{% endif %}">
-    <ol class="section">
-        {% for section in section.sections %}
-        {% include "_content_links_section.html" %}
-        {% endfor %}
-    </ol>
-    </div>
-    {% endif %}
-
 </li>
+{% endif %}

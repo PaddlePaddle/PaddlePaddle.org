@@ -24,10 +24,14 @@ class Command(BaseCommand):
         # Store a copy of the menu to use when not provided in `develop`.
         menu_path = menu_helper.get_production_menu_path(
             content_id, lang, version)
+
         menu_dir = os.path.dirname(menu_path)
 
         if not os.path.exists(menu_dir):
             os.makedirs(menu_dir)
+
+        if content_id == 'api':
+            source_dir = os.path.join(source_dir, 'api')
 
         copyfile(menu_helper._find_menu_in_repo(
             source_dir, 'menu.json'), menu_path)
@@ -54,12 +58,16 @@ class Command(BaseCommand):
             content_id, version, None
         )
 
+        menus_to_save = [content_id]
         if content_id == 'docs':
             if version == '0.10.0':
                 source_dir = os.path.join(source_dir, 'doc', 'v2')
             else:
                 source_dir = os.path.join(source_dir, 'doc', 'fluid')
 
+            menus_to_save.append('api')
+
         if content_id not in ['models', 'mobile']:
             for lang in ['en', 'zh']:
-                self.save_menu(source_dir, content_id, lang, version)
+                for menu_to_save_content_id in menus_to_save:
+                    self.save_menu(source_dir, menu_to_save_content_id, lang, version)
