@@ -15,7 +15,6 @@ class Command(BaseCommand):
         --destination_dir=<destination_dir> <version>"""
 
     def add_arguments(self, parser):
-        parser.add_argument('--content_id', dest='content_id')
         parser.add_argument('--source_dir', dest='source_dir')
         parser.add_argument('--destination_dir', dest='destination_dir')
         parser.add_argument('version', nargs=1)
@@ -36,18 +35,29 @@ class Command(BaseCommand):
 
     # A command must define handle()
     def handle(self, *args, **options):
+        # Determine version.
         version = options['version'][0] if 'version' in options else None
+
+        if version[0] == 'v':
+            version = version[1:]
+        elif version.startswith('release/'):
+            version = version[8:]
+
+        # Determine the content_id from the source_dir.
+        content_id = os.path.basename(options['source_dir']).lower()
+        if content_id == 'paddle':
+            content_id = 'docs'
 
         transform(
             options['source_dir'],
             options.get('destination_dir', None),
 
-            options['content_id'], None, version
+            content_id, version, None
         )
 
-        if options['content_id'] not in ['models', 'mobile']:
+        if content_id not in ['models', 'mobile']:
             for lang in ['en', 'zh']:
                 self.save_menu(
-                    options['source_dir'], options['content_id'],
-                    lang, options['version'][0]
+                    options['source_dir'], content_id,
+                    lang, version
                 )

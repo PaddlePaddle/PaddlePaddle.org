@@ -230,6 +230,13 @@ def _get_menu_path(menu_filename, content_id):
     """
     repo_path = find_in_top_level_navigation('/' + content_id)
 
+    if os.path.basename(repo_path['dir']).lower() == 'paddle':
+        # HACK: To support multiple API versions.
+        repo_path['dir'] = os.path.join(repo_path['dir'], 'doc', 'fluid')
+
+        if content_id == 'api':
+            repo_path['dir'] = os.path.join(repo_path['dir'], 'api')
+
     if os.path.exists(repo_path['dir']):
         if content_id == 'api':
             menu_filename = 'api/' + menu_filename

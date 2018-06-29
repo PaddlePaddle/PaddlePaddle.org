@@ -4,7 +4,6 @@ set -e
 DEC_PASSWD=$1
 GITHUB_BRANCH=$2
 SOURCE_DIR=$3
-CONTENT_ID=$4
 DESTINATION_DIR=/tmp/content
 
 echo "1:($1) 2:($2) 3:($3) 4:($4)"
@@ -18,7 +17,7 @@ cd PaddlePaddle.org-$PPO_BRANCH/portal
 sudo pip install --ignore-installed -r requirements.txt
 
 mkdir $DESTINATION_DIR
-python manage.py deploy_documentation --content_id=CONTENT_ID --source_dir=$SOURCE_DIR --destination_dir=$DESTINATION_DIR --version=$GITHUB_BRANCH
+python manage.py deploy_documentation --source_dir=$SOURCE_DIR --destination_dir=$DESTINATION_DIR $GITHUB_BRANCH
 
 # Deploy to remote server by SSH'ing into it.
 openssl aes-256-cbc -d -a -in ../scripts/deploy/content_mgr.pem.enc -out content_mgr.pem -k $DEC_PASSWD
@@ -27,7 +26,7 @@ chmod 400 content_mgr.pem
 ssh-add content_mgr.pem
 export STAGE_DEPLOY_IP=13.229.163.131
 
-rsync -r DEPLOY_DOCS_DIR content_mgr@$STAGE_DEPLOY_IP:/var/www/portal/pages
+rsync -r $DESTINATION_DIR content_mgr@$STAGE_DEPLOY_IP:/var/www/portal/documentation
 
 chmod 644 content_mgr.pem
-rm -rf $DEPLOY_DOCS_DIR
+rm -rf $DESTINATION_DIR

@@ -27,22 +27,35 @@ MARKDOWN_EXTENSIONS = [
 ]
 
 
-def transform(source_dir, destination_dir, content_id, lang=None, version=None):
+def transform(source_dir, destination_dir, content_id, version, lang=None):
     try:
         print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
         # Regenerate its contents.
         if content_id in ['docs', 'api']:
-            documentation(source_dir, destination_dir, { 'lang': lang, 'version': version })
+            # If this is called from the CI, often with no language,
+            # generate API docs too.
+            if not lang:
+                build_apis(source_dir, destination_dir)
+
+            if os.path.basename(source_dir).lower() == 'paddle':
+                source_dir = os.path.join(source_dir, 'doc', 'fluid')
+
+            # Build APIs explicity, if this is from the CI.
+            if not lang:
+                documentation(os.path.join(
+                    source_dir, 'api'), destination_dir, content_id, version, lang)
+
+            documentation(source_dir, destination_dir, content_id, version, lang)
 
         elif content_id == 'book':
-            book(source_dir, destination_dir)
+            book(source_dir, destination_dir, version, lang)
 
         elif content_id == 'models':
-            models(source_dir, destination_dir)
+            models(source_dir, destination_dir, version, lang)
 
         elif content_id == 'mobile':
-            mobile(source_dir, destination_dir)
+            mobile(source_dir, destination_dir, version, lang)
 
         elif content_id == 'visualdl':
             visualdl(source_dir, destination_dir)
@@ -54,15 +67,15 @@ def transform(source_dir, destination_dir, content_id, lang=None, version=None):
 
 ########### Individual content convertors ################
 
-def documentation(source_dir, destination_dir, options={}):
+def documentation(source_dir, destination_dir, content_id, version, lang):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
     menu_path = source_dir + '/menu.json'
 
-    if options['lang']:
-        langs = [options['lang']]
+    if lang:
+        langs = [lang]
     else:
         langs = ['en', 'zh']
 
@@ -74,7 +87,7 @@ def documentation(source_dir, destination_dir, options={}):
     for lang in langs:
         if not destination_dir:
             destination_dir = url_helper.get_full_content_path(
-                'documentation', lang, options['version'])[0]
+                'documentation', lang, version)[0]
 
         generated_dir = '/tmp/documentation'
         if not os.path.exists(generated_dir):
@@ -107,10 +120,12 @@ def documentation(source_dir, destination_dir, options={}):
                     for link in links_container.find_all('li', recursive=False):
                         _create_sphinx_menu(
                             new_menu['sections'], link,
-                            'documentation', lang, options['version'], source_dir, True
+                            'documentation', lang, version, source_dir, True
                         )
 
     for lang in langs:
+        destination_dir = os.path.join(destination_dir, content_id, lang, version)
+
         # Go through each file, and if it is a .html, extract the .document object
         #   contents
         for subdir, dirs, all_files in os.walk(generated_dir):
@@ -135,7 +150,7 @@ def documentation(source_dir, destination_dir, options={}):
                         if original_md_path:
                             # If this html file was generated from Sphinx MD, we need to regenerate it using python's
                             # MD library.  Sphinx MD library is limited and doesn't support tables
-                            markdown_file(original_md_path, options['version'] if 'version' in options else None, '', new_path)
+                            markdown_file(original_md_path, version, '', new_path)
 
                             # Since we are ignoring SPHINX's generated HTML for MD files (and generating HTML using
                             # python's MD library), we must fix any image links that starts with 'src/'.
@@ -175,7 +190,7 @@ def documentation(source_dir, destination_dir, options={}):
 
                             document = None
                             # Find the .document element.
-                            if 'version' in options and options['version'] == '0.9.0':
+                            if version == '0.9.0':
                                 document = soup.select('div.body')[0]
                             else:
                                 document = soup.select('div.document')[0]
@@ -196,10 +211,14 @@ def documentation(source_dir, destination_dir, options={}):
         _remove_sphinx_menu(menu_path, lang)
 
 
-def models(source_dir, destination_dir, options=None):
+def models(source_dir, destination_dir, version, lang):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
+    if not lang:
+        original_destination_dir = destination_dir
+        destination_dir = os.path.join(destination_dir, 'models', 'en', version)
+
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
     for subdir, dirs, all_files in os.walk(source_dir):
@@ -270,13 +289,21 @@ def models(source_dir, destination_dir, options=None):
             elif 'images' in subpath:
                 shutil.copyfile(os.path.join(subdir, file), new_path)
 
+    if not lang:
+        shutil.copytree(destination_dir, os.path.join(
+            original_destination_dir, 'models', 'zh', version))
+
     return destination_dir
 
 
-def mobile(source_dir, destination_dir, options=None):
+def mobile(source_dir, destination_dir, version, lang):
     """
     Simply convert the markdown to HTML.
     """
+    if not lang:
+        original_destination_dir = destination_dir
+        destination_dir = os.path.join(destination_dir, 'mobile', 'en', version)
+
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
     for subdir, dirs, all_files in os.walk(source_dir):
@@ -334,16 +361,24 @@ def mobile(source_dir, destination_dir, options=None):
             elif 'image' in subpath:
                 shutil.copyfile(os.path.join(subdir, file), new_path)
 
+    if not lang:
+        shutil.copytree(destination_dir, os.path.join(
+            original_destination_dir, 'mobile', 'zh', version))
+
     return destination_dir
 
 
-def book(source_dir, destination_dir, options=None):
+def book(source_dir, destination_dir, version, lang):
     """
     Strip out the static and extract the body contents, headers, and body.
     """
     # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
     # and transform them using a markdown library.
     # Remove old generated docs directory
+    if not lang:
+        original_destination_dir = destination_dir
+        destination_dir = os.path.join(destination_dir, 'book', 'en', version)
+
     if os.path.exists(destination_dir) and os.path.isdir(destination_dir):
         shutil.rmtree(destination_dir)
 
@@ -401,6 +436,10 @@ def book(source_dir, destination_dir, options=None):
 
                 elif 'image/' in subpath:
                     shutil.copyfile(os.path.join(subdir, file), new_path)
+
+        if not lang:
+            shutil.copytree(destination_dir, os.path.join(
+                original_destination_dir, 'book', 'zh', version))
 
         # Generate a menu.json in the source directory.
         # NOTE: Remove this next segment once menu.json is available.
@@ -654,3 +693,26 @@ def reserve_formulas(markdown_body, formula_map, only_reserve_double_dollar=Fals
         markdown_body = markdown_body.replace(m[i], place_holder % i)
 
     return markdown_body
+
+
+def build_apis(source_dir, destination_dir):
+    """
+    Given a Paddle doc directory, invoke a script to generate docs using Sphinx
+    and after parsing the code base based on given config, into an output dir.
+    """
+    # Remove old generated docs directory
+    if os.path.exists(destination_dir) and os.path.isdir(destination_dir):
+        shutil.rmtree(destination_dir)
+
+    if os.path.exists(os.path.dirname(source_dir)):
+        script_path = os.path.join(
+            settings.BASE_DIR, '../scripts/deploy/generate_paddle_docs.sh')
+
+        if os.path.exists(os.path.dirname(script_path)):
+            call([script_path, source_dir, destination_dir])
+
+            return destination_dir
+        else:
+            raise Exception('Cannot find script located at %s.' % script_path)
+    else:
+        raise Exception('Cannot generate documentation, directory %s does not exists.' % source_dir)
