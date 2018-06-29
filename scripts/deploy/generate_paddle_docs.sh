@@ -3,7 +3,6 @@ set -e
 
 DOCS_LOCATION=$1
 DESTINATION_DIR=$2
-BUILD_TYPE=$3
 
 echo "Generating paddle documentation at $DOCS_LOCATION to $DESTINATION_DIR"
 cd "$DOCS_LOCATION"
@@ -29,16 +28,5 @@ fi
 
 # Compile Documentation only.
 cmake "$DOCS_LOCATION" -DCMAKE_BUILD_TYPE=Release -DWITH_GPU=OFF -DWITH_MKL=OFF -DWITH_DOC=ON -DWITH_STYLE_CHECK=OFF
-
-if [ $BUILD_TYPE = "DOC_LITE" ]; then
-    make -j $processors paddle_docs
-elif [ $BUILD_TYPE = "DOC_FULL" ]; then
-    make -j $processors gen_proto_py framework_py_proto
-    make -j $processors copy_paddle_pybind
-    make -j $processors paddle_docs paddle_apis
-fi
-
-mkdir -p $DESTINATION_DIR
-
-cp -r $DOCS_LOCATION/ppo_build/doc/* $DESTINATION_DIR/.
-
+make -j $processors gen_proto_py framework_py_proto
+make -j $processors copy_paddle_pybind

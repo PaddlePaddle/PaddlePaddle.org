@@ -208,7 +208,7 @@ def _generate_content(source_dir, destination_dir, content_id, lang, version):
         # Generate the directory.
         os.makedirs(destination_dir)
 
-    transform(source_dir, destination_dir, content_id, lang, version)
+    transform(source_dir, destination_dir, content_id, version, lang)
 
 
 def _get_first_link_in_contents(navigation, lang):
