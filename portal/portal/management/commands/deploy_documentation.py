@@ -44,7 +44,7 @@ class Command(BaseCommand):
             version = version[8:]
 
         # Determine the content_id from the source_dir.
-        content_id = os.path.basename(options['source_dir']).lower()
+        content_id = os.path.basename(options['source_dir'].rstrip('/')).lower()
         if content_id == 'paddle':
             content_id = 'docs'
 
@@ -57,7 +57,9 @@ class Command(BaseCommand):
 
         if content_id not in ['models', 'mobile']:
             for lang in ['en', 'zh']:
-                self.save_menu(
-                    options['source_dir'], content_id,
-                    lang, version
-                )
+                if version == '0.10.0':
+                    source_dir = os.path.join(options['source_dir'], 'doc', 'v2')
+                else:
+                    source_dir = os.path.join(options['source_dir'], 'doc', 'fluid')
+
+                self.save_menu(source_dir, content_id, lang, version)

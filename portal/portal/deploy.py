@@ -199,8 +199,6 @@ def documentation(source_dir, destination_dir, content_id, version, lang):
                     elif '_images' in subpath or '.txt' in file or '.json' in file:
                         # Copy to images directory.
                         copyfile(os.path.join(subdir, file), new_path)
-                    elif 'searchindex.js' in subpath:
-                        copyfile(os.path.join(subdir, file), new_path)
 
         # shutil.rmtree(generated_dir)
 
