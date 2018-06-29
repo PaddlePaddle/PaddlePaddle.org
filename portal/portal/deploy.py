@@ -90,9 +90,9 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
     for lang in langs:
         if not destination_dir:
             destination_dir = url_helper.get_full_content_path(
-                'documentation', lang, version)[0]
+                'docs', lang, version)[0]
 
-        generated_dir = '/tmp/documentation'
+        generated_dir = '/tmp/%s' % content_id
         if not os.path.exists(generated_dir):
             try:
                 os.mkdir(generated_dir)
@@ -123,7 +123,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
                     for link in links_container.find_all('li', recursive=False):
                         _create_sphinx_menu(
                             new_menu['sections'], link,
-                            'documentation', lang, version, source_dir, True
+                            'documentation', lang, version, source_dir, content_id == 'docs'
                         )
 
     for lang in langs:
@@ -705,9 +705,8 @@ def build_apis(source_dir, destination_dir):
     and after parsing the code base based on given config, into an output dir.
     """
     # Remove old generated docs directory
-    if os.path.exists(destination_dir) and os.path.isdir(destination_dir):
-        shutil.rmtree(destination_dir)
-
+    # if os.path.exists(destination_dir) and os.path.isdir(destination_dir):
+    #     shutil.rmtree(destination_dir)
     if os.path.exists(os.path.dirname(source_dir)):
         script_path = os.path.join(
             settings.BASE_DIR, '../scripts/deploy/generate_paddle_docs.sh')
