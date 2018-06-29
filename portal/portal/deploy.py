@@ -39,7 +39,10 @@ def transform(source_dir, destination_dir, content_id, version, lang=None):
                 build_apis(source_dir, destination_dir)
 
             if os.path.basename(source_dir).lower() == 'paddle':
-                source_dir = os.path.join(source_dir, 'doc', 'fluid')
+                if version == '0.10.0':
+                    source_dir = os.path.join(source_dir, 'doc', 'v2')
+                else:
+                    source_dir = os.path.join(source_dir, 'doc', 'fluid')
 
             # Build APIs explicity, if this is from the CI.
             if not lang:
