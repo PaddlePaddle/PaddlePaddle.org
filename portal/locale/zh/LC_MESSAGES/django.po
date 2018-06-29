@@ -102,6 +102,91 @@ msgid ""
 "business models."
 msgstr "框架能够一键安装，针对CPU、GPU都做了众多优化，分布式性能强劲，并且开放多种百度优势业务模型；让你的开发快人一步"
 
+#: portal/templates/index.html:135
+msgid "Install"
+msgstr "安装"
+
+#: portal/templates/index.html:138
+msgid ""
+"Get PaddlePaddle up and running quick after installing the newest version of pip"
+msgstr "用最新的pip快捷地安装和运行PaddlePaddle"
+
+#: portal/templates/index.html:188
+msgid "Tested on CentOS 6+, Ubuntu 14.04+"
+msgstr "在CentOS 6+和Ubuntu 14.04+上测试通过"
+
+#: portal/templates/index.html:192
+msgid "Install on Windows, MacOS, or other options"
+msgstr "在Windows，MacOS以及其他平台上安装"
+
+#: portal/templates/index.html:200
+msgid "Get Started"
+msgstr "让我们开始吧"
+
+#: portal/templates/index.html:209
+msgid "Import PaddlePaddle"
+msgstr "引入PaddlePaddle"
+
+#: portal/templates/index.html:218
+msgid "Load dataset and train"
+msgstr "导入数据集并开始训练"
+
+#: portal/templates/index.html:227
+msgid "Make a prediction"
+msgstr "可以做预测啦"
+
+#: portal/templates/index.html:298
+msgid "CTR Prediction"
+msgstr "点击率预测"
+
+#: portal/templates/index.html:302
+msgid "Use DeepFM to predict a user’s click-through rate based on the user’s various features."
+msgstr "根据用户的多种特征，用DeepFM来预测用户的点击率"
+
+#: portal/templates/index.html:306
+msgid "Learn more"
+msgstr "了解更多"
+
+#: portal/templates/index.html:321
+msgid "Learn to Rank (LTR)"
+msgstr "排序学习"
+
+#: portal/templates/index.html:324
+msgid "Build LTR model that can be applied in information retrieval, NLP and data mining."
+msgstr "构建可以用于信息检索，自然语言处理和数据挖掘的LTR模型"
+
+#: portal/templates/index.html:347
+msgid "DSSM"
+msgstr "结构化语义模型"
+
+#: portal/templates/index.html:350
+msgid "Use Deep Structured Semantic Models to match web search queries and the URL based documents."
+msgstr "使用结构化语义模型来匹配网络检索和基于文本的URL"
+
+#: portal/templates/index.html:369
+msgid "Neural Machine Translation"
+msgstr "神经网络机器翻译模型"
+
+#: portal/templates/index.html:372
+msgid "Construct an end-to-end NMT model using the recurrent neural network (RNN)."
+msgstr "用循环神经网络来构建端到端的神经网络机器翻译模型"
+
+#: portal/templates/index.html:395
+msgid "Chinese Ancient Poetry"
+msgstr "中文古诗生成模型"
+
+#: portal/templates/index.html:398
+msgid "Utilize stacked bi-directional LSTM to generate a Chinese ancient poem."
+msgstr "运用栈式双向长短期记忆模型来生成中文古诗"
+
+#: portal/templates/index.html:417
+msgid "SSD Object Detection"
+msgstr "SSD目标检测"
+
+#: portal/templates/index.html:419
+msgid "Use the SSD model in PaddlePaddle for object detection."
+msgstr "使用PaddlePaddle的SSD模型来做物体探测"
+
 #: portal/templates/index.html:163
 msgid "Build powerful applications with PaddlePaddle"
 msgstr "用PaddlePaddle构建强大的应用"

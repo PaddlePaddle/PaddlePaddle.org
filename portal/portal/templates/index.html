@@ -132,11 +132,10 @@
     <section class="installation-guide">
         <div class="container">
             <div class="row">
-                <h2 class="col-lg-12">Install</h2>
+                <h2 class="col-lg-12">{% trans "Install"%}</h2>
             </div>
             <div class="row">
-                <p class="col-lg-12">Get PaddlePaddle up and running quick after installing the newest version of
-                    pip</p>
+                <p class="col-lg-12">{% trans "Get PaddlePaddle up and running quick after installing the newest version of pip"%}</p>
             </div>
 
             <div class="row">
@@ -185,11 +184,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <p>Tested on CentOS 6+, Ubuntu 14.04+</p>
+                    <p>{% trans "Tested on CentOS 6+, Ubuntu 14.04+"%}</p>
                 </div>
                 <!-- Link to docker installation -->
                 <div class="col-lg-6">
-                    <a class="other-install">Install on Windows, MacOS, or other options</a>
+                    <a class="other-install">
+                        {% blocktrans %}Install on Windows, MacOS, or other options{% endblocktrans %}</a>
                 </div>
             </div>
         </div>
@@ -197,7 +197,7 @@
         <!-- Start of Step 1-2-3 -->
         <div class="container step-1-2-3">
             <div class="row">
-                <h2 class="col-lg-12">Get Started</h2>
+                <h2 class="col-lg-12">{% blocktrans %}Get Started{% endblocktrans %}</h2>
             </div>
 
             <div class="row">
@@ -206,7 +206,7 @@
                     <div class="row">
                         <div class="col-12">
                             <button id="step-button-1" class="step-button show in-focus selected" data-step-id="1">
-                                1. Import PaddlePaddle
+                                1. {% blocktrans %}Import PaddlePaddle{% endblocktrans %}
                             </button>
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                     <div class="row">
                         <div class="col-12">
                             <button id="step-button-2" class="step-button" data-step-id="2">
-                                2. Load dataset and train
+                                2. {% blocktrans %}Load dataset and train{% endblocktrans %}
                             </button>
                         </div>
                     </div>
@@ -224,7 +224,7 @@
                     <div class="row">
                         <div class="col-12">
                             <button id="step-button-3" class="step-button" data-step-id="3">
-                                3. Make a prediction
+                                3. {% blocktrans %}Make a prediction{% endblocktrans %}
                             </button>
                         </div>
                     </div>
@@ -296,14 +296,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        CTR Prediction
+                                        {% blocktrans %}CTR Prediction{% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Use DeepFM to predict a user’s click-through rate based on the user’s various features.
+                                        {% blocktrans %}Use DeepFM to predict a user’s click-through rate based on the user’s various features.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="http://paddlepaddle.org/docs/develop/models/deep_fm/README.html" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
@@ -318,14 +318,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        Learn to Rank (LTR)
+                                        {% blocktrans %}Learn to Rank (LTR){% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Build LTR model that can be applied in information retrieval, NLP and data mining.
+                                        {% blocktrans %}Build LTR model that can be applied in information retrieval, NLP and data mining.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="https://github.com/PaddlePaddle/models/blob/develop/ltr/README_en.md" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
@@ -344,14 +344,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        DSSM
+                                        {% blocktrans %}DSSM{% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Use Deep Structured Semantic Models to match web search queries and the URL based documents.
+                                        {% blocktrans %}Use Deep Structured Semantic Models to match web search queries and the URL based documents.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="/models/dssm/README{% if LANGUAGE_CODE != 'zh' %}_en{% endif %}.html" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
@@ -366,14 +366,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        Neural Machine Translation
+                                        {% blocktrans %}Neural Machine Translation{% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Construct an end-to-end NMT model using the recurrent neural network (RNN).
+                                        {% blocktrans %}Construct an end-to-end NMT model using the recurrent neural network (RNN).{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="https://github.com/PaddlePaddle/models/blob/develop/nmt_without_attention/README.md" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
@@ -392,14 +392,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        Chinese Ancient Poetry
+                                        {% blocktrans %}Chinese Ancient Poetry{% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Utilize stacked bi-directional LSTM to generate a Chinese ancient poem.
+                                        {% blocktrans %}Utilize stacked bi-directional LSTM to generate a Chinese ancient poem.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="https://github.com/PaddlePaddle/models/blob/develop/generate_chinese_poetry/README_en.md" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
@@ -414,14 +414,14 @@ for i in xrange(len(probs)):
                                 </div>
                                 <div class="col-sm-7 model-intro">
                                     <h3>
-                                        SSD Object Detection
+                                        {% blocktrans %}SSD Object Detection{% endblocktrans %}
                                     </h3>
                                     <p>
-                                        Use the SSD model in PaddlePaddle for object detection.
+                                        {% blocktrans %}Use the SSD model in PaddlePaddle for object detection.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
                                         <a href="https://github.com/PaddlePaddle/models/blob/develop/ssd/README.md" target="_blank">
-                                            Learn more
+                                            {% trans "Learn more"%}
                                         </a>
                                     </div>
                                 </div>
