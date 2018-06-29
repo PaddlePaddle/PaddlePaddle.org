@@ -54,11 +54,12 @@ class Command(BaseCommand):
             content_id, version, None
         )
 
+        if content_id == 'docs':
+            if version == '0.10.0':
+                source_dir = os.path.join(source_dir, 'doc', 'v2')
+            else:
+                source_dir = os.path.join(source_dir, 'doc', 'fluid')
+
         if content_id not in ['models', 'mobile']:
             for lang in ['en', 'zh']:
-                if version == '0.10.0':
-                    source_dir = os.path.join(source_dir, 'doc', 'v2')
-                else:
-                    source_dir = os.path.join(source_dir, 'doc', 'fluid')
-
                 self.save_menu(source_dir, content_id, lang, version)
