@@ -324,7 +324,7 @@ for i in xrange(len(probs)):
                                         {% blocktrans %}Build LTR model that can be applied in information retrieval, NLP and data mining.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
-                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/ltr/README_en.md" target="_blank">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/ltr/README{% if LANGUAGE_CODE != 'zh' %}_en{% endif %}.md" target="_blank">
                                             {% trans "Learn more"%}
                                         </a>
                                     </div>
@@ -350,7 +350,7 @@ for i in xrange(len(probs)):
                                         {% blocktrans %}Use Deep Structured Semantic Models to match web search queries and the URL based documents.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
-                                        <a href="/models/dssm/README{% if LANGUAGE_CODE != 'zh' %}_en{% endif %}.html" target="_blank">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/dssm/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
                                             {% trans "Learn more"%}
                                         </a>
                                     </div>
@@ -372,7 +372,7 @@ for i in xrange(len(probs)):
                                         {% blocktrans %}Construct an end-to-end NMT model using the recurrent neural network (RNN).{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
-                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/nmt_without_attention/README.md" target="_blank">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/nmt_without_attention/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
                                             {% trans "Learn more"%}
                                         </a>
                                     </div>
@@ -398,7 +398,7 @@ for i in xrange(len(probs)):
                                         {% blocktrans %}Utilize stacked bi-directional LSTM to generate a Chinese ancient poem.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
-                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/generate_chinese_poetry/README_en.md" target="_blank">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/generate_chinese_poetry/README{% if LANGUAGE_CODE != 'zh' %}_en{% endif %}.md" target="_blank">
                                             {% trans "Learn more"%}
                                         </a>
                                     </div>
@@ -420,7 +420,7 @@ for i in xrange(len(probs)):
                                         {% blocktrans %}Use the SSD model in PaddlePaddle for object detection.{% endblocktrans %}
                                     </p>
                                     <div class="learn-more">
-                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/ssd/README.md" target="_blank">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/ssd/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
                                             {% trans "Learn more"%}
                                         </a>
                                     </div>
