@@ -650,6 +650,11 @@
 
 @media (max-width: 991px)
   .home
+    .models
+      .model-right-column
+        display: none
+
+  .home
     .big-img
       display: none
 
@@ -741,3 +746,24 @@
         margin: auto
         left: 0px
         right: 0px
+
+@media (max-width: 1200px)
+  .home
+    .models
+      .col-lg-7
+        flex: 0 0 100%
+        max-width: 100%
+
+      .model-icon
+        display: none
+
+      .model-intro
+        padding-left: 10%
+        padding-right: 10%
+
+        h3
+          font-size: $font-xlarge
+          text-align: center
+
+      p
+        font-size: 20px
