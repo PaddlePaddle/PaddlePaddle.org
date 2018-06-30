@@ -35,6 +35,10 @@ def transform(original_documentation_dir, generated_docs_dir, version, options=N
         if version[0] == 'v':
             version = version[1:]
 
+        # Remove the heading 'release/', left in for purely user-facing convenience.
+        if version.startswith("release/"):
+            version = version[8:]
+
         # If this seems like a request to build/transform the core Paddle docs.
         content_id = portal_helper.FOLDER_MAP_TO_CONTENT_ID.get(path_base_name, None)
         if content_id == Content.DOCUMENTATION:
