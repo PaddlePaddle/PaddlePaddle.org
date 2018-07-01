@@ -196,12 +196,12 @@ msgid ""
 msgstr "能够根据图像所传达的语义信息将图像按类别进行区分"
 
 #: portal/templates/index.html:395
-msgid "Chinese Ancient Poetry"
-msgstr "中文古诗生成模型"
+msgid "Machine Translation"
+msgstr "机器翻译"
 
 #: portal/templates/index.html:398
-msgid "Utilize stacked bi-directional LSTM to generate a Chinese ancient poem."
-msgstr "运用栈式双向长短期记忆模型来生成中文古诗"
+msgid "Translate between different languages via deep learning."
+msgstr "通过深度学习方法实现不同语言之间的转换"
 
 #: portal/templates/index.html:416
 msgid "SSD Object Detection"
