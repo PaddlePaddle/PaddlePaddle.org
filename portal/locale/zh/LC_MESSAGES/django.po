@@ -160,14 +160,13 @@ msgid "Build powerful applications with PaddlePaddle"
 msgstr "用PaddlePaddle构建强大的应用"
 
 #: portal/templates/index.html:299
-msgid "CTR Prediction"
-msgstr "点击率预测"
+msgid "Word2Vec"
+msgstr "中文词向量"
 
 #: portal/templates/index.html:302
 msgid ""
-"Use DeepFM to predict a user’s click-through rate based on the user’s "
-"various features."
-msgstr "根据用户的多种特征，用DeepFM来预测用户的点击率"
+"Express words as real vectors to calculate similarities between them."
+msgstr "能够将词表示成一个实数向量(one-hot vector), 从而能够进行词与词之间的计算"
 
 #: portal/templates/index.html:321
 msgid "Learn to Rank (LTR)"
