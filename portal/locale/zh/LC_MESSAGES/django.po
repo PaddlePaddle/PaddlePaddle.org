@@ -169,14 +169,13 @@ msgid ""
 msgstr "能够将词表示成一个实数向量(one-hot vector), 从而能够进行词与词之间的计算"
 
 #: portal/templates/index.html:321
-msgid "Learn to Rank (LTR)"
-msgstr "排序学习"
+msgid "Recommender System"
+msgstr "个性化推荐"
 
 #: portal/templates/index.html:324
 msgid ""
-"Build LTR model that can be applied in information retrieval, NLP and data "
-"mining."
-msgstr "构建可以用于信息检索，自然语言处理和数据挖掘的LTR模型"
+"Recommend potentially interesting information or commodities to users based on their features."
+msgstr "根据不同用户个性化需求与兴趣推荐其可能感兴趣的信息或商品"
 
 #: portal/templates/index.html:347
 msgid "DSSM"
