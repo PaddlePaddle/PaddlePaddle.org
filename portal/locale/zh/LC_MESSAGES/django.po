@@ -187,13 +187,13 @@ msgid ""
 msgstr "可以用来判断一段文本所表达的情绪状态，比如正面、负面"
 
 #: portal/templates/index.html:369
-msgid "Neural Machine Translation"
-msgstr "神经网络机器翻译模型"
+msgid "Image Classification"
+msgstr "图像分类"
 
 #: portal/templates/index.html:372
 msgid ""
-"Construct an end-to-end NMT model using the recurrent neural network (RNN)."
-msgstr "用循环神经网络来构建端到端的神经网络机器翻译模型"
+"Classify images based on their semantic information."
+msgstr "能够根据图像所传达的语义信息将图像按类别进行区分"
 
 #: portal/templates/index.html:395
 msgid "Chinese Ancient Poetry"
