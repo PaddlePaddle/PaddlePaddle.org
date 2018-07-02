@@ -373,16 +373,20 @@ def content_sub_path(request, version, path=None):
         content_id = Content.VISUALDL
 
     elif path.startswith(url_helper.BOOK_ROOT):
-        content_id = Content.BOOK
+        # content_id = Content.BOOK
+        content_id = Content.DOCUMENTATION
 
     elif path.startswith(url_helper.MODEL_ROOT):
-        content_id = Content.MODELS
+        # content_id = Content.MODELS
+        content_id = Content.DOCUMENTATION
 
     elif path.startswith(url_helper.MOBILE_ROOT):
-        content_id = Content.MOBILE
+        # content_id = Content.MOBILE
+        content_id = Content.DOCUMENTATION
 
     elif path.startswith(url_helper.API_ROOT):
-        content_id = Content.API
+        # content_id = Content.API
+        content_id = Content.DOCUMENTATION
 
         search_url = '%s/%s/search.html' % (content_id, 'en')
         if path.startswith(url_helper.API_ROOT + 'fluid'):
