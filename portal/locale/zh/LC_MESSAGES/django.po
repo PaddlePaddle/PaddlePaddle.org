@@ -86,7 +86,7 @@ msgstr ""
 
 #: portal/templates/index.html:105
 msgid "Ease of use"
-msgstr "易用性"
+msgstr "易用"
 
 #: portal/templates/index.html:107
 msgid ""
@@ -108,7 +108,7 @@ msgstr ""
 
 #: portal/templates/index.html:121
 msgid "Efficiency"
-msgstr "高效性"
+msgstr "高效"
 
 #: portal/templates/index.html:123
 msgid ""
@@ -161,7 +161,7 @@ msgstr "用PaddlePaddle构建强大的应用"
 
 #: portal/templates/index.html:299
 msgid "Word2Vec"
-msgstr "中文词向量"
+msgstr "词向量"
 
 #: portal/templates/index.html:302
 msgid ""
@@ -179,7 +179,7 @@ msgstr "根据不同用户个性化需求与兴趣推荐其可能感兴趣的信
 
 #: portal/templates/index.html:347
 msgid "Understand Sentiment"
-msgstr "中文情感分析"
+msgstr "情感分析"
 
 #: portal/templates/index.html:350
 msgid ""
