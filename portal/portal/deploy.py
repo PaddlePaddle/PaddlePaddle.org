@@ -102,6 +102,13 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
         if not new_menu:
             _build_sphinx_index_from_menu(menu_path, lang)
 
+        # HACK: If this is chinese API folder, make a copy of api/index_en.rst.
+        if lang == 'zh' and content_id == 'api':
+            copyfile(
+                os.path.join(source_dir, 'index_en.rst'),
+                os.path.join(source_dir, 'index_cn.rst')
+            )
+
         call(['sphinx-build', '-b', 'html', '-c',
             os.path.join(settings.SPHINX_CONFIG_DIR, lang),
             source_dir, generated_dir])
