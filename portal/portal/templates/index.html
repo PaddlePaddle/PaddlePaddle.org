@@ -23,7 +23,7 @@
                 <button id="banner_learn_more" class="btn col-lg-3" href="/about_{% if LANGUAGE_CODE != 'zh' %}en{% else %}cn{% endif %}.html" type="text/html" >{% trans "Learn more"%}</button>
 
             </div>
-        <div>
+        </div>
 
         <div class="dot-area">
             <div class="dot-group">
@@ -157,17 +157,20 @@
                     <div id="cuda-version" class="row disable">
                         <div class="col-4">
                             <button id="-gpu" class="install-option cuda selected">
-                                CUDA 9.0 cuDNN 7.0
+                                <div class="cuda-title">CUDA 9</div>
+                                <div class="cuda-caption">cuDNN 7.0</div>
                             </button>
                         </div>
                         <div class="col-4">
                             <button id="-gpu==0.14.0.post87" class="install-option cuda">
-                                CUDA 8.0 cuDNN 7.0
+                                <div class="cuda-title">CUDA 8</div>
+                                <div class="cuda-caption">cuDNN 7.0</div>
                             </button>
                         </div>
                         <div class="col-4">
                             <button id="-gpu==0.14.0.post85" class="install-option cuda">
-                                CUDA 8.0 cuDNN 5.0
+                                <div class="cuda-title">CUDA 8</div>
+                                <div class="cuda-caption">cuDNN 5.0</div>
                             </button>
                         </div>
                     </div>
@@ -513,13 +516,13 @@ infer(save_dirname)</code>
             <div class="row">
                 <div class="col-lg-4">
                     <a class="resource-cell" href="http://ai.baidu.com/paddlepaddle/openCourses">
-                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-11,.cls-12{fill:none;stroke:#000;stroke-width:2px;}.cls-11{stroke-miterlimit:10;}.cls-12{stroke-linecap:round;stroke-linejoin:round;}</style></defs><title>resource-studio</title><circle class="cls-11" cx="37" cy="37" r="27.5"/><polygon class="cls-12" points="41.4 40.95 41.63 40.82 41.52 40.72 50.61 24.34 34.23 33.43 34.13 33.33 34.01 33.55 33.78 33.68 33.88 33.78 24.8 50.16 41.17 41.07 41.27 41.17 41.4 40.95"/></svg>                        <h3>深度学习基础知识</h3>
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-11,.cls-12{fill:none;stroke-width:2px;}.cls-11{stroke-miterlimit:10;}.cls-12{stroke-linecap:round;stroke-linejoin:round;}</style></defs><title>resource-studio</title><circle class="cls-11" cx="37" cy="37" r="27.5"/><polygon class="cls-12" points="41.4 40.95 41.63 40.82 41.52 40.72 50.61 24.34 34.23 33.43 34.13 33.33 34.01 33.55 33.78 33.68 33.88 33.78 24.8 50.16 41.17 41.07 41.27 41.17 41.4 40.95"/></svg>                        <h3>深度学习基础知识</h3>
                         <p>百度联合多家教育培训机构共同打造超过400+节、累计3000+分钟的深度学习精品课程体系，帮助开发者从零掌握深度学习</p>
                     </a>
                 </div>
                 <div class="col-lg-4">
                     <a class="resource-cell" href="http://aistudio.baidu.com">
-                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-221{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title>resource-study</title><polygon class="cls-221" points="14 23.75 37.5 36.5 61 24.5 37.5 11 14 23.75"/><line class="cls-221" x1="61" y1="25" x2="61" y2="53"/><line class="cls-221" x1="14" y1="24" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="37" x2="37.5" y2="64"/><line class="cls-221" x1="37.5" y1="65" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="65" x2="61" y2="53"/></svg>                        <h3>AI Studio</h3>
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-221{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title>resource-study</title><polygon class="cls-221" points="14 23.75 37.5 36.5 61 24.5 37.5 11 14 23.75"/><line class="cls-221" x1="61" y1="25" x2="61" y2="53"/><line class="cls-221" x1="14" y1="24" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="37" x2="37.5" y2="64"/><line class="cls-221" x1="37.5" y1="65" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="65" x2="61" y2="53"/></svg>                        <h3>AI Studio</h3>
                         <p>为开发者提供线上深度学习代码环境以及配套的算法、算力、数据支持，一站式满足使用者学习、技术进阶、学术研究的需求</p>
                     </a>
                 </div>
@@ -592,7 +595,9 @@ infer(save_dirname)</code>
     });
 
 
-    $('.installation-guide div > .install-option').click(function(event){
+    $('.installation-guide .install-option').click(function(event){
+        if (event.target.tagName == 'DIV')
+            event.target = $(event.target).parent()[0];
         var installationToShow = event.target.id;
         var installCommend = 'pip install paddlepaddle';
 

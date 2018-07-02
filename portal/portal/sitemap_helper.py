@@ -254,37 +254,38 @@ def get_all_navigation(request, version, language):
     Get the navigation sitemap for all.
     NOTE: THIS IS A HACK FOR MLK
     """
-    all_data = []
-    docs, cate = get_content_navigation(request, "documentation", version, language)
+
+    # We only care about the category in documentation.
+    docs, category = get_content_navigation(request, "documentation", version, language)
     all_data = docs
 
-    apis, cate = get_content_navigation(request, "api", version, language)
+    apis, category_placeholder = get_content_navigation(request, "api", version, language)
 
     # NOTE: API's section title is not "API", therefore, we have to add the root level instead.
     if apis:
         all_data['sections'] += [apis]
 
-    book, cate = get_content_navigation(request, "book", version, language)
+    book, category_placeholder = get_content_navigation(request, "book", version, language)
 
     if book and 'sections' in book:
         all_data['sections'] += book['sections']
         all_data['links'] += book['links']
 
-    models, cate = get_content_navigation(request, "models", version, language)
+    models, category_placeholder = get_content_navigation(request, "models", version, language)
     # Force first level travis in models
     if models and 'sections' in models and len(models['sections']) > 0 and 'sections' in models['sections'][0]:
         models['sections'][0].pop('sections', None)
         all_data['sections'] += models['sections']
         all_data['links'] += models['links']
 
-    mobile, cate = get_content_navigation(request, "mobile", version, language)
+    mobile, category_placeholder = get_content_navigation(request, "mobile", version, language)
     # Force first level travis in mobile
     if mobile and 'sections' in mobile and len(mobile['sections']) > 0 and 'sections' in mobile['sections'][0]:
         mobile['sections'][0].pop('sections', None)
         all_data['sections'] += mobile['sections']
         all_data['links'] += mobile['links']
 
-    return  all_data
+    return  all_data, category
 
 
 def get_doc_subpath(version):

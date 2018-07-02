@@ -149,8 +149,7 @@ def content_links(context, content_id):
     # )
 
     # Consolidate all into documentation
-    category = "documentation"
-    all_side_nav_content = sitemap_helper.get_all_navigation(
+    all_side_nav_content, category = sitemap_helper.get_all_navigation(
         context.request,
         docs_version,
         current_lang_code

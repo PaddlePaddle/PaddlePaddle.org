@@ -298,6 +298,14 @@
       min-height: 56px
       cursor: pointer
 
+      .cuda-caption
+        font-size: 12px
+        line-height: 10px
+        opacity: 0.5
+
+      .cuda-title
+        font-size: 16px
+
       &:hover
         color: #fff
         background-color: $accent-color
@@ -432,7 +440,7 @@
       margin-bottom: 20px
       margin-left: auto
       margin-right: auto
-      margin-top: 60px
+      margin-top: 10px
 
       h3
         color: #fff
@@ -509,6 +517,8 @@
       svg
         width: 75px
         height: 75px
+        stroke: black
+        fill: black
 
       &:hover
         background-color: $accent-color
@@ -519,6 +529,10 @@
 
         img
           color: #fff
+
+        svg
+          stroke: white
+          fill: white
 
   .video
     background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
@@ -721,6 +735,9 @@
       h2
         margin-top: $home-line-spacing * 4
         margin-bottom: $home-line-spacing * 2
+
+      .feature-icon
+        margin-top: 60px
 
     .resource-cell
       width: 326px
