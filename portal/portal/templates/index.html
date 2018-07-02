@@ -634,18 +634,23 @@ infer(save_dirname)</code>
         steps.removeClass('in-focus');
 
         var stepToFocusOn = $('#step-' + event.target.dataset.stepId);
+        var curHeight = 0;
 
         $.each(steps, function (index, step) {
             step = $(step);
             step.addClass('show');
-
+            curHeight += step.height();
             return step[0] !== stepToFocusOn[0];
         });
+        curHeight = curHeight + 100;  // add buffer for default padding area
 
         stepToFocusOn.addClass('in-focus');
 
         $(".step-button").removeClass('selected');
         $(this).addClass('selected');
+
+        // set the code panel height based on current displayed code block
+        $(".code-panel").css("height", curHeight + "px");
     });
 
     // Start a timer to rotate the video infos and links
