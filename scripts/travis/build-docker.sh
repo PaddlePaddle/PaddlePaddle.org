@@ -18,6 +18,11 @@ then
     # Development Deploy
     echo "Building for DEVELOP"
     export DOCKER_IMAGE_TAG="develop"
+elif [ "$TRAVIS_BRANCH" == "new-contribibutor-experience" ]
+then
+    # Development Deploy
+    echo "Building for NEW CONTRIBUTOR EXPERIENCE"
+    export DOCKER_IMAGE_TAG="testing"
 else
     # All other branches should be ignored
     echo "Cannot build image, invalid branch: $TRAVIS_BRANCH"
