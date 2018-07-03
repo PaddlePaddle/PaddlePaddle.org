@@ -81,7 +81,7 @@ ssh -i ubuntu.pem ubuntu@$STAGE_DEPLOY_IP << EOF
   docker pull 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:${DOCKER_IMAGE_TAG}
   docker stop $DOCKER_CONTAINER_NAME
   docker rm $DOCKER_CONTAINER_NAME
-  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -e NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
+  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -e NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY -v /var/pages:/var/pages 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
   docker image prune -f
 EOF
 

@@ -134,16 +134,19 @@ PREFERRED_API_VERSION_NAME = 'preferred_api_version'
 
 ROOT_URLCONF = 'portal.urls'
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
-
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
 WORKSPACE_DIR = 'documentation'
 MENUS_DIR = os.path.join(BASE_DIR, 'menus')
 
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'portal/templates'), BASE_DIR]
+
+if ENV in ['production', 'staging']:
+    TEMPLATE_DIRS.append('/var/pages')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, BASE_DIR],
+        'DIRS': TEMPLATE_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
