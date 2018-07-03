@@ -25,8 +25,8 @@ chmod 400 content_mgr.pem
 ssh-add content_mgr.pem
 export STAGE_DEPLOY_IP=13.229.163.131
 
-rsync -r documentation content_mgr@$STAGE_DEPLOY_IP:/var/www/portal/documentation
-rsync -r menus content_mgr@$STAGE_DEPLOY_IP:/var/www/portal/menus
+rsync -r documentation content_mgr@$STAGE_DEPLOY_IP:/var/pages/documentation
+rsync -r menus content_mgr@$STAGE_DEPLOY_IP:/var/pages/menus
 
 chmod 644 content_mgr.pem
 rm -rf documentation

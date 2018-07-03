@@ -6,7 +6,6 @@ branches:
     - develop
     - master
     - /^release.*$/
-    - new-contribibutor-experience
 os:
   - linux
 services:
