@@ -128,7 +128,7 @@ msgid ""
 "Get PaddlePaddle up and running quick after installing the newest version of "
 "<a href='https://pip.pypa.io/en/stable/installing/'>pip</a>"
 msgstr ""
-"推荐使用最新版的 <a href='https://pip.pypa.io/en/stable/installing/'>pip</a> "
+"推荐在Linux系统下使用最新版的 <a href='https://pip.pypa.io/en/stable/installing/' target=\"_blank\">pip</a> "
 "快捷地安装和运行 PaddlePaddle"
 
 #: portal/templates/index.html:187
