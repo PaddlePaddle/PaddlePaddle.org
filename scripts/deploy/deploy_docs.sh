@@ -8,7 +8,7 @@ SOURCE_DIR=$3
 echo "1:($1) 2:($2) 3:($3) 4:($4)"
 
 # Pull PaddlePaddle.org app and run the deploy_documentation command
-PPO_BRANCH=master
+PPO_BRANCH=new-contribibutor-experience
 
 curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
 unzip $PPO_BRANCH.zip

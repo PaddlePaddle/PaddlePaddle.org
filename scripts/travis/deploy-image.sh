@@ -9,7 +9,7 @@ then
     export BUILD_TAG=$(date +%s)
     export DOCKER_CONTAINER_NAME="paddlepaddle.org"
     export PORT=80
-    export ENV=release
+    export ENV=production
 elif [[ "$TRAVIS_BRANCH" =~ ^release.*$ ]]
 then
     # Staging Deploy
@@ -17,7 +17,7 @@ then
     export DOCKER_IMAGE_TAG="staging"
     export DOCKER_CONTAINER_NAME="staging.paddlepaddle.org"
     export PORT=81
-    export ENV=release
+    export ENV=staging
 elif [ "$TRAVIS_BRANCH" == "develop" ]
 then
     # Development Deploy
@@ -26,6 +26,14 @@ then
     export DOCKER_CONTAINER_NAME="develop.paddlepaddle.org"
     export PORT=82
     export ENV=development
+elif [ "$TRAVIS_BRANCH" == "new-contribibutor-experience" ]
+then
+    # Development Deploy
+    echo "Deploying to NEW CONTRIBUTOR EXPERIENCE"
+    export DOCKER_IMAGE_TAG="testing"
+    export DOCKER_CONTAINER_NAME="testing.paddlepaddle.org"
+    export PORT=83
+    export ENV=production
 else
     # All other branches should be ignored
     echo "Cannot deploy image, invalid branch: $TRAVIS_BRANCH"
