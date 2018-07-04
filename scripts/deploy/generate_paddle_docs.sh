@@ -31,4 +31,4 @@ cmake "$DOCS_LOCATION" -DCMAKE_BUILD_TYPE=Release -DWITH_GPU=OFF -DWITH_MKL=OFF 
 make -j $processors gen_proto_py framework_py_proto
 make -j $processors copy_paddle_pybind
 
-export PYTHONPATH="$DOCS_LOCATION"/ppo_build/python
+export PYTHONPATH=$DOCS_LOCATION/ppo_build/python
