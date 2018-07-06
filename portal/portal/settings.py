@@ -46,7 +46,7 @@ if ENV == 'production':
 else:
     DEBUG = True
 
-DEFAULT_DOCS_VERSION = '0.11.0' if ENV in ['production', 'staging'] else 'develop'
+DEFAULT_DOCS_VERSION = '0.14.0' if ENV in ['production', 'staging'] else 'develop'
 
 SIDE_NAVIGATION = [
     {
@@ -136,7 +136,11 @@ ROOT_URLCONF = 'portal.urls'
 
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
 WORKSPACE_DIR = 'documentation'
-MENUS_DIR = os.path.join(BASE_DIR, 'menus')
+
+if ENV in ['production', 'staging']:
+    MENUS_DIR = '/var/pages/menus'
+else:
+    MENUS_DIR = os.path.join(BASE_DIR, 'menus')
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'portal/templates'), BASE_DIR]
 
