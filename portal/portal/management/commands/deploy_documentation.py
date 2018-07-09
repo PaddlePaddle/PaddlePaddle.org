@@ -55,8 +55,8 @@ class Command(BaseCommand):
         if content_id == 'paddle':
             content_id = 'docs'
 
-            if version == '0.10.0':
-                source_dir = os.path.join(source_dir, 'doc', 'v2')
+            if version in ['0.10.0', '0.11.0']:
+                source_dir = os.path.join(source_dir, 'doc')
             else:
                 source_dir = os.path.join(source_dir, 'doc', 'fluid')
 
