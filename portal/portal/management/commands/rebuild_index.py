@@ -47,9 +47,10 @@ class Command(BaseCommand):
             soup = BeautifulSoup(html_file, 'lxml')
 
             api_calls = soup.find_all(re.compile('^h'))
+
             for api_call in api_calls:
                 self.api_documents.append({
-                    'path': source_file[len('pages'):] + api_call.a['href'],
+                    'path': '/' + source_file + api_call.a['href'],
                     'title': str(next(api_call.stripped_strings)),
                     'prefix': os.path.splitext(os.path.basename(source_file))[0]
                 })
@@ -63,7 +64,7 @@ class Command(BaseCommand):
 
                 if extension == '.html' and name not in self.API_DOCUMENTS:
                     document = {
-                        'path': subpath[len('pages'):]
+                        'path': '/' + subpath
                     }
 
                     if document['path'] in self.unique_paths:
