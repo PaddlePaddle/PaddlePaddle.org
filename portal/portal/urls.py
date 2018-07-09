@@ -69,7 +69,9 @@ urlpatterns = [
     # ---------------
     # CONTENT URLS
     # ---------------
+    # NOTE: This was the old way, with every content site having its own home.
     url(r'^documentation/?((?!/).)*$', views.content_home, name='documentation'),
+    # url(r'^documentation$', views.content_home, name='documentation'),
 
     # HAS TO BE KEPT IN THE END, because it picks everything.
     url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),

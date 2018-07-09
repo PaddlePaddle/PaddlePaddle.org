@@ -16,6 +16,10 @@ cd PaddlePaddle.org-$PPO_BRANCH/portal
 sudo pip install --ignore-installed -r requirements.txt
 
 mkdir $DESTINATION_DIR
+
+# We need to set this env so the deploy script knows whether or not this
+# is a local development build.
+export ENV=production
 python manage.py deploy_documentation --source_dir=$SOURCE_DIR --destination_dir=documentation $GITHUB_BRANCH
 
 # Deploy to remote server by SSH'ing into it.

@@ -16,7 +16,7 @@
 import os
 import posixpath
 import urllib
-from urlparse import urlparse
+from urlparse import urlparse, parse_qs
 import json
 
 from django.template.loader import get_template
@@ -147,7 +147,7 @@ def reload_docs(request):
         return HttpResponseServerError("Cannot reload docs: %s" % e)
 
 
-def _redirect_first_link_in_contents(request, content_id, version=None, lang=None):
+def _redirect_first_link_in_contents(request, content_id, version=None, lang=None, is_raw=False):
     """
     Given a version and a content service, redirect to the first link in it's
     navigation.
@@ -194,7 +194,7 @@ def _redirect_first_link_in_contents(request, content_id, version=None, lang=Non
             msg = 'Cannot perform reverse lookup on link: %s' % path
             raise Exception(msg)
 
-        return redirect(url_helper.get_url_path(url_prefix, path))
+        return redirect(url_helper.get_url_path(url_prefix, path) + ('?raw=1' if is_raw else ''))
 
     except Exception as e:
         print e.message
@@ -269,34 +269,6 @@ def static_file_handler(request, path, extension, insecure=False, **kwargs):
     return static.serve(request, path, document_root=document_root, **kwargs)
 
 
-def _render_static_content(request, path, content_id, additional_context=None):
-    """
-    This is the primary function that renders all static content (.html) pages.
-    It builds the context and passes it to the only documentation template rendering template.
-    """
-    is_raw = request.GET.get('raw', None)
-    static_content = _get_static_content_from_template(path)
-
-    if is_raw and is_raw == '1':
-        response = HttpResponse(static_content, content_type="text/html")
-        return response
-    else:
-        context = {
-            'static_content': static_content,
-            'content_id': content_id,
-        }
-
-        if additional_context:
-            context.update(additional_context)
-
-        # template = 'content_panel.html'
-        # if content_id in ['mobile', 'models']:
-        #     template = 'content_doc.html'
-
-        response = render(request, 'content_panel.html', context)
-        return response
-
-
 def get_menu(request):
     if not settings.DEBUG:
         return HttpResponseServerError(
@@ -360,6 +332,7 @@ def zh_home_root(request):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def about_en(request):
     return render(request, 'about_en.html')
 
@@ -368,37 +341,35 @@ def about_cn(request):
     return render(request, 'about_cn.html')
 
 
-def content_home(request):
+def content_home(request, content_id):
+    is_raw = request.GET.get('raw', None) == '1'
     content_id = urlparse(request.path).path[15:]
 
     if content_id == '':
         content_id = 'docs'
 
     return _redirect_first_link_in_contents(
-        request, content_id, portal_helper.get_preferred_version(request))
+        request, content_id,
+        portal_helper.get_preferred_version(request), None,
+        is_raw
+    )
 
 
 def content_sub_path(request, path=None):
-    content_id = ''
-    additional_context = {}
+    """
+    This is the primary function that renders all static content (.html) pages.
+    It builds the context and passes it to the only documentation template rendering template.
+    """
+    # content_id, lang, version = url_helper.get_parts_from_url_path(
+    #     request.path)
+    is_raw = request.GET.get('raw', None)
+    static_content = _get_static_content_from_template(path)
 
-    content_id, lang, version = url_helper.get_parts_from_url_path(
-        request.path)
-
-    if content_id == 'docs':
-        lang = portal_helper.get_preferred_language(request)
-
-        search_url = '%s/%s/search.html' % (content_id, lang)
-        # if path.startswith(url_helper.DOCUMENTATION_ROOT + 'fluid'):
-        #     search_url = '%s/fluid/%s/search.html' % (content_id, lang)
-
-        additional_context = { 'allow_search': True, 'allow_version': True, 'search_url': search_url }
-
-    elif content_id == 'api':
-        search_url = '%s/%s/search.html' % (content_id, 'en')
-        # if path.startswith(url_helper.API_ROOT + 'fluid'):
-        #     search_url = '%s/fluid/%s/search.html' % (content_id, 'en')
-
-        additional_context = {'allow_search': True, 'allow_version': True, 'search_url': search_url}
-
-    return _render_static_content(request, path, content_id, additional_context)
+    if is_raw and is_raw == '1':
+        response = HttpResponse(static_content, content_type="text/html")
+        return response
+    else:
+        response = render(request, 'content_panel.html', {
+            'static_content': static_content
+        })
+        return response

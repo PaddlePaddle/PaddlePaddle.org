@@ -238,9 +238,6 @@ def _get_menu_path(menu_filename, content_id):
             repo_path['dir'] = os.path.join(repo_path['dir'], 'api')
 
     if os.path.exists(repo_path['dir']):
-        if content_id == 'api':
-            menu_filename = 'api/' + menu_filename
-
         found_menu_path = _find_menu_in_repo(repo_path['dir'], menu_filename)
 
         if not found_menu_path:

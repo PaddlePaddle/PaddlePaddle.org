@@ -35,19 +35,13 @@ def transform(source_dir, destination_dir, content_id, version, lang=None):
         if content_id in ['docs', 'api']:
             # If this is called from the CI, often with no language,
             # generate API docs too.
-            if not lang:
+            if settings.ENV in ['production', 'staging']:
                 build_apis(source_dir, destination_dir)
 
-            if os.path.basename(source_dir).lower() == 'paddle':
-                if version == '0.10.0':
-                    source_dir = os.path.join(source_dir, 'doc', 'v2')
-                else:
-                    source_dir = os.path.join(source_dir, 'doc', 'fluid')
-
-            # Build APIs explicity, if this is from the CI.
-            if not lang:
-                documentation(os.path.join(
-                    source_dir, 'api'), destination_dir, 'api', version, lang)
+                documentation(
+                    os.path.join(source_dir, 'api'),
+                    destination_dir, 'api', version, lang
+                )
 
             documentation(source_dir, destination_dir, content_id, version, lang)
 
@@ -116,7 +110,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
     # Generate a menu from the rst root menu if it doesn't exist.
     if new_menu:
         # FORCEFULLY generate for both languages.
-        for lang in ['en', 'zh']:
+        for lang in (['en', 'zh'] if settings.ENV in ['production', 'staging'] else langs):
             with open(os.path.join(generated_dir, 'index_%s.html' % (
                 'cn' if lang == 'zh' else 'en'))) as index_file:
                 navs = BeautifulSoup(index_file, 'lxml').findAll(
