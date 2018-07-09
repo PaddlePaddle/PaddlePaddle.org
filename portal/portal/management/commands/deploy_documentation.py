@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
             menus_to_save.append('api')
 
-        menus_to_save.append[content_id]
+        menus_to_save.append(content_id)
 
         transform(
             source_dir, options.get('destination_dir', None),
