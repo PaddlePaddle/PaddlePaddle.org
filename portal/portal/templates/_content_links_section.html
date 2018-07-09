@@ -4,7 +4,8 @@
     {% translation_assignment section.title as section_title %}
     {% translation_assignment section.link as section_link %}
 
-    {% if section_title != None and section.sections == None %}
+    <!-- forloop.parentloop.parentloop.counter is to prevent deep nested navigation. -->
+    {% if section_title != None and section.sections|length == 0 or forloop.parentloop.parentloop.counter > 0 %}
         {% if section_link != "" %}
             <a href="{{ section_link|safe }}">{{ section_title }}</a>
         {% endif %}

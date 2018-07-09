@@ -140,23 +140,23 @@ def content_links(context, content_id):
     current_lang_code = context.request.LANGUAGE_CODE
     docs_version = context.get('CURRENT_DOCS_VERSION', None)
 
-    # NOTE: Uncomment the follow code to use the regular navigation path
-    # side_nav_content, category = sitemap_helper.get_content_navigation(
-    #     context.request,
-    #     content_id,
-    #     docs_version,
-    #     current_lang_code
-    # )
-
-    # Consolidate all into documentation
-    all_side_nav_content, category = sitemap_helper.get_all_navigation(
-        context.request,
-        docs_version,
-        current_lang_code
-    )
+    if content_id == 'visualdl':
+        side_nav_content, category = sitemap_helper.get_content_navigation(
+            context.request,
+            content_id,
+            docs_version,
+            current_lang_code
+        )
+    else:
+        # Consolidate all into documentation
+        side_nav_content, category = sitemap_helper.get_all_navigation(
+            context.request,
+            docs_version,
+            current_lang_code
+        )
 
     return _common_context(context, {
-        'side_nav_content': all_side_nav_content,
+        'side_nav_content': side_nav_content,
         'category': category,
         'allow_search': context.get('allow_search', False),
         'allow_version': context.get('allow_version', False),

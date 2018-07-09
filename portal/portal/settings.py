@@ -75,7 +75,7 @@ if not ENV:
 elif ENV == 'development':
     DEBUG = True
 
-DEFAULT_DOCS_VERSION = 'develop' if CURRENT_PPO_MODE != PPO_MODES.DOC_EDIT_MODE else 'doc_test'
+DEFAULT_DOCS_VERSION = '0.14.0' if CURRENT_PPO_MODE != PPO_MODES.DOC_EDIT_MODE else 'doc_test'
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']

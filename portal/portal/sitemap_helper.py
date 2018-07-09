@@ -265,25 +265,28 @@ def get_all_navigation(request, version, language):
     if apis:
         all_data['sections'] += [apis]
 
-    book, category_placeholder = get_content_navigation(request, "book", version, language)
+    # According to the spec, show book, models, and mobile to all possible version
+    # EXCEPT fluid 0.14.0 zh version
+    if category != "fluid" or version != "0.14.0" or language != "zh":
+        book, category_placeholder = get_content_navigation(request, "book", version, language)
 
-    if book and 'sections' in book:
-        all_data['sections'] += book['sections']
-        all_data['links'] += book['links']
+        if book and 'sections' in book:
+            all_data['sections'] += book['sections']
+            all_data['links'] += book['links']
 
-    models, category_placeholder = get_content_navigation(request, "models", version, language)
-    # Force first level travis in models
-    if models and 'sections' in models and len(models['sections']) > 0 and 'sections' in models['sections'][0]:
-        models['sections'][0].pop('sections', None)
-        all_data['sections'] += models['sections']
-        all_data['links'] += models['links']
+        models, category_placeholder = get_content_navigation(request, "models", version, language)
+        # Force first level travis in models
+        if models and 'sections' in models and len(models['sections']) > 0 and 'sections' in models['sections'][0]:
+            models['sections'][0].pop('sections', None)
+            all_data['sections'] += models['sections']
+            all_data['links'] += models['links']
 
-    mobile, category_placeholder = get_content_navigation(request, "mobile", version, language)
-    # Force first level travis in mobile
-    if mobile and 'sections' in mobile and len(mobile['sections']) > 0 and 'sections' in mobile['sections'][0]:
-        mobile['sections'][0].pop('sections', None)
-        all_data['sections'] += mobile['sections']
-        all_data['links'] += mobile['links']
+        mobile, category_placeholder = get_content_navigation(request, "mobile", version, language)
+        # Force first level travis in mobile
+        if mobile and 'sections' in mobile and len(mobile['sections']) > 0 and 'sections' in mobile['sections'][0]:
+            mobile['sections'][0].pop('sections', None)
+            all_data['sections'] += mobile['sections']
+            all_data['links'] += mobile['links']
 
     return  all_data, category
 
@@ -318,7 +321,7 @@ def get_available_versions(content_id=None):
     # Divide versions into two catrgories
     # number based: EX: 0.1.0, 1.3.4
     # string based: EX: develop
-    string_based_version = []
+    # string_based_version = []
     number_based_version = []
 
     if versions:
@@ -333,16 +336,17 @@ def get_available_versions(content_id=None):
             normalized_version = version.split('.')
             if len(normalized_version) > 1:
                 number_based_version.append(version)
-            else:
-                string_based_version.append(version)
+            # else:
+            #     string_based_version.append(version)
 
     # Sort both versions, make sure the latest version is at the top of the list
     number_based_version.sort(key = lambda s: list(map(int, s.split('.'))),
                               reverse=True)
-    string_based_version.sort()
+    # string_based_version.sort()
 
-    return string_based_version + number_based_version
-
+    # Note: Hide 'develop' version for now.
+    # return string_based_version + number_based_version
+    return number_based_version
 
 def is_version_greater_eq(v1, v2):
     f = lambda s: list(map(int, s.split('.')))
