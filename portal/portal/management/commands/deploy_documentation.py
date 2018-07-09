@@ -50,22 +50,25 @@ class Command(BaseCommand):
         # Determine the content_id from the source_dir.
         source_dir = options['source_dir'].rstrip('/')
         content_id = os.path.basename(source_dir).lower()
+
+        menus_to_save = []
         if content_id == 'paddle':
             content_id = 'docs'
 
-        transform(
-            source_dir, options.get('destination_dir', None),
-            content_id, version, None
-        )
-
-        menus_to_save = [content_id]
-        if content_id == 'docs':
             if version == '0.10.0':
                 source_dir = os.path.join(source_dir, 'doc', 'v2')
             else:
                 source_dir = os.path.join(source_dir, 'doc', 'fluid')
 
             menus_to_save.append('api')
+
+        menus_to_save.append[content_id]
+
+        transform(
+            source_dir, options.get('destination_dir', None),
+            content_id, version, None
+        )
+
 
         if content_id not in ['models', 'mobile']:
             for lang in ['en', 'zh']:
