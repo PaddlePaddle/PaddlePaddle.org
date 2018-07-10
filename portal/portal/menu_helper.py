@@ -269,7 +269,7 @@ def get_available_versions(content_id=None):
     # Divide versions into two catrgories
     # number based: EX: 0.1.0, 1.3.4
     # string based: EX: develop
-    string_based_version = []
+    # string_based_version = []
     number_based_version = []
 
     if versions:
@@ -277,16 +277,17 @@ def get_available_versions(content_id=None):
             normalized_version = version.split('.')
             if len(normalized_version) > 1:
                 number_based_version.append(version)
-            else:
-                string_based_version.append(version)
+            # else:
+            #     string_based_version.append(version)
 
     # Sort both versions, make sure the latest version is at the top of the list
     number_based_version.sort(key = lambda s: list(map(int, s.split('.'))),
                               reverse=True)
-    string_based_version.sort()
+    # string_based_version.sort()
 
-    return string_based_version + number_based_version
-
+    # Note: Hide 'develop' version for now.
+    # return string_based_version + number_based_version
+    return number_based_version
 
 def get_external_file_path(sub_path):
     return os.path.join(settings.WORKSPACE_DIR, sub_path)

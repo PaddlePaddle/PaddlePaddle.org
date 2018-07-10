@@ -331,6 +331,14 @@ def zh_home_root(request):
     return response
 
 
+def about_en(request):
+    return render(request, 'about_en.html')
+
+
+def about_cn(request):
+    return render(request, 'about_cn.html')
+
+
 def content_home(request, content_id):
     is_raw = request.GET.get('raw', None) == '1'
     content_id = urlparse(request.path).path[15:]

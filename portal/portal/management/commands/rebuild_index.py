@@ -93,7 +93,7 @@ class Command(BaseCommand):
                     self.documents.append(document)
                     self.unique_paths.append(document['path'])
 
-                    print 'Found "%s"...' % document['title']
+                    print 'Found "%s"...' % document['title'].encode('utf-8')
 
 
     def handle(self, *args, **options):
@@ -119,7 +119,7 @@ class Command(BaseCommand):
                 options['language'][0], options['version'][0]
             )
 
-            if content_to_build == 'api':
+            if content_to_build == 'api' and options['version'][0] not in ['0.10.0', '0.11.0']:
                 # Get the name of all the files in the API dir.
                 for api_document in self.API_DOCUMENTS:
                     self.build_api_document(os.path.join(
@@ -133,7 +133,7 @@ class Command(BaseCommand):
         for document_index, document_content in enumerate(document_contents):
             if not document_content:
                 continue
-            print 'Indexing', self.documents[document_index]['title']
+            print 'Indexing', self.documents[document_index]['title'].encode('utf-8')
 
             scores = { word: tfidf(
                 word, document_content, document_contents) for (

@@ -51,6 +51,12 @@ urlpatterns = [
     # url(r'^%s$' % url_helper.BLOG_ROOT, views.blog_root, name=url_helper.URL_NAME_BLOG_ROOT),
     # url(r'^%s(?P<path>.+html)$' % url_helper.BLOG_ROOT, views.blog_sub_path),
 
+    # -------------------
+    # OTHER ARBITRARY URLS
+    # -------------------
+    url(r'^about_en.html', views.about_en, name='about_en'),
+    url(r'^about_cn.html', views.about_cn, name='about_cn'),
+
     # ---------------
     # ACTION URLS
     # ---------------

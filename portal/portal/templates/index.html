@@ -11,70 +11,473 @@
 {% block content %}
 <div class="home">
     <section class="container-fluid banner">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="tag-line">{% trans "PArallel Distributed Deep LEarning"%}</h1>
-                <p>{% blocktrans %}An Easy-to-use, Efficient, Flexible and Scalable Deep Learning Platform{% endblocktrans %}</p>
-            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="tag-line">{% blocktrans %}An easy-to-use, easy-to-learn&nbsp;<br class="br"/>deep learning platform{% endblocktrans %}</h1>
+                    <p>{% blocktrans %}An open-source deep learning platform with a&nbsp;<br class="br"/>simple API, trusted by the world’s leading AI teams{% endblocktrans %}</p>
+                </div>
 
-            <div class="col-lg-12">
-                <a class="quick-start" href="#quick-start-guide">{% trans "Quick Start"%}</a>
-            </div>
+                <button id="banner_quick_start" class="btn selected col-lg-3">{% trans "Get Started"%}</button>
 
+                <button id="banner_learn_more" class="btn col-lg-3" href="/about_{% if LANGUAGE_CODE != 'zh' %}en{% else %}cn{% endif %}.html" type="text/html" >{% trans "Learn more"%}</button>
+
+            </div>
         </div>
+
+        <div class="dot-area">
+            <div class="dot-group">
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+        </div>
+
+        <div class="arch arch-1"></div>
+        <div class="arch arch-2"></div>
+        <div class="arch arch-3"></div>
     </section>
 
     <!-- Features sections, currently supports 4 features -->
-    <section class="features">
+    <section class="features" id="features-head">
         <div class="container">
-            <div class="bubble-background">
-            </div>
-            <div class="row">
-                <h2 class="col-lg-12"><span>{% trans "Technical Features"%}</span></h2>
+            <div class="bubble-background" id="features-bubble">
             </div>
             <div class="row">
                 <div class="col-lg-3">
                     <div class="feature-desc">
                         <div class="feature-icon">
-                            <img src="/static/images/feature-1.png">
+                            <h3>{% trans "Easy to learn"%}</h3>
                         </div>
-                        <h3>{% trans "Ease of use"%}</h3>
-                        <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures.{% endblocktrans %}</p>
-                    </div>
-                </div>
-                 <div class="col-lg-3">
-                    <div class="feature-desc">
-                        <div class="feature-icon">
-                            <img src="/static/images/feature-2.png">
-                        </div>
-                        <h3>{% trans "Flexibility"%}</h3>
-                        <p>{% blocktrans %}It supports CNN, RNN and various variants and configures complicated deep models easily.{% endblocktrans %}</p>
+                        <p>{% blocktrans %}PaddlePaddle provides multitudes of tools and tutorials; Become a deep learning developer in no time.{% endblocktrans %}</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="feature-desc">
                         <div class="feature-icon">
-                            <img src="/static/images/feature-3.png">
+                            <h3>{% trans "Ease of use"%}</h3>
                         </div>
-                        <h3>{% trans "Efficiency"%}</h3>
-                        <p>{% blocktrans %}It also provides extremely optimized operations, memory recycling, and network communication.{% endblocktrans %}</p>
+                        <p>{% blocktrans %}PaddlePaddle provides an intuitive and flexible interface for loading data and specifying model structures; Bring your creativity to reality.{% endblocktrans %}</p>
                     </div>
-                </div><div class="col-lg-3">
+                </div>
+                <div class="col-lg-3">
                     <div class="feature-desc">
                         <div class="feature-icon">
-                            <img src="/static/images/feature-4.png">
+                            <h3>{% trans "Security"%}</h3>
                         </div>
-                        <h3>{% trans "Scalability"%}</h3>
-                        <p>{% blocktrans %}PaddlePaddle makes it easy to scale heterogeneous computing resources and storage to accelerate the training process.{% endblocktrans %}</p>
+                        <p>{% blocktrans %}PaddlePaddle is backed by Baidu’s AI technology and business practices. The framework is safe and stable. Focus your works and not worries.{% endblocktrans %}</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="feature-desc">
+                        <div class="feature-icon">
+                            <h3>{% trans "Efficiency"%}</h3>
+                        </div>
+                        <p>{% blocktrans %}It also provides extremely optimized operations, memory, and network communication. Kick start your projects in no time with the latest Baidu business models.{% endblocktrans %}</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End of Features sections -->
+
+    <!-- Installation Guide Section -->
+    <section class="installation-guide">
+        <div class="container">
+            <div class="row">
+                <h2 class="col-lg-12">{% trans "Install"%}</h2>
+            </div>
+            <div class="row">
+                <p class="col-lg-12">{% trans "Get PaddlePaddle up and running quick after installing the newest version of <a href='https://pip.pypa.io/en/stable/installing/'>pip</a>"%}</p>
+            </div>
+
+            <div class="row">
+                <div class="left col-lg-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="CPU" class="install-option selected">
+                                CPU
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button id="GPU" class="install-option">
+                                GPU
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- cuda version selection bar, only enabled when Cuda selected-->
+                    <div id="cuda-version" class="row disable">
+                        <div class="col-4">
+                            <button id="-gpu" class="install-option cuda selected">
+                                <div class="cuda-title">CUDA 9</div>
+                                <div class="cuda-caption">cuDNN 7.0</div>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button id="-gpu==0.14.0.post87" class="install-option cuda">
+                                <div class="cuda-title">CUDA 8</div>
+                                <div class="cuda-caption">cuDNN 7.0</div>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button id="-gpu==0.14.0.post85" class="install-option cuda">
+                                <div class="cuda-title">CUDA 8</div>
+                                <div class="cuda-caption">cuDNN 5.0</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display what commend to install PaddlePaddle, should match the height of option buttons -->
+                <div class="right col-lg-6">
+                    <div class="terminal">
+                        <div class="terminal-bar">
+                        </div>
+                        <p> $ </p><code id="commend">pip install paddlepaddle</code>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>{% trans "Tested on <a href=https://wiki.centos.org/Download>CentOS 6</a>, <a href=https://www.ubuntu.com/download>Ubuntu 14.04</a>+"%}</p>
+                </div>
+                <!-- Link to docker installation -->
+                <div class="col-lg-6">
+                    <a class="other-install" href="/docs/0.14.0/documentation/fluid/{% if LANGUAGE_CODE == 'zh' %}zh/new_docs/beginners_guide/install/install_doc.html#permalink-3--windows-paddlepaddle{% else %}en/build_and_install/index_en.html{% endif %}">
+                        {% blocktrans %}Install on Windows, MacOS, or other options{% endblocktrans %}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start of Step 1-2-3 -->
+        <div class="container step-1-2-3">
+            <div class="row">
+                <h2 class="col-lg-12">{% blocktrans %}Get Started{% endblocktrans %}</h2>
+            </div>
+
+            <div class="row">
+                <div class="left col-sm-4">
+                    <!-- Step 1. Import PaddlePaddle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="step-button-1" class="step-button show in-focus selected" data-step-id="1">
+                                1. {% blocktrans %}Import PaddlePaddle{% endblocktrans %}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2. Load dataset and train -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="step-button-2" class="step-button" data-step-id="2">
+                                2. {% blocktrans %}Load dataset and train{% endblocktrans %}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3. Make a prediction -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button id="step-button-3" class="step-button" data-step-id="3">
+                                3. {% blocktrans %}Make a prediction{% endblocktrans %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- code panel -->
+                <div class="right col-sm-8">
+                    <div class="code-panel">
+                        <div class="code-panel-bar">
+                        </div>
+                        <div class="row col-lg-12">
+                            <pre>
+                                <code id="step-1" class="step-code show in-focus python">
+<span class="hljs-comment"># Include libraries.</span>
+import paddle
+import paddle.fluid as fluid
+import numpy</code>
+
+                                <code id="step-2" class="step-code python">
+<span class="hljs-comment"># Configure the neural network and train.</span>
+def train(save_dirname):
+    x = fluid.layers.data(name='x', shape=[13], dtype='float32')
+    y_predict = fluid.layers.fc(input=x, size=1, act=None)
+    y = fluid.layers.data(name='y', shape=[1], dtype='float32')
+    cost = fluid.layers.square_error_cost(input=y_predict, label=y)
+    avg_cost = fluid.layers.mean(cost)
+    sgd_optimizer = fluid.optimizer.SGD(learning_rate=0.001)
+    sgd_optimizer.minimize(avg_cost)
+    train_reader = paddle.batch(
+        paddle.reader.shuffle(paddle.dataset.uci_housing.train(), buf_size=500),
+        batch_size=20)
+    place = fluid.CPUPlace()
+    exe = fluid.Executor(place)
+
+    def train_loop(main_program):
+        feeder = fluid.DataFeeder(place=place, feed_list=[x, y])
+        exe.run(fluid.default_startup_program())
+
+        PASS_NUM = 1000
+        for pass_id in range(PASS_NUM):
+            for data in train_reader():
+                avg_loss_value, = exe.run(
+                    main_program, feed=feeder.feed(data), fetch_list=[avg_cost])
+                print(avg_loss_value)
+                if avg_loss_value[0] < 5.0:
+                    if save_dirname is not None:
+                        fluid.io.save_inference_model(
+                            save_dirname, ['x'], [y_predict], exe)
+                    return
+
+    train_loop(fluid.default_main_program())</code>
+
+                                <code id="step-3" class="step-code python">
+<span class="hljs-comment"># Infer using provided test data.</span>
+def infer(save_dirname=None):
+    place = fluid.CPUPlace()
+    exe = fluid.Executor(place)
+    inference_scope = fluid.core.Scope()
+    with fluid.scope_guard(inference_scope):
+        [inference_program, feed_target_names, fetch_targets] = (
+            fluid.io.load_inference_model(save_dirname, exe))
+        test_reader = paddle.batch(paddle.dataset.uci_housing.test(), batch_size=20)
+
+        test_data = test_reader().next()
+        test_feat = numpy.array([data[0] for data in test_data]).astype("float32")
+        test_label = numpy.array([data[1] for data in test_data]).astype("float32")
+
+        results = exe.run(inference_program,
+                          feed={feed_target_names[0]: numpy.array(test_feat)},
+                          fetch_list=fetch_targets)
+        print("infer results: ", results[0])
+        print("ground truth: ", test_label)
+
+
+save_dirname = "fit_a_line.inference.model"
+
+train(save_dirname)
+infer(save_dirname)</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Step 1-2-3 -->
+    </section>
+    <!-- End of Installation Guide Section -->
 
     <section class="models">
         <div class="container">
-            <p><!--   fill in 6 icons in 2 columns   --></p>
+            <div class="row models-slogan">
+                <h2 class="col-lg-12">{% trans "Build powerful applications with PaddlePaddle"%}</h2>
+                <div class="six-dots col">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <!--   6 models in 2 columns    -->
+            <div class="model-examples">
+                <!--   title    -->
+
+                <!--   row 1    -->
+                <div class="row model-row">
+                    <div class="col-lg-6">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-word2vec</title><line class="cls-1" x1="64.5" y1="38.5" x2="47.5" y2="38.5"/><line class="cls-1" x1="47.5" y1="115.5" x2="47.5" y2="38.5"/><line class="cls-1" x1="64.5" y1="115.5" x2="47.5" y2="115.5"/><line class="cls-1" x1="85.5" y1="38.5" x2="102.5" y2="38.5"/><line class="cls-1" x1="102.5" y1="115.5" x2="102.5" y2="38.5"/><line class="cls-1" x1="85.5" y1="115.5" x2="102.5" y2="115.5"/></svg>
+                                </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}Word2Vec{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Express words as real vectors to calculate similarities between them.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/book/blob/high-level-api-branch/04.word2vec/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 model-right-column">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-rs</title><polygon class="cls-1" points="75.36 37 87.06 60.7 113.22 64.5 94.29 82.95 98.76 109 75.36 96.7 51.97 109 56.44 82.95 37.51 64.5 63.67 60.7 75.36 37"/></svg>
+                                </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}Recommender System{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Recommend potentially interesting information or commodities to users based on their features.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/book/blob/high-level-api-branch/05.recommender_system/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--   row 2    -->
+                <div class="row model-row">
+                    <div class="col-lg-6">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-sentiment</title><circle class="cls-1" cx="76.5" cy="71.5" r="42"/><path class="cls-1" d="M80.5,70.5s0-10,15-10S80.5,70.5,80.5,70.5Z"/><path class="cls-1" d="M72.7,70.5s0-10-15-10S72.7,70.5,72.7,70.5Z"/><path class="cls-1" d="M53.5,79.5s23,17,46,0C99.5,98.5,60.5,103.5,53.5,79.5Z"/><path class="cls-1" d="M80.5,55.5s14-5,22,0"/><path class="cls-1" d="M72.5,55.5s-14-5-22,0"/></svg>
+                                </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}Understand Sentiment{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Predict the emotion expressed in a piece of text as positive or negative.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/book/blob/high-level-api-branch/06.understand_sentiment/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 model-right-column">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-imageclassification</title><rect class="cls-1" x="40" y="40.01" width="68.5" height="68.49"/><path class="cls-1" d="M72.5,69.5s15-10,22-4,5,16,5,16-3,15-22,16c-15,.79-28-2-28-16S60.5,65.5,72.5,69.5Z"/><path class="cls-1" d="M65.5,53.5s-1,8,5,12S73.5,55.5,65.5,53.5Z"/></svg>
+                                </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}Image Classification{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Classify images based on their semantic information.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/book/blob/high-level-api-branch/03.image_classification/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--   row 3    -->
+                <div class="row model-row">
+                    <div class="col-lg-6">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-translation</title><polygon class="cls-1" points="95.35 53.89 39.62 53.89 39.62 90.84 39.64 90.84 39.56 109 58.41 90.89 58.41 90.84 95.35 90.84 95.35 53.89"/><polygon class="cls-1" points="112.34 81.13 112.29 69.06 112.3 69.06 112.3 44.5 75.25 44.5 75.25 53.89 95.35 53.89 95.35 69.06 99.81 69.06 99.81 69.09 112.34 81.13"/></svg>
+                                </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}Machine Translation{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Translate between different languages via deep learning.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/book/blob/high-level-api-branch/08.machine_translation/README{% if LANGUAGE_CODE == 'zh' %}.cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 model-right-column">
+                        <div class="model-cell">
+                            <div class="row model-cell-row">
+                                <div class=" model-icon">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>models-ssd2</title><path class="cls-1" d="M29,74.89c52.84,58.76,96,0,96,0C72.16,16.13,29,74.89,29,74.89Z"/><ellipse class="cls-1" cx="77.33" cy="74.52" rx="12" ry="13.34"/></svg>                               </div>
+                                <div class="col-lg-7 model-intro">
+                                    <h3>
+                                        {% blocktrans %}SSD Object Detection{% endblocktrans %}
+                                    </h3>
+                                    <p>
+                                        {% blocktrans %}Use the SSD model in PaddlePaddle for object detection.{% endblocktrans %}
+                                    </p>
+                                    <div class="learn-more">
+                                        <a href="https://github.com/PaddlePaddle/models/blob/develop/fluid/object_detection/README{% if LANGUAGE_CODE == 'zh' %}_cn{% endif %}.md" target="_blank">
+                                            {% trans "Learn more"%}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--   10 arches   -->
             <div class="arch arch-1">
             </div>
@@ -99,99 +502,207 @@
         </div>
     </section>
 
-    <section class="container quick-start-guide">
-        <h2 class="col-lg-12"><span><a name="quick-start-guide">{% trans "Quick Start" %}</a></span></h2>
+    <!-- Resources section: Only in Chinese version -->
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'zh' %}
 
-
-        <h3>{% blocktrans %}Install and make predictions in 5 minutes{% endblocktrans %}</h3>
-
-        <nav>
-            <ul>
-                <li id='pip' class='selected'><div class='pip-icon'></div>PIP (Python)</li>
-                <li id='docker'><div class='docker-icon'></div>Docker</li>
-            </ul>
-            <p class="installation-note pip">{% blocktrans %}Tested on CentOS 7, Ubuntu 16.04, and MacOS 10.12, with Python 2.7.x installed{% endblocktrans %}</p>
-        </nav>
-
-        <p class='pip'>{% blocktrans %}Download {% endblocktrans %}<a href="https://raw.githubusercontent.com/PaddlePaddle/book/develop/01.fit_a_line/fit_a_line.tar" target="_blank">{% blocktrans %}the trained housing prices model{% endblocktrans %}</a>{% blocktrans %} and then install PaddlePaddle on your computer:{% endblocktrans %}</p>
-        <pre class='pip'><code>pip install paddlepaddle</code></pre>
-
-        <p class='docker' style="display: none">{% blocktrans %}Download, and then <a href="https://docs.docker.com/engine/installation/" target="_blank">install Docker</a> on your computer.{% endblocktrans %} {% blocktrans %}After installing Docker, create a new file called <em>housing.py</em> in a new and empty directory:{% endblocktrans %}</p>
-        <pre class='docker' style="display: none"><code>mkdir ~/workspace
-cd ~/workspace; touch housing.py</code></pre>
-
-        <p class="sidenote pip"><a href="https://pip.pypa.io/en/stable/installing/" target="_blank">{% blocktrans %}Instructions on installing pip{% endblocktrans %}</a></p>
-
-        <p class='pip'>{% blocktrans %}Now, create a new file called {% endblocktrans %}<em>housing.py</em>{% blocktrans %}, and paste this Python code{% endblocktrans %} {% blocktrans %}(make sure to set the right path based on the location of <em>fit_a_line.tar</em> on your computer):{% endblocktrans %} </p>
-        <p class='docker' style="display: none">{% blocktrans %}Now download {% endblocktrans %}<a href="https://raw.githubusercontent.com/PaddlePaddle/book/develop/01.fit_a_line/fit_a_line.tar" target="_blank">{% blocktrans %}the trained housing prices model</a> into the <code>~/workspace</code> directory, and paste this Python code in <em>housing.py</em> using your favorite editor{% endblocktrans %}:</p>
-        <pre><code>import paddle.v2 as paddle
-
-<span class="hljs-comment"># Initialize PaddlePaddle.</span>
-paddle.init(use_gpu=False, trainer_count=1)
-
-<span class="hljs-comment"># Configure the neural network.</span>
-x = paddle.layer.data(name='x', type=paddle.data_type.dense_vector(13))
-y_predict = paddle.layer.fc(input=x, size=1, act=paddle.activation.Linear())
-
-<span class='pip'>with open('fit_a_line.tar', 'r') as f:</span><span class='docker' style="display: none">with open('/workspace/fit_a_line.tar', 'r') as f:</span>
-    parameters = paddle.parameters.Parameters.from_tar(f)
-
-<span class="hljs-comment"># Infer using provided test data.</span>
-probs = paddle.infer(
-     output_layer=y_predict, parameters=parameters,
-     input=[item for item in paddle.dataset.uci_housing.test()()])
-
-for i in xrange(len(probs)):
-     print 'Predicted price: ${:,.2f}'.format(probs[i][0] * 1000)
-        </code></pre>
-
-
-        <p class='pip'>{% blocktrans %}Run {% endblocktrans %}<code>python housing.py</code>{% blocktrans %} and <strong>voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
-
-        <p class='docker' style="display: none">{% blocktrans %}Now run this code in a new PaddlePaddle Docker container:{% endblocktrans %}</p>
-        <pre class='docker' style="display: none"><code>docker run --rm -v ~/workspace:/workspace paddlepaddle/paddle:latest python /workspace/housing.py</code></pre>
-
-        <p class='docker' style="display: none">{% blocktrans %}<strong>Voila</strong>! It should print out a list of predictions for the test housing data.{% endblocktrans %}</p>
-        <p>Want more real-world tutorials? <a href='/book'>Read the book!</a></p>
+    <section class="resources-guide" id="resources-head">
+        <div class="container">
+            <div class="bubble-background" id="resources-bubble">
+            </div>
+            <div class="row">
+                <h2 class="col-lg-12">基于PaddlePaddle框架，我们还提供了这些服务和学习资源</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://ai.baidu.com/paddlepaddle/openCourses">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-11,.cls-12{fill:none;stroke-width:2px;}.cls-11{stroke-miterlimit:10;}.cls-12{stroke-linecap:round;stroke-linejoin:round;}</style></defs><title>resource-studio</title><circle class="cls-11" cx="37" cy="37" r="27.5"/><polygon class="cls-12" points="41.4 40.95 41.63 40.82 41.52 40.72 50.61 24.34 34.23 33.43 34.13 33.33 34.01 33.55 33.78 33.68 33.88 33.78 24.8 50.16 41.17 41.07 41.27 41.17 41.4 40.95"/></svg>                        <h3>深度学习基础知识</h3>
+                        <p>百度联合多家教育培训机构共同打造超过400+节、累计3000+分钟的深度学习精品课程体系，帮助开发者从零掌握深度学习</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://aistudio.baidu.com">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-221{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title>resource-study</title><polygon class="cls-221" points="14 23.75 37.5 36.5 61 24.5 37.5 11 14 23.75"/><line class="cls-221" x1="61" y1="25" x2="61" y2="53"/><line class="cls-221" x1="14" y1="24" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="37" x2="37.5" y2="64"/><line class="cls-221" x1="37.5" y1="65" x2="14" y2="53"/><line class="cls-221" x1="37.5" y1="65" x2="61" y2="53"/></svg>                        <h3>AI Studio</h3>
+                        <p>为开发者提供线上深度学习代码环境以及配套的算法、算力、数据支持，一站式满足使用者学习、技术进阶、学术研究的需求</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a class="resource-cell" href="http://visualdl.paddlepaddle.org/">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-331{opacity:0.75;}.cls-332{opacity:0.5;}</style></defs><title>resource-vdl</title><circle cx="37.55" cy="18.87" r="3.47"/><circle class="cls-331" cx="37.55" cy="27.94" r="3.47"/><circle class="cls-331" cx="37.55" cy="37.02" r="3.47"/><circle cx="71.53" cy="37.02" r="3.47"/><circle cx="46.03" cy="23.44" r="3.47"/><circle class="cls-331" cx="46.03" cy="32.52" r="3.47"/><circle class="cls-332" cx="54.29" cy="46.08" r="3.47"/><circle class="cls-332" cx="37.54" cy="55.14" r="3.47"/><circle class="cls-331" cx="37.54" cy="46.07" r="3.47"/><circle class="cls-331" cx="46.03" cy="41.47" r="3.47"/><circle class="cls-332" cx="46.03" cy="50.66" r="3.47"/><circle cx="54.52" cy="27.94" r="3.47"/><circle class="cls-331" cx="54.54" cy="37.02" r="3.47"/><circle cx="63.48" cy="32.52" r="3.47"/><circle class="cls-332" cx="63.48" cy="41.47" r="3.47"/><circle cx="3.32" cy="37.08" r="3.47"/><circle class="cls-332" cx="28.82" cy="50.66" r="3.47"/><circle cx="20.57" cy="28.02" r="3.47"/><circle cx="28.82" cy="23.44" r="3.47"/><circle class="cls-332" cx="20.34" cy="46.16" r="3.47"/><circle class="cls-332" cx="11.37" cy="41.58" r="3.47"/><circle cx="11.37" cy="32.63" r="3.47"/></svg>                        <h3>Visual DL</h3>
+                        <p>通过Visual DL可以帮助开发者方便的观测训练整体趋势、数据样本质量和中间结果、参数分布和变化趋势、以及模型的结构，帮助开发者更便捷的完成编程过程</p>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
+    {% endif %}
+    <!-- End of Resources section -->
+
+    {% if False %}
+    <!-- Video section: Only in Chinese -->
+    {% if LANGUAGE_CODE == 'zh' %}
+
+    <section class="video">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- TODO: Update with the real assets-->
+                    <img class="big-img" id="videoImage" src="/static/images/peach-paddlers.png">
+                    </img>
+                    <div class="video-cell" id="vid">
+                        <h2 id="vid-title">PaddlePaddle，让AI触手可及</h2>
+                        <p id="vid-desc">PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意</p>
+                        <a id="vid-link" href="http://www.iqiyi.com/w_19rytlq0cp.html">
+                            <button class="watch-now">
+                                <div class="triangle-right"></div>
+                                Watch Video
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endif %}
+    <!-- End of Video section -->
+    {% endif %}
+
 </div>
 
 {% endblock %}
 {% block scripts %}
 {{ block.super }}
 
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>
-    var allInstallationOptions = ['pip', 'docker'];
-
-    $('.quick-start-guide nav ul > li').click(function(event){
-        // The tab is of tag type 'li' and the icon inside is a 'div'
-        if (event.target.tagName == 'DIV')
-            event.target = $(event.target).parent()[0];
-
-        var installationToShow = event.target.id;
-
-        // Reverse the currently selected nav button and then select this one.
-        $('.quick-start-guide nav ul > li.selected').removeClass('selected');
-        $(event.target).addClass('selected');
-
-
-        $('.quick-start-guide .' + installationToShow).show();
-
-        // Hide all elements that are of other options.
-        $.each(allInstallationOptions, function(index, option){
-            if (option !== installationToShow)
-                $('.quick-start-guide .' + option).hide();
-        });
-    });
-
-
     // Scroll page down to quick start section on 'Quick Start' button click.
-    $('a.quick-start').click(function(event){
+    $('#banner_quick_start').click(function(event){
         event.preventDefault();
 
         $('html, body').stop().animate({ scrollTop: $(
-            '.quick-start-guide').offset().top - 150 }, 500);
+            '.step-1-2-3').offset().top - 70 }, 500);
     });
+
+    $('#banner_learn_more').click(function(event){
+        event.preventDefault();
+
+        var href = ($(this).attr('href'));
+            window.location = href;
+            return true;
+    });
+
+
+    $('.installation-guide .install-option').click(function(event){
+        if (event.target.tagName == 'DIV')
+            event.target = $(event.target).parent()[0];
+        var installationToShow = event.target.id;
+        var installCommend = 'pip install paddlepaddle';
+
+        if (installationToShow == 'CPU') {
+            // Reverse the currently selected nav button and then select this one.
+            $('#GPU').removeClass('selected');
+            $("#cuda-version").addClass('disable');
+
+            // Select the target
+            $(event.target).addClass('selected');
+        } else {
+            if (installationToShow == 'GPU') {
+                $('#CPU').removeClass('selected');
+                $("#cuda-version").removeClass('disable');
+            } else {
+                $('.installation-guide div > .install-option.cuda').removeClass('selected');
+            }
+
+            // Select the target
+            $(event.target).addClass('selected');
+
+            var t = $('.installation-guide div > .install-option.cuda.selected');
+
+            installCommend = installCommend + t[0].id;
+        }
+
+        // Update the installation commend
+        $('#commend').html(installCommend);
+    });
+
+    $('.step-button').click(function (event) {
+        var steps = $('.step-code');
+        steps.removeClass('show');
+        steps.removeClass('in-focus');
+
+        var stepToFocusOn = $('#step-' + event.target.dataset.stepId);
+        var curHeight = 0;
+
+        $.each(steps, function (index, step) {
+            step = $(step);
+            step.addClass('show');
+            curHeight += step.height();
+            return step[0] !== stepToFocusOn[0];
+        });
+        curHeight = curHeight + 100;  // add buffer for default padding area
+
+        stepToFocusOn.addClass('in-focus');
+
+        $(".step-button").removeClass('selected');
+        $(this).addClass('selected');
+
+        // set the code panel height based on current displayed code block
+        $(".code-panel").css("height", curHeight + "px");
+    });
+
+    // Start a timer to rotate the video infos and links
+    var rotateTimer = setInterval(rotate, 10000);
+    var videoTitles = ['PaddlePaddle，让AI触手可及', '“桃子分拣机对我的帮助非常大”', 'AI会发现并记录你在公共场所的不良行为'];
+    var videoDescs = ['PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意', '四个大学生用一个假期时间，基于PaddlePaddle平台打造了通过外观、尺寸等特征进行桃子质量分级的机器，帮助桃农节约了大量劳动成本', '百度员工打造的AI控烟方案，当你在禁止吸烟的公共场所吸烟时，就会被AI实时捕捉并将你的吸烟图像投放至附近的屏幕上'];
+    var videoLinks = ['http://www.iqiyi.com/w_19rytlq0cp.html', 'http://www.iqiyi.com/w_19rys9temd.html', 'http://www.iqiyi.com/w_19rysa26ep.html']
+    var videoBGs = ['/static/images/peach-paddlers.png', '/static/images/smoking-paddlers.png', '/static/images/peach-paddlers.png']
+    var count = 0;
+
+    function rotate() {
+        count += 1;
+
+        // Toggle the position from left to right
+        $('#vid').toggleClass('align-left');
+
+        // Update video link
+        $('#vid-link').attr("href", videoLinks[count % 3]);
+
+        // Update title and desc with fade in and fade out
+        $('#vid-title').fadeOut(500, function() {
+          $(this).text(videoTitles[count % 3]).fadeIn(500);
+        });
+
+        $('#vid-desc').fadeOut(500, function() {
+          $(this).text(videoDescs[count % 3]).fadeIn(1500);
+        });
+
+        // Update background image position
+        var videoImage = $("#videoImage")
+        if( videoImage.css('display') != 'none') {
+            videoImage.fadeOut(1000, function() {
+                $(this).toggleClass('align-right');
+                $(this).attr("src", videoBGs[count % 3]);
+                $(this).fadeIn(1000);
+            });
+        }
+    }
+
+    // Subtle animation on the bubble
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        var featuresHead = $('#features-head')
+        var resourcesHead = $('#resources-head')
+
+        $('#features-bubble').css('top', (-700 + (scroll - featuresHead.position().top) / 2));
+
+        if ($('#resources-bubble').length) {
+            $('#resources-bubble').css('top', (-800 + (scroll - resourcesHead.position().top) / 2));
+        }
+    });
+    hljs.initHighlightingOnLoad();
 </script>
 
 {% endblock %}

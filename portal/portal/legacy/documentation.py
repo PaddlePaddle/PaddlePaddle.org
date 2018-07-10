@@ -1,3 +1,21 @@
+import os
+import tempfile
+import requests
+import traceback
+from urlparse import urlparse
+import json
+from subprocess import call
+import shutil
+
+from django.conf import settings
+
+from deploy import documentation_generator, strip, sitemap_generator
+from deploy.operators import generate_operators_docs_with_generated_doc_dir
+from portal import sitemap_helper
+from portal.portal_helper import Content
+from portal import portal_helper
+
+
 def fetch_and_transform(source_url, version):
     """
     For an arbitrary URL of Markdown contents, fetch and transform them into a
