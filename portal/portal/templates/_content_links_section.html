@@ -4,8 +4,8 @@
     {% translation_assignment section.title as section_title %}
     {% translation_assignment section.link as section_link %}
 
-    <!-- forloop.parentloop.parentloop.counter is to prevent deep nested navigation. -->
-    {% if section_title != None and section.sections|length == 0 or forloop.parentloop.parentloop.counter > 0 %}
+    <!-- forloop.parentloop.parentloop.parentloop.counter is to prevent deep nested navigation. -->
+    {% if section_title != None and section.sections|length == 0 or forloop.parentloop.parentloop.parentloop.counter > 0 %}
         {% if section_link != "" %}
             <a href="{{ section_link|safe }}">{{ section_title }}</a>
         {% endif %}
@@ -14,12 +14,12 @@
     {% if section_link != None %}
     <a class="title-with-toggle" href="{{ section_link|safe }}">{{ section_title }}</a>
     {% else %}
-    <a class="title-with-toggle" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}</a>
+    <a class="title-with-toggle" data-toggle="collapse" href="#collapse{{ forloop.parentloop.parentloop.counter }}{{ forloop.parentloop.counter }}{{ forloop.counter}}">{{ section_title }}</a>
     {% endif %}
 
-    <a class="toggle {% if request.path not in section.links %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"><span class="dropdown-toggle"></span></a>
+    <a class="toggle {% if request.path not in section.links %}collapsed{% endif %}" data-toggle="collapse" href="#collapse{{ forloop.parentloop.parentloop.counter }}{{ forloop.parentloop.counter }}{{ forloop.counter}}"><span class="dropdown-toggle"></span></a>
 
-    <div id="collapse{{ forloop.parentloop.counter }}{{ forloop.counter}}"
+    <div id="collapse{{ forloop.parentloop.parentloop.counter }}{{ forloop.parentloop.counter }}{{ forloop.counter}}"
          class="panel-collapse collapse {% if request.path in section.links %}show{% endif %}">
     <ol class="section">
         {% for section in section.sections %}
