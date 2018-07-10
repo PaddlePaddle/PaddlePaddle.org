@@ -119,7 +119,7 @@ class Command(BaseCommand):
                 options['language'][0], options['version'][0]
             )
 
-            if content_to_build == 'api' and options['version'][0] not in ['0.10.0', '0.11.0']::
+            if content_to_build == 'api' and options['version'][0] not in ['0.10.0', '0.11.0']:
                 # Get the name of all the files in the API dir.
                 for api_document in self.API_DOCUMENTS:
                     self.build_api_document(os.path.join(
