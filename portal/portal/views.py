@@ -331,8 +331,6 @@ def zh_home_root(request):
     return response
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 def about_en(request):
     return render(request, 'about_en.html')
 

@@ -16,35 +16,31 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                <li>
+                    <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
+                </li>
+
                 <li class="nav-item{% if '/documentation' in request.path %} active{% endif %}">
                     <a class="nav-link" href="/documentation"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('documentation');"{% endif %}>{% translation "Documentation" %}<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav">
-
-            <li>
-<<<<<<< HEAD
-                <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
-            </li>
-            <li>
-                <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
-=======
-                <a class="nav-link" href="{{ lang_def.link }}">{{ lang_def.label}}</a>
->>>>>>> More language toggling and menu editor fixes / updates
-            </li>
-            <li>
-                <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
-            </li>
-            <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                GitHub
-            </a></li>
-            {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
-                {% if content_id %}
                 <li>
-                    <a class="nav-link primary" href="{% url 'reload_docs' %}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"><i class="fas fa-sync"></i>{% trans "Refresh Content" %}</a>
+                    <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
                 </li>
+                <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
+                    GitHub
+                </a></li>
+                <li>
+                    <a class="nav-link" href="{{ lang_def.link }}">{{ lang_def.label}}</a>
+                </li>
+                {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+                    {% if content_id %}
+                    <li>
+                        <a class="nav-link primary" href="{% url 'reload_docs' %}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"><i class="fas fa-sync"></i>{% trans "Refresh Content" %}</a>
+                    </li>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
             </ul>
         </div>
     </div>

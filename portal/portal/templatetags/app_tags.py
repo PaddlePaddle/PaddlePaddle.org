@@ -53,19 +53,6 @@ def nav_bar(context):
     # if 'visualdl' in root_navigation:
     #     root_navigation.pop('visualdl')
 
-    # NOTE: This is to consolidate all into documentation
-    if 'book' in root_navigation:
-        root_navigation.pop('book')
-
-    if 'api' in root_navigation:
-        root_navigation.pop('api')
-
-    if 'mobile' in root_navigation:
-        root_navigation.pop('mobile')
-
-    if 'models' in root_navigation:
-        root_navigation.pop('models')
-
     # Since we default to english, we set the change lang toggle to chinese
     lang_label = u'中文'
     lang_link = '/change-lang?lang_code=zh'

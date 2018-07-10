@@ -59,16 +59,13 @@ def get_preferred_language(request):
     """
     preferred_lang = request.session.get(LANGUAGE_SESSION_KEY, None)
     if not preferred_lang:
-<<<<<<< HEAD
         default_lang = 'en'
 
         if request.LANGUAGE_CODE == 'zh':
             default_lang = 'zh'
-        preferred_lang = request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME, default_lang)
-=======
+
         preferred_lang = request.COOKIES.get(
-            settings.LANGUAGE_COOKIE_NAME, 'en')
->>>>>>> Deployment readiness
+            settings.LANGUAGE_COOKIE_NAME, default_lang)
 
     return preferred_lang
 
