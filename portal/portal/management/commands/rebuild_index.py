@@ -93,7 +93,7 @@ class Command(BaseCommand):
                     self.documents.append(document)
                     self.unique_paths.append(document['path'])
 
-                    print 'Found "%s"...' % document['title']
+                    print 'Found "%s"...' % document['title'].encode('utf-8')
 
 
     def handle(self, *args, **options):
@@ -133,7 +133,7 @@ class Command(BaseCommand):
         for document_index, document_content in enumerate(document_contents):
             if not document_content:
                 continue
-            print 'Indexing', self.documents[document_index]['title']
+            print 'Indexing', self.documents[document_index]['title'].encode('utf-8')
 
             scores = { word: tfidf(
                 word, document_content, document_contents) for (
