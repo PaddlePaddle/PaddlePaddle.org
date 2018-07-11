@@ -92,6 +92,7 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
             path_to_seek = url_helper.get_raw_page_path_from_html(path)
 
             if lang:
+                # We are switching to new language
                 matching_link = menu_helper.find_all_languages_for_link(
                     path_to_seek,
                     old_lang, menu['sections'], lang
@@ -99,13 +100,17 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
                 version = old_version
 
             else:
-                path_prefix = url_helper.get_page_url_prefix(
-                    content_id, old_lang, old_version)
+                # We are switching to new version
+                new_menu_path = menu_helper.get_menu_path_cache(
+                    content_id, old_lang, version)
 
-                # Try to find this link in the menu path.
-                # NOTE: We account for the first and last '/'.
-                matching_link = menu_helper.find_link_in_sections(
-                    menu['sections'], path_to_seek)
+                with open(new_menu_path, 'r') as new_menu_file:
+                    new_menu = json.loads(new_menu_file.read())
+
+                    # Try to find this link in the new menu path.
+                    # NOTE: We account for the first and last '/'.
+                    matching_link = menu_helper.find_link_in_sections(
+                        new_menu['sections'], path_to_seek)
                 lang = old_lang
 
     if matching_link:
