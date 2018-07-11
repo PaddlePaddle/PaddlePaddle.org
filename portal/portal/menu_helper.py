@@ -68,7 +68,7 @@ def get_menu_path_cache(content_id, lang, version):
     )
 
     if not menu_path:
-        menu_path = get_menu(content_id, version, lang)[1]
+        menu_path = get_menu(content_id, lang, version)[1]
         set_menu_path_cache(content_id, lang, version, menu_path)
 
     return menu_path
