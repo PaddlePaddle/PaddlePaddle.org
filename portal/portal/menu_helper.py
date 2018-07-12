@@ -194,8 +194,14 @@ def get_content_navigation(request, content_id, language, version):
     """
     Get the navigation menu for a particular content service.
     """
+    valid_navigation_items = settings.SIDE_NAVIGATION
+    if version != 'develop':
+        # if the version is NOT 'develop', we only show 'Documentation' and 'API'
+        # otherwise, show all ['Documentation', 'API', 'Book', 'Models', 'Mobile']
+        valid_navigation_items = settings.SIDE_NAVIGATION[:2]
+
     navigation = { 'sections': [] }
-    for index, side_navigation_item in enumerate(settings.SIDE_NAVIGATION):
+    for index, side_navigation_item in enumerate(valid_navigation_items):
         content_id = side_navigation_item['path'][1:]
 
         try:

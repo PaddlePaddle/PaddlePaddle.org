@@ -72,4 +72,4 @@ def get_full_content_path(content_id, lang, version):
     # if not os.path.exists(workspace_path):
     #     os.makedirs(workspace_path)
     url_prefix = get_page_url_prefix(content_id, lang, version)
-    return '%s/%s' % (settings.BASE_DIR, url_prefix), url_prefix
+    return '%s/%s' % (settings.PAGES_DIR, url_prefix), url_prefix

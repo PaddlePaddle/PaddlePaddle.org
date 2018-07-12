@@ -136,16 +136,9 @@ ROOT_URLCONF = 'portal.urls'
 
 SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
 WORKSPACE_DIR = 'documentation'
-
-if ENV in ['production', 'staging']:
-    MENUS_DIR = '/var/pages/menus'
-else:
-    MENUS_DIR = os.path.join(BASE_DIR, 'menus')
-
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'portal/templates'), BASE_DIR]
-
-if ENV in ['production', 'staging']:
-    TEMPLATE_DIRS.append('/var/pages')
+PAGES_DIR = '/var/pages' if ENV in ['production', 'staging'] else BASE_DIR
+MENUS_DIR = os.path.join(BASE_DIR, 'menus')
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'portal/templates'), PAGES_DIR]
 
 TEMPLATES = [
     {
