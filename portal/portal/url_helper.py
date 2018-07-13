@@ -14,60 +14,58 @@
 
 from urlparse import urlparse
 import os
-import re
 
 from django.conf import settings, urls
-from django.core.urlresolvers import reverse
+
+# Here is a little taxonomy to know before approaching this page.
+# Given a file in the repo with the path: "getstarted/install_en.rst", the
+# following terms describe its different transformations.
+#
+# 1. url_path: '/documentation/docs/en/0.11.0/getstarted/install_en.html'
+# 2. url_prefix: 'documentation/docs/en/0.11.0'
+# 3. content_path: '<workspace path on disk>/pages/documentation/docs/en/0.11.0'
+# 4. file_path: 'getstarted/install_en.rst' or 'getstarted/install_en.md'
+# 5. page_path: 'getstarted/install_en.html'
 
 
-BLOG_ROOT = 'blog/'
-BOOK_ROOT = 'book/'
-DOCUMENTATION_ROOT = 'documentation/'
-API_ROOT = 'api/'
-MODEL_ROOT = 'models/'
-MOBILE_ROOT = 'mobile/'
-VISUALDL_ROOT = 'visualdl/'
-GITHUB_ROOT = 'https://raw.githubusercontent.com'
+def get_raw_page_path_from_html(url_path):
+    """Does the opposite of `get_url_path`"""
+    url_path_pieces = url_path.strip('/').split('/')
 
-URL_NAME_CONTENT_ROOT = 'content_root'
-URL_NAME_CONTENT = 'content_path'
-URL_NAME_BLOG_ROOT = 'blog_root'
-URL_NAME_BOOK_ROOT = 'book_root'
-URL_NAME_OTHER = 'other_path'
+    if len(url_path_pieces) > 4:
+        return get_alternative_file_paths('/'.join(url_path_pieces[4:]))
+
+    return None
 
 
-def append_prefix_to_path(version, path):
+def get_alternative_file_paths(page_path):
+    extensionless_file_path, extension = os.path.splitext(page_path)
+    return (
+        extensionless_file_path + '.rst', extensionless_file_path + '.md')
+
+
+def get_url_path(prefix, path):
+    transformed_path = os.path.splitext(urlparse(path).path)[0] + '.html'
+    return '/%s/%s' % (prefix, transformed_path)
+
+
+def get_page_url_prefix(content_id, lang, version):
+    return 'documentation/%s/%s/%s' % (content_id, lang, version)
+
+
+def get_parts_from_url_path(url_path):
+    url_path_pieces = url_path.strip('/').split('/')
+
+    if len(url_path_pieces) > 4:
+        return url_path_pieces[1], url_path_pieces[2], url_path_pieces[3]
+
+    return url_path_pieces[0], None, None
+
+
+def get_full_content_path(content_id, lang, version):
     """
-    The path in the sitemap generated is relative to the location of the file
-    in the repository it is fetched from. Based on the URL pattern of the
-    organization of contents on the website (which is tied to how contents are
-    transformed and stored after being pulled from repositories), these paths
-    evolve. This function sets the path in the navigation for where the static
-    content pages will get resolved.
+    Given content_id, language, and version, return the local path of the
+    location of the content.
     """
-    url = None
-
-    if path:
-        path = path.strip('/')
-
-        if path.startswith(GITHUB_ROOT):
-            url_name = URL_NAME_OTHER
-            sub_path = os.path.splitext(urlparse(path).path[1:])[0] + '.html'
-        else:
-            url_name = URL_NAME_CONTENT
-            sub_path = path
-
-        url = reverse(url_name, args=[version, sub_path])
-        # reverse method escapes #, which breaks when we try to find it in the file system.  We unescape it here
-        url = url.replace('%23', '#')
-
-    return url
-
-
-def link_cache_key(path):
-    # Remove all language specific strings
-    key = re.sub(r'[._]?(en|cn|zh)?\.htm[l]?$', '', path)
-    key = key.replace('/en/', '/')
-    key = key.replace('/zh/', '/')
-
-    return key
+    url_prefix = get_page_url_prefix(content_id, lang, version)
+    return '%s/%s' % (settings.PAGES_DIR, url_prefix), url_prefix

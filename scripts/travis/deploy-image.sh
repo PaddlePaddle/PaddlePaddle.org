@@ -9,8 +9,7 @@ then
     export BUILD_TAG=$(date +%s)
     export DOCKER_CONTAINER_NAME="paddlepaddle.org"
     export PORT=80
-    export ENV=release
-    export CONTENT_DIR="/var/content"
+    export ENV=production
 elif [[ "$TRAVIS_BRANCH" =~ ^release.*$ ]]
 then
     # Staging Deploy
@@ -18,8 +17,7 @@ then
     export DOCKER_IMAGE_TAG="staging"
     export DOCKER_CONTAINER_NAME="staging.paddlepaddle.org"
     export PORT=81
-    export ENV=release
-    export CONTENT_DIR="/var/content_staging"
+    export ENV=staging
 elif [ "$TRAVIS_BRANCH" == "develop" ]
 then
     # Development Deploy
@@ -28,7 +26,6 @@ then
     export DOCKER_CONTAINER_NAME="develop.paddlepaddle.org"
     export PORT=82
     export ENV=development
-    export CONTENT_DIR="/var/content_staging"
 else
     # All other branches should be ignored
     echo "Cannot deploy image, invalid branch: $TRAVIS_BRANCH"
@@ -76,7 +73,7 @@ ssh -i ubuntu.pem ubuntu@$STAGE_DEPLOY_IP << EOF
   docker pull 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:${DOCKER_IMAGE_TAG}
   docker stop $DOCKER_CONTAINER_NAME
   docker rm $DOCKER_CONTAINER_NAME
-  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -e NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY -v $CONTENT_DIR:/var/content 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
+  docker run --name=$DOCKER_CONTAINER_NAME -d -p $PORT:8000 -e ENV=$ENV -e SECRET_KEY=$SECRET_KEY -e NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY -v /var/pages:/var/pages 330323714104.dkr.ecr.ap-southeast-1.amazonaws.com/paddlepaddle.org:$DOCKER_IMAGE_TAG
   docker image prune -f
 EOF
 

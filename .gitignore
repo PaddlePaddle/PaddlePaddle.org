@@ -92,5 +92,8 @@ ENV/
 .idea
 **/*.sqlite3
 *.DS_Store
-.gitignore 
+.gitignore
 
+# Content generated.
+portal/documentation/*
+portal/menus/*

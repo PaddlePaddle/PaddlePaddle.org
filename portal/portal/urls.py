@@ -36,13 +36,13 @@ urlpatterns = [
     # ---------------------
     # STATIC FILE HANDLERS
     # ---------------------
-    url(r'^(?P<path>.*)\.(?P<extension>((?!(htm|html|/)).)+)$', views.static_file_handler),
+    url(r'^documentation/(?P<path>.*)\.(?P<extension>((?!(htm|html|/)).)+)$', views.static_file_handler),
 
     # ---------------
     # HOME PAGE URLS
     # ---------------
     url(r'^$', views.home_root, name='home'),
-    url(r'^index.cn.html', views.cn_home_root, name='cn_home'),
+    url(r'^zh', views.zh_home_root, name='zh_home'),
 
     # ---------------
     # BLOG URLS
@@ -54,17 +54,8 @@ urlpatterns = [
     # -------------------
     # OTHER ARBITRARY URLS
     # -------------------
-    url(r'^docs/(?P<version>.*)/other/(?P<path>.*)$', views.other_path, name=url_helper.URL_NAME_OTHER),
-    url(r'^docs/(?P<version>.*)/flush$', views.flush_other_page, name='flush_other_page'),
-    url(r'^book$', views.book_home, name=url_helper.URL_NAME_BOOK_ROOT),
     url(r'^about_en.html', views.about_en, name='about_en'),
     url(r'^about_cn.html', views.about_cn, name='about_cn'),
-
-    # ---------------
-    # CONTENT URLS
-    # ---------------
-    url(r'^docs/(?P<version>[^/]+)/(?P<path>[^./]+)/?$', views.content_root_path, name=url_helper.URL_NAME_CONTENT_ROOT),
-    url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
 
     # ---------------
     # ACTION URLS
@@ -72,5 +63,16 @@ urlpatterns = [
     url(r'^change-version$', views.change_version, name='set_version'),
     url(r'^change-lang$', views.change_lang, name='change_lang'),
     url(r'^reload-docs$', views.reload_docs, name='reload_docs'),
-    url(r'^download_latest_doc_workspace$', views.download_latest_doc_workspace, name='download_latest_doc_workspace'),
+    url(r'^get-menu$', views.get_menu, name='get_menu'),
+    url(r'^save-menu$', views.save_menu, name='save_menu'),
+
+    # ---------------
+    # CONTENT URLS
+    # ---------------
+    # NOTE: This was the old way, with every content site having its own home.
+    url(r'^documentation/?((?!/).)*$', views.content_home, name='documentation'),
+    # url(r'^documentation$', views.content_home, name='documentation'),
+
+    # HAS TO BE KEPT IN THE END, because it picks everything.
+    url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),
 ]

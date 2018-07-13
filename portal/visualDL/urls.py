@@ -29,12 +29,13 @@ Including another URLconf
 from django.conf.urls import url
 
 from portal import url_helper
-
+from portal.views import content_sub_path, content_home
 
 import views
 
 urlpatterns = [
     url(r'^$', views.home_root, name='visualdl-home'),
-    url(r'^docs/(?P<version>[^/]+)/(?P<path>.*)$', views.content_sub_path, name=url_helper.URL_NAME_CONTENT),
+    url(r'^documentation/?((?!/).)*$', content_home, name='documentation'),
+    url(r'^(?P<path>.*)$', content_sub_path, name='content'),
     url(r'^change-lang$', views.change_lang, name='change_lang'),
 ]

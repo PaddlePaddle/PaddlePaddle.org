@@ -3,13 +3,12 @@
 {% load app_tags %}
 {% load i18n %}
 
-{% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE and content_id == 'documentation' %}
-{% include '_paddle_docs_modal.html' %}
-{% endif %}
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="/static/images/logo.png"/></a>
+        <form action="{% url 'content' 'api/en/develop/search.html' %}" class="form-inline">
+          <input class="form-control mr-sm-2 typeahead" type="search" name="q" placeholder="Search PaddlePaddle.org" />
+        </form>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,48 +16,31 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                {% for b_id, book in root_nav.items %}
-                    {% translation_assignment book.title as book_title %}
-                    {% first_book_url_assignment book b_id as book_url %}
-                    {% if book_title != none and book_title != "" %}
-                <li class="nav-item{% if content_id == b_id %} active{% endif %}">
-                    <a class="nav-link" href="{{ book_url }}">{% translation book.title %}<span class="sr-only">(current)</span></a>
-                </li>
-                    {% endif %}
-                {% endfor %}
-
-                {% if settings.CURRENT_PPO_MODE == settings.PPO_MODES.DOC_EDIT_MODE %}
-
-                <li>
-                    <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
-                </li>
-                {% if content_id %}
-                <li>
-                    {% if content_id == 'documentation' %}
-                    <a class="nav-link border" href="#" data-toggle="modal" data-target="#paddleDocsModal">{% trans "Refresh Content" %}</a>
-                    {% include '_paddle_docs_modal.html' %}
-                    {% else %}
-                    <a class="nav-link border" href="{% url 'reload_docs' %}?content_id={{ content_id }}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');">{% trans "Refresh Content" %}</a>
-                    {% endif %}
-                </li>
-                {% endif %}
-
-                {% else %}
-
                 <li>
                     <a class="nav-link" href="{{ about_link }}">{% trans "About" %}</a>
                 </li>
+
+                <li class="nav-item{% if '/documentation' in request.path %} active{% endif %}">
+                    <a class="nav-link" href="/documentation"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('documentation');"{% endif %}>{% translation "Documentation" %}<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
                 <li>
                     <a class="nav-link" href="{{ community_link }}" target="_blank">{% trans "Community" %}</a>
                 </li>
                 <li><a class="nav-link" href="https://github.com/PaddlePaddle/Paddle" target="_blank">
-                    Github
+                    GitHub
                 </a></li>
                 <li>
-                    <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label }}</a>
+                    <a class="nav-link" href="{{ lang_def.link }}">{{ lang_def.label}}</a>
                 </li>
+                {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+                    {% if content_id %}
+                    <li>
+                        <a class="nav-link primary" href="{% url 'reload_docs' %}" onclick="return showFullpageSpinnerForContentId('{{ content_id }}');"><i class="fas fa-sync"></i>{% trans "Refresh Content" %}</a>
+                    </li>
+                    {% endif %}
                 {% endif %}
-
             </ul>
         </div>
     </div>

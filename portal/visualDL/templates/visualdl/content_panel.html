@@ -15,7 +15,7 @@
                 </div>
                 {% block side_nav_content %}
                 {% cache settings.CACHES.default.TIMEOUT sidebar LANGUAGE_CODE request.path %}
-                {% content_links content_id %}
+                {% content_links 'visualdl' %}
                 {% endcache %}
                 {% endblock %}
             </div>

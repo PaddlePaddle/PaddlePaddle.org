@@ -3,7 +3,10 @@
 {% load i18n %}
 
 {% block post_content %}
-<link href="/static/stylesheets/home.css" media="screen, projection" rel="stylesheet" type="text/css" />
+{% load app_tags %}
+
+<link href="/static/stylesheets/home.css?{% server_start_time %}" media="screen, projection" rel="stylesheet" type="text/css" />
+
 {% endblock %}
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -19,7 +22,7 @@
                 </div>
 
                 <button id="banner_quick_start" class="btn selected col-lg-3">{% trans "Get Started"%}</button>
-                
+
                 <button id="banner_learn_more" class="btn col-lg-3" href="/about_{% if LANGUAGE_CODE != 'zh' %}en{% else %}cn{% endif %}.html" type="text/html" >{% trans "Learn more"%}</button>
 
             </div>
@@ -538,35 +541,53 @@ infer(save_dirname)</code>
     {% endif %}
     <!-- End of Resources section -->
 
-    {% if False %}
     <!-- Video section: Only in Chinese -->
     {% if LANGUAGE_CODE == 'zh' %}
 
     <section class="video">
+        <div class="previous-video">
+            <img src="/static/images/right_array.png"></img>
+        </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <!-- TODO: Update with the real assets-->
-                    <img class="big-img" id="videoImage" src="/static/images/peach-paddlers.png">
+                    <img class="big-img" id="videoImage" src="/static/images/explaining-paddlers.png">
                     </img>
                     <div class="video-cell" id="vid">
                         <h2 id="vid-title">PaddlePaddle，让AI触手可及</h2>
                         <p id="vid-desc">PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意</p>
-                        <a id="vid-link" href="http://www.iqiyi.com/w_19rytlq0cp.html">
-                            <button class="watch-now">
-                                <div class="triangle-right"></div>
-                                Watch Video
-                            </button>
-                        </a>
+                        <button class="watch-now" data-toggle="modal" data-target="#videoModal">
+                            <div class="triangle-right"></div>
+                            Watch Video
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="next-video">
+            <img src="/static/images/right_array.png"></img>
+        </div>
     </section>
 
+    <!-- Video Modal -->
+    <div class="modal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <video controls width="640px" height="360px" id="videoControl">
+                    <source id="videoLink" src="https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/paddlepaddle%E5%B8%B8%E8%A7%84%E7%89%881080P.mp4"
+                            type="video/mp4">
+                    <source id="videoWebm" src="https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/paddlepaddle%E5%B8%B8%E8%A7%84%E7%89%881080P.webm"
+                            type="video/webm">
+                    <p>Your browser doesn't support HTML5 video.</p>
+                </video>
+            </div>
+        </div>
+    </div>
     {% endif %}
     <!-- End of Video section -->
-    {% endif %}
 
 </div>
 
@@ -654,41 +675,79 @@ infer(save_dirname)</code>
     });
 
     // Start a timer to rotate the video infos and links
-    var rotateTimer = setInterval(rotate, 10000);
+    var rotateTimer = false
+    if ($('#vid').length) {
+      rotateTimer = setInterval(rotate, 10000);
+    }
     var videoTitles = ['PaddlePaddle，让AI触手可及', '“桃子分拣机对我的帮助非常大”', 'AI会发现并记录你在公共场所的不良行为'];
     var videoDescs = ['PaddlePaddle是一个开源的深度学习引擎，能够帮助你快速高效地实现任何想要的AI创意', '四个大学生用一个假期时间，基于PaddlePaddle平台打造了通过外观、尺寸等特征进行桃子质量分级的机器，帮助桃农节约了大量劳动成本', '百度员工打造的AI控烟方案，当你在禁止吸烟的公共场所吸烟时，就会被AI实时捕捉并将你的吸烟图像投放至附近的屏幕上'];
-    var videoLinks = ['http://www.iqiyi.com/w_19rytlq0cp.html', 'http://www.iqiyi.com/w_19rys9temd.html', 'http://www.iqiyi.com/w_19rysa26ep.html']
-    var videoBGs = ['/static/images/peach-paddlers.png', '/static/images/smoking-paddlers.png', '/static/images/peach-paddlers.png']
+    var videoLinks = ['https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/paddlepaddle%E5%B8%B8%E8%A7%84%E7%89%881080P.mp4', 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/1.+%E5%A4%A7%E6%A1%83%E7%BA%AA%E5%BD%95%E7%89%87%E6%9C%80%E7%BB%88%E7%89%88+%E9%AB%98%E6%B8%85%E7%89%88.mp4', 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/%E7%99%BE%E5%BA%A6%E6%97%A0%E7%83%9F%E6%97%A5%E7%97%85%E6%AF%92%E8%A7%86%E9%A2%91_%E5%86%85%E9%83%A8_final.mp4']
+    var videoWebm = ['https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/paddlepaddle%E5%B8%B8%E8%A7%84%E7%89%881080P.webm', 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/1.+%E5%A4%A7%E6%A1%83%E7%BA%AA%E5%BD%95%E7%89%87%E6%9C%80%E7%BB%88%E7%89%88+%E9%AB%98%E6%B8%85%E7%89%88.webm', 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/%E7%99%BE%E5%BA%A6%E6%97%A0%E7%83%9F%E6%97%A5%E7%97%85%E6%AF%92%E8%A7%86%E9%A2%91_%E5%86%85%E9%83%A8_final.webm']
+
+    var videoBGs = ['/static/images/explaining-paddlers.png', '/static/images/peach-paddlers.png', '/static/images/smoking-paddlers.png']
     var count = 0;
+
+    $('.previous-video').click(function (event){
+      if (count == 0) {
+        count = videoTitles.length
+      }
+      count -= 1;
+
+      updateVideo()
+      clearInterval(rotateTimer);
+      rotateTimer = setInterval(rotate, 10000);
+    });
+
+    $('.next-video').click(function (event){
+      rotate();
+      clearInterval(rotateTimer);
+      rotateTimer = setInterval(rotate, 10000);
+    });
 
     function rotate() {
         count += 1;
+        updateVideo();
+    }
 
-        // Toggle the position from left to right
-        $('#vid').toggleClass('align-left');
-
+    function updateVideo() {
         // Update video link
-        $('#vid-link').attr("href", videoLinks[count % 3]);
-        
+        $('#videoLink').attr("src", videoLinks[count % 3]);
+        $('#videoWebm').attr("src", videoWebm[count % 3]);
+
         // Update title and desc with fade in and fade out
-        $('#vid-title').fadeOut(500, function() {
-          $(this).text(videoTitles[count % 3]).fadeIn(500);
+        $('#vid-title').fadeOut(function() {
+          $(this).text(videoTitles[count % 3]).fadeIn();
         });
 
-        $('#vid-desc').fadeOut(500, function() {
-          $(this).text(videoDescs[count % 3]).fadeIn(1500);
+        $('#vid-desc').fadeOut(function() {
+          $(this).text(videoDescs[count % 3]).fadeIn();
         });
 
         // Update background image position
         var videoImage = $("#videoImage")
         if( videoImage.css('display') != 'none') {
-            videoImage.fadeOut(1000, function() {
-                $(this).toggleClass('align-right');
+            videoImage.fadeOut(function() {
                 $(this).attr("src", videoBGs[count % 3]);
-                $(this).fadeIn(1000);
+                $(this).fadeIn();
             });
         }
     }
+
+    $('#videoModal').on('show.bs.modal', function (e) {
+        var video = document.getElementById('videoControl');
+        video.load();
+
+        clearInterval(rotateTimer);
+        rotateTimer = false;
+
+        video.play();
+    })
+
+    $('#videoModal').on('hidden.bs.modal', function (e) {
+        var video = document.getElementById('videoControl');
+        video.pause();
+        rotateTimer = setInterval(rotate, 10000);
+    })
 
     // Subtle animation on the bubble
     $(window).scroll(function (event) {

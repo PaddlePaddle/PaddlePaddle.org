@@ -11,20 +11,16 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                {% get_dict_item root_nav 'visualdl' as book %}
-                {% translation_assignment book.title as book_title %}
-                {% first_book_url_assignment book 'visualdl' as book_url %}
-                {% if book_title != none and book_title != "" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ book_url }}">{% translation book.title %}<span class="sr-only">(current)</span></a>
-                </li>
-                {% endif %}
-                <li>
-                    <a class="nav-link" href="{{ lang_def.link }}&path={{ request.path|urlencode }}&content_id={{ content_id }}">{{ lang_def.label}}</a>
+                <li class="nav-item{% if '/documentation' in request.path %} active{% endif %}">
+                    <a class="nav-link" href="/documentation"{% if settings.ENV != 'production' and settings.ENV != 'staging' %} onclick="return showFullpageSpinnerForContentId('documentation');"{% endif %}>{% translation "Documentation" %}<span class="sr-only">(current)</span></a>
                 </li>
                 <li><a class="nav-link" href="https://github.com/PaddlePaddle/VisualDL">
-                    Github
+                    GitHub
                 </a></li>
+                <li>
+                    {% setup_vdl_context as additional_context %}
+                    <a class="nav-link" href="{{ additional_context.lang_def.link }}">{{ additional_context.lang_def.label }}</a>
+                </li>
             </ul>
         </div>
     </div>

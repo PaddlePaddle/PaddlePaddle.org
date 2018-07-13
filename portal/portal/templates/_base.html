@@ -20,6 +20,9 @@
         <link href="/static/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/static/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
         {% endblock %}
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+            <link href="/static/stylesheets/spinner.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        {% endif %}
         <script>
         var _hmt = _hmt || [];
         (function() {
@@ -28,7 +31,6 @@
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
         })();
-
         </script>
     </head>
 
@@ -44,6 +46,9 @@
             {% endblock %}
             </div>
         {% endblock %}
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+        {% include '_full_page_spinner.html' %}
+        {% endif %}
 
         {% block post_content %}{% endblock %}
 
@@ -51,6 +56,86 @@
         <script src="/static/js/popper.min.js"></script>
         <script src="/static/js/jquery-3.2.1.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
+
+        <!-- Setup search -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+        <script src="//twitter.github.com/typeahead.js/releases/latest/typeahead.jquery.js"></script>
+        <script src="/static/js/lunr.js"></script>
+        <script src="/static/indexes/{{ CURRENT_DOCS_VERSION }}/index.js"></script>
+        <script>
+
+        var idx = lunr(function () {
+            this.ref('path');
+            this.field('title', { boost: 10 });
+            this.field('content');
+
+            index.forEach(function(item){
+                this.add(item);
+            }.bind(this));
+        });
+
+        var indexPathMap = {};
+        index.forEach((item) => {
+            indexPathMap[item.path] = item;
+        });
+
+        $('input[type="search"]').typeahead({
+              hint: false,
+              highlight: true,
+              minLength: 1
+            },
+            {
+              limit: 8,
+              name: 'pages',
+              source: function(query, sync, async){
+                  sync(idx.search('*' + query + '*').map((result) => {
+                      item = indexPathMap[result.ref];
+
+                      var apiPath = '/api/';
+                      if (item.path.substring(0, apiPath.length) === apiPath)
+                        item.isAPI = true;
+
+                      var modelsPath = '/models/';
+                      if (item.path.substring(0, modelsPath.length) === modelsPath)
+                        item.isModels = true;
+
+                      return item;
+                  }));
+              },
+              display: 'title',
+              templates: {
+                  {% verbatim %}
+                  suggestion: Handlebars.compile(
+                      '<div class="row">' + (
+                        '<div class="title col-10">{{#if prefix}}<span class="prefix">{{prefix}}.</span>{{/if}}{{title}}</div>') + (
+                        '<div class="type col-2 d-flex"><div class="align-self-center">{{#if isAPI}}API{{else if isModels}}Model{{else}}Doc{{/if}}</div></div>') + (
+                      '</div>')
+                  )
+                  {% endverbatim %}
+              }
+        }).bind('typeahead:select', function(ev, suggestion) {
+          window.location.href = suggestion.path;
+        });
+
+        </script>
+
+        {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
+        <script>
+            function showFullpageSpinnerForContentId(folderName) {
+                var message = 'Loading...';
+                $('.spinner-container').show();
+                $('.spinner-label').text(message);
+
+                $('#paddleDocsModal').hide();
+                return true;
+            }
+
+            function hideFullpageSpinner() {
+                $('spinner-container').hide();
+                return true;
+            }
+        </script>
+        {% endif %}
         {% endblock %}
     </body>
 

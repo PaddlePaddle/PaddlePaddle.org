@@ -1,13 +1,6 @@
 #!/bin/bash
 
-export WORKER_TIMEOUT=60
-if [[ ! -v ENV ]]; then
-    # If we don't have ENV environment set, we assume its PPO_MODES.DOC_EDIT_MODE, or
-    # PPO_MODES.DOC_VIEW_MODE so increase timeout to 30 minutes
-    export WORKER_TIMEOUT=1800
-fi
-
-if mountpoint -q /var/content; then export HAS_MOUNT=1; else export HAS_MOUNT=0; fi;
+export WORKER_TIMEOUT=120
 
 python manage.py collectstatic --noinput  # collect static files
 python manage.py compilemessages -l zh    # compile chinese messages

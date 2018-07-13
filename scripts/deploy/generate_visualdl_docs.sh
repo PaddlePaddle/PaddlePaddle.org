@@ -3,6 +3,7 @@ set -e
 
 DOCS_LOCATION=$1
 DESTINATION_DIR=$2
+LANGUAGE=$3
 
 echo "Generating visualdl documentation at $DOCS_LOCATION to $DESTINATION_DIR"
 cd "$DOCS_LOCATION"
@@ -25,10 +26,20 @@ fi
 
 # Compile Documentation only.
 cmake "$DOCS_LOCATION" -DWITH_DOC=ON
-make -j $processors visualdl_docs_en
-make -j $processors visualdl_docs_cn
+
 
 mkdir -p $DESTINATION_DIR
 
-cp -r $DOCS_LOCATION/build/docs/* $DESTINATION_DIR/.
+if [ "$LANGUAGE" == "en" ]; then
+    make -j $processors visualdl_docs_en
+    cp -r $DOCS_LOCATION/build/docs/en/html $DESTINATION_DIR/.
 
+elif if [ "$LANGUAGE" == "zh" ]; then
+    make -j $processors visualdl_docs_cn
+    cp -r $DOCS_LOCATION/build/docs/cn/html $DESTINATION_DIR/.
+
+else
+    make -j $processors visualdl_docs_en visualdl_docs_cn
+    cp -r $DOCS_LOCATION/build/docs/en/html $DESTINATION_DIR/visualdl/en/develop/.
+    cp -r $DOCS_LOCATION/build/docs/cn/html $DESTINATION_DIR/visualdl/zh/develop/.
+fi

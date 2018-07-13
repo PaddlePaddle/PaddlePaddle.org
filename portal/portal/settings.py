@@ -26,6 +26,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import time
 from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,43 +40,77 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-
-class PPO_MODES:
-    '''
-    PPO has 3 modes:
-    1)  Default:  Default website mode.
-    2)  DOC_EDIT_MODE: Document editor mode.  This will allow document editors to generate and view
-        their documentation.  This mode is activated if there is no 'ENV' environment variable set and
-        HAS_MOUNT is NOT set or set to '1' (ie:  We have mounted a volume to /var/content in Docker).
-    3)  DOC_VIEW_MODE: Document viewer mode.  This will allow users to view the latest PaddlePaddle
-        documentation.  This mode is activated if there is no 'ENV' environment variable set AND
-        'HAS_MOUNT' is set to 0 (meaning there is no mount set for the content directory)
-    '''
-    Default, DOC_EDIT_MODE, DOC_VIEW_MODE = range(3)
-
-CURRENT_PPO_MODE = PPO_MODES.Default
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
 ENV = os.environ.get('ENV', None)
-HAS_MOUNT = os.environ.get('HAS_MOUNT', '1')
 
-WORKSPACE_ZIP_FILE_NAME = 'workspace.tar.gz'
-WORKSPACE_DOWNLOAD_URL = 'https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/%s' % WORKSPACE_ZIP_FILE_NAME
-
-if not ENV:
-    if HAS_MOUNT == '0':
-        CURRENT_PPO_MODE = PPO_MODES.DOC_VIEW_MODE
-    else:
-        CURRENT_PPO_MODE = PPO_MODES.DOC_EDIT_MODE
-
+if ENV == 'production':
+    DEBUG = False
+else:
     DEBUG = True
 
-elif ENV == 'development':
-    DEBUG = True
+DEFAULT_DOCS_VERSION = '0.14.0' if ENV in ['production', 'staging'] else 'develop'
 
-DEFAULT_DOCS_VERSION = '0.14.0' if CURRENT_PPO_MODE != PPO_MODES.DOC_EDIT_MODE else 'doc_test'
+SIDE_NAVIGATION = [
+    {
+        'title': {
+            'en':'Documentation',
+            'zh': u'\u4f7f\u7528\u6587\u6863'
+        },
+        'path': '/docs',
+        'dir': os.environ.get('PADDLE_PATH', None)
+    },
+    {
+        'title': {
+            'en':'API',
+            'zh':'API'
+        },
+        'path': '/api',
+        'dir': os.environ.get('PADDLE_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Book',
+            'zh':u'\u6df1\u5ea6\u5b66\u4e60101'
+        },
+        'path': '/book',
+        'dir': os.environ.get('BOOK_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Models',
+            'zh':u'\u6a21\u578b\u5e93'
+        },
+        'path': '/models',
+        'dir': os.environ.get('MODELS_PATH', None)
+    },
+    {
+        'title': {
+            'en':'Mobile',
+            'zh':u'\u79fb\u52a8\u7aef'
+        },
+        'path': '/mobile',
+        'dir': os.environ.get('MOBILE_PATH', None)
+    }
+]
+
+VISUALDL_SIDE_NAVIGATION = [
+    {
+        'title': {
+            'en':'Documentation',
+            'zh': u'\u4f7f\u7528\u6587\u6863'
+        },
+        'path': '/visualdl',
+        'dir': os.environ.get('VISUALDL_PATH', None)
+    },
+]
+
+VERSIONS = [
+    { 'name': '0.10.0', 'api': 'v2' },
+    { 'name': '0.11.0', 'api': 'Fluid' },
+    { 'name': '0.12.0', 'api': 'Fluid' },
+    { 'name': '0.13.0', 'api': 'Fluid' },
+    { 'name': '0.14.0', 'api': 'Fluid' },
+    { 'name': 'develop', 'api': 'Fluid' }
+]
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -111,19 +146,16 @@ PREFERRED_API_VERSION_NAME = 'preferred_api_version'
 
 ROOT_URLCONF = 'portal.urls'
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'portal/templates')
-CONTENT_DIR = os.environ.get('CONTENT_DIR', None)
-WORKSPACE_DIR = '%s/.ppo_workspace' % CONTENT_DIR
-GENERATED_DOCS_DIR = '%s/generated_docs' % WORKSPACE_DIR
-EXTERNAL_TEMPLATE_DIR = '%s/content' % WORKSPACE_DIR
-RESOLVED_SITEMAP_DIR = '%s/resolved_sitemap' % WORKSPACE_DIR
-
-OTHER_PAGE_PATH = '%s/docs/%s/other/%s'
+SPHINX_CONFIG_DIR = os.path.join(BASE_DIR, 'portal/config')
+WORKSPACE_DIR = 'documentation'
+PAGES_DIR = '/var/pages' if ENV in ['production', 'staging'] else BASE_DIR
+MENUS_DIR = os.path.join(PAGES_DIR, 'menus')
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'portal/templates'), PAGES_DIR]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, EXTERNAL_TEMPLATE_DIR],
+        'DIRS': TEMPLATE_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -180,3 +212,7 @@ STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
 
 TEMPORARY_DIR = '/tmp/'
+
+SUPPORT_MENU_JSON = False
+
+SERVER_START_TIME = time.time()
