@@ -25,7 +25,7 @@ then
     export DOCKER_IMAGE_TAG="develop"
     export DOCKER_CONTAINER_NAME="develop.paddlepaddle.org"
     export PORT=82
-    export ENV=development
+    export ENV=staging
 else
     # All other branches should be ignored
     echo "Cannot deploy image, invalid branch: $TRAVIS_BRANCH"
