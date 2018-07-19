@@ -198,11 +198,11 @@ def get_content_navigation(request, content_id, language, version):
         valid_navigation_items = settings.VISUALDL_SIDE_NAVIGATION
 
     else:
-        valid_navigation_items = settings.SIDE_NAVIGATION
-        if version != 'develop':
+        valid_navigation_items = settings.SIDE_NAVIGATION[:2]
+        if version == '0.14.0' and language == 'zh':
             # if the version is NOT 'develop', we only show 'Documentation' and 'API'
             # otherwise, show all ['Documentation', 'API', 'Book', 'Models', 'Mobile']
-            valid_navigation_items = settings.SIDE_NAVIGATION[:2]
+            valid_navigation_items = settings.SIDE_NAVIGATION
 
     navigation = { 'sections': [] }
     for index, side_navigation_item in enumerate(valid_navigation_items):
