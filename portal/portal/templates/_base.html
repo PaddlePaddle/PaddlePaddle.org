@@ -115,8 +115,13 @@
               }
         }).bind('typeahead:select', function(ev, suggestion) {
           window.location.href = suggestion.path;
-        });
 
+        // Prevent an action on "enter" only when a search result isn't in focus.
+        }).keypress(function(ev){
+            var keyCode = (ev.keyCode ? ev.keyCode : ev.which);
+            if (keyCode === 13)
+                ev.preventDefault();
+        });
         </script>
 
         {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
