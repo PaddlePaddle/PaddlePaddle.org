@@ -49,8 +49,6 @@ def change_version(request):
     if not path == '/':
         response = _find_matching_equivalent_page_for(path, request, None, version)
 
-    portal_helper.set_preferred_version(response, version)
-
     return response
 
 

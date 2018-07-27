@@ -19,37 +19,9 @@ from portal import menu_helper
 
 def get_preferred_version(request):
     """
-    Observes the user's cookie to find the preferred documentation version.
+    Returns default docs version.
     """
-    preferred_version = request.COOKIES.get(
-        settings.PREFERRED_VERSION_NAME, settings.DEFAULT_DOCS_VERSION)
-
-    if not preferred_version:
-        preferred_version = settings.DEFAULT_DOCS_VERSION
-
-    return preferred_version
-
-
-def set_preferred_version(response, preferred_version):
-    """
-    Sets the preferred documentation version in the user's cookie.
-    """
-    if preferred_version:
-        if response:
-            response.set_cookie(settings.PREFERRED_VERSION_NAME, preferred_version)
-
-
-def get_preferred_api_version(request):
-    return request.COOKIES.get(settings.PREFERRED_API_VERSION_NAME, None)
-
-
-def set_preferred_api_version(response, preferred_api_version):
-    """
-    Sets the preferred document api version in the user's session.
-    """
-    if preferred_api_version and response:
-        response.set_cookie(
-            settings.PREFERRED_API_VERSION_NAME, preferred_api_version)
+    return settings.DEFAULT_DOCS_VERSION
 
 
 def get_preferred_language(request):
