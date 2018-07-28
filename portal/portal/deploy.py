@@ -121,15 +121,14 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
                             new_menu['sections'], link,
                             'documentation', lang, version, source_dir, content_id == 'docs'
                         )
-
     for lang in langs:
         if original_lang:
             lang_destination_dir = destination_dir
         else:
             lang_destination_dir = os.path.join(destination_dir, content_id, lang, version)
 
-            strip_sphinx_documentation(
-                source_dir, generated_dir, lang_destination_dir, version)
+        strip_sphinx_documentation(
+            source_dir, generated_dir, lang_destination_dir, lang, version)
         # shutil.rmtree(generated_dir)
 
     if new_menu:
@@ -184,6 +183,8 @@ def models(source_dir, destination_dir, version, lang):
                         github_url = 'https://github.com/PaddlePaddle/models/tree/'
 
                         soup = BeautifulSoup(converted_content, 'lxml')
+
+                        prepare_internal_urls(soup, lang, version)
 
                         # Insert the preserved formulas
                         markdown_equation_placeholders = soup.select('.markdown-equation')
@@ -263,8 +264,10 @@ def mobile(source_dir, destination_dir, version, lang):
                         )
 
                         soup = BeautifulSoup(html, 'lxml')
-                        all_local_links = soup.select('a[href^="."]')
 
+                        prepare_internal_urls(soup, lang, version)
+
+                        all_local_links = soup.select('a[href^="."]')
                         for link in all_local_links:
                             link_path, md_extension = os.path.splitext(link['href'])
                             link['href'] = _update_link_path(link_path, md_extension)
@@ -349,10 +352,12 @@ def book(source_dir, destination_dir, version, lang):
                                 extensions=MARKDOWN_EXTENSIONS)
 
                             soup = BeautifulSoup(converted_content, 'lxml')
-                            markdown_equation_placeholders = soup.select('.markdown-equation')
 
+                            markdown_equation_placeholders = soup.select('.markdown-equation')
                             for equation in markdown_equation_placeholders:
                                 equation.string = formula_map[equation.get('id')]
+
+                            prepare_internal_urls(soup, lang, version)
 
                             try:
                                 # NOTE: The 6:-7 removes the opening and closing body tag.
@@ -457,7 +462,7 @@ def visualdl(source_dir, destination_dir, version, original_lang):
 ########### End individual content convertors ################
 
 
-def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, version):
+def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, lang, version):
     # Go through each file, and if it is a .html, extract the .document object
     #   contents
     for subdir, dirs, all_files in os.walk(generated_dir):
@@ -499,6 +504,8 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                         with open(new_path) as original_html_file:
                             soup = BeautifulSoup(original_html_file, 'lxml')
 
+                            prepare_internal_urls(soup, lang, version)
+
                             image_links = soup.find_all(
                                 'img', src=re.compile(r'^(?!http).*'))
 
@@ -526,8 +533,10 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                             document = soup.select('div.body')[0]
                         else:
                             document = soup.select('div.document')[0]
+
                         with open(new_path, 'w') as new_html_partial:
                             new_html_partial.write(document.encode("utf-8"))
+
                 elif '_images' in subpath or '.txt' in file or '.json' in file:
                     # Copy to images directory.
                     copyfile(os.path.join(subdir, file), new_path)
@@ -674,14 +683,29 @@ def markdown_file(source_markdown_file, version, tmp_dir, new_path=None):
         os.makedirs(os.path.dirname(new_path))
 
     with open(source_markdown_file) as original_md_file:
-        markdown_body = original_md_file.read()
+        markdown_body = sanitize_markdown(original_md_file.read())
+
+        # Preserve all formula
+        formula_map = {}
+        markdown_body = reserve_formulas(markdown_body, formula_map)
 
         with codecs.open(new_path, 'w', 'utf-8') as new_html_partial:
+            converted_content = markdown.markdown(
+                unicode(markdown_body, 'utf-8'),
+                extensions=MARKDOWN_EXTENSIONS
+            )
+
+            soup = BeautifulSoup(converted_content, 'lxml')
+
+            # Insert the preserved formulas
+            markdown_equation_placeholders = soup.select('.markdown-equation')
+            for equation in markdown_equation_placeholders:
+                equation.string = formula_map[equation.get('id')]
+
             # Strip out the wrapping HTML
             new_html_partial.write(
-                '{% verbatim %}\n' + markdown.markdown(
-                    unicode(markdown_body, 'utf-8'),
-                    extensions=MARKDOWN_EXTENSIONS
+                '{% verbatim %}\n' + unicode(
+                    str(soup.select('body')[0])[6:-7], 'utf-8'
                 ) + '\n{% endverbatim %}'
             )
 
@@ -734,3 +758,23 @@ def _get_new_generated_dir(content_id):
             generated_dir = tempfile.mkdtemp()
 
     return generated_dir
+
+
+def prepare_internal_urls(soup, lang, version):
+    """
+    Replaces references to files in other repos with the "correct" links.
+    """
+    all_internal_links = soup.select('a[repo]')
+
+    for link in all_internal_links:
+        content_id = link['repo'].lower()
+
+        if link['version']:
+            version = link['version']
+
+        link['href'] = url_helper.get_url_path(
+            url_helper.get_page_url_prefix(content_id, lang, version),
+            link['href']
+        )
+
+        del link['repo']
