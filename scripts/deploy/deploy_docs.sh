@@ -5,11 +5,12 @@ DEC_PASSWD=$1
 GITHUB_BRANCH=$2
 SOURCE_DIR=$3
 
-echo "1:($1) 2:($2) 3:($3) 4:($4)"
+echo "Deploy docs: DEC_PASSWD:($1) GITHUB_BRANCH:($2) SOURCE_DIR:($3)"
 
 # Pull PaddlePaddle.org app and run the deploy_documentation command
 PPO_BRANCH=master
 
+echo "Pull PaddlePaddle.org app"
 curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
 unzip $PPO_BRANCH.zip
 cd PaddlePaddle.org-$PPO_BRANCH/portal
@@ -20,7 +21,13 @@ mkdir documentation
 # We need to set this env so the deploy script knows whether or not this
 # is a local development build.
 export ENV=production
+
+echo "executing deploy_documentation"
 python manage.py deploy_documentation --source_dir=$SOURCE_DIR --destination_dir=documentation $GITHUB_BRANCH
+
+echo "Documentation generation completed"
+# Display what documentation will be sync to the server
+ls documentation
 
 # Deploy to remote server by SSH'ing into it.
 openssl aes-256-cbc -d -a -in ../scripts/deploy/content_mgr.pem.enc -out content_mgr.pem -k $DEC_PASSWD
