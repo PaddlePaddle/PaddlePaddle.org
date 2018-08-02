@@ -98,6 +98,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
                 os.path.join(source_dir, 'index_cn.rst')
             )
 
+        print "Use Sphinx comment: sphinx-build -b html -c %s %s %s" % (os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, generated_dir)
         call(['sphinx-build', '-b', 'html', '-c',
             os.path.join(settings.SPHINX_CONFIG_DIR, lang),
             source_dir, generated_dir])
