@@ -114,10 +114,6 @@ VERSIONS = [
 ]
 
 if DEBUG:
-    VERSIONS.append({ 'name': 'develop', 'api': 'Fluid' })
-    VERSIONS.append({ 'name': 'develop_doc', 'api': 'Fluid' })
-
-if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
     ALLOWED_HOSTS = ['.paddlepaddle.org', '.ap-southeast-1.elb.amazonaws.com', '.ap-southeast-1.compute.amazonaws.com']
