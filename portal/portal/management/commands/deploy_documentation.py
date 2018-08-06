@@ -57,6 +57,9 @@ class Command(BaseCommand):
 
             if version in ['0.10.0', '0.11.0']:
                 source_dir = os.path.join(source_dir, 'doc')
+            # This is because we want these versions to only pick v2.
+            elif version in ['0.12.0', '0.13.0']:
+                source_dir = os.path.join(source_dir, 'doc', 'v2')
             else:
                 source_dir = os.path.join(source_dir, 'doc', 'fluid')
 
