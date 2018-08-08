@@ -69,6 +69,15 @@ body
             .version-row
                 float: right
 
+                button.selected-version
+                    background-color: transparent
+                    border-width: 0px
+                    border-radius: 2px
+                    cursor: pointer
+
+                    &:hover
+                        background-color: #ddd
+
                 .dropdown-menu
                     padding: 0px
                     margin: 0px
@@ -78,6 +87,7 @@ body
 
                     .version-api
                         color: #afafaf
+
 
         // BELOW IS THE FIXED VERSION WHICH IS BEING DEPRECATED FOR NOW.
         // .version-switcher
