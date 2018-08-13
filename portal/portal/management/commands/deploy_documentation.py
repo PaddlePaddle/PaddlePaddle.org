@@ -33,8 +33,13 @@ class Command(BaseCommand):
         if content_id == 'api':
             source_dir = os.path.join(source_dir, 'api')
 
-        copyfile(menu_helper._find_menu_in_repo(
-            source_dir, 'menu.json'), menu_path)
+        menu_file_path = menu_helper._find_menu_in_repo(source_dir, 'menu.json')
+
+        if menu_file_path == None:
+            print("""Unable to find menu.json under: %s
+            Try export ENV=production to generate the menu.json file""" % source_dir)
+
+        copyfile(menu_file_path, menu_path)
 
 
     # A command must define handle()

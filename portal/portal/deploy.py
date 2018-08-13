@@ -76,6 +76,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
 
     new_menu = None
 
+    # Set up new_menu to indicate that we need to parse html to create new menu
     if not settings.SUPPORT_MENU_JSON:
         new_menu = { 'sections': [] }
 
@@ -84,7 +85,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
             destination_dir = url_helper.get_full_content_path(
                 'docs', lang, version)[0]
 
-        generated_dir = _get_new_generated_dir(content_id)
+        generated_dir = _get_new_generated_dir(content_id, lang)
 
         if not new_menu:
             _build_sphinx_index_from_menu(menu_path, lang)
@@ -105,6 +106,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
     if new_menu:
         # FORCEFULLY generate for both languages.
         for lang in (['en', 'zh'] if settings.ENV in ['production', 'staging'] else langs):
+            generated_dir = _get_new_generated_dir(content_id, lang)
             with open(os.path.join(generated_dir, 'index_%s.html' % (
                 'cn' if lang == 'zh' else 'en'))) as index_file:
                 navs = BeautifulSoup(index_file, 'lxml').findAll(
@@ -126,6 +128,7 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
         else:
             lang_destination_dir = os.path.join(destination_dir, content_id, lang, version)
 
+        generated_dir = _get_new_generated_dir(content_id, lang)
         strip_sphinx_documentation(
             source_dir, generated_dir, lang_destination_dir, lang, version)
         # shutil.rmtree(generated_dir)
@@ -731,8 +734,12 @@ def reserve_formulas(markdown_body, formula_map, only_reserve_double_dollar=Fals
     return markdown_body
 
 
-def _get_new_generated_dir(content_id):
+def _get_new_generated_dir(content_id, lang=None):
     generated_dir = '/tmp/%s' % content_id
+
+    if lang:
+        generated_dir = generated_dir + '/' + lang
+
     if not os.path.exists(generated_dir):
         try:
             os.mkdir(generated_dir)
