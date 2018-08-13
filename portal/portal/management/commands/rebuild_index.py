@@ -146,7 +146,7 @@ class Command(BaseCommand):
         # And create an index JS file that we can import.
         output_index_js = os.path.join(
             settings.STATICFILES_DIRS[0],
-            'indexes', options['version'][0], 'index.js'
+            'indexes', options['language'][0] ,options['version'][0], 'index.js'
         )
 
         if not os.path.exists(os.path.dirname(output_index_js)):
