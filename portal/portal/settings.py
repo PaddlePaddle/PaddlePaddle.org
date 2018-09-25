@@ -220,3 +220,6 @@ TEMPORARY_DIR = '/tmp/'
 SUPPORT_MENU_JSON = False
 
 SERVER_START_TIME = time.time()
+
+AIRTABLE_API_KEY = os.environ.get('AIRTABLE_API_KEY', None)
+AIRTABLE_CONTACT_URL = 'https://api.airtable.com/v0/appvNpDjW6rUVsDxT/PaddlePaddle.org%20submissions'

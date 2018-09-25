@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^about_en.html', views.about_en, name='about_en'),
     url(r'^about_cn.html', views.about_cn, name='about_cn'),
     url(r'^404.html', views.not_found, name='not_found'),
+    url(r'^contact', views.contact, name='contact'),
 
     # ---------------
     # ACTION URLS
