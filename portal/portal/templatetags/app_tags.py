@@ -117,6 +117,7 @@ def _common_context(context, additional_context):
         'url_helper': context.get('url_helper', None),
         'settings': context.get('settings', None),
         'content_id': context.get('content_id', ''),
+        'lang': context.get('lang', ''),
         'CURRENT_DOCS_VERSION': context.get('CURRENT_DOCS_VERSION', ''),
         'CURRENT_API_VERSION': context.get('CURRENT_API_VERSION', '')
     })

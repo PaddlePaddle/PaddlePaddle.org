@@ -28,36 +28,32 @@ MARKDOWN_EXTENSIONS = [
 
 
 def transform(source_dir, destination_dir, content_id, version, lang=None):
-    try:
-        print 'Processing docs at %s to %s' % (source_dir, destination_dir)
+    print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
-        # Regenerate its contents.
-        if content_id in ['docs', 'api']:
-            # If this is called from the CI, often with no language,
-            # generate API docs too.
-            if settings.ENV in ['production', 'staging']:
-                documentation(
-                    os.path.join(source_dir, 'api'),
-                    destination_dir, 'api', version, lang
-                )
+    # Regenerate its contents.
+    if content_id in ['docs', 'api']:
+        # If this is called from the CI, often with no language,
+        # generate API docs too.
+        if settings.ENV in ['production', 'staging']:
+            documentation(
+                os.path.join(source_dir, 'api'),
+                destination_dir, 'api', version, lang
+            )
 
-            documentation(source_dir, destination_dir, content_id, version, lang)
+        documentation(source_dir, destination_dir, content_id, version, lang)
 
-        elif content_id == 'book':
-            book(source_dir, destination_dir, version, lang)
+    elif content_id == 'book':
+        book(source_dir, destination_dir, version, lang)
 
-        elif content_id == 'models':
-            models(source_dir, destination_dir, version, lang)
+    elif content_id == 'models':
+        models(source_dir, destination_dir, version, lang)
 
-        elif content_id in ['mobile', 'paddle-mobile']:
-            mobile(source_dir, destination_dir, version, lang)
+    elif content_id in ['mobile', 'paddle-mobile']:
+        mobile(source_dir, destination_dir, version, lang)
 
-        elif content_id == 'visualdl':
-            visualdl(source_dir, destination_dir, version, lang)
+    elif content_id == 'visualdl':
+        visualdl(source_dir, destination_dir, version, lang)
 
-    except Exception as e:
-        print 'Unable to process documentation: %s' % e
-        traceback.print_exc(source_dir)
 
 
 ########### Individual content convertors ################

@@ -580,7 +580,7 @@ if __name__ == "__main__":
 
     <!-- Video Modal -->
     <div class="modal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-video" role="document">
             <div class="modal-content">
                 <video controls width="640px" height="360px" id="videoControl">
                     <source id="videoLink" src="https://s3-ap-southeast-1.amazonaws.com/paddlepaddle.org/videos/paddlepaddle%E5%B8%B8%E8%A7%84%E7%89%881080P.mp4"
@@ -594,6 +594,33 @@ if __name__ == "__main__":
     </div>
     {% endif %}
     <!-- End of Video section -->
+
+    <!-- Feedback section: Only in Chinese -->
+    {% if LANGUAGE_CODE == 'zh' %}
+
+    <section class="feedback">
+        <div id="problem_feedback" class="feedback_item">
+            <i class="far fa-edit icon"></i>
+            <a class="alt_txt" href="https://ai.baidu.com/forum/topic/list/168/5" target="_blank">问题反馈</a>
+        </div>
+        <div id="contact_us" class="feedback_item">
+            <i class="far fa-envelope icon"></i>
+            <a class="alt_txt" data-toggle="modal" data-target="#feedbackModal">联系我们</a>
+        </div>
+        <div id="follow_us" class="feedback_item">
+
+            <i class="fas fa-qrcode icon"></i>
+            <a class="alt_txt">关注我们</a>
+        </div>
+        <div class="qr_code">
+            <p>关注PaddlePaddle公众号</p>
+            <p>获取深度学习信息</p>
+            <img src="/static/images/paddlepaddle_qr_code.jpg">
+        </div>
+    </section>
+
+    {% endif %}
+    <!-- End of Feedback section -->
 
 </div>
 
@@ -761,7 +788,48 @@ if __name__ == "__main__":
             $('#resources-bubble').css('top', (-800 + (scroll - resourcesHead.position().top) / 2));
         }
     });
+
     hljs.initHighlightingOnLoad();
+
+    // Make Django (server-side) POST requests safe.
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = $.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
+    // Display the QR code on hover
+    $('#follow_us').hover(function () {
+        var steps = $('.qr_code');
+        steps.addClass('show');
+    },function () {
+        var steps = $('.qr_code');
+        steps.removeClass('show');
+    });
+
 </script>
 
 {% endblock %}

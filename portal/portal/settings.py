@@ -208,9 +208,12 @@ USE_TZ = True
 
 APPEND_SLASH = True
 
+INDEXES_DIR = os.path.join(PAGES_DIR, 'indexes')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'portal/static/'),
     os.path.join(BASE_DIR, 'visualDL/static/'),
+    INDEXES_DIR,
 )
 
 STATIC_ROOT = 'static/'
@@ -221,3 +224,6 @@ TEMPORARY_DIR = '/tmp/'
 SUPPORT_MENU_JSON = False
 
 SERVER_START_TIME = time.time()
+
+AIRTABLE_API_KEY = os.environ.get('AIRTABLE_API_KEY', None)
+AIRTABLE_CONTACT_URL = 'https://api.airtable.com/v0/appvNpDjW6rUVsDxT/PaddlePaddle.org%20submissions'

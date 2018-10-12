@@ -7,27 +7,29 @@ The tutorials here guide you to setup the website locally, so you can see exactl
 
 ## Installation
 
-1. **Download / clone ONLY the relevant repos with content and code that you want to update and test (if you don't already have them):**
+If you are working on improving code documentation (i.e. APIs) and are within a Docker container with PaddlePaddle, perform these steps within the container. You need to do this because the documentation generator for APIs has a dependency on PaddlePaddle.
 
-    (since this repo does not hold the content rendered on website)
+On the other hand, if you are only improving the text/media content (since you don't need an installed or built PaddlePaddle) OR are building PaddlePaddle on your (host) machine, continue on your host machine.
 
-   - [PaddlePaddle](https://github.com/PaddlePaddle/Paddle) (contains all articles AND codebase to render the API documentation)
-   - [Book](https://github.com/PaddlePaddle/book) (contains chapter pages)
-   - [Models](https://github.com/PaddlePaddle/models) (contains the code to build models for different applications, including a few articles)
-   - [Mobile](https://github.com/PaddlePaddle/mobile) (contains articles for building for mobile)
 
-   You can place these anywhere on the computer; at a later step we will tell PaddlePaddle.org where they are.
+1. **Download / clone the documentation repo (the PaddlePaddle.org repo does not contain the content):**
+
+    ```bash
+    git clone --recurse-submodules https://github.com/PaddlePaddle/FluidDoc
+    ```
+
+   You can place this anywhere on the computer; at a later step we will tell PaddlePaddle.org where it is.
 
 
 2. **Pull PaddlePaddle.org into a new directory and install its dependencies.**
 
     But before that, make sure you have Python dependencies installed on your OS. For example, on an Ubuntu, run:
-    ```
+    ```bash
     sudo apt-get update && apt-get install -y python-dev build-essential
     ```
 
     Then,
-    ```
+    ```bash
     git clone https://github.com/PaddlePaddle/PaddlePaddle.org.git
     cd PaddlePaddle.org/portal
 
@@ -40,58 +42,87 @@ The tutorials here guide you to setup the website locally, so you can see exactl
     *Optional: If you plan on translating website content between English and Chinese for improving PaddlePaddle.org, install [GNU gettext](https://www.gnu.org/software/gettext/) too.*
 
 
-3. **Run PaddlePaddle.org locally.**
+3. **Run PaddlePaddle.org (locally or through the Docker container).**
 
-    Pass the list of directories you wish to load and build content from (options include `--paddle`, `--book`, `--models`, and `--mobile`)
-    ```
-    ./runserver --paddle <path_to_paddle_dir> --book <path_to_book_dir>
-    ```
+    Pass the cloned FluidDoc directory:
 
-    *NOTE: In case of the --paddle directory, you may point to the specific API version directory (e.g. `<path to Paddle>/doc/fluid` or `<path to Paddle>v2`).*
+    ```bash
+    ./runserver --paddle <path_to_fluiddoc_dir> --book <path_to_book_dir>
+    ```
 
     Open up your browser and navigate to [http://localhost:8000](http://localhost:8000).
+
+    In the case you were working on the English documentation that depends on content within the `book`, `models`, or `mobile` repositories, you may also pass one or more of the following options:
+
+    ```bash
+    ./runserver --paddle <path_to_fluiddoc_dir> \
+        --book <path_to_fluiddoc_dir>/external/book \
+        --models <path_to_fluiddoc_dir>/external/models \
+        --mobile <path_to_fluiddoc_dir>/external/mobile
+    ```
+
     **NOTE**: *Links may take a few seconds to load the first time around since they are probably being built.*
 
+    **ANOTHER NOTE**: *If you are doing this step through a Docker environment, make sure to map the port 8000 to your host machine*
 
-## Writing new content
 
-All repositories support content contribution formatted as [Markdown](https://guides.github.com/features/mastering-markdown/) (the GitHub flavor). The Paddle repo, where majority of the documentation lies, also supports the [reStructured Text](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) format.
+## Previewing new documentation or updating APIs
+
+All content should be written in [Markdown](https://guides.github.com/features/mastering-markdown/) (the GitHub flavor) (even though there are some legacy pieces of content in `docs` using the `.rst` format).
 
 After you have gone through the installation steps above, here are the steps you need to take:
 
-- Before you start writing, we recommend reviewing these [guidelines on contributing content]().
-- Create a new `.md` (or `.rst`, only in the case of Paddle) file OR edit an existing article's file within the appropriate directory of the repo you are contributing to.
+- Before you start writing, we recommend reviewing these [guidelines on contributing content](https://github.com/PaddlePaddle/PaddlePaddle.org/wiki/Markdown-syntax-guideline).
+
+---
+
+
+### If you are writing new content:
+- Create a new `.md` file OR edit an existing article's file within the appropriate directory of the repo you are contributing to.
+
+
+### If you have updated the API comments and want to preview the updates:
+
+Inside the Docker or host machine where Paddle is to be rebuilt, either:
+-  Run the the script `paddle/scripts/paddle_build.sh` (from the main Paddle repository / codebase).
+
+-  **OR** (if you want control / understanding over the process):
+   - Create a new directory in the `Paddle` repo to build Paddle into. Let's call it `build`, for example.
+   - Within this new directory, run the following `cmake` and `make` commands to build a new PaddlePaddle:
+
+     ```bash
+     cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=ON -DWITH_GPU=OFF -DWITH_MKL=OFF -DWITH_FLUID_ONLY=ON
+
+     # You may replace `nproc` with the number of processor cores your system can offer for the build.
+     make -j `nproc` gen_proto_py framework_py_proto copy_paddle_pybind paddle_python
+     ```
+
+   - Export the environment variable `PYTHONPATH` to include the this new `build` directory (or whatever you named it)
+
+
+Note that if you are using Docker, `paddle_docker_build.sh` rebuilds a new Docker container. This destroys the PaddlePaddle.org installation on that Docker instance, so it is not the suggested way to rebuild your code if you wish to preview documentation.
+
+---
+
 - To view the changes in your browser, click **Refresh Content** on the top-righthand side corner.
-- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
 
 
-## Writing or modifying the Python API
+## Submitting your documentation changes
 
-After you have built your new `pybind` targets, and have tested your new Python API, you can continue with testing how your documentation strings and comments show up:
+If you have made changes to the code, you need to follow the contribution guidelines on the `paddle` repo.
 
-- We recommend reviewing these [guidelines on contributing API documentation]().
-- Make sure that the built Python directory (containing `paddle`) is available in the `PYTHONPATH` of where you are running `./runserver` from.
-- On the specific "API" page you wish to update, click **Refresh Content** on the top-righthand side corner.
-- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
+On the other hand, if you have pure documentation updates:
 
+- If you changed contents in the `doc` folder, you only need to submit a PR to the `FluidDoc` repo.
 
+- On the other hand, if you changed anything in the external folder:
+  - Submit a PR on the repo whose content you have changed. The `FluidDoc` repo is simply a wrapper that houses links (or in git terminology, "sub-modules") to other repos.
+  - After it is approved, change the git sub-module pointer to the new commit from the source repo. For example, say you updated contents of the `book` repo.
+    - Go into the `book` dir.
+    - Checkout the commit on the `book` repo you wish to update to.
+    - And now commit the new changes to the `FluidDoc` repo.
 
-<!---
-## Writing or modifying APIs
-
-There are two kinds of API updates you can make: the Python API for users, and the list of available operators. Before you are ready to test how your documentation strings and comments show, we recommend reviewing these [guidelines on contributing API documentation]().
-
-
-### Python API updates
-
-- On the specific "API" page you wish to update, click **Regenerate** on the top-righthand side corner.
-- To add it to a menu or change its position on the menu, click on the **Edit menu** button at the top of the left-handside menu on the page, to open the menu editor.
-
-
-### Operators updates
-
-If you have added or removed operators, or made changes to their "RDOC", after you build your new `pybind` targets, also build the `operators`
---->
+  - Submit a PR on the `FluidDoc` repo with this change.
 
 
 ## Contributing to improve the tools

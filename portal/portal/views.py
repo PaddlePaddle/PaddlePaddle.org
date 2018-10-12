@@ -18,6 +18,8 @@ import posixpath
 import urllib
 from urlparse import urlparse, parse_qs
 import json
+import datetime
+import pytz
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -29,6 +31,7 @@ from django.template import TemplateDoesNotExist
 from django.core.cache import cache
 from django.http import JsonResponse
 from django import forms
+import requests
 
 from portal import menu_helper, portal_helper, url_helper
 from deploy import transform
@@ -46,8 +49,16 @@ def change_version(request):
 
     path = urlparse(request.META.get('HTTP_REFERER')).path
 
-    if not path == '/':
-        response = _find_matching_equivalent_page_for(path, request, None, version)
+    try:
+        if not path == '/':
+            response = _find_matching_equivalent_page_for(path, request, None, version)
+    except:
+        print("Unable to switch version properly. redirect to home page")
+        content_id, lang, version = url_helper.get_parts_from_url_path(path)
+        if lang == None:
+            lang = 'en'
+
+        response = redirect('/documentation/' + lang)
 
     return response
 
@@ -438,3 +449,45 @@ def old_content_link(request, version=None, is_fluid=None, lang=None, path=None)
 
         latest_path = '/documentation/docs/%s/%s/%s' % (lang, version, path)
         return redirect(latest_path)
+
+
+def search(request):
+    """
+    Placeholder for a search results page that uses local indexes.
+    """
+    return render(request, 'search.html', {
+        'q': request.GET.get('q', ''),
+        'lang': request.GET.get('language', ''),
+        'CURRENT_DOCS_VERSION': request.GET.get('version', ''),
+    })
+
+
+def contact(request):
+    is_personal = request.POST.get('isPersonal', None) == 'true'
+    organization = request.POST.get('organization', None)
+    name = request.POST.get('name', None)
+    phone = request.POST.get('phone', None)
+    email = request.POST.get('email', None)
+    reason = request.POST.get('reason', None)
+
+    # Datetime in Beijing time.
+    beijing_timezone = pytz.timezone('Asia/Shanghai')
+    now = datetime.datetime.now(beijing_timezone)
+
+    # Authenticated POST.
+    requests.post(settings.AIRTABLE_CONTACT_URL, headers = {
+        'Authorization': 'Bearer ' + settings.AIRTABLE_API_KEY,
+        'Content-type': 'application/json'
+    }, data = json.dumps({
+        'fields': {
+            '发送日期': now.isoformat(),
+            '身份类型': '个人' if is_personal else '企业',
+            '企业名称': organization,
+            '联系人': name,
+            '手机号码': phone,
+            '电子邮件': email,
+            '咨询内容': reason
+        }
+    }))
+
+    return JsonResponse({})

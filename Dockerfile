@@ -12,7 +12,7 @@ MAINTAINER Thuan Nguyen
 # Update the default application repository sources list
 RUN apt-get update && apt-get install -y \
     python-setuptools python-dev build-essential python-pip \
-    nginx gettext
+    nginx gettext nodejs
 
 # Create application subdirectories
 WORKDIR /var/www

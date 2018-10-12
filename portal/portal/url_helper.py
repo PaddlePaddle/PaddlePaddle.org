@@ -26,6 +26,7 @@ from django.conf import settings, urls
 # 3. content_path: '<workspace path on disk>/pages/documentation/docs/en/0.11.0'
 # 4. file_path: 'getstarted/install_en.rst' or 'getstarted/install_en.md'
 # 5. page_path: 'getstarted/install_en.html'
+# 6. content_root_path: '/documentation/docs'
 
 
 def get_raw_page_path_from_html(url_path):
@@ -69,3 +70,7 @@ def get_full_content_path(content_id, lang, version):
     """
     url_prefix = get_page_url_prefix(content_id, lang, version)
     return '%s/%s' % (settings.PAGES_DIR, url_prefix), url_prefix
+
+
+def get_content_root_path(content_id):
+    return '/documentation/%s' % content_id

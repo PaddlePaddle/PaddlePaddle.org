@@ -46,6 +46,114 @@
             {% endblock %}
             </div>
         {% endblock %}
+
+        <div class="modal" id="feedbackModal" tabindex="-2" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-form" role="document">
+                <div class="modal-content">
+                    <div id="feedback-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">联系我们</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>留下您的联系方式，我们将与您联系</p>
+                            <form id="feedback_form">
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>身份类型:
+                                    </label>
+                                    <div class="radio col-lg-3">
+                                        <input class="form-check-input" type="radio" name="type" id="individual"
+                                               value="individual" checked>
+                                        <label class="form-check-label" for="individual">个人</label></div>
+                                    <div class="radio col-lg-3">
+                                        <input class="form-check-input" type="radio" name="type" id="enterprise"
+                                               value="enterprise">
+                                        <label class="form-check-label" for="enterprise">企业</label>
+                                    </div>
+                                </div>
+                                <div class="row" id="company-input">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>企业名称:
+                                    </label>
+                                    <div class="col-lg-9 form-group">
+                                        <input type="text" class="form-control" id="company" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>联系人:
+                                    </label>
+                                    <div class="col-lg-9 form-group">
+                                        <input type="text" class="form-control" id="name" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>手机号码:
+                                    </label>
+                                    <div class="col-lg-9 form-group">
+                                        <input type="number" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>电子邮件:
+                                    </label>
+                                    <div class="col-lg-9 form-group">
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="required-label">*</span>咨询内容:
+                                    </label>
+                                    <div class="col-lg-9 form-group">
+                                    <textarea class="form-control" rows="4" id="comment"
+                                              placeholder="请在此简单描述您的问题" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="col-lg-3"></span>
+                                    <div class="col-lg-9">
+                                        <button id="submit" class="btn selected" type="submit">提交</button>
+                                        <button id="cancel" class="btn cancel-btn" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <p class="col-lg-12">您也可以通过邮箱联系我们:
+                                    <a href="mailto:paddle-better@baidu.com" target="_top">paddle-better@baidu.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="feedback-result" class="hide">
+                        <div class="modal-body">
+                            <h2 class="modal-title"></h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="submit-success"><i class="fas fa-check"></i></div>
+                            <h4 class="">Success</h4>
+                            <br/><br/><br/><br/><br/>
+
+                            <div class="row">
+                                <p class="col">温馨提醒</p>
+                            </div>
+                            <p>1. 如产品使用中遇到问题，欢迎你前往<a href="https://ai.baidu.com/forum/topic/list/168" target="_">
+                                社区 </a>交流
+                            </p>
+                            <p>2. 你可以点击<a href="http://ai.baidu.com/paddlepaddle/caselist" target="_">这里</a>，获取更多
+                                PaddlePaddle 工业应用案例</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% if settings.ENV != 'production' and settings.ENV != 'staging' %}
         {% include '_full_page_spinner.html' %}
         {% endif %}
@@ -59,25 +167,124 @@
 
         <!-- Setup search -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-        <script src="//twitter.github.com/typeahead.js/releases/latest/typeahead.jquery.js"></script>
+        <script src="//twitter.github.com/typeahead.js/releases/latest/typeahead.jquery.min.js"></script>
+
         <script src="/static/js/lunr.js"></script>
         <script src="/static/indexes/{{ lang }}/{{ CURRENT_DOCS_VERSION }}/index.js"></script>
+        <script src="/static/indexes/{{ lang }}/{{ CURRENT_DOCS_VERSION }}/toc.js"></script>
         <script>
 
-        var idx = lunr(function () {
-            this.ref('path');
-            this.field('title', { boost: 10 });
-            this.field('content');
+        // This form submits a contact form to the internal contact requests store.
+        var submitContactForm = function(isPersonal, organization, name, phone, email, reason){
+        // Send to server-side.
+        return $.post('/contact', {
+            isPersonal: isPersonal,
+            organization: organization,
+            name: name,
+            phone: phone,
+            email: email,
+            reason: reason
+            });
+        };
 
-            index.forEach(function(item){
-                this.add(item);
-            }.bind(this));
+        // Reset the feedback form
+        $('#feedbackModal').on('show.bs.modal', function (e) {
+
+            if ($('input[name="type"]:checked').val() === 'individual'){
+                $('#company-input').addClass('hide');
+                $('#company').prop('required', false);
+            } else {
+                $('#company-input').removeClass('hide');
+                $('#company').prop('required', true);
+            }
+
+            $('#feedback-content').removeClass('hide');
+            $('#feedback-result').addClass('hide');
+        })
+
+        // Hide the 'company' field for individual
+        $('input[type=radio][name=type]').on('change', function() {
+             switch($(this).val()) {
+                 case 'individual':
+                    $('#company-input').addClass('hide');
+                    $('#company').prop('required', false);
+
+                    break;
+                 case 'enterprise':
+                    $('#company-input').removeClass('hide');
+                    $('#company').prop('required', true);
+
+                    break;
+             }
         });
 
-        var indexPathMap = {};
-        index.forEach((item) => {
-            indexPathMap[item.path] = item;
+        $('#feedback_form').submit(function(e) {
+            var form = $(this);
+
+            var isPersonal = form.find('#individual').is(':checked');
+            var company = form.find('#company').val();
+            if (isPersonal) {
+                company = '-'
+            }
+            var name = form.find('#name').val();
+            var phone = form.find('#phone').val();
+            var email = form.find('#email').val();
+            var comment = form.find('#comment').val();
+
+            // Submit the result to the airtable
+            var result = submitContactForm(isPersonal, company, name, phone, email, comment);
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            // Hide the feedback form and show the success message
+            $('#feedback-content').addClass('hide');
+            $('#feedback-result').removeClass('hide');
         });
+
+        var idx = lunr.Index.load(index),
+
+            // Based on this answer: https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode/11415841.
+            chineseCutter = function(q){
+                var cutQuery = '';
+
+                var i, characterCode, isChineseCharacter;
+                for (i = 0; i < q.length; i++){
+                    // If this character is in Chinese, add a space after.
+                    // And before it as long as the preceding character is not already a space.
+                    characterCode = q.charCodeAt(i);
+
+                    isChineseCharacter = (
+                        // CJK Unified Ideographs block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm
+                        characterCode > 19968 && characterCode <= 40943) || (
+
+                        // CJKUI Ext A block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_a/index.htm.
+                        characterCode > 13312 && characterCode <= 19893) || (
+
+                        // NOTE: The following ranges are not accounted for because it runs out of UTF-16 range.
+                        // Need to eventually figure out a better plan.
+                        // CJKUI Ext B block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/index.htm
+                        // CJKUI Ext C block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_c/index.htm
+                        // CJKUI Ext D block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_d/index.htm
+                        characterCode > 55360);
+
+                    if (isChineseCharacter){
+                        if (cutQuery.substring(cutQuery.length - 1) !== ' ')
+                            cutQuery += ' ';
+
+                        cutQuery += q[i] + ' ';
+
+                    } else {
+                        cutQuery += q[i];
+                    }
+                }
+
+                return cutQuery.trim();
+            },
+
+            getSearchQuery = function(q){
+                var cutQuery = {% if lang == 'zh' %}chineseCutter(q){% else %}q{% endif %};
+                return '"' + cutQuery + '"~1' + ' *' + cutQuery + '* ' + cutQuery;
+            };
 
         $('input[type="search"]').typeahead({
               hint: false,
@@ -85,17 +292,18 @@
               minLength: 1
             },
             {
-              limit: 8,
+              limit: 10,
               name: 'pages',
+              async: false,
               source: function(query, sync, async){
-                  sync(idx.search('*' + query + '* ' + query).map((result) => {
+                  sync(idx.search(getSearchQuery(query)).map((result) => {
                       item = indexPathMap[result.ref];
 
-                      var apiPath = '/api/';
+                      var apiPath = '/documentation/api/';
                       if (item.path.substring(0, apiPath.length) === apiPath)
                         item.isAPI = true;
 
-                      var modelsPath = '/models/';
+                      var modelsPath = '/documentation/models/';
                       if (item.path.substring(0, modelsPath.length) === modelsPath)
                         item.isModels = true;
 
@@ -110,7 +318,15 @@
                         '<div class="title col-10">{{#if prefix}}<span class="prefix">{{prefix}}.</span>{{/if}}{{title}}</div>') + (
                         '<div class="type col-2 d-flex"><div class="align-self-center">{{#if isAPI}}API{{else if isModels}}Model{{else}}Doc{{/if}}</div></div>') + (
                       '</div>')
-                  )
+                  ),
+                  notFound: Handlebars.compile(
+                      '<div class="row no-results"><div class=\'title col-10\'>No results found for \'{{query}}\'</div></div>'
+                  ),
+                  footer: Handlebars.compile(
+                      '<div class="row footer"><div class=\'title col-10\'>' + (
+                          '<input type=\'submit\' value=\'Show more results for "{{query}}"\' />') + (
+                      '</div></div>')
+                  ),
                   {% endverbatim %}
               }
         }).bind('typeahead:select', function(ev, suggestion) {
@@ -119,8 +335,10 @@
         // Prevent an action on "enter" only when a search result isn't in focus.
         }).keypress(function(ev){
             var keyCode = (ev.keyCode ? ev.keyCode : ev.which);
-            if (keyCode === 13)
-                ev.preventDefault();
+
+            // Temporarily allow enters for server-side like search.
+            // if (keyCode === 13)
+            //     ev.preventDefault();
         });
         </script>
 

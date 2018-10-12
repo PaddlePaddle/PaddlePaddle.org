@@ -59,3 +59,100 @@ input:focus, select:focus, textarea:focus, button:focus
         right: 0
         z-index: 1020
         overflow: auto
+
+.modal
+    .modal-dialog-form
+
+        p
+            text-align: center
+            color: #999
+            font-size: 16px
+
+        .required-label
+            color: red
+            margin-right: 2px
+
+        .radio
+            padding-top: 5px
+
+        .row
+            margin-top: 12px
+            margin-bottom: 12px
+
+            &.hide
+                display: none
+
+        .form-group
+            padding-right: 25px
+
+        .form-check-input
+            margin-left: 0px
+
+        label
+            padding-left: 25px
+
+        h3
+            text-align: center
+            width: 100%
+
+        .btn
+            border-radius: 25px
+            height: 50px
+            margin: 10px
+            cursor: pointer
+            width: 43%
+            border: solid $accent-color 1px
+            color: $accent-color
+            font-size: $font-xlarge
+            background: transparent
+
+            &.selected
+                background: linear-gradient(to left, #5a9bff, $accent-color)
+                border: none
+                color: white
+
+                &:hover
+                    background: linear-gradient(to left, $accent-color, $accent-color)
+
+        .cancel-btn
+            color: #999
+            border-color: #999
+
+            &:hover
+                color: $primary-text-color
+                border: 1px solid $primary-text-color
+                background-color: transparent
+
+        #feedback-content
+            &.hide
+                display: none
+
+        #feedback-result
+
+            &.hide
+                display: none
+
+            h4
+                font-size: 28px
+                color: $dodger-blue
+                text-align: center
+
+            p
+                text-align: left
+                margin-left: 25px
+                font-size: 18px
+
+            .submit-success
+                width: 150px
+                height: 150px
+                border-radius: 75px
+                background: linear-gradient(to right, $accent-color, #5a9bff)
+                position: relative
+                line-height: 150px
+                text-align: center
+                margin-bottom: 20px
+                margin-left: auto
+                margin-right: auto
+                margin-top: 100px
+                color: white
+                font-size: 60px

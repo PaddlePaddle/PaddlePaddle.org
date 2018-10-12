@@ -16,8 +16,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <form action="{% url 'content' 'api/en/develop/search.html' %}" class="form-inline">
+            <form action="{% url 'search' %}" class="form-inline">
                 <input class="form-control mr-sm-2 typeahead" type="search" name="q" placeholder="Search PaddlePaddle.org" />
+                <input type="hidden" name="version" value="{{ CURRENT_DOCS_VERSION }}"/>
+                <input type="hidden" name="language" value="{{ lang }}"/>
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item{% if '/documentation' in request.path %} active{% endif %}">
@@ -27,6 +29,13 @@
                 <li>
                     <a class="nav-link" href="/about_{% if LANGUAGE_CODE != 'zh' %}en{% else %}cn{% endif %}.html">{% trans "About" %}</a>
                 </li>
+
+                <!-- Contact us for Chinese version only -->
+                {% if LANGUAGE_CODE == 'zh' %}
+                <li>
+                    <a class="nav-link" data-toggle="modal" data-target="#feedbackModal">联系我们</a>
+                </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav">
                 <li>

@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^about_en.html', views.about_en, name='about_en'),
     url(r'^about_cn.html', views.about_cn, name='about_cn'),
     url(r'^404.html', views.not_found, name='not_found'),
+    url(r'^contact', views.contact, name='contact'),
 
     # ---------------
     # ACTION URLS
@@ -79,6 +80,8 @@ urlpatterns = [
     # Old content url format.
     url(r'^docs/(?P<version>(?!/).*)/documentation/(?P<is_fluid>fluid/)?(?P<lang>zh|en)/(?P<path>.*)$', views.old_content_link,
         name='old_content_link'),
+    url(r'^search$', views.search, name='search'),
+
 
     # HAS TO BE KEPT IN THE END, because it picks everything.
     url(r'^(?P<path>.*)$', views.content_sub_path, name='content'),

@@ -497,6 +497,34 @@ span.twitter-typeahead .tt-menu
     // Bad way to account for paddings.
     width: 98%
 
+    .row
+        &.footer, &.no-results
+            padding: 4px 0px
+            margin: 0
+            overflow: hidden
+
+        &.no-results
+            opacity: 0.5
+            font-weight: bold
+            cursor: default
+
+        &.footer
+            margin-top: 8px
+
+            input
+                color: $home-link
+                background: none
+                border: 0
+                cursor: pointer
+                padding: 0
+
+                &:hover
+                    color: $home-link-hover
+
+            &:hover
+                background-color: #f5f5f5
+
+
 .dropdown-menu, span.twitter-typeahead .tt-menu
     position: absolute
     top: 100%

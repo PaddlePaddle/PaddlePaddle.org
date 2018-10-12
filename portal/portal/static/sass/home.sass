@@ -1,833 +1,896 @@
 @import "_variables.sass"
 
 .home
-  font-family: $primary-font-family
+    font-family: $primary-font-family
 
-  h1
-    font-size: $font-xxlarge
-
-  h2
-    font-size: $font-xlarge
-
-  h3
-    font-size: $font-medium
-
-
-  h2, h3
-    text-align: center
-
-
-  hr
-    display: block
-
-  p
-    font-size: $font-small
-    font-weight: 100
-    color: #666
-    margin: 0px
-
-  .btn
-    height: 78px
-    border-radius: 39px
-    border: solid $accent-color 1px
-    color: $accent-color
-    font-size: $font-xlarge
-    background: transparent
-
-    &:hover
-      border: none
-      color: white
-      background: $accent-color
-
-    &.selected
-      background: linear-gradient(to left, #5a9bff, $accent-color)
-      border: none
-      color: white
-
-      &:hover
-        background: $accent-color
-
-
-
-  .banner
-    height: 100vh
-    min-height: 800px
-    background: linear-gradient(40deg, rgba(59, 133, 245, 0.2), transparent)
-    padding-top: 25vh
-    position: relative
-    overflow: hidden
-    margin-bottom: -60px   //60px is the height of top nav bar
-
-    .content
-      display: inline-block
-      position: absolute
-      top: 0
-      right: 0
-
-    .tag-line
-      color: black
-      padding-top: $home-line-spacing * 3
-      margin-bottom: $home-line-spacing * 2
-
-    p
-      color: black
-      margin-bottom: $home-line-spacing * 2
-      text-align: left
-      font-size: $font-medium
-      line-height: 30px
-
-    .btn
-      margin-right: 20px
-      margin-bottom: 20px
-      max-width: 400px
-      cursor: pointer
-
-    .arch
-      width: 1170px
-      height: 1170px
-      border-radius: 50%
-      position: absolute
-      border: 3px solid #e5eff9
-      z-index: -1
-
-    .arch-1
-      left: -500px
-      top: -800px
-    .arch-2
-      left: -500px
-      top: 450px
-    .arch-3
-      left: 800px
-      top: -300px
-
-    .dot-area
-      display: none
-      right: 40px
-      bottom: 30px + 60px //60px is the height of top nav bar
-      position: absolute
-      z-index: -1
-
-    .dot-group
-      text-align: right
-
-    .dot
-      background: $accent-color
-      width: 18px
-      height: 18px
-      border-radius: 50%
-      display: inline-block
-      margin-left: 6px
-      margin-top: 4px
-
-    .br
-      display: none
-
-  .models
-    background: linear-gradient(to bottom left, #ffffff, #c6dbfc)
-    position: relative
-    overflow: hidden
-    width: 100%
-    height: auto
-    padding-bottom: 32px
-
-    h2
-      color: #888888
-
-    .six-dots
-      text-align: center
-
-    .dot
-      height: 10px
-      width: 10px
-      background-color: #f7f7f7
-      border-radius: 50%
-      display: inline-block
-
-    .models-slogan
-      margin-top: 64px
-      margin-bottom: 48px
-
-    .model-icon
-      background-color: #3095ff
-      border-radius: 75px
-      height: 150px
-      width: 150px
-      margin-top: 25px
-      margin-left: 40px
-      margin-right: 15px
-
-    .model-intro
-      line-height: 24px
-      text-align: left
-      padding-top: 30px
-      padding-left: 0px
-
-      h3
-        text-align: left
-        padding-bottom: 5px
-        font-weight: bold
-
-      p
-        padding-bottom: 5px
-        height: 76px
-
-      .learn-more
-        font-size: $font-large
-        text-align: right
-        padding-right: 30px
-        padding-top: 5px
-
-        a
-          color: #5a9bff
-
-          &:hover
-            color: #3b85f5
-
-
-    // 6 models in 2 columns
-    .model-row
-      height: 200px
-      margin: 0 10px 40px 10px
-
-    .model-cell
-      border-radius: 100px
-      border: 1px solid #498ffa
-      height: 200px
-
-    .arch
-      width: 800px
-      height: 800px
-      border-radius: 50%
-      position: absolute
-      bottom: -750px
-      border: 3px solid #cfe1fc
-
-    .arch-1
-      left: -200px
-    .arch-2
-      left: -50px
-    .arch-3
-      left: 100px
-    .arch-4
-      left: 250px
-    .arch-5
-      left: 400px
-    .arch-6
-      left: 550px
-    .arch-7
-      left: 700px
-    .arch-8
-      left: 850px
-    .arch-9
-      left: 1000px
-    .arch-10
-      left: 1150px
-
-  .services
-    background-color: transparent
-    .sub-title
-      text-align: center
-      color: #666
-
-    h2
-      margin-top: $home-line-spacing * 2
-
-    p
-      padding: $home-line-spacing 0 $home-line-spacing 0
-
-    .sub-title
-      padding: 0
-
-    .service-row
-      padding: 8$home-line-spacing 0 $home-line-spacing 0
-      .service-desc
-        position: relative
-        top: 50%
-        transform: translateY(-50%)
-        left: 0
-
-      text-align: left
-      top: 50%
-
-    .service-icon
-      text-align: center
-      max-width: 100%
-      max-height: 100%
-      margin-bottom: $home-line-spacing
-
-  .service-desc
-    h3
-      text-align: left
-
-  .installation-guide
-    padding: 20px
-    background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
-
-    h2
-      text-align: left
-      color: #888888
-
-    p
-      color: #888888
-
-    a
-      color: #597cf1
-
-    code
-      font-size: 18px
-      color: #fff
-
-    .row
-      margin-top: 12px
-      margin-bottom: 12px
-
-    .disable
-      pointer-events: none
-      opacity: 0.2
-
-    .install-option
-      display: inline-block
-      color: $accent-color
-      background-color: transparent
-      border: solid $accent-color 1px
-      text-align: center
-      font-size: 21px
-      border-radius: 28px
-      padding: 12px
-      width: 100%
-      min-height: 56px
-      cursor: pointer
-      transition: all .15s ease-in-out
-
-      .cuda-caption
-        font-size: 12px
-        line-height: 10px
-        opacity: 0.5
-
-      .cuda-title
-        font-size: 16px
-
-      &:hover
-        color: #fff
-        background-color: $accent-color
-
-      &.selected
-        color: #fff
-        background: linear-gradient(to right, $accent-color, #5a9bff)
-        border-color: transparent
-
-    .other-install
-      float: right
-
-    .terminal
-      background-color: black
-      border-radius: 5px
-      overflow: hidden
-      margin-top: 12px
-      margin-bottom: 12px
-      padding-bottom: 12px
-      height: calc(100% - 24px)
-
-      p
-        float: left
-        margin-left: 20px
-        margin-right: 20px
-        font-size: 21px
-        color: $accent-color
-        height: 80px
-
-      .terminal-bar
-        background-color: rgba(59, 133, 245, 0.75)
-        height: 26px
-        margin-bottom: 10px
-
-  // step-1-2-3: quick start
-  .step-1-2-3
-    h2
-      margin-top: 20px
-
-    .step-button
-      display: inline-block
-      color: $accent-color
-      background-color: transparent
-      border: solid $accent-color 1px
-      text-align: left
-      font-size: 21px
-      border-radius: 28px
-      padding: 12px
-      padding-left: 34px
-      width: 100%
-      min-height: 56px
-      cursor: pointer
-      transition: all .15s ease-in-out
-
-      &:hover
-        color: #fff
-        background-color: $accent-color
-
-      &.selected
-        color: #fff
-        background: linear-gradient(to right, $accent-color, #5a9bff)
-        border-color: transparent
-
-    .code-panel
-      background-color: #f7f7f7
-      border-radius: 5px
-      overflow: hidden
-      margin-top: 12px
-      margin-bottom: 12px
-      min-height: 600px
-
-      code
-        font-size: 12px
-        color: black
-        -webkit-transition: opacity 600ms, visibility 600ms
-        transition: opacity 600ms, visibility 600ms
-
-      .left-bar
-        background-color: green
-
-      .step-code
-        display: none
-
-      .show
-        opacity: 0.5
-        display: unset
-        opacity: 1
-
-      .in-focus
-        opacity: 1
-        display: unset
-
-      p
-        float: left
-        margin-left: 20px
-        margin-right: 20px
-        font-size: 21px
-        color: $accent-color
-
-      .code-panel-bar
-        background-color: rgba(59, 133, 245, 0.75)
-        height: 26px
-        margin-bottom: 10px
-
-
-
-      .code-panel-left-decoration
-        width: 5px
-        color: $accent-color
-
-  .features
-    padding-bottom: $home-line-spacing * 2
-    background: #f7f7f7
-    position: relative
-    overflow: hidden
-
-    .col-lg-3
-      width: 50%
-      padding: 8px
-
-    h2
-      margin-top: $home-line-spacing * 2
-
-    h3
-      margin: $home-line-spacing 0 $home-line-spacing 0
-      font-weight: bold
-      text-transform: uppercase
-
-    p
-      text-align: center
-
-    .feature-icon
-      width: 150px
-      height: 150px
-      border-radius: 75px
-      background: linear-gradient(to right, $accent-color, #5a9bff)
-      position: relative
-      line-height: 150px
-      text-align: center
-      margin-bottom: 20px
-      margin-left: auto
-      margin-right: auto
-      margin-top: 10px
-
-      h3
-        color: #fff
-        display: inline-block
-        vertical-align: middle
-        line-height: normal
-        width: 90%
-
-    .feature-desc
-      display: inline-block
-      height: 100%
-      width: 100%
-      padding: 8px
-      margin: 8px
-      background-color: transparent
-
-    .bubble-background
-      width: 1500px
-      height: 1500px
-      border-radius: 750px
-      background: #f2f2f2
-      position: absolute
-      left: -700px
-      top: -700px
-
-  .resources-guide
-    padding: 20px
-    position: relative
-    overflow: hidden
-
-    h2
-      color: #888888
-      margin-top: 50px
-      margin-bottom: 50px
-
-    a
-      color: black
-
-    h3
-      margin: 10px
-      margin-top: -5px
-      font-weight: bold
-
-    p
-      width: 90%
-      margin: auto
-      text-align: center
-      color: black
-
-    .row
-      margin-top: 12px
-      margin-bottom: 12px
-      text-align: center
-
-    .bubble-background
-      width: 1400px
-      height: 1400px
-      border-radius: 750px
-      background: #f7f7f7
-      position: absolute
-      right: -500px
-      top: -800px
-
-    .resource-cell
-      display: inline-block
-      padding: 16px
-      text-align: center
-      border-radius: 163px
-      border-color: $accent-color
-      margin: 8px
-      border-radius: 163px
-      border: 1px solid #498ffa
-      transition: all .15s ease-in-out
-
-      svg
-        width: 75px
-        height: 75px
-        stroke: black
-        fill: black
-
-      &:hover
-        background-color: $accent-color
-        color: #fff
-
-        p
-          color: #fff
-
-        img
-          color: #fff
-
-        svg
-          stroke: white
-          fill: white
-
-  .video
-    background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
-    position: relative
-
-    .previous-video, .next-video
-      top: 45%
-      position: absolute
-      display: none
-      cursor: pointer
-
-    .previous-video
-      transform: rotate(180deg)
-      left: 20px
-
-    .next-video
-      right: 20px
-
-    &:hover
-      .previous-video, .next-video
-        display: block
-
-    .big-img
-      height: 550px
-      width: 550px
-
-    .video-cell
-      display: block
-      padding: 16px
-      margin-top: auto
-      margin-bottom: auto
-      top: 0px
-      bottom: 0px
-      text-align: center
-      right: 0px
-
-      h2
-        margin-left: auto
-        margin-right: auto
-
-      p
-        max-width: 400px
-        margin-left: auto
-        margin-right: auto
-        min-height: 54px
-
-      .watch-now
-        margin-top: 20px
-        padding: 12px
-        width: 200px
-        height: 60px
-        border-radius: 30px
-        background: linear-gradient(to left, #5a9bff, $accent-color)
-        color: white
-        border: 0px
-        cursor: pointer
-
-        .triangle-right
-          width: 0px
-          height: 0px
-          border-top: 10px solid transparent
-          border-left: 20px solid white
-          border-bottom: 10px solid transparent
-          margin-left: 30px
-          float: left
-
-  .modal-dialog
-    max-width: 640px
-    display: -ms-flexbox
-    display: flex
-    -ms-flex-align: center
-    align-items: center
-    top: calc(50% - 180px)
-
-  code
-    padding: 0
-    padding-top: 0.2em
-    padding-bottom: 0.2em
-    margin: 0
-    background-color: rgba(0, 0, 0, 0.04)
-    border-radius: 3px
-    font-family: $code-font-family
-    color: #E74C3C
-    overflow-x: auto
-
-
-  pre
-    white-space: pre
-    padding: 24px
-    padding-top: 0px
-    overflow: auto
-    line-height: 1.45
-    background-color: #f7f7f7
-    border-radius: 3px
-    word-wrap: normal
-    margin-top: 0
-    margin-bottom: 0
-    color: #292b2c
-
-    > code
-      padding: 0
-      margin: 0
-      font-size: 100%
-      word-break: normal
-      white-space: pre
-      background: transparent
-      font-family: $code-font-family
-      border: 0
-
-    code
-      display: inline
-      max-width: auto
-      padding: 0
-      margin: 0
-      overflow: visible
-      line-height: inherit
-      word-wrap: normal
-      background-color: transparent
-      border: 0
-      font-family: $code-font-family
-      color: #292b2c
-
-      &::before, &::after
-        content: normal
-
-    .hljs-comment
-      color: #7f7f7f
-
-  strong
-    font-weight: bold
-
-  em
-    font-style: italic
-
-.home-doc-mode
-  h1, h2, h3
-    text-align: center
-
-  a, a:visited, a:hover
-    color: $accent-color
-
-  .btn-container
-    width: 100%
-    padding: 8px
-
-  .btn
-    width: 100%
-    border-color: black
-
-@media (max-width: 991px)
-  .home
-    .models
-      .model-right-column
-        display: none
-
-  .home
-    .big-img
-      display: none
-
-    .video-cell
-      width: 100%
-      height: auto
-      border: 0px
-
-      h2
-        margin-bottom: 20px
-
-    .resource-cell
-      width: 266px
-      height: 266px
-
-    .video
-      .previous-video, .next-video
-        position: relative
-        display: block
-        margin: auto
-        left: 0px
-
-        img
-          display: block
-          margin: auto
-          transform: rotate(90deg)
-          height: 52px
-
-@media (min-width: 992px)
-  .home
     h1
-      font-size: $font-xxxlarge
+        font-size: $font-xxlarge
 
     h2
-      font-size: $font-xxlarge
-
-    h3
-      font-size: $font-xlarge
-
-    h2, h3
-      text-align: center
-
-    hr
-      display: none
-
-    p
-      font-size: $font-medium
-      font-weight: 100
-      color: #666
-      margin: 0px
-
-    .banner
-      p
         font-size: $font-xlarge
 
-      .dot-area
-        display: inline
+    h3
+        font-size: $font-medium
 
-      .br
-        display: inline
 
+    h2, h3
+        text-align: center
+
+
+    hr
+        display: block
+
+    p
+        font-size: $font-small
+        font-weight: 100
+        color: #666
+        margin: 0px
+
+    .btn
+        height: 78px
+        border-radius: 39px
+        border: solid $accent-color 1px
+        color: $accent-color
+        font-size: $font-xlarge
+        background: transparent
+
+        &:hover
+            border: none
+            color: white
+            background: $accent-color
+
+        &.selected
+            background: linear-gradient(to left, #5a9bff, $accent-color)
+            border: none
+            color: white
+
+            &:hover
+                background: linear-gradient(to left, $accent-color, $accent-color)
+
+    .banner
+        height: 100vh
+        min-height: 800px
+        background: linear-gradient(40deg, rgba(59, 133, 245, 0.2), transparent)
+        padding-top: 25vh
+        position: relative
+        overflow: hidden
+        margin-bottom: -60px     //60px is the height of top nav bar
+
+        .content
+            display: inline-block
+            position: absolute
+            top: 0
+            right: 0
+
+        .tag-line
+            color: black
+            padding-top: $home-line-spacing * 3
+            margin-bottom: $home-line-spacing * 2
+
+        p
+            color: black
+            margin-bottom: $home-line-spacing * 2
+            text-align: left
+            font-size: $font-medium
+            line-height: 30px
+
+        .btn
+            margin-right: 20px
+            margin-bottom: 20px
+            max-width: 400px
+            cursor: pointer
+
+        .arch
+            width: 1170px
+            height: 1170px
+            border-radius: 50%
+            position: absolute
+            border: 3px solid #e5eff9
+            z-index: -1
+
+        .arch-1
+            left: -500px
+            top: -800px
+        .arch-2
+            left: -500px
+            top: 450px
+        .arch-3
+            left: 800px
+            top: -300px
+
+        .dot-area
+            display: none
+            right: 40px
+            bottom: 30px + 60px //60px is the height of top nav bar
+            position: absolute
+            z-index: -1
+
+        .dot-group
+            text-align: right
+
+        .dot
+            background: $accent-color
+            width: 18px
+            height: 18px
+            border-radius: 50%
+            display: inline-block
+            margin-left: 6px
+            margin-top: 4px
+
+        .br
+            display: none
+
+    .models
+        background: linear-gradient(to bottom left, #ffffff, #c6dbfc)
+        position: relative
+        overflow: hidden
+        width: 100%
+        height: auto
+        padding-bottom: 32px
+
+        h2
+            color: #888888
+
+        .six-dots
+            text-align: center
+
+        .dot
+            height: 10px
+            width: 10px
+            background-color: #f7f7f7
+            border-radius: 50%
+            display: inline-block
+
+        .models-slogan
+            margin-top: 64px
+            margin-bottom: 48px
+
+        .model-icon
+            background-color: #3095ff
+            border-radius: 75px
+            height: 150px
+            width: 150px
+            margin-top: 25px
+            margin-left: 40px
+            margin-right: 15px
+
+        .model-intro
+            line-height: 24px
+            text-align: left
+            padding-top: 30px
+            padding-left: 0px
+
+            h3
+                text-align: left
+                padding-bottom: 5px
+                font-weight: bold
+
+            p
+                padding-bottom: 5px
+                height: 76px
+
+            .learn-more
+                font-size: $font-large
+                text-align: right
+                padding-right: 30px
+                padding-top: 5px
+
+                a
+                    color: #5a9bff
+
+                    &:hover
+                        color: #3b85f5
+
+
+        // 6 models in 2 columns
+        .model-row
+            height: 200px
+            margin: 0 10px 40px 10px
+
+        .model-cell
+            border-radius: 100px
+            border: 1px solid #498ffa
+            height: 200px
+
+        .arch
+            width: 800px
+            height: 800px
+            border-radius: 50%
+            position: absolute
+            bottom: -750px
+            border: 3px solid #cfe1fc
+
+        .arch-1
+            left: -200px
+        .arch-2
+            left: -50px
+        .arch-3
+            left: 100px
+        .arch-4
+            left: 250px
+        .arch-5
+            left: 400px
+        .arch-6
+            left: 550px
+        .arch-7
+            left: 700px
+        .arch-8
+            left: 850px
+        .arch-9
+            left: 1000px
+        .arch-10
+            left: 1150px
 
     .services
-      background-color: #f4f5f7
+        background-color: transparent
+        .sub-title
+            text-align: center
+            color: #666
 
-      h2
-        margin-top: $home-line-spacing * 4
+        h2
+            margin-top: $home-line-spacing * 2
 
-      .sub-title
-        padding: $home-line-spacing 0 0 0
+        p
+            padding: $home-line-spacing 0 $home-line-spacing 0
 
-      .service-row
-        padding: $home-line-spacing 0 $home-line-spacing 0
+        .sub-title
+            padding: 0
+
+        .service-row
+            padding: 8$home-line-spacing 0 $home-line-spacing 0
+            .service-desc
+                position: relative
+                top: 50%
+                transform: translateY(-50%)
+                left: 0
+
+            text-align: left
+            top: 50%
+
+        .service-icon
+            text-align: center
+            max-width: 100%
+            max-height: 100%
+            margin-bottom: $home-line-spacing
+
+    .service-desc
+        h3
+            text-align: left
+
+    .installation-guide
+        padding: 20px
+        background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
+
+        h2
+            text-align: left
+            color: #888888
+
+        p
+            color: #888888
+
+        a
+            color: #597cf1
+
+        code
+            font-size: 18px
+            color: #fff
+
+        .row
+            margin-top: 12px
+            margin-bottom: 12px
+
+        .disable
+            pointer-events: none
+            opacity: 0.2
+
+        .install-option
+            display: inline-block
+            color: $accent-color
+            background-color: transparent
+            border: solid $accent-color 1px
+            text-align: center
+            font-size: 21px
+            border-radius: 28px
+            padding: 12px
+            width: 100%
+            min-height: 56px
+            cursor: pointer
+            transition: all .15s ease-in-out
+
+            .cuda-caption
+                font-size: 12px
+                line-height: 10px
+                opacity: 0.5
+
+            .cuda-title
+                font-size: 16px
+
+            &:hover
+                color: #fff
+                background-color: $accent-color
+
+            &.selected
+                color: #fff
+                background: linear-gradient(to right, $accent-color, #5a9bff)
+                border-color: transparent
+
+        .other-install
+            float: right
+
+        .terminal
+            background-color: black
+            border-radius: 5px
+            overflow: hidden
+            margin-top: 12px
+            margin-bottom: 12px
+            padding-bottom: 12px
+            height: calc(100% - 24px)
+
+            p
+                float: left
+                margin-left: 20px
+                margin-right: 20px
+                font-size: 21px
+                color: $accent-color
+                height: 80px
+
+            .terminal-bar
+                background-color: rgba(59, 133, 245, 0.75)
+                height: 26px
+                margin-bottom: 10px
+
+    // step-1-2-3: quick start
+    .step-1-2-3
+        h2
+            margin-top: 20px
+
+        .step-button
+            display: inline-block
+            color: $accent-color
+            background-color: transparent
+            border: solid $accent-color 1px
+            text-align: left
+            font-size: 21px
+            border-radius: 28px
+            padding: 12px
+            padding-left: 34px
+            width: 100%
+            min-height: 56px
+            cursor: pointer
+            transition: all .15s ease-in-out
+
+            &:hover
+                color: #fff
+                background-color: $accent-color
+
+            &.selected
+                color: #fff
+                background: linear-gradient(to right, $accent-color, #5a9bff)
+                border-color: transparent
+
+        .code-panel
+            background-color: #f7f7f7
+            border-radius: 5px
+            overflow: hidden
+            margin-top: 12px
+            margin-bottom: 12px
+            min-height: 600px
+
+            code
+                font-size: 12px
+                color: black
+                -webkit-transition: opacity 600ms, visibility 600ms
+                transition: opacity 600ms, visibility 600ms
+
+            .left-bar
+                background-color: green
+
+            .step-code
+                display: none
+
+            .show
+                opacity: 0.5
+                display: unset
+                opacity: 1
+
+            .in-focus
+                opacity: 1
+                display: unset
+
+            p
+                float: left
+                margin-left: 20px
+                margin-right: 20px
+                font-size: 21px
+                color: $accent-color
+
+            .code-panel-bar
+                background-color: rgba(59, 133, 245, 0.75)
+                height: 26px
+                margin-bottom: 10px
+
+
+
+            .code-panel-left-decoration
+                width: 5px
+                color: $accent-color
 
     .features
-      h2
-        margin-top: $home-line-spacing * 4
-        margin-bottom: $home-line-spacing * 2
+        padding-bottom: $home-line-spacing * 2
+        background: #f7f7f7
+        position: relative
+        overflow: hidden
 
-      .feature-icon
-        margin-top: 60px
+        .col-lg-3
+            width: 50%
+            padding: 8px
 
-    .resource-cell
-      width: 326px
-      height: 326px
-
-    .big-img
-      margin-top: 40px
-      margin-bottom: 40px
-
-    .video-cell
-      position: absolute
-      width: 530px
-      height: 530px
-      border-radius: 50%
-      background-color: rgba(255, 255,255, 0.5)
-      border: 1px solid #498ffa
-
-      h2
-        margin-top: 120px
-        margin-left: auto
-        margin-right: auto
-        margin-bottom: 30px
-        max-width: 400px
-
-      .watch-now
-        position: absolute
-        bottom: 90px
-        margin: auto
-        left: 0px
-        right: 0px
-
-@media (max-width: 1200px)
-  .home
-    .models
-      .col-lg-7
-        flex: 0 0 100%
-        max-width: 100%
-
-      .model-icon
-        display: none
-
-      .model-intro
-        padding-left: 10%
-        padding-right: 10%
+        h2
+            margin-top: $home-line-spacing * 2
 
         h3
-          font-size: $font-xlarge
-          text-align: center
+            margin: $home-line-spacing 0 $home-line-spacing 0
+            font-weight: bold
+            text-transform: uppercase
 
-      p
-        font-size: 20px
+        p
+            text-align: center
+
+        .feature-icon
+            width: 150px
+            height: 150px
+            border-radius: 75px
+            background: linear-gradient(to right, $accent-color, #5a9bff)
+            position: relative
+            line-height: 150px
+            text-align: center
+            margin-bottom: 20px
+            margin-left: auto
+            margin-right: auto
+            margin-top: 10px
+
+            h3
+                color: #fff
+                display: inline-block
+                vertical-align: middle
+                line-height: normal
+                width: 90%
+
+        .feature-desc
+            display: inline-block
+            height: 100%
+            width: 100%
+            padding: 8px
+            margin: 8px
+            background-color: transparent
+
+        .bubble-background
+            width: 1500px
+            height: 1500px
+            border-radius: 750px
+            background: #f2f2f2
+            position: absolute
+            left: -700px
+            top: -700px
+
+    .resources-guide
+        padding: 20px
+        position: relative
+        overflow: hidden
+
+        h2
+            color: #888888
+            margin-top: 50px
+            margin-bottom: 50px
+
+        a
+            color: black
+
+        h3
+            margin: 10px
+            margin-top: -5px
+            font-weight: bold
+
+        p
+            width: 90%
+            margin: auto
+            text-align: center
+            color: black
+
+        .row
+            margin-top: 12px
+            margin-bottom: 12px
+            text-align: center
+
+        .bubble-background
+            width: 1400px
+            height: 1400px
+            border-radius: 750px
+            background: #f7f7f7
+            position: absolute
+            right: -500px
+            top: -800px
+
+        .resource-cell
+            display: inline-block
+            padding: 16px
+            text-align: center
+            border-radius: 163px
+            border-color: $accent-color
+            margin: 8px
+            border-radius: 163px
+            border: 1px solid #498ffa
+            transition: all .15s ease-in-out
+
+            svg
+                width: 75px
+                height: 75px
+                stroke: black
+                fill: black
+
+            &:hover
+                background-color: $accent-color
+                color: #fff
+
+                p
+                    color: #fff
+
+                img
+                    color: #fff
+
+                svg
+                    stroke: white
+                    fill: white
+
+    .video
+        background: linear-gradient(40deg, #ffffff, rgba(59, 133, 245, 0.3))
+        position: relative
+
+        .previous-video, .next-video
+            top: 45%
+            position: absolute
+            display: none
+            cursor: pointer
+
+        .previous-video
+            transform: rotate(180deg)
+            left: 20px
+
+        .next-video
+            right: 20px
+
+        &:hover
+            .previous-video, .next-video
+                display: block
+
+        .big-img
+            height: 550px
+            width: 550px
+
+        .video-cell
+            display: block
+            padding: 16px
+            margin-top: auto
+            margin-bottom: auto
+            top: 0px
+            bottom: 0px
+            text-align: center
+            right: 0px
+
+            h2
+                margin-left: auto
+                margin-right: auto
+
+            p
+                max-width: 400px
+                margin-left: auto
+                margin-right: auto
+                min-height: 54px
+
+            .watch-now
+                margin-top: 20px
+                padding: 12px
+                width: 200px
+                height: 60px
+                border-radius: 30px
+                background: linear-gradient(to left, #5a9bff, $accent-color)
+                color: white
+                border: 0px
+                cursor: pointer
+
+                .triangle-right
+                    width: 0px
+                    height: 0px
+                    border-top: 10px solid transparent
+                    border-left: 20px solid white
+                    border-bottom: 10px solid transparent
+                    margin-left: 30px
+                    float: left
+
+    .feedback
+        height: 120px
+        width: 40px
+        background: #5a9bff
+        color: white
+        right: 0px
+        top: 45%
+        position: fixed
+
+        .qr_code
+            position: relative
+            right: 160px
+            top: -186px
+            width: 150px
+            padding-top: 10px
+            background: black
+            opacity: 0
+            transition: all .15s ease-in-out
+
+            p
+                font-size: 12px
+                text-align: center
+
+            img
+                height: 120px
+                width: 120px
+                margin: 15px
+
+        .show
+            opacity: 1
+
+        .feedback_item
+            position: relative
+            height: 40px
+
+        .icon
+            position: absolute
+            top: 0
+            bottom: 0
+            right: 0
+            left: 0
+            text-align: center
+            display: inline-block
+            line-height: 40px
+
+            &:hover
+                opacity: 0
+
+        .alt_txt
+            position: absolute
+            top: 0
+            bottom: 0
+            right: 0
+            left: 0
+            text-align: center
+            color: #fff
+            font-size: small
+            opacity: 0
+            padding: 1px
+            background: transparent
+
+            &:hover
+                opacity: 1
+                background: $accent-color
+
+    .modal-dialog-video
+        max-width: 640px
+        display: -ms-flexbox
+        display: flex
+        -ms-flex-align: center
+        align-items: center
+        top: calc(50% - 180px)
+
+    code
+        padding: 0
+        padding-top: 0.2em
+        padding-bottom: 0.2em
+        margin: 0
+        background-color: rgba(0, 0, 0, 0.04)
+        border-radius: 3px
+        font-family: $code-font-family
+        color: #E74C3C
+        overflow-x: auto
+
+
+    pre
+        white-space: pre
+        padding: 24px
+        padding-top: 0px
+        overflow: auto
+        line-height: 1.45
+        background-color: #f7f7f7
+        border-radius: 3px
+        word-wrap: normal
+        margin-top: 0
+        margin-bottom: 0
+        color: #292b2c
+
+        > code
+            padding: 0
+            margin: 0
+            font-size: 100%
+            word-break: normal
+            white-space: pre
+            background: transparent
+            font-family: $code-font-family
+            border: 0
+
+        code
+            display: inline
+            max-width: auto
+            padding: 0
+            margin: 0
+            overflow: visible
+            line-height: inherit
+            word-wrap: normal
+            background-color: transparent
+            border: 0
+            font-family: $code-font-family
+            color: #292b2c
+
+            &::before, &::after
+                content: normal
+
+        .hljs-comment
+            color: #7f7f7f
+
+    strong
+        font-weight: bold
+
+    em
+        font-style: italic
+
+.home-doc-mode
+    h1, h2, h3
+        text-align: center
+
+    a, a:visited, a:hover
+        color: $accent-color
+
+    .btn-container
+        width: 100%
+        padding: 8px
+
+    .btn
+        width: 100%
+        border-color: black
+
+@media (max-width: 991px)
+    .home
+        .models
+            .model-right-column
+                display: none
+
+    .home
+        .big-img
+            display: none
+
+        .video-cell
+            width: 100%
+            height: auto
+            border: 0px
+
+            h2
+                margin-bottom: 20px
+
+        .resource-cell
+            width: 266px
+            height: 266px
+
+        .video
+            .previous-video, .next-video
+                position: relative
+                display: block
+                margin: auto
+                left: 0px
+
+                img
+                    display: block
+                    margin: auto
+                    transform: rotate(90deg)
+                    height: 52px
+
+@media (min-width: 992px)
+    .home
+        h1
+            font-size: $font-xxxlarge
+
+        h2
+            font-size: $font-xxlarge
+
+        h3
+            font-size: $font-xlarge
+
+        h2, h3
+            text-align: center
+
+        hr
+            display: none
+
+        p
+            font-size: $font-medium
+            font-weight: 100
+            color: #666
+            margin: 0px
+
+        .banner
+            p
+                font-size: $font-xlarge
+
+            .dot-area
+                display: inline
+
+            .br
+                display: inline
+
+
+        .services
+            background-color: #f4f5f7
+
+            h2
+                margin-top: $home-line-spacing * 4
+
+            .sub-title
+                padding: $home-line-spacing 0 0 0
+
+            .service-row
+                padding: $home-line-spacing 0 $home-line-spacing 0
+
+        .features
+            h2
+                margin-top: $home-line-spacing * 4
+                margin-bottom: $home-line-spacing * 2
+
+            .feature-icon
+                margin-top: 60px
+
+        .resource-cell
+            width: 326px
+            height: 326px
+
+        .big-img
+            margin-top: 40px
+            margin-bottom: 40px
+
+        .video-cell
+            position: absolute
+            width: 530px
+            height: 530px
+            border-radius: 50%
+            background-color: rgba(255, 255,255, 0.5)
+            border: 1px solid #498ffa
+
+            h2
+                margin-top: 120px
+                margin-left: auto
+                margin-right: auto
+                margin-bottom: 30px
+                max-width: 400px
+
+            .watch-now
+                position: absolute
+                bottom: 90px
+                margin: auto
+                left: 0px
+                right: 0px
+
+@media (max-width: 1200px)
+    .home
+        .models
+            .col-lg-7
+                flex: 0 0 100%
+                max-width: 100%
+
+            .model-icon
+                display: none
+
+            .model-intro
+                padding-left: 10%
+                padding-right: 10%
+
+                h3
+                    font-size: $font-xlarge
+                    text-align: center
+
+            p
+                font-size: 20px

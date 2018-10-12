@@ -152,7 +152,10 @@ def get_menu(content_id, lang, version):
                     # cache.set(get_all_links_cache_key(version, language), menu['all_links_cache'], None)
 
             except Exception as e:
-                print 'Cannot load menu from file %s: %s' % (menu_path, e.message)
+                raise IOError(
+                    'Cannot load menu from file %s: %s' % (menu_path, e.message),
+                    menu_path
+                )
 
     return menu, menu_path
 
@@ -211,19 +214,33 @@ def get_content_navigation(request, content_id, language, version):
         content_id = side_navigation_item['path'][1:]
 
         try:
-            transformed_menu = _transform_section_urls(
-                get_menu(content_id, language, version)[0],
-                url_helper.get_page_url_prefix(content_id, language, version),
-                content_id
-            )
+            try:
+                transformed_menu = _transform_section_urls(
+                    get_menu(content_id, language, version)[0],
+                    url_helper.get_page_url_prefix(content_id, language, version),
+                    content_id
+                )
 
-            if index > 0:
-                navigation['sections'].append({
-                    'title': side_navigation_item['title'],
-                    'sections': transformed_menu
-                })
-            else:
-                navigation['sections'] = transformed_menu
+                if index > 0:
+                    navigation['sections'].append({
+                        'title': side_navigation_item['title'],
+                        'sections': transformed_menu
+                    })
+                else:
+                    navigation['sections'] = transformed_menu
+
+            except Exception, e:
+                # When we are unable to local the menu.json, we want to provide a link for users to click and generate
+                # the documentations (ex: api),
+                if type(e) == IOError:
+                    navigation['sections'].append({
+                        'title': side_navigation_item['title'],
+                        'link': {
+                            'en': url_helper.get_content_root_path(content_id),
+                            'zh': url_helper.get_content_root_path(content_id)
+                        }
+                    })
+
         except:
             # Since we re-arrange the models, mobile folders. We now need to guard against them.
             navigation['sections'].append({
@@ -242,8 +259,7 @@ def _get_menu_path(menu_filename, content_id):
     Get the menu path to the current version and language.
     """
     repo_path = find_in_top_level_navigation('/' + content_id)
-
-    if os.path.basename(repo_path['dir']).lower() == 'paddle':
+    if os.path.basename(repo_path['dir'].rstrip('/')).lower() in ['paddle', 'fluiddoc']:
         # HACK: To support multiple API versions.
         repo_path['dir'] = os.path.join(repo_path['dir'], 'doc', 'fluid')
 

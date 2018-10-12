@@ -96,7 +96,7 @@ language = 'zh_CN'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', '**/*_en*', '*_en*', 'api/*', '**/*hidden.*']
+exclude_patterns = ['_build', '**/*_en*', '*_en*', 'api/*', '**/*hidden.*', '**/*.en*', '*.en*', ]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

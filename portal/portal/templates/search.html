@@ -1,0 +1,189 @@
+{% extends "_base_nav.html" %}
+{% load app_tags %}
+
+{% block head %}
+{{ block.super }}
+<link href="/static/stylesheets/search.css?{% server_start_time %}" media="screen, projection" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="search container doc-content">
+    <h2>Search for "{{ q }}"</h2>
+    <div id='search-results'>
+    <div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script>
+    var pagesCache = {}, pagesToFetch;
+    var getSnippetFromHTML;
+
+    var queueResultRendering = function(urlToFetch, path, data){
+        // If this is a response from the server.
+        var fetchedAll;
+
+        if (data){
+            pagesToFetch[path] = getSnippetFromHTML(data);
+
+            fetchedAll = true;
+            for (var pageToFetch in pagesToFetch){
+                if (typeof(pagesToFetch[pageToFetch]) === 'object'){
+                    if (pagesToFetch[pageToFetch].url === urlToFetch){
+                        pagesToFetch[pageToFetch] = pagesToFetch[path];
+
+                    } else fetchedAll = false;
+                }
+            }
+
+            pagesCache[urlToFetch] = data;
+
+        } else {
+            fetchedAll = false;
+            pagesToFetch[path] = { url: urlToFetch };
+        }
+
+        if (fetchedAll){
+            for (var pageToFetch in pagesToFetch){
+                document.querySelector('a[href="' + pageToFetch + '"]').parentNode.querySelector(
+                    '.search-result-description').innerHTML = pagesToFetch[pageToFetch];
+            }
+        }
+    }
+
+    function render(){
+        // First, get lunr search results from the extracted query word from the URL.
+        var search = document.location.search.substring(1),
+            keyValue, keyValues = {}, query, pageNumber,
+            searchResultsEl = document.getElementById('search-results');
+
+        pagesToFetch = {};
+
+        search.split('&').forEach((searchPiece) => {
+            keyValue = searchPiece.split('=');
+            keyValues[keyValue[0]] = keyValue[1];
+        });
+
+        // This is a template for the search result.
+        {% verbatim %}
+        var searchItemTemplate = Handlebars.compile(
+            '<div class="search-result mb-5">' + (
+              '<a href="{{path}}">{{title}}</a>') + (
+              '<div class="search-result-url mb-2">' + document.location.origin + '{{path}}</div>') + (
+              '<div class="search-result-description">{{{description}}}</div>') + (
+            '</div>')
+        );
+        {% endverbatim %}
+
+        // This renders the search result to a string that can be inserted into the DOM.
+        var renderSearchItem = function(result){
+            // Fetch the contents of this page async-ly.
+            var indexOfHash = result.path.indexOf('#'),
+                urlToFetch = (indexOfHash === -1 ? result.path : result.path.substring(0, indexOfHash)) + '?raw=1';
+
+            if (pagesCache.hasOwnProperty(urlToFetch)){
+                if (pagesCache[urlToFetch])
+                    result.description = getSnippetFromHTML(pagesCache[urlToFetch]);
+                else
+                    queueResultRendering(urlToFetch, result.path);
+
+            } else {
+                pagesCache[urlToFetch] = null;
+
+                $.get(urlToFetch).done(function(data){
+                    queueResultRendering(urlToFetch, result.path, data);
+                });
+            }
+
+            return searchItemTemplate(result);
+        };
+
+        // This finds the best snippet from the text.
+        getSnippetFromHTML = function(data){
+            var newHiddenDocumentBody = document.createElement('div');
+            newHiddenDocumentBody.className = 'hidden-doc-content';
+
+            var re = /<img.*?src=(.*?)>/g;
+
+            newHiddenDocumentBody.innerHTML = data.replace(re, '');
+
+            // Try to find the query text in the document.
+            var rawText = newHiddenDocumentBody.innerText,
+                indexOfQuery = rawText.toLowerCase().indexOf(query);
+
+            if (indexOfQuery !== -1){
+                var snippetToShow;
+
+                if (indexOfQuery > 100){
+                    snippetToShow = rawText.substring(indexOfQuery - 100, indexOfQuery + 100);
+                    indexOfQuery = 100;
+
+                } else snippetToShow = rawText.substring(0, 200);
+
+                return (indexOfQuery > 100 ? '&hellip;' : '') + snippetToShow.substring(0, indexOfQuery) + '<strong>' + snippetToShow.substring(
+                    indexOfQuery, indexOfQuery + query.length) + '</strong>' + snippetToShow.substring(indexOfQuery + query.length) + '&hellip;';
+            }
+
+            return rawText.substring(0, 200) + '&hellip;';
+        }
+
+        var constructURLForPage = function(pageNumber){
+            var newURL = /*window.location.origin + */window.location.pathname, keysAdded = 0;
+
+            keyValues['page'] = pageNumber;
+
+            for (var key in keyValues){
+                newURL += (keysAdded ? '&' : '?') + key + '=' + keyValues[key];
+                keysAdded++;
+            }
+
+            return newURL;
+        }
+
+        window.onPageClick = function(target){
+            window.history.pushState({}, 'Page ' + target.innerText, target.href);
+            event.preventDefault();
+
+            render();
+        }
+
+        if (keyValues.hasOwnProperty('q')){
+            query = decodeURIComponent(keyValues['q']).replace('+', ' ');
+            pageNumber = parseInt(keyValues['page'], 10) || 1;
+
+            var renderedResults = [], results = idx.search(getSearchQuery(query)),
+                resultRange = results.slice((pageNumber - 1) * 10, ((pageNumber - 1) * 10) + 10);
+
+            resultRange.map((result) => {
+                renderedResults.push(renderSearchItem(indexPathMap[result.ref]));
+            });
+
+            if (renderedResults.length > 0){
+                var resultsHTML = renderedResults.join('\n');
+
+                if (results.length > 10){
+                    resultsHTML += '<div class="search-pagination">';
+
+                    var i;
+                    for (i = 1; i <= Math.ceil(results.length / 10); i++){
+                        resultsHTML += '<a onclick="window.onPageClick(this)" class="search-pagination-number' + (i === pageNumber ? ' current' : '') + '" href="' + constructURLForPage(i) + '">' + i + '</a>';
+                    }
+
+                    resultsHTML += '</div>';
+                }
+
+                searchResultsEl.innerHTML = resultsHTML;
+
+            } else
+                searchResultsEl.innerHTML = '<div class="search-empty mb-4">No results found for "' + query + '". Try searching for something else.</div>'
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    render();
+
+</script>
+{% endblock %}

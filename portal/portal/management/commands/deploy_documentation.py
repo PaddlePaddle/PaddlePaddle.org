@@ -5,6 +5,7 @@ from django.core.management import BaseCommand
 
 from portal.deploy import transform
 from portal import menu_helper, url_helper
+from .utils import sanitize_version
 
 
 # The class must be named Command, and subclass BaseCommand
@@ -44,12 +45,7 @@ class Command(BaseCommand):
     # A command must define handle()
     def handle(self, *args, **options):
         # Determine version.
-        version = options['version'][0] if 'version' in options else None
-
-        if version[0] == 'v':
-            version = version[1:]
-        elif version.startswith('release/'):
-            version = version[8:]
+        version = sanitize_version(options['version'][0]) if 'version' in options else None
 
         # Determine the content_id from the source_dir.
         source_dir = options['source_dir'].rstrip('/')

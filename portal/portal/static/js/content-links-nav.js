@@ -26,7 +26,7 @@ var ContentLinksNav = {
                 jqLink = $(this);
                 url = jqLink.attr('href');
 
-                if (!url.startsWith('#')) {
+                if (!url.startsWith('#') && !url.endsWith('/api') && !url.endsWith('/book') && !url.endsWith('/models') && !url.endsWith('/mobile')) {
                     if (url != document.location.href) {
                         if (history.pushState) {
                             window.history.pushState(url, document.title, url);
