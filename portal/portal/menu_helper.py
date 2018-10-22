@@ -214,42 +214,41 @@ def get_content_navigation(request, content_id, language, version):
         content_id = side_navigation_item['path'][1:]
 
         try:
-            try:
-                transformed_menu = _transform_section_urls(
-                    get_menu(content_id, language, version)[0],
-                    url_helper.get_page_url_prefix(content_id, language, version),
-                    content_id
-                )
+            transformed_menu = _transform_section_urls(
+                get_menu(content_id, language, version)[0],
+                url_helper.get_page_url_prefix(content_id, language, version),
+                content_id
+            )
 
-                if index > 0:
-                    navigation['sections'].append({
-                        'title': side_navigation_item['title'],
-                        'sections': transformed_menu
-                    })
-                else:
-                    navigation['sections'] = transformed_menu
+            if index > 0:
+                navigation['sections'].append({
+                    'title': side_navigation_item['title'],
+                    'sections': transformed_menu
+                })
+            else:
+                navigation['sections'] = transformed_menu
 
-            except Exception, e:
-                # When we are unable to local the menu.json, we want to provide a link for users to click and generate
-                # the documentations (ex: api),
-                if type(e) == IOError:
-                    navigation['sections'].append({
-                        'title': side_navigation_item['title'],
-                        'link': {
-                            'en': url_helper.get_content_root_path(content_id),
-                            'zh': url_helper.get_content_root_path(content_id)
-                        }
-                    })
+        except Exception, e:
+            # When we are unable to local the menu.json, we want to provide a link for users to click and generate
+            # the documentations (ex: api),
+            if type(e) == IOError:
+                navigation['sections'].append({
+                    'title': side_navigation_item['title'],
+                    'link': {
+                        'en': url_helper.get_content_root_path(content_id),
+                        'zh': url_helper.get_content_root_path(content_id)
+                    }
+                })
+            else:
+                # Since we re-arrange the models, mobile folders. We now need to guard against them.
+                navigation['sections'].append({
+                    'title': side_navigation_item['title'],
+                    'link': {
+                        'en': '/' + url_helper.get_page_url_prefix(content_id, language, version) + '/README.html',
+                        'zh': '/' + url_helper.get_page_url_prefix(content_id, language, version) + '/README.html'
+                    }
+                })
 
-        except:
-            # Since we re-arrange the models, mobile folders. We now need to guard against them.
-            navigation['sections'].append({
-                'title': side_navigation_item['title'],
-                'link': {
-                    'en': '/' + url_helper.get_page_url_prefix(content_id, language, version) + '/README.html',
-                    'zh': '/' + url_helper.get_page_url_prefix(content_id, language, version) + '/README.html'
-                }
-            })
 
     return navigation
 
