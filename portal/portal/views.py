@@ -83,7 +83,7 @@ def change_lang(request):
     elif path in ['/documentation/models', '/documentation/mobile']:
         # There is no information on lang and version. The only way is to redirect to the documentation home
         response = redirect('/documentation/%s' % lang)
-    elif not path in ['/', '/en', '/zh']:
+    elif not path in ['/', '/en', '/zh', '/solutions']:
         # If not for homepage, its regular documentations.
         response = _find_matching_equivalent_page_for(path, request, lang)
     else:
@@ -357,7 +357,7 @@ def zh_home_root(request):
     portal_helper.set_preferred_language(request, None, 'zh')
     return render(request, 'index.html')
 
-def pps_root(request):
+def solutions_root(request):
     portal_helper.set_preferred_language(request, None, 'zh')
     return render(request, 'pps.html')
 
