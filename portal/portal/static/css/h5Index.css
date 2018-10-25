@@ -47,7 +47,7 @@ img{
 	background-size: 100% 100%;
 }
 .logo{
-    margin: 1.8rem 0.75rem auto auto;
+    margin: 1.8rem 0.75rem 0.2rem auto;
 	width: 1.41rem;
 	height: 0.36rem;
 }
@@ -93,6 +93,7 @@ img{
 .GDTopbg{
 	width: 100%;
     margin-top: 1rem;
+    margin-left: -0.15rem;
 	height: 4.82rem;
     background-image: url(../images/huangpu/cenBG2.png);
     background-size:100% 100%;
