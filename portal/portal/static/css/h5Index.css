@@ -47,7 +47,7 @@ img{
 	background-size: 100% 100%;
 }
 .logo{
-    margin: 1.5rem 0.75rem auto auto;
+    margin: 1.8rem 0.75rem auto auto;
 	width: 1.41rem;
 	height: 0.36rem;
 }
@@ -82,10 +82,11 @@ img{
 	display: inline-block;
     margin: 0.5rem auto auto 0rem;
 }
-.time{
+.timeImg{
 	width: 0.76rem;
 	height: 3.87rem;
 	display: inline-block;
+	background-image: url();
     margin: 0rem 0rem 0.5rem 0.2rem;
 }
 /*第二页*/
@@ -166,7 +167,7 @@ img{
     position: relative;
     background-image: url(../images/huangpu/pathBG.png);
     background-size: 100% 100%;
-    margin: 2rem auto 0;
+    margin: 0.5rem auto 0;
     width: 3.89rem;
     height: 3.41rem;
 }
