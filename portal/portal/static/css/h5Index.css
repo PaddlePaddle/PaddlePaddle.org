@@ -42,36 +42,25 @@ img{
 }
 /*第一页*/
 .content>div{
-	/*background-color: #021358;*/
 	background-image: url(../images/huangpu/bg_03.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 .logo{
-	/*position: absolute;
-	top:1.5rem;
-	right:0.74rem;*/
-    margin-top: 1.5rem;
-    margin-right: 0.75rem;
-    margin-left: auto;
+    margin: 1.5rem 0.75rem auto auto;
 	width: 1.41rem;
 	height: 0.36rem;
 }
 .hpjx{
-	/*position: absolute;
-	top:2rem;
-	right:0.75rem;*/
     margin-right: 0.75rem;
     margin-left: auto;
 	width: 3.27rem;
 	height: 0.77rem;
 }
 .text{
-	position: absolute;
-	top:2.85rem;
-	right:0.78rem;
 	width: 4.3rem;
 	height: auto;
+	margin: 0.2rem 0.78rem auto auto;
 }
 .text p{
 	font:0.24rem 黑体;
@@ -88,18 +77,16 @@ img{
 	margin-left: 1.15rem;
 }
 .timeBg{
-	position: absolute;
-	left:0;
-	bottom: 1.45rem;
 	width: 5.64rem;
 	height: 5.92rem;
+	display: inline-block;
+    margin: 0.5rem auto auto 0rem;
 }
 .time{
-	position: absolute;
-	right:0.56rem;
-	bottom: 2.35rem;
 	width: 0.76rem;
 	height: 3.87rem;
+	display: inline-block;
+    margin: 0rem 0rem 0.5rem 0.2rem;
 }
 /*第二页*/
 .GDTopbg{
