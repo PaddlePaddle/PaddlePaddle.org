@@ -327,7 +327,7 @@ def book(source_dir, destination_dir, version, lang):
             # Avoid parsing PaddlePaddle.org folder
             if 'PaddlePaddle.org' in subdir:
                 continue
-                
+
             for file in all_files:
                 subpath = os.path.join(subdir, file)[len(
                     source_dir):]
@@ -733,6 +733,8 @@ def markdown_file(source_markdown_file, version, tmp_dir, new_path=None):
 def reserve_formulas(markdown_body, formula_map, only_reserve_double_dollar=False):
     """
     Store the math formulas to formula_map before markdown conversion
+    Sometimes, there will be markdown-like syntax in math functions and MathJax will get confused.
+    Therefore, system will preserve math functions first so they can be converted properly later.
     """
     place_holder = '<span class="markdown-equation" id="equation-%s"></span>'
 
@@ -742,19 +744,44 @@ def reserve_formulas(markdown_body, formula_map, only_reserve_double_dollar=Fals
     math = []
     for i in range(len(markdown_body_list)):
         body = markdown_body_list[i].strip(' ')
-#         if body.startswith('`') and body.endswith('`'):
-#             continue
 
-#         if only_reserve_double_dollar:
-#             m = re.findall('(\$\$[^\$]+\$\$)', body)
-#         else:
-#             m = re.findall('(\$\$?[^\$]+\$?\$)', body)
-            
+        # There's 2 main scenarios we want to account for (in line with
+        #     the MathJax rendering config):
+        # 1. Math wrapped on new-lines. e.g. $$ equation $$
+        # 2. Math wrapped inline within. e.g. $ equation $
+
         if only_reserve_double_dollar:
             m = re.findall('(\`?\$\$[^\$\n]+\$\$\`?)', body)
         else:
-            m = re.findall('(\`?\$\$?[^\$\n]+\$?\$\`?)', body)
-        math += m
+            # In the case of inline math, we wish to prevent matching
+            # anything that is in a code block with begins and ends with ` `.
+
+            # That's because code blocks have a tendency to have variables,
+            # which could start with $, thus accidentally matching our math.
+
+            # For example, think of a line of documentation that reads:
+            # `echo $PWD; echo $VAR` uses $ equation $, changing `printenv`
+
+            # In this case, we wish to match "$ equation $", but not "$PWD; echo $".
+
+            # To avoid this, we first catch all the contents wrapped with ` `,
+            # thus effectively ignoring them when catching math within $ $
+            # within the same lookup.
+            matches = re.findall('(\`[^\n\`]+\`)|(\$\$?[^\$\n]+\$?\$)', body)
+
+            # This loop up yields tuples of length 2, with each of the values
+            # corresponding to the subpattern it matched from the regex pattern.
+
+            # On our example from above, we get the following matches:
+            # [('`echo $PWD; echo $VAR`', ''), ('', '$ equation $'), ('`printenv`', '')]
+
+            # Thus we ignore all matches of the code blocks, and preserve all
+            # math found outside it.
+            matches = [
+                match[1] for match in matches if (not len(match[0]) and match[1])
+            ]
+
+        math += matches
 
     for i in xrange(len(math)):
         formula_map['equation-' + str(i)] = math[i].strip('`')
