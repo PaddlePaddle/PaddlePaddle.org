@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <form action="{% url 'search' %}" class="form-inline">
-                <input class="form-control mr-sm-2 typeahead" type="search" name="q" placeholder="Search PaddlePaddle.org" />
+                <input class="form-control mr-sm-2 typeahead" type="search" name="q" placeholder="Search PaddlePaddle.org"  autocomplete="off" />
                 <input type="hidden" name="version" value="{{ CURRENT_DOCS_VERSION }}"/>
                 <input type="hidden" name="language" value="{{ lang }}"/>
             </form>

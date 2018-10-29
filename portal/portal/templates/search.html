@@ -53,7 +53,7 @@
         }
     }
 
-    function render(){
+    Search.renderPage = function(idx, getSearchQuery){
         // First, get lunr search results from the extracted query word from the URL.
         var search = document.location.search.substring(1),
             keyValue, keyValues = {}, query, pageNumber,
@@ -182,8 +182,6 @@
 
         window.scrollTo(0, 0);
     }
-
-    render();
 
 </script>
 {% endblock %}

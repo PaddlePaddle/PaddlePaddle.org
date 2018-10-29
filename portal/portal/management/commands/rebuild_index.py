@@ -5,7 +5,6 @@ import math
 from subprocess import check_output
 import tempfile
 
-import nltk
 import jieba
 from bs4 import BeautifulSoup
 from textblob import TextBlob as tb
@@ -133,10 +132,11 @@ class Command(BaseCommand):
                             continue
 
                         # Segment the Chinese sentence through jieba library
-                        if lang == 'zh':
-                            document['content'] = jieba_zh_string(soup.stripped_strings)
-                        else:
-                            document['content'] = ', '.join(soup.stripped_strings)
+                        # Temporarily jieba-ing even content.
+                        # if lang == 'zh':
+                        document['content'] = jieba_zh_string(soup.stripped_strings)
+                        # else:
+                        #     document['content'] = ', '.join(soup.stripped_strings)
 
                     self.documents.append(document)
                     existing_docs_count += 1
@@ -150,8 +150,6 @@ class Command(BaseCommand):
         self.documents = []
         self.api_documents = []
         self.unique_paths = []
-
-        nltk.download('punkt')
 
         contents_to_build = []
         if options['content_id']:
