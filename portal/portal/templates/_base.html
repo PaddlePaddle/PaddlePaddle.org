@@ -240,7 +240,9 @@
                 if (Search.hasOwnProperty('renderPage'))
                     Search.renderPage(idx, getSearchQuery);
 
-                $('input[type="search"]').typeahead({
+                var searchInput = $('input[type="search"]');
+
+                searchInput.typeahead({
                       hint: false,
                       highlight: true,
                       minLength: 1
@@ -289,18 +291,15 @@
                 }).bind('typeahead:select', function(ev, suggestion) {
                   window.location.href = suggestion.path;
 
-                // Prevent an action on "enter" only when a search result isn't in focus.
-                }).keypress(function(ev){
-                    var keyCode = (ev.keyCode ? ev.keyCode : ev.which);
-
-                    // Temporarily allow enters for server-side like search.
-                    // if (keyCode === 13)
-                    //     ev.preventDefault();
                 });
-
+                // Immediately focus, because we hacked the focus event.
+                searchInput.focus();
             },
 
             initialize: function(){
+                if (Search.initialized)
+                    return;
+
                 var i, script;
                 for (i = 0; i < Search.data.length; i++){
                     script = document.createElement('script');
@@ -320,11 +319,9 @@
         if (window.location.pathname === '/search')
             Search.initialize();
 
-        $('.navbar input[type="search"]').hover(function(){
-            if (!Search.initialized)
-                Search.initialize();
-        })
-
+        // Initialize on focus.
+        $('.navbar input[type="search"]').focus(
+            Search.initialize);
 
         // This form submits a contact form to the internal contact requests store.
         var submitContactForm = function(isPersonal, organization, name, phone, email, reason){
