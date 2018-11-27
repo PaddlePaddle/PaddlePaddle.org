@@ -21,6 +21,7 @@ import json
 import datetime
 import pytz
 import dateutil.parser
+import ipaddress
 
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
@@ -537,7 +538,7 @@ def tracked_download(request):
 
         # [Roughly] Determine if the IP of this request is within Baidu, internally.
         remote_ip = request.META.get('REMOTE_ADDR')
-        is_internal_ip = False
+        is_internal_ip = ip_in_internal_range(unicode(remote_ip))
 
         # Fetch the newest data on downloads, for the current date.
         last_record = requests.get(settings.AIRTABLE_WHEEL_DOWNLOADS + (
@@ -552,6 +553,9 @@ def tracked_download(request):
         today = datetime.datetime.now(beijing_timezone)
         today.replace(hour=0, minute=0, second=0)
 
+        zh_internal = ' (公司内部用户)'.decode('utf-8')
+        target_field = referer.netloc + (zh_internal if is_internal_ip else '')
+
         # Increment or decrement the counter for the referer field.
         # Either create a new record or update an existing one based on whether
         # one has been created or not.
@@ -561,18 +565,20 @@ def tracked_download(request):
                 'Content-type': 'application/json'
             }, data = json.dumps({
                 'fields': {
-                    referer.netloc: last_record['fields'][referer.netloc] + 1
+                    target_field: last_record['fields'][target_field] + 1
                 }
             }))
 
         else:
             fields = {
-                'Date': today.strftime('%Y-%m-%d'),
-                '公司内部用户': is_internal_ip
+                'Date': today.strftime('%Y-%m-%d')
             }
 
-            for acceptable_source in acceptable_sources:
-                fields[acceptable_source] = 1 if referer.netloc == acceptable_source else 0
+            acceptable_sources_fields = acceptable_sources + (
+                [source + zh_internal for source in acceptable_sources])
+
+            for acceptable_source_field in acceptable_sources_fields:
+                fields[acceptable_source_field] = 1 if target_field == acceptable_source_field else 0
 
             requests.post(settings.AIRTABLE_WHEEL_DOWNLOADS, headers = {
                 'Authorization': 'Bearer ' + settings.AIRTABLE_API_KEY,
@@ -588,3 +594,19 @@ def tracked_download(request):
         pass
 
     return redirect(url)
+
+
+"""
+Finds out if a given IP is in a range of IPs (which are pre-loaded in settings)
+"""
+def ip_in_internal_range(ip_to_check):
+    networks_with_masks = settings.INTERNAL_RANGE_IPS.split(',')
+    ip_address = ipaddress.ip_address(ip_to_check)
+
+    for network_with_mask in networks_with_masks:
+        network_with_mask_pieces = network_with_mask.split(':')
+        if ip_address in ipaddress.ip_network(
+            unicode(network_with_mask_pieces[0] + '/' + network_with_mask_pieces[2]), strict=False):
+            return True
+
+    return False
