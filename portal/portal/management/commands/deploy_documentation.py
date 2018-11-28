@@ -67,7 +67,7 @@ class Command(BaseCommand):
         # Note: This should include 'docs' if possible, but 'docs' requires building Paddle.
         # Building Paddle will most likely timeout the CI Job.
         if content_id == 'external':
-            content_ids = ['book', 'paddle-mobile', 'models']
+            content_ids = ['book']
 
             for content_id in content_ids:
                 transform(
@@ -75,7 +75,7 @@ class Command(BaseCommand):
                     content_id, version, None
                 )
 
-                if content_id not in ['models', 'paddle-mobile', 'mobile']:
+                if content_id not in ['models']:
                     for lang in ['en', 'zh']:
                         self.save_menu(source_dir, content_id, lang, version)
 
