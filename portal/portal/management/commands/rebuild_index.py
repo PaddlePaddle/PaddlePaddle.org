@@ -117,7 +117,7 @@ class Command(BaseCommand):
                 # to be processed as a API folder.
                 subpath_pieces = subpath.split('/')
                 if len(subpath_pieces) > 5 and subpath_pieces[1] == 'docs' and (
-                    subpath_pieces[4] == 'api' and not apis_processed):
+                    subpath_pieces[4] in ['api', 'api_cn'] and not apis_processed):
 
                     self.build_api_document(subdir)
                     apis_processed = True
