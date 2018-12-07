@@ -269,7 +269,7 @@
 
                                   // For version 1.1 and ahead.
                                   (urlPieces.length > 5 && urlPieces[2] === 'docs' && (
-                                      urlPieces[5] === 'api')))
+                                      ['api', 'api_cn'].indexOf(urlPieces[5]) !== -1 )))
                               )
                                   item.isAPI = true;
 
