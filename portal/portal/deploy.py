@@ -438,11 +438,11 @@ def visualdl(source_dir, destination_dir, version, original_lang):
         if os.path.exists(os.path.dirname(script_path)):
             generated_dir = _get_new_generated_dir('visualdl')
 
-            call([script_path, source_dir, generated_dir, original_lang])
-
             if original_lang:
+                call([script_path, source_dir, generated_dir, original_lang])
                 langs = [original_lang]
             else:
+                call([script_path, source_dir, generated_dir])
                 langs = ['en', 'zh']
 
             for lang in langs:
