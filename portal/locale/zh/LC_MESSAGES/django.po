@@ -299,7 +299,7 @@ msgid "Image data"
 msgstr "图像数据"
 
 #: visualDL/templates/visualdl/index.html:67
-msgid "Works with all frameworks including:"
+msgid "Works with all frameworks, including:"
 msgstr "适用于所有框架包括："
 
 #: visualDL/templates/visualdl/index.html:113
