@@ -27,14 +27,24 @@ from portal import url_helper
 
 def find_all_languages_for_link(possible_links, current_lang, sections, desired_lang):
     for section in sections:
+        # NOTE: This works if the two menus are merged.
         if 'link' in section and current_lang in section['link']:
             if (section['link'][current_lang] == possible_links[0] or (
                 section['link'][current_lang] == possible_links[1])) and desired_lang in section['link']:
                 return section['link'][desired_lang]
 
+        # NOTE: And this is the current hack for if the two are not.
+        elif 'link' in section and desired_lang in section['link']:
+            if (section['link'][desired_lang] == possible_links[0] or (
+                section['link'][desired_lang] == possible_links[1])):
+                return section['link'][desired_lang]
+
         if 'sections' in section:
-            return find_all_languages_for_link(
+            found_link = find_all_languages_for_link(
                 possible_links, current_lang, section['sections'], desired_lang)
+
+            if found_link:
+                return found_link
 
     return None
 
@@ -133,13 +143,13 @@ def get_menu(content_id, lang, version):
     # These are the repos without menus.
     if content_id in ['models', 'mobile']:
         # NOTE(varunarora): This is a hack because there is no menu.json here.
-        menu_path = None if settings.ENV in ['production', 'staging'] else _get_menu_path('', content_id)
+        menu_path = None if settings.ENV in ['production', 'staging'] else _get_menu_path(content_id, lang, '')
 
     else:
         if settings.ENV in ['production', 'staging']:
             menu_path = get_production_menu_path(content_id, lang, version)
         else:
-            menu_path = _get_menu_path('menu.json', content_id)
+            menu_path = _get_menu_path(content_id, lang)
 
         if os.path.isfile(menu_path):
             set_menu_path_cache(content_id, lang, version, menu_path)
@@ -263,28 +273,34 @@ def get_content_navigation(request, content_id, language, version):
     return navigation
 
 
-def _get_menu_path(menu_filename, content_id):
+def _get_menu_path(content_id, lang, menu_filename=None, source_dir=None):
     """
     Get the menu path to the current version and language.
     """
-    repo_path = find_in_top_level_navigation('/' + content_id)
-    if os.path.basename(repo_path['dir'].rstrip('/')).lower() in ['paddle', 'fluiddoc']:
-        # HACK: To support multiple API versions.
-        repo_path['dir'] = os.path.join(repo_path['dir'], 'doc', 'fluid')
+    if not source_dir:
+        repo_path = find_in_top_level_navigation('/' + content_id)
+        source_dir = repo_path['dir']
 
-    if os.path.exists(repo_path['dir']):
-        found_menu_path = _find_menu_in_repo(repo_path['dir'], menu_filename)
+    if os.path.basename(source_dir.rstrip('/')).lower() in ['paddle', 'fluiddoc']:
+        # HACK: To support multiple API versions.
+        source_dir = os.path.join(source_dir, 'doc', 'fluid')
+
+    if not menu_filename:
+        menu_filename = 'menu.%s.json' % lang
+
+    if os.path.exists(source_dir):
+        found_menu_path = _find_menu_in_repo(source_dir, menu_filename)
 
         if not found_menu_path:
             raise IOError(
                 'Cannot find a menu file in the repository directory',
-                os.path.join(repo_path['dir'], menu_filename)
+                os.path.join(source_dir, menu_filename)
             )
 
         return found_menu_path
 
     raise Exception('Cannot find the directory for %s: %s' % (
-        content_id, repo_path['dir']))
+        content_id, source_dir))
 
 
 def get_available_versions(content_id=None):

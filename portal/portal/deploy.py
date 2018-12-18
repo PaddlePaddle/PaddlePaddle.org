@@ -55,7 +55,10 @@ def documentation(source_dir, destination_dir, content_id, version, original_lan
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
     """
-    menu_path = source_dir + '/menu.json'
+    try:
+        menu_path = menu_helper.get_menu('docs', original_lang, version)[1]
+    except IOError, e:
+        menu_path = e[1]
 
     if original_lang:
         langs = [original_lang]

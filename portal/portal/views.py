@@ -113,13 +113,34 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
             menu = json.loads(menu_file.read())
             path_to_seek = url_helper.get_raw_page_path_from_html(path)
 
+            # HACK: If this is an API lookup, forcefully adapt to the naming
+            # convention of api_cn/name_cn (and vice versa) for the paths to seek.
+            # This is a result of the Chinese API introduction in v1.2
+            if not old_version < '1.2' and path_to_seek[0].startswith('api/') or path_to_seek[0].startswith('api_'):
+                new_path_to_seek = []
+
+                for p2s in list(path_to_seek):
+                    extensionless_path, extension = os.path.splitext(
+                        p2s.replace('api/', 'api_cn/') if old_lang == 'en' else p2s.replace('api_cn/', 'api/'))
+                    new_path_to_seek.append(
+                        ((extensionless_path + '_cn') if old_lang == 'en' else extensionless_path[:-3]) + extension)
+
+                path_to_seek = tuple(new_path_to_seek)
+
             if lang:
-                # We are switching to new language
-                matching_link = menu_helper.find_all_languages_for_link(
-                    path_to_seek,
-                    old_lang, menu['sections'], lang
-                )
-                version = old_version
+                # HACK: Since we failed to find a way make a merged menu.json.
+                new_menu_path = menu_helper.get_menu_path_cache(
+                    content_id, lang, version)
+
+                with open(new_menu_path, 'r') as new_menu_file:
+                    new_menu = json.loads(new_menu_file.read())
+
+                    # We are switching to new language
+                    matching_link = menu_helper.find_all_languages_for_link(
+                        path_to_seek,
+                        old_lang, new_menu['sections'], lang
+                    )
+                    version = old_version
 
             else:
                 # We are switching to new version
