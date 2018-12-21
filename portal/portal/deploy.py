@@ -84,9 +84,9 @@ def documentation(source_dir, destination_dir, version, original_lang):
         print "Use Sphinx comment: sphinx-build -b html -c %s %s %s" % (
             os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, generated_dir)
 
-        call(['sphinx-build', '-b', 'html', '-c',
-            os.path.join(settings.SPHINX_CONFIG_DIR, lang),
-            source_dir, generated_dir])
+        # call(['sphinx-build', '-b', 'html', '-c',
+        #     os.path.join(settings.SPHINX_CONFIG_DIR, lang),
+        #     source_dir, generated_dir])
 
     # Generate a menu from the rst root menu if it doesn't exist.
     if new_menu:
@@ -547,7 +547,10 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                             document = soup.select('div.document')[0]
 
                         with open(new_path, 'w') as new_html_partial:
-                            new_html_partial.write(document.encode("utf-8"))
+                            new_html_partial.write(
+                                _conditionally_preprocess_document(
+                                    document, new_path, subpath
+                                ).encode("utf-8"))
 
                 elif '_images' in subpath or '.txt' in file or '.json' in file:
                     # Copy to images directory.
@@ -832,3 +835,24 @@ def _save_menu(menu, menu_path, content_id, original_lang, version):
                 os.makedirs(menu_dir)
 
             copyfile(menu_path, alternative_menu_path)
+
+
+def _conditionally_preprocess_document(document, path, subpath):
+    """
+    Takes a soup-ed document that is about to be written into final output.
+    Any changes can be conditionally made to it.
+    """
+
+    # Determine if this is an API path, and specifically, if this is a path to
+    # Chinese API.
+    if subpath.startswith('/api_cn/') and len(subpath.split('/')) == 3:
+        for api_call in document.find_all(re.compile('^h(1|2|3)')):
+            print next(api_call.stripped_strings)
+
+            import pdb; pdb.set_trace()
+            print api_call.find('a')['href']
+
+            # NOTE: This might be not unique in the system.
+            print path.rfind('/documentation/docs/')
+
+    return document
