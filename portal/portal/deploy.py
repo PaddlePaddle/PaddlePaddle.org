@@ -549,7 +549,7 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                         with open(new_path, 'w') as new_html_partial:
                             new_html_partial.write(
                                 _conditionally_preprocess_document(
-                                    document, new_path, subpath
+                                    document, soup, new_path, subpath
                                 ).encode("utf-8"))
 
                 elif '_images' in subpath or '.txt' in file or '.json' in file:
@@ -837,7 +837,7 @@ def _save_menu(menu, menu_path, content_id, original_lang, version):
             copyfile(menu_path, alternative_menu_path)
 
 
-def _conditionally_preprocess_document(document, path, subpath):
+def _conditionally_preprocess_document(document, soup, path, subpath):
     """
     Takes a soup-ed document that is about to be written into final output.
     Any changes can be conditionally made to it.
@@ -847,12 +847,36 @@ def _conditionally_preprocess_document(document, path, subpath):
     # Chinese API.
     if subpath.startswith('/api_cn/') and len(subpath.split('/')) == 3:
         for api_call in document.find_all(re.compile('^h(1|2|3)')):
-            print next(api_call.stripped_strings)
+            # Create an element that wraps the heading level class or function
+            # name.
+            title_wrapper = soup.new_tag('div')
+            title_wrapper['class'] = 'api-wrapper'
+            api_call.insert_before(title_wrapper)
+            api_call.wrap(title_wrapper)
 
-            import pdb; pdb.set_trace()
-            print api_call.find('a')['href']
+            # NOTE: This path might be not unique in the system.
+            url_path = path[path.rfind('/documentation/docs/'):]
+            content_id, lang, version = url_helper.get_parts_from_url_path(url_path)
 
-            # NOTE: This might be not unique in the system.
-            print path.rfind('/documentation/docs/')
+            # Now add a link on the same DOM wrapper of the heading to include
+            # a link to the expected English doc link.
+            lang_link_wrapper = soup.new_tag('div')
+            lang_link_wrapper['class'] = 'api-wrapper-langswitch'
+
+            lang_link = soup.new_tag('a', href=(
+                '/' + url_helper.get_page_url_prefix(content_id, 'en', version)) + (
+
+                # Take everything after the version, and replace '_cn' in it.
+                '/' + '/'.join(url_path.split('/')[5:]).replace('_cn', '')) + (
+
+                # This is usually the anchor bit.
+                api_call.find('a')['href']))
+
+            lang_link.string = 'English'
+            lang_link['class'] = 'btn btn-outline-secondary'
+            lang_link_wrapper.append(lang_link)
+
+            title_wrapper.append(lang_link_wrapper)
+
 
     return document
