@@ -84,9 +84,9 @@ def documentation(source_dir, destination_dir, version, original_lang):
         print "Use Sphinx comment: sphinx-build -b html -c %s %s %s" % (
             os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, generated_dir)
 
-        # call(['sphinx-build', '-b', 'html', '-c',
-        #     os.path.join(settings.SPHINX_CONFIG_DIR, lang),
-        #     source_dir, generated_dir])
+        call(['sphinx-build', '-b', 'html', '-c',
+            os.path.join(settings.SPHINX_CONFIG_DIR, lang),
+            source_dir, generated_dir])
 
     # Generate a menu from the rst root menu if it doesn't exist.
     if new_menu:
