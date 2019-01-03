@@ -49,6 +49,11 @@ urlpatterns = [
     # url(r'^huangpu', views.huangpu_root, name='huangpu'),
 
     # ---------------
+    # EXTERNAL REDIRECTION URLS
+    # ---------------
+    url(r'^survey', views.enterprise_survey, name='enterprise_survey'),
+
+    # ---------------
     # BLOG URLS
     # ---------------
     # NOTE: Temporary remove the links to Blog. Wait until we have more contents.

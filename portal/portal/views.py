@@ -646,3 +646,7 @@ def ip_in_internal_range(ip_to_check):
             return True
 
     return False
+
+
+def enterprise_survey(request):
+    return redirect('https://cloud.baidu.com/survey/EnterprisecooperationApply.html')
