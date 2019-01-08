@@ -11,10 +11,21 @@ from shutil import copyfile, copytree, rmtree
 import re
 import codecs
 import requests
+import sys
+import inspect
+import ast
 
 from django.conf import settings
 from bs4 import BeautifulSoup
 import markdown
+
+try:
+    # NOTE(Varun): This will be imported in the case this is running on CI
+    # and that Paddle was just built.
+    from paddle import fluid
+except:
+    pass
+
 
 from portal import menu_helper, portal_helper, url_helper
 
@@ -25,6 +36,9 @@ MARKDOWN_EXTENSIONS = [
     'pymdownx.superfences',
     'pymdownx.escapeall'
 ]
+
+GITHUB_REPO_URL = 'https://github.com/PaddlePaddle/Paddle/blob/'
+
 
 
 def transform(source_dir, destination_dir, content_id, version, lang=None):
@@ -84,9 +98,9 @@ def documentation(source_dir, destination_dir, version, original_lang):
         print "Use Sphinx comment: sphinx-build -b html -c %s %s %s" % (
             os.path.join(settings.SPHINX_CONFIG_DIR, lang), source_dir, generated_dir)
 
-        call(['sphinx-build', '-b', 'html', '-c',
-            os.path.join(settings.SPHINX_CONFIG_DIR, lang),
-            source_dir, generated_dir])
+        # call(['sphinx-build', '-b', 'html', '-c',
+        #     os.path.join(settings.SPHINX_CONFIG_DIR, lang),
+        #     source_dir, generated_dir])
 
     # Generate a menu from the rst root menu if it doesn't exist.
     if new_menu:
@@ -549,7 +563,7 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                         with open(new_path, 'w') as new_html_partial:
                             new_html_partial.write(
                                 _conditionally_preprocess_document(
-                                    document, soup, new_path, subpath
+                                    document, soup, new_path, subpath, version
                                 ).encode("utf-8"))
 
                 elif '_images' in subpath or '.txt' in file or '.json' in file:
@@ -837,16 +851,67 @@ def _save_menu(menu, menu_path, content_id, original_lang, version):
             copyfile(menu_path, alternative_menu_path)
 
 
-def _conditionally_preprocess_document(document, soup, path, subpath):
+def _get_repo_source_url_from_api(current_class, api_call, version):
+    line_no = None
+
+    api_title = api_call.contents[0]
+
+    if api_call.name == 'h1':
+        # The -1 prevents us from the c in .pyc
+        module = current_class.__file__[:-1]
+
+    else:
+        api = getattr(current_class, api_title)
+
+        if type(api).__name__ == 'module':
+            module = api.__file__[:-1]
+        else:
+            node_definition = ast.ClassDef if inspect.isclass(api) else ast.FunctionDef
+
+            if api.__module__ not in ['paddle.fluid.core', 'paddle.fluid.layers.layer_function_generator']:
+                module = sys.modules[api.__module__].__file__[:-1]
+
+                with open(module) as module_file:
+                    module_ast = ast.parse(module_file.read())
+
+                    for node in module_ast.body:
+                        if isinstance(node, node_definition) and node.name == api_title:
+                            line_no = node.lineno
+                            break
+
+                    # If we could not find it, we look at assigned objects.
+                    if not line_no:
+                        for node in module_ast.body:
+                            if isinstance(node, ast.Assign) and api_title in [target.id for target in node.targets]:
+                                line_no = node.lineno
+                                break
+            else:
+                module = current_class.__file__[:-1]
+
+    url = GITHUB_REPO_URL + os.path.join(version, module[module.rfind('python/paddle'):])
+
+    if line_no:
+        return url + '#L' + str(line_no)
+
+    return url
+
+
+def _conditionally_preprocess_document(document, soup, path, subpath, version):
     """
     Takes a soup-ed document that is about to be written into final output.
     Any changes can be conditionally made to it.
     """
-
     # Determine if this is an API path, and specifically, if this is a path to
     # Chinese API.
-    if subpath.startswith('/api_cn/') and len(subpath.split('/')) == 3:
+    if subpath.startswith('/api_cn/') and len(subpath.split('/')) == 3 and (
+        subpath.split('/')[-1] != 'index_cn.html'):
+
+        # Determine the class name.
+        current_class = sys.modules['.'.join(['paddle', document.find('h1').contents[0]])]
+
         for api_call in document.find_all(re.compile('^h(1|2|3)')):
+            url = _get_repo_source_url_from_api(current_class, api_call, version)
+
             # Create an element that wraps the heading level class or function
             # name.
             title_wrapper = soup.new_tag('div')
@@ -861,9 +926,17 @@ def _conditionally_preprocess_document(document, soup, path, subpath):
 
             # Now add a link on the same DOM wrapper of the heading to include
             # a link to the expected English doc link.
-            lang_link_wrapper = soup.new_tag('div')
-            lang_link_wrapper['class'] = 'api-wrapper-langswitch'
+            lang_source_link_wrapper = soup.new_tag('div')
+            lang_source_link_wrapper['class'] = 'btn-group'
 
+            # Add a link to the GitHub source.
+            source_link = soup.new_tag('a', href=url)
+            source_link['target'] = '_blank'
+            source_link.string = 'Source'
+            source_link['class'] = 'btn btn-outline-info'
+            lang_source_link_wrapper.append(source_link)
+
+            # Add a link to the English docs source.
             lang_link = soup.new_tag('a', href=(
                 '/' + url_helper.get_page_url_prefix(content_id, 'en', version)) + (
 
@@ -875,9 +948,8 @@ def _conditionally_preprocess_document(document, soup, path, subpath):
 
             lang_link.string = 'English'
             lang_link['class'] = 'btn btn-outline-secondary'
-            lang_link_wrapper.append(lang_link)
+            lang_source_link_wrapper.append(lang_link)
 
-            title_wrapper.append(lang_link_wrapper)
-
+            title_wrapper.append(lang_source_link_wrapper)
 
     return document
