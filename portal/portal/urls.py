@@ -52,6 +52,7 @@ urlpatterns = [
     # EXTERNAL REDIRECTION URLS
     # ---------------
     url(r'^survey', views.enterprise_survey, name='enterprise_survey'),
+    url(r'^parl', views.parl, name='parl'),
 
     # ---------------
     # BLOG URLS
