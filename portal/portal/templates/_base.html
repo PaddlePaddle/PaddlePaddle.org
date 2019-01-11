@@ -179,44 +179,44 @@
 
             // Based on this answer: https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode/11415841.
             chineseCutter: function(q){
-                    var cutQuery = '';
+                var cutQuery = '';
 
-                    var i, characterCode, isChineseCharacter;
-                    for (i = 0; i < q.length; i++){
-                        // If this character is in Chinese, add a space after.
-                        // And before it as long as the preceding character is not already a space.
-                        characterCode = q.charCodeAt(i);
+                var i, characterCode, isChineseCharacter;
+                for (i = 0; i < q.length; i++){
+                    // If this character is in Chinese, add a space after.
+                    // And before it as long as the preceding character is not already a space.
+                    characterCode = q.charCodeAt(i);
 
-                        isChineseCharacter = (
-                            // CJK Unified Ideographs block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm
-                            characterCode > 19968 && characterCode <= 40943) || (
+                    isChineseCharacter = (
+                        // CJK Unified Ideographs block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm
+                        characterCode > 19968 && characterCode <= 40943) || (
 
-                            // CJKUI Ext A block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_a/index.htm.
-                            characterCode > 13312 && characterCode <= 19893) || (
+                        // CJKUI Ext A block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_a/index.htm.
+                        characterCode > 13312 && characterCode <= 19893) || (
 
-                            // NOTE: The following ranges are not accounted for because it runs out of UTF-16 range.
-                            // Need to eventually figure out a better plan.
-                            // CJKUI Ext B block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/index.htm
-                            // CJKUI Ext C block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_c/index.htm
-                            // CJKUI Ext D block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_d/index.htm
-                            characterCode > 55360);
+                        // NOTE: The following ranges are not accounted for because it runs out of UTF-16 range.
+                        // Need to eventually figure out a better plan.
+                        // CJKUI Ext B block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/index.htm
+                        // CJKUI Ext C block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_c/index.htm
+                        // CJKUI Ext D block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_d/index.htm
+                        characterCode > 55360);
 
-                        if (isChineseCharacter){
-                            if (cutQuery.substring(cutQuery.length - 1) !== ' ')
-                                cutQuery += ' ';
+                    if (isChineseCharacter){
+                        if (cutQuery.substring(cutQuery.length - 1) !== ' ')
+                            cutQuery += ' ';
 
-                            cutQuery += q[i] + ' ';
+                        cutQuery += q[i] + ' ';
 
-                        } else {
-                            cutQuery += q[i];
-                        }
+                    } else {
+                        cutQuery += q[i];
                     }
+                }
 
-                    return cutQuery.trim();
-                },
+                return cutQuery.trim();
+            },
 
 
-            search(query, callback){
+            search: function(query, callback){
                 $.get('/search', {
                     'autocomplete': Search.getSearchQuery(query),
                     'language': '{{ lang }}',
@@ -248,10 +248,6 @@
             },
 
             render: function(){
-                // If this is a results page, render already.
-                // if (Search.hasOwnProperty('renderPage'))
-                //     Search.renderPage(idx, getSearchQuery);
-
                 var searchInput = $('input[type="search"]'),
                     searchTimeout;
 
