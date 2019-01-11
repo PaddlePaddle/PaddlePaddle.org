@@ -232,3 +232,5 @@ AIRTABLE_CONTACT_URL = 'https://api.airtable.com/v0/appvNpDjW6rUVsDxT/PaddlePadd
 AIRTABLE_WHEEL_DOWNLOADS = 'https://api.airtable.com/v0/appzVDFlyVDDkCAIZ/Daily%20stats'
 
 INTERNAL_RANGE_IPS = os.environ.get('INTERNAL_RANGE_IPS', None)
+
+SEARCH_SERVER_URL = 'http://127.0.0.1:8888'

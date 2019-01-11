@@ -70,4 +70,8 @@ fi
 
 export ENV=development
 
+# Start the node search server MANUALLY.
+# node search-server.js ./indexes/indexes
+
+# Start the main website server.
 python manage.py runserver 0.0.0.0:8000

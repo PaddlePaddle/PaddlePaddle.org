@@ -37,8 +37,8 @@ import requests
 from user_agents import parse
 
 from portal import menu_helper, portal_helper, url_helper
-from deploy import transform
 from portal import url_helper
+from portal.documentation_generator import DocumentationGenerator
 
 
 def change_version(request):
@@ -116,7 +116,8 @@ def _find_matching_equivalent_page_for(path, request, lang=None, version=None):
             # HACK: If this is an API lookup, forcefully adapt to the naming
             # convention of api_cn/name_cn (and vice versa) for the paths to seek.
             # This is a result of the Chinese API introduction in v1.2
-            if not old_version < '1.2' and path_to_seek[0].startswith('api/') or path_to_seek[0].startswith('api_'):
+            if not old_version < '1.2' and path_to_seek[0].startswith(
+                'api/') or path_to_seek[0].startswith('api_') and lang:
                 new_path_to_seek = []
 
                 for p2s in list(path_to_seek):
@@ -256,7 +257,8 @@ def _generate_content(source_dir, destination_dir, content_id, lang, version):
         # Generate the directory.
         os.makedirs(destination_dir)
 
-    transform(source_dir, destination_dir, content_id, version, lang)
+    DocumentationGenerator(
+        source_dir, destination_dir, content_id, version, lang).run()
 
 
 def _get_first_link_in_contents(navigation, lang):
@@ -498,15 +500,31 @@ def old_content_link(request, version=None, is_fluid=None, lang=None, path=None)
 def search(request):
     """
     Placeholder for a search results page that uses local indexes.
+    If this has a 'autocomplete' param, consider it an autocomplete request and
+    serve a response by proxying to the local node search server.
     """
+    autocomplete_query = request.GET.get('autocomplete', None)
+    version = request.GET.get('version', '')
     lang = request.GET.get('language', '')
-    portal_helper.set_preferred_language(request, None, lang)
 
-    return render(request, 'search.html', {
-        'q': request.GET.get('q', ''),
-        'lang': lang,
-        'CURRENT_DOCS_VERSION': request.GET.get('version', ''),
-    })
+    if autocomplete_query:
+        return JsonResponse(requests.get(
+            settings.SEARCH_SERVER_URL + '/search',
+            params={
+                'q': autocomplete_query,
+                'version': version,
+                'lang': lang
+            }
+        ).json())
+
+    else:
+        portal_helper.set_preferred_language(request, None, lang)
+
+        return render(request, 'search.html', {
+            'q': request.GET.get('q', ''),
+            'lang': lang,
+            'CURRENT_DOCS_VERSION': version,
+        })
 
 
 def contact(request):

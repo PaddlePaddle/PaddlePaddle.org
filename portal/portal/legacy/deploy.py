@@ -41,12 +41,12 @@ GITHUB_REPO_URL = 'https://github.com/PaddlePaddle/Paddle/blob/'
 
 
 
-def transform(source_dir, destination_dir, content_id, version, lang=None):
+def transform(source_dir, destination_dir, content_id, version, lang=None, raw_version='develop'):
     print 'Processing docs at %s to %s' % (source_dir, destination_dir)
 
     # Regenerate its contents.
     if content_id == 'docs':
-        documentation(source_dir, destination_dir, version, lang)
+        documentation(source_dir, destination_dir, version, lang, raw_version)
 
     elif content_id == 'book':
         book(source_dir, destination_dir, version, lang)
@@ -64,7 +64,7 @@ def transform(source_dir, destination_dir, content_id, version, lang=None):
 
 ########### Individual content convertors ################
 
-def documentation(source_dir, destination_dir, version, original_lang):
+def documentation(source_dir, destination_dir, version, original_lang, raw_version):
     """
     Strip out the static and extract the body contents, ignoring the TOC,
     headers, and body.
@@ -116,7 +116,7 @@ def documentation(source_dir, destination_dir, version, original_lang):
 
         generated_dir = _get_new_generated_dir('docs', lang)
         strip_sphinx_documentation(
-            source_dir, generated_dir, lang_destination_dir, lang, version)
+            source_dir, generated_dir, lang_destination_dir, lang, version, raw_version)
         # shutil.rmtree(generated_dir)
 
     if new_menu:
@@ -483,7 +483,7 @@ def visualdl(source_dir, destination_dir, version, original_lang):
 ########### End individual content convertors ################
 
 
-def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, lang, version):
+def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, lang, version, raw_version):
     # Go through each file, and if it is a .html, extract the .document object
     #   contents
     for subdir, dirs, all_files in os.walk(generated_dir):
@@ -563,7 +563,7 @@ def strip_sphinx_documentation(source_dir, generated_dir, lang_destination_dir, 
                         with open(new_path, 'w') as new_html_partial:
                             new_html_partial.write(
                                 _conditionally_preprocess_document(
-                                    document, soup, new_path, subpath, version
+                                    document, soup, new_path, subpath, raw_version
                                 ).encode("utf-8"))
 
                 elif '_images' in subpath or '.txt' in file or '.json' in file:
@@ -869,7 +869,7 @@ def _get_repo_source_url_from_api(current_class, api_call, version):
             node_definition = ast.ClassDef if inspect.isclass(api) else ast.FunctionDef
 
             if api.__module__ not in ['paddle.fluid.core', 'paddle.fluid.layers.layer_function_generator']:
-                module = sys.modules[api.__module__].__file__[:-1]
+                module = os.path.splitext(sys.modules[api.__module__].__file__)[0] + '.py'
 
                 with open(module) as module_file:
                     module_ast = ast.parse(module_file.read())
@@ -908,6 +908,8 @@ def _conditionally_preprocess_document(document, soup, path, subpath, version):
 
         # Determine the class name.
         current_class = sys.modules['.'.join(['paddle', document.find('h1').contents[0]])]
+
+        print 'Finding/building source for: ' + current_class.__file__
 
         for api_call in document.find_all(re.compile('^h(1|2|3)')):
             url = _get_repo_source_url_from_api(current_class, api_call, version)

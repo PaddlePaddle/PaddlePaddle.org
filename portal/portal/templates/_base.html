@@ -170,82 +170,86 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
         <script src="//paddle-org.bj.bcebos.com/js/typeahead.jquery.min.js"></script>
 
-        <script src="/static/js/lunr.js"></script>
         <script>
-
-        var dataSuffix = {% if settings.ENV == 'development' %}''{% else %}'.gz'{% endif %};
-
         var Search = {
-            initialized: false,
+            getSearchQuery: function(q){
+                var cutQuery = {% if lang == 'zh' %}Search.chineseCutter(q){% else %}q{% endif %};
+                return '"' + cutQuery + '"~1' + ' *' + cutQuery + '* ' + cutQuery;
+            },
 
-            // TMP hack, see HACK note below on not using S3 for now.
-            // The empty string should eventually be replaced with `dataSuffix`
-            data: [
-                '//paddle-org.bj.bcebos.com/{{ lang }}/{{ CURRENT_DOCS_VERSION }}/index.js' + '' + '?{% server_start_time %}',
-                '/static/indexes/{{ lang }}/{{ CURRENT_DOCS_VERSION }}/toc.js'  + '' + '?{% server_start_time %}'
-            ],
+            // Based on this answer: https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode/11415841.
+            chineseCutter: function(q){
+                var cutQuery = '';
 
-            loadedCount: 0,
+                var i, characterCode, isChineseCharacter;
+                for (i = 0; i < q.length; i++){
+                    // If this character is in Chinese, add a space after.
+                    // And before it as long as the preceding character is not already a space.
+                    characterCode = q.charCodeAt(i);
 
-            onDataLoad: function(){
-                Search.loadedCount += 1;
+                    isChineseCharacter = (
+                        // CJK Unified Ideographs block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm
+                        characterCode > 19968 && characterCode <= 40943) || (
 
-                if (Search.loadedCount === Search.data.length){
-                    Search.render();
+                        // CJKUI Ext A block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_a/index.htm.
+                        characterCode > 13312 && characterCode <= 19893) || (
+
+                        // NOTE: The following ranges are not accounted for because it runs out of UTF-16 range.
+                        // Need to eventually figure out a better plan.
+                        // CJKUI Ext B block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/index.htm
+                        // CJKUI Ext C block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_c/index.htm
+                        // CJKUI Ext D block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_d/index.htm
+                        characterCode > 55360);
+
+                    if (isChineseCharacter){
+                        if (cutQuery.substring(cutQuery.length - 1) !== ' ')
+                            cutQuery += ' ';
+
+                        cutQuery += q[i] + ' ';
+
+                    } else {
+                        cutQuery += q[i];
+                    }
                 }
+
+                return cutQuery.trim();
+            },
+
+
+            search: function(query, callback){
+                $.get('/search', {
+                    'autocomplete': Search.getSearchQuery(query),
+                    'language': '{{ lang }}',
+                    'version': '{{ CURRENT_DOCS_VERSION }}'
+                },
+                    function(response){
+                        callback(response.results.map((item) => {
+                             var apiPath = '/documentation/api/',
+                                 urlPieces = item.path.split('/');
+
+                             if (
+                                 // For pre version 1.1.
+                                 (item.path.substring(0, apiPath.length) === apiPath) || (
+
+                                 // For version 1.1 and ahead.
+                                 (urlPieces.length > 5 && urlPieces[2] === 'docs' && (
+                                     ['api', 'api_cn'].indexOf(urlPieces[5]) !== -1 )))
+                             )
+                                 item.isAPI = true;
+
+                             var modelsPath = '/documentation/models/';
+                             if (item.path.substring(0, modelsPath.length) === modelsPath)
+                               item.isModels = true;
+
+                             return item;
+                       }));
+                    }
+                );
             },
 
             render: function(){
-                var idx = lunr.Index.load(index),
-
-                    // Based on this answer: https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode/11415841.
-                    chineseCutter = function(q){
-                        var cutQuery = '';
-
-                        var i, characterCode, isChineseCharacter;
-                        for (i = 0; i < q.length; i++){
-                            // If this character is in Chinese, add a space after.
-                            // And before it as long as the preceding character is not already a space.
-                            characterCode = q.charCodeAt(i);
-
-                            isChineseCharacter = (
-                                // CJK Unified Ideographs block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm
-                                characterCode > 19968 && characterCode <= 40943) || (
-
-                                // CJKUI Ext A block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_a/index.htm.
-                                characterCode > 13312 && characterCode <= 19893) || (
-
-                                // NOTE: The following ranges are not accounted for because it runs out of UTF-16 range.
-                                // Need to eventually figure out a better plan.
-                                // CJKUI Ext B block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_b/index.htm
-                                // CJKUI Ext C block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_c/index.htm
-                                // CJKUI Ext D block: http://www.fileformat.info/info/unicode/block/cjk_unified_ideographs_extension_d/index.htm
-                                characterCode > 55360);
-
-                            if (isChineseCharacter){
-                                if (cutQuery.substring(cutQuery.length - 1) !== ' ')
-                                    cutQuery += ' ';
-
-                                cutQuery += q[i] + ' ';
-
-                            } else {
-                                cutQuery += q[i];
-                            }
-                        }
-
-                        return cutQuery.trim();
-                    },
-
-                    getSearchQuery = function(q){
-                        var cutQuery = {% if lang == 'zh' %}chineseCutter(q){% else %}q{% endif %};
-                        return '"' + cutQuery + '"~1' + ' *' + cutQuery + '* ' + cutQuery;
-                    };
-
-                // If this is a results page, render already.
-                if (Search.hasOwnProperty('renderPage'))
-                    Search.renderPage(idx, getSearchQuery);
-
-                var searchInput = $('input[type="search"]');
+                var searchInput = $('input[type="search"]'),
+                    searchTimeout;
 
                 searchInput.typeahead({
                       hint: false,
@@ -255,30 +259,14 @@
                     {
                       limit: 10,
                       name: 'pages',
-                      async: false,
-                      source: function(query, sync, async){
-                          sync(idx.search(getSearchQuery(query)).map((result) => {
-                              item = indexPathMap[result.ref];
+                      async: true,
+                      source: function(query, sync, asyncResults){
+                          if (searchTimeout)
+                              clearTimeout(searchTimeout);
 
-                              var apiPath = '/documentation/api/',
-                                  urlPieces = item.path.split('/');
-
-                              if (
-                                  // For pre version 1.1.
-                                  (item.path.substring(0, apiPath.length) === apiPath) || (
-
-                                  // For version 1.1 and ahead.
-                                  (urlPieces.length > 5 && urlPieces[2] === 'docs' && (
-                                      ['api', 'api_cn'].indexOf(urlPieces[5]) !== -1 )))
-                              )
-                                  item.isAPI = true;
-
-                              var modelsPath = '/documentation/models/';
-                              if (item.path.substring(0, modelsPath.length) === modelsPath)
-                                item.isModels = true;
-
-                              return item;
-                          }));
+                          searchTimeout = setTimeout(function(){
+                              Search.search(query, asyncResults)
+                          }, 300);
                       },
                       display: 'title',
                       templates: {
@@ -292,6 +280,9 @@
                           notFound: Handlebars.compile(
                               '<div class="row no-results"><div class=\'title col-10\'>No results found for \'{{query}}\'</div></div>'
                           ),
+                          pending: Handlebars.compile(
+                              '<div class="row no-results"><div class=\'title col-10\'>Searching for \'{{query}}\'</div></div>'
+                          ),
                           footer: Handlebars.compile(
                               '<div class="row footer"><div class=\'title col-10\'>' + (
                                   '<input type=\'submit\' value=\'Show more results for "{{query}}"\' />') + (
@@ -303,42 +294,10 @@
                   window.location.href = suggestion.path;
 
                 });
-                // Immediately focus, because we hacked the focus event.
-                searchInput.focus();
-            },
-
-            initialize: function(){
-                if (Search.initialized)
-                    return;
-
-                var i, script;
-                for (i = 0; i < Search.data.length; i++){
-                    script = document.createElement('script');
-                    script.onload = Search.onDataLoad;
-
-                    var prefix = {% if settings.ENV == 'development' %}'/static'{% else %}'//s3-ap-southeast-1.amazonaws.com/paddlepaddle.org'{% endif %};
-
-                    // HACK: Originally decided to use S3, but until
-                    // S3 performance issue in China is not resolved,
-                    // serve from local copy.
-                    script.src = /*'/static' + */Search.data[i];
-
-                    document.body.appendChild(script);
-                }
-
-                // Adding this here instead of in 'render' to prevent
-                // multiple initialization events before render has completed.
-                Search.initialized = true;
             }
         }
 
-        // Initialize the search if this is a results page.
-        if (window.location.pathname === '/search')
-            Search.initialize();
-
-        // Initialize on focus.
-        $('.navbar input[type="search"]').focus(
-            Search.initialize);
+        Search.render();
 
         // This form submits a contact form to the internal contact requests store.
         var submitContactForm = function(isPersonal, organization, name, phone, email, reason){

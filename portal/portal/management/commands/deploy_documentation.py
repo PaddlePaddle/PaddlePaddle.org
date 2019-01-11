@@ -3,7 +3,7 @@ from shutil import copyfile
 
 from django.core.management import BaseCommand
 
-from portal.deploy import transform
+from portal.documentation_generator import DocumentationGenerator
 from portal import menu_helper, url_helper
 from .utils import sanitize_version
 
@@ -84,10 +84,10 @@ class Command(BaseCommand):
         else:
             menus_to_save.append(content_id)
 
-            transform(
+            DocumentationGenerator(
                 source_dir, options.get('destination_dir', None),
-                content_id, version, None
-            )
+                content_id, options['version'][0], None
+            ).run()
 
             # Added docs and visualdl ever since we started saving the menu
             # inside transform.
