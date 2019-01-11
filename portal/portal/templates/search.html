@@ -159,35 +159,41 @@
             query = decodeURIComponent(keyValues['q']).replace('+', ' ');
             pageNumber = parseInt(keyValues['page'], 10) || 1;
 
-            var renderedResults = [], results = idx.search(getSearchQuery(query)),
-                resultRange = results.slice((pageNumber - 1) * 10, ((pageNumber - 1) * 10) + 10);
+            var renderedResults = [];
 
-            resultRange.map((result) => {
-                renderedResults.push(renderSearchItem(indexPathMap[result.ref]));
-            });
+            Search.search(query, function(results){
+                var resultRange = results.slice((pageNumber - 1) * 10, ((pageNumber - 1) * 10) + 10);
 
-            if (renderedResults.length > 0){
-                var resultsHTML = renderedResults.join('\n');
+                resultRange.map((result) => {
+                    renderedResults.push(renderSearchItem(result));
+                });
 
-                if (results.length > 10){
-                    resultsHTML += '<div class="search-pagination">';
+                if (renderedResults.length > 0){
+                    var resultsHTML = renderedResults.join('\n');
 
-                    var i;
-                    for (i = 1; i <= Math.ceil(results.length / 10); i++){
-                        resultsHTML += '<a onclick="window.onPageClick(this)" class="search-pagination-number' + (i === pageNumber ? ' current' : '') + '" href="' + constructURLForPage(i) + '">' + i + '</a>';
+                    if (results.length > 10){
+                        resultsHTML += '<div class="search-pagination">';
+
+                        var i;
+                        for (i = 1; i <= Math.ceil(results.length / 10); i++){
+                            resultsHTML += '<a onclick="window.onPageClick(this)" class="search-pagination-number' + (i === pageNumber ? ' current' : '') + '" href="' + constructURLForPage(i) + '">' + i + '</a>';
+                        }
+
+                        resultsHTML += '</div>';
                     }
 
-                    resultsHTML += '</div>';
-                }
+                    searchResultsEl.innerHTML = resultsHTML;
 
-                searchResultsEl.innerHTML = resultsHTML;
+                } else
+                    searchResultsEl.innerHTML = '<div class="search-empty mb-4">No results found for "' + query + '". Try searching for something else.</div>'
+            });
 
-            } else
-                searchResultsEl.innerHTML = '<div class="search-empty mb-4">No results found for "' + query + '". Try searching for something else.</div>'
         }
 
         window.scrollTo(0, 0);
     }
+
+    Search.renderPage();
 
 </script>
 {% endblock %}

@@ -242,7 +242,7 @@ class Command(BaseCommand):
         tmp_documents_file.close()
 
         with open(output_index_js, 'w') as index_file:
-            index_file.write('var index = ' + check_output(['node',
+            index_file.write('module.exports = ' + check_output(['node',
                 os.path.join(settings.PROJECT_ROOT, 'management/commands/build-index.js'), tmp_documents_file.name]))
 
         with open(output_toc_js, 'w') as toc_file:
@@ -261,7 +261,7 @@ class Command(BaseCommand):
 
                     content_less_toc[doc['id']] = serialized_doc
 
-            toc_file.write('var indexPathMap = ' + json.dumps(content_less_toc))
+            toc_file.write('module.exports = ' + json.dumps(content_less_toc))
 
         os.remove(tmp_documents_file.name)
 

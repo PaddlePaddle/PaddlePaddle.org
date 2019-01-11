@@ -21,3 +21,4 @@ exec gunicorn portal.wsgi:application \
     --log-file=/var/log/gunicorn.log \
     --access-logfile=/var/log/access.log &
 exec service nginx start
+exec nodejs search-server.js /var/pages/indexes

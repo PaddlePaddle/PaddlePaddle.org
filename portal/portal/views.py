@@ -500,15 +500,31 @@ def old_content_link(request, version=None, is_fluid=None, lang=None, path=None)
 def search(request):
     """
     Placeholder for a search results page that uses local indexes.
+    If this has a 'autocomplete' param, consider it an autocomplete request and
+    serve a response by proxying to the local node search server.
     """
+    autocomplete_query = request.GET.get('autocomplete', None)
+    version = request.GET.get('version', '')
     lang = request.GET.get('language', '')
-    portal_helper.set_preferred_language(request, None, lang)
 
-    return render(request, 'search.html', {
-        'q': request.GET.get('q', ''),
-        'lang': lang,
-        'CURRENT_DOCS_VERSION': request.GET.get('version', ''),
-    })
+    if autocomplete_query:
+        return JsonResponse(requests.get(
+            settings.SEARCH_SERVER_URL + '/search',
+            params={
+                'q': autocomplete_query,
+                'version': version,
+                'lang': lang
+            }
+        ).json())
+
+    else:
+        portal_helper.set_preferred_language(request, None, lang)
+
+        return render(request, 'search.html', {
+            'q': request.GET.get('q', ''),
+            'lang': lang,
+            'CURRENT_DOCS_VERSION': version,
+        })
 
 
 def contact(request):
