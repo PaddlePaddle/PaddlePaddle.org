@@ -671,4 +671,4 @@ def enterprise_survey(request):
 
 
 def parl(request):
-    return redirect('http://ai.baidu.com/paddle/ModalPARL')
+    return redirect('http://ai.baidu.com/paddle/ModelPARL')
