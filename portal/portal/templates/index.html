@@ -13,6 +13,17 @@
 
 {% block content %}
 <div class="home">
+    {% if LANGUAGE_CODE == 'zh' %}
+    <section class="parl-banner">
+        <div class="parl-banner-content m-1">
+            <a href="{% url 'parl' %}" target="_blank">百度PaddlePaddle正式发布深度强化学习框架PARL</a>
+        </div>
+        <div class="parl-banner-dismiss">
+            <i class="fas fa-times" data-toggle="tooltip" data-placement="right" title="Close"></i>
+        </div>
+    </section>
+    {% endif %}
+
     <section class="hero-carousel">
         <div id="carousel-controls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -868,6 +879,14 @@ if __name__ == "__main__":
         steps.removeClass('show');
     });
 
+    var parlBanner = $('.parl-banner');
+    if (parlBanner.length){
+        var parlClose = $('i', parlBanner);
+        parlClose.tooltip();
+        parlClose.click(function(){
+            parlBanner.slideUp();
+        });
+    }
 </script>
 
 {% endblock %}
