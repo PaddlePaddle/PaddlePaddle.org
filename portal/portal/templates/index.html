@@ -28,9 +28,6 @@
         <div id="carousel-controls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    {% if LANGUAGE_CODE == 'zh' %}
-                        <div class="newyear-banner py-5"></div>
-                    {% else %}
                     <div class="intro-banner py-5">
                         <div class="container">
                             <div class="tag-line mb-4 pt-{% if LANGUAGE_CODE == 'zh' %}5{% else %}2{% endif %}">
@@ -107,7 +104,6 @@
                             <div class="arch arch-3"></div>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
 
                 {% if LANGUAGE_CODE == 'zh' %}
