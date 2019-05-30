@@ -72,10 +72,10 @@ class Command(BaseCommand):
                 content_ids = ['book', 'paddle-mobile', 'models']
 
                 for content_id in content_ids:
-                    transform(
+                    DocumentationGenerator(
                         source_dir + '/' + content_id, options.get('destination_dir', None),
                         content_id, version, None
-                    )
+                    ).run()
 
                     if content_id == 'book':
                         for lang in ['en', 'zh']:
