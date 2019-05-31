@@ -465,7 +465,7 @@ class DocumentationGenerator():
 
         # Traverse through all the HTML pages of the dir, and take contents in the "markdown" section
         # and transform them using a markdown library.
-        for subdir, dirs, all_files in os.walk(source_dir):
+        for subdir, dirs, all_files in os.walk(self.source_dir):
             # Avoid parsing PaddlePaddle.org folder
             if 'PaddlePaddle.org' in subdir:
                 continue
@@ -527,7 +527,7 @@ class DocumentationGenerator():
                 elif 'image' in subpath:
                     shutil.copyfile(os.path.join(subdir, file), new_path)
 
-        if not lang:
+        if not self.lang:
             shutil.copytree(destination_dir, os.path.join(
                 original_destination_dir, 'mobile', 'zh', self.version))
 
@@ -612,7 +612,7 @@ class DocumentationGenerator():
                     elif 'image/' in subpath:
                         shutil.copyfile(os.path.join(subdir, file), new_path)
 
-            if not lang:
+            if not self.lang:
                 shutil.copytree(destination_dir, os.path.join(
                     original_destination_dir, 'book', 'zh', self.version))
 
