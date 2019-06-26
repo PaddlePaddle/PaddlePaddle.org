@@ -8,7 +8,7 @@ PPO_BRANCH=$5
 
 echo "Deploy docs: DEC_PASSWD:($1) GITHUB_BRANCH:($2) SOURCE_DIR:($3) PPO_BRANCH:($5)"
 echo "1. Pull PaddlePaddle.org app."
-curl -LOk https://github.com/PaddlePaddle/PaddlePaddle.org/archive/$PPO_BRANCH.zip
+curl -LOk https://github.com/shanyi15/PaddlePaddle.org/archive/$PPO_BRANCH.zip
 unzip -q $PPO_BRANCH.zip
 cd PaddlePaddle.org-$PPO_BRANCH/portal
 
