@@ -6,7 +6,7 @@ GitPython==2.1.7
 beautifulsoup4==4.6.0
 markdown==2.6.9
 requests>=2.20.0
-lxml==4.1.0
+lxml==4.6.2
 protobuf==3.4.0
 recommonmark==0.4.0
 Sphinx==1.5.6
