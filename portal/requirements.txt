@@ -1,5 +1,5 @@
 #paddlepaddle
-Django==1.8.11
+Django==2.2.24
 gunicorn==19.7.1
 gevent==1.2.1
 GitPython==2.1.7
